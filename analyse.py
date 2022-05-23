@@ -132,3 +132,15 @@ def validation(model_name, num_experts, expert_fns):
 
     # with open(path + 'inp_log_density.txt', 'w') as f:
     #     json.dump(json.dumps(inp_density, cls=NumpyEncoder), f)
+
+
+if __name__ == "__main__":
+    alpha = 1.0
+    n_dataset = 4
+    for n in [2,4,6,8]:
+      model_name = '_' + str(n) + '_experts'
+      num_experts = n
+      expert = synth_expert(n_dataset)
+      # fill experts in the reverse order
+      expert_fns = [expert.predict] * n
+      validation(model_name, num_experts, expert_fns)
