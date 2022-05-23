@@ -230,7 +230,7 @@ def metrics_print(net, num_experts, expert_fns, n_classes, loader):
                 m = [0] * batch_size
                 m2 = [0] * batch_size
                 for j in range(0, batch_size):
-                    if exp_prediction[j] == labels[j][0].item():
+                    if exp_prediction1[j] == labels[j][0].item():
                         m[j] = 1
                         m2[j] = 1
                     else:
