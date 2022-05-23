@@ -81,7 +81,7 @@ class cifar(Dataset):
 
 			if only_id:
 				(id_train_data, id_train_labels), (id_val_data, id_val_labels) = cifar.ID(test)
-				return cls(id_train_data, id_train_labels[:,0], data_aug=data_aug, split_train_set=split_train_set, train_proportion=train_proportion), cls(id_val_data, id_val_labels[:,0], data_aug=False)
+				return cls(id_train_data, id_train_labels, data_aug=data_aug, split_train_set=split_train_set, train_proportion=train_proportion), cls(id_val_data, id_val_labels, data_aug=False)
 
 			if entropy:
 				(ood_train_data, ood_train_labels), (ood_val_data, ood_val_labels) = cifar.OOD(severity, slice_, test)
@@ -100,15 +100,9 @@ class cifar(Dataset):
 				return cls(train_data, train_labels, data_aug=data_aug), cls(val_data, val_labels, data_aug=False)
 
 		else:
-			if only_id:
-				id_data, id_labels = cifar.ID(test)
-				return cls(id_data, id_labels[:,0], data_aug=False)
-			if only_ood:
-				ood_data, ood_labels = cifar.OOD(severity, slice_, test)
-				return cls(ood_data, ood_labels, data_aug=False)
+			ood_data, ood_labels = cifar.OOD(severity, slice_, test)
 
 			id_data, id_labels = cifar.ID(test)
-			ood_data, ood_labels = cifar.OOD(severity, slice_, test)
 
 			return cls(ood_data, ood_labels, data_aug=False), cls(id_data, id_labels, data_aug=False)
 
@@ -213,7 +207,7 @@ class cifar(Dataset):
 
 class SVHN(Dataset):
 	def __init__(self):
-		mat = io.loadmat('./../svhn/test_32x32.mat')
+		mat = io.loadmat('./Data/svhn/test_32x32.mat')
 		data = mat['X']
 		labels = mat['y']
 		data = torch.from_numpy(data)
@@ -398,6 +392,7 @@ if __name__ == "__main__":
 
 	train, val = cifar.read(test=False, only_id=True, data_aug=True, split_train_set=True, train_proportion=0.8) #DMNIST.read(test=True, data_aug=True)
 
+	print(type(train), type(val))
 	print(train.data.shape, val.data.shape)
 
 	def test(data):
