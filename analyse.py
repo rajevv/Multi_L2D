@@ -13,10 +13,9 @@ import os
 from torch.utils.data import Dataset, DataLoader
 import time
 import json
+from main import metrics_print
 
-import warnings
-warnings.filterwarnings('ignore')
-
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
 
 def forward(model, dataloader, num_experts, expert_fns, n_classes, n_experts):

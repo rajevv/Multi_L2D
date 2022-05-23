@@ -15,7 +15,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
 import random
 
@@ -67,25 +67,98 @@ class Data(Dataset):
         return len(self.data)
 
 
-class Net(nn.Module):
-    '''
-    Linear multiclass classifier with unit init
-    '''
-
-    def __init__(self, input_dim=2, dims=[32, 16, 8, 5]):
-        super(Net, self).__init__()
-        # an affine operation: y = Wx + b
-        self.fc1 = nn.Linear(input_dim, dims[0])
-        self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(dims[0], dims[1])
-        self.fc3 = nn.Linear(dims[1], dims[2])
-        self.fc4 = nn.Linear(dims[2], dims[3])
-        self.softmax = nn.Softmax()
+class BasicBlock(nn.Module):
+    def __init__(self, in_planes, out_planes, stride, dropRate=0.0):
+        super(BasicBlock, self).__init__()
+        self.bn1 = nn.BatchNorm2d(in_planes)
+        self.relu1 = nn.ReLU(inplace=True)
+        self.conv1 = nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
+                               padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(out_planes)
+        self.relu2 = nn.ReLU(inplace=True)
+        self.conv2 = nn.Conv2d(out_planes, out_planes, kernel_size=3, stride=1,
+                               padding=1, bias=False)
+        self.droprate = dropRate
+        self.equalInOut = (in_planes == out_planes)
+        self.convShortcut = (not self.equalInOut) and nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=stride,
+                                                                padding=0, bias=False) or None
 
     def forward(self, x):
-        x = self.fc4(self.relu(self.fc3(self.relu(self.fc2(self.relu(self.fc1(x)))))))
-        x = self.softmax(x)
-        return x
+        if not self.equalInOut:
+            x = self.relu1(self.bn1(x))
+        else:
+            out = self.relu1(self.bn1(x))
+        out = self.relu2(self.bn2(self.conv1(out if self.equalInOut else x)))
+        if self.droprate > 0:
+            out = F.dropout(out, p=self.droprate, training=self.training)
+        out = self.conv2(out)
+        return torch.add(x if self.equalInOut else self.convShortcut(x), out)
+
+
+class NetworkBlock(nn.Module):
+    def __init__(self, nb_layers, in_planes, out_planes, block, stride, dropRate=0.0):
+        super(NetworkBlock, self).__init__()
+        self.layer = self._make_layer(block, in_planes, out_planes, nb_layers, stride, dropRate)
+
+    def _make_layer(self, block, in_planes, out_planes, nb_layers, stride, dropRate):
+        layers = []
+        for i in range(int(nb_layers)):
+            layers.append(block(i == 0 and in_planes or out_planes, out_planes, i == 0 and stride or 1, dropRate))
+        return nn.Sequential(*layers)
+
+    def forward(self, x):
+        return self.layer(x)
+
+
+class WideResNet(nn.Module):
+    def __init__(self, depth, n_channels, num_classes, widen_factor=1, dropRate=0.0):
+        super(WideResNet, self).__init__()
+        nChannels = [16, 16 * widen_factor, 32 * widen_factor, 64 * widen_factor]
+        assert ((depth - 4) % 6 == 0)
+        n = (depth - 4) / 6
+        block = BasicBlock
+        # 1st conv before any network block
+        self.conv1 = nn.Conv2d(n_channels, nChannels[0], kernel_size=3, stride=1,
+                               padding=1, bias=False)
+        # 1st block
+        self.block1 = NetworkBlock(n, nChannels[0], nChannels[1], block, 1, dropRate)
+        # 2nd block
+        self.block2 = NetworkBlock(n, nChannels[1], nChannels[2], block, 2, dropRate)
+        # 3rd block
+        self.block3 = NetworkBlock(n, nChannels[2], nChannels[3], block, 2, dropRate)
+        # global average pooling and classifier
+        self.bn1 = nn.BatchNorm2d(nChannels[3])
+        self.relu = nn.ReLU(inplace=True)
+        self.fc = nn.Linear(nChannels[3], num_classes)
+        self.nChannels = nChannels[3]
+        self.softmax = nn.Softmax()
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+            elif isinstance(m, nn.BatchNorm2d):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
+            elif isinstance(m, nn.Linear):
+                m.bias.data.zero_()
+
+    def forward(self, x):
+        out = self.conv1(x)
+
+        out = self.block1(out)
+
+        out = self.block2(out)
+
+        out = self.block3(out)
+
+        out = self.relu(self.bn1(out))
+
+        out = F.avg_pool2d(out, 8)
+
+        out = out.view(-1, self.nChannels)
+
+        fc = self.fc(out)
+        out = self.softmax(fc)
+        return out, fc  # return noth softmax output and logits
 
 
 class AverageMeter(object):
@@ -145,7 +218,8 @@ def metrics_print(net, num_experts, expert_fns, n_classes, loader):
         for data in loader:
             images, labels = data
             images, labels = images.to(device).float(), labels.to(device)
-            outputs = net(images)
+            # outputs = net(images)  # MoG
+            outputs, _ = model(images)  # CIFAR10
             _, predicted = torch.max(outputs.data, 1)
             batch_size = outputs.size()[0]  # batch_size
 
@@ -156,7 +230,7 @@ def metrics_print(net, num_experts, expert_fns, n_classes, loader):
                 m = [0] * batch_size
                 m2 = [0] * batch_size
                 for j in range(0, batch_size):
-                    if exp_prediction1[j] == labels[j].item():
+                    if exp_prediction[j] == labels[j][0].item():
                         m[j] = 1
                         m2[j] = 1
                     else:
@@ -185,7 +259,7 @@ def metrics_print(net, num_experts, expert_fns, n_classes, loader):
             # n = n.to(device)
             # n2 = n2.to(device)
 
-            loss = reject_CrossEntropyLoss(outputs, labels, collection_Ms, n_classes)
+            loss = reject_CrossEntropyLoss(outputs, labels[:, 0], collection_Ms, n_classes)
             losses.append(loss.item())
 
             for i in range(0, batch_size):
@@ -209,19 +283,19 @@ def metrics_print(net, num_experts, expert_fns, n_classes, loader):
                 # else the classifier predicts
                 else:
                     prediction = predicted[i]
-                alone_correct += (prediction == labels[i]).item()
+                alone_correct += (prediction == labels[i][0]).item()
                 if r == 0:
                     total += 1
-                    correct += (predicted[i] == labels[i]).item()
-                    correct_sys += (predicted[i] == labels[i]).item()
+                    correct += (predicted[i] == labels[i][0]).item()
+                    correct_sys += (predicted[i] == labels[i][0]).item()
                 if r == 1:
                     # print(r, boo)
                     for j in range(len(boo)):
                         if boo[j] == True:
                             # print("in if ", boo[j])
                             exp_prediction = expert_predictions[j][i]
-                    exp += (exp_prediction == labels[i].item())
-                    correct_sys += (exp_prediction == labels[i].item())
+                    exp += (exp_prediction == labels[i][0].item())
+                    correct_sys += (exp_prediction == labels[i][0].item())
                     exp_total += 1
                 real_total += 1
     cov = str(total) + str(" out of") + str(real_total)
@@ -269,6 +343,13 @@ def my_CrossEntropyLoss(outputs, labels):
     return torch.sum(outputs) / batch_size
 
 
+def sample_target(batch_size):
+    target = []
+    for i in range(batch_size):
+        target.append(random.randint(0, 9))
+    return torch.tensor(target)
+
+
 def train_reject(iters, warmup_iters, lrate, train_loader, model, optimizer, scheduler, epoch, num_experts, expert_fns,
                  n_classes, alpha):
     """Train for one epoch on the training set with deferral"""
@@ -292,7 +373,8 @@ def train_reject(iters, warmup_iters, lrate, train_loader, model, optimizer, sch
         input = input.to(device).float()
 
         # compute output
-        output = model(input)
+        # output = model(input)  # MoG
+        output, _ = model(input)  # CIFAR10
 
         # get expert  predictions and costs
         batch_size = output.size()[0]  # batch_size
@@ -304,7 +386,7 @@ def train_reject(iters, warmup_iters, lrate, train_loader, model, optimizer, sch
             m = fn(input, target)
             m2 = [0] * batch_size
             for j in range(0, batch_size):
-                if m[j] == target[j].item():
+                if m[j] == target[j][0].item():
                     m[j] = 1
                     m2[j] = alpha
                 else:
@@ -316,7 +398,7 @@ def train_reject(iters, warmup_iters, lrate, train_loader, model, optimizer, sch
             m2 = m2.to(device)
             collection_Ms.append((m, m2))
 
-        rand_target = target
+        rand_target = target[:, 0]
         loss = reject_CrossEntropyLoss(output, rand_target, collection_Ms, n_classes)
         epoch_train_loss.append(loss.item())
 
@@ -391,8 +473,6 @@ def run_reject(model, train_dataset, valid_dataset, n_classes, num_experts, expe
 # n_dataset = 4  # cifar-10
 
 
-# expert predicts first and second class correctly with 95%confidence
-# expert predicts zeroth and third class correctly with 70% confidence
 class synth_expert:
     '''
     simple class to describe our synthetic expert on CIFAR-10
@@ -401,186 +481,104 @@ class synth_expert:
     n_classes: number of classes (10+1 for CIFAR-10)
     '''
 
-    def __init__(self, n_classes):
-        # self.k = k
+    def __init__(self, k, n_classes):
+        self.k = k
         self.n_classes = n_classes
 
     def predict(self, input, labels):
         batch_size = labels.size()[0]  # batch_size
         outs = [0] * batch_size
         for i in range(0, batch_size):
-            if labels[i].item() == 1 or labels[i].item() == 2:
+            if labels[i][0].item() <= self.k:
+                outs[i] = labels[i][0].item()
+            else:
+                prediction_rand = random.randint(0, self.n_classes - 1)
+                outs[i] = prediction_rand
+        return outs
+
+    def predict_biasedK(self, input, labels):
+        batch_size = labels.size()[0]  # batch_size
+        outs = [0] * batch_size
+        for i in range(0, batch_size):
+            if labels[i][0].item() <= self.k:
                 coin_flip = np.random.binomial(1, 0.7)
                 if coin_flip == 1:
-                    outs[i] = labels[i].item()
-                else:
+                    outs[i] = labels[i][0].item()
+                if coin_flip == 0:
                     outs[i] = random.randint(0, self.n_classes - 1)
-            if labels[i].item() == 0 or labels[i].item() == 3:
-                coin_flip = np.random.binomial(1, 0.2)
-                if coin_flip == 1:
-                    outs[i] = labels[i].item()
+            else:
+                prediction_rand = random.randint(0, self.n_classes - 1)
+                outs[i] = prediction_rand
+        return outs
+
+    def predict_biased(self, input, labels):
+        batch_size = labels.size()[0]
+        outs = [0] * batch_size
+        for i in range(0, batch_size):
+            coin_flip = np.random.binomial(1, 0.7)
+            if coin_flip == 1:
+                outs[i] = labels[i][0].item()
+            if coin_flip == 0:
+                outs[i] = random.randint(0, self.n_classes - 1)
+        return outs
+
+    def predict_random(self, input, labels):
+        batch_size = labels.size()[0]  # batch_size
+        outs = [0] * batch_size
+        for i in range(0, batch_size):
+            prediction_rand = random.randint(0, self.n_classes - 1)
+            outs[i] = prediction_rand
+        return outs
+
+    # expert which only knows k labels and even outside of K predicts randomly from K
+    def predict_severe(self, input, labels):
+        batch_size = labels.size()[0]  # batch_size
+        outs = [0] * batch_size
+        for i in range(0, batch_size):
+            if labels[i][0].item() <= self.k:
+                outs[i] = labels[i][0].item()
+            else:
+                prediction_rand = random.randint(0, self.k)
+                outs[i] = prediction_rand
+        return outs
+
+    # when the input is OOD, expert predicts corrects else not
+    def oracle(self, input, labels):
+        batch_size = labels.size()[0]
+        outs = [0] * batch_size
+        for i in range(0, batch_size):
+            if labels[i][1].item() == 0:
+                outs[i] = labels[i][0]
+            else:
+                if labels[i][0].item() <= self.k:
+                    outs[i] = labels[i][0].item()
                 else:
-                    outs[i] = random.randint(0, self.n_classes - 1)
+                    prediction_rand = random.randint(0, self.n_classes - 1)
+                    outs[i] = prediction_rand
         return outs
 
 
-# expert = synth_expert(n_dataset)
-
-
 if __name__ == "__main__":
-    import os
+    from data_utils import *
 
-    experimental_data_rej1 = []
-    experimental_data_rej5 = []
-    experimental_data_rej0 = []
-    experimental_data_madras = []
-    experimental_data_ora = []
-    experimental_data_conf = []
-    trials = 1
-    TO_PRINT = False
-    for exp in tqdm(range(0, trials)):
-        d = 2
-        total_samples = 20000
-        group_proportion = np.random.uniform()
-        if group_proportion <= 0.02:
-            group_proportion = 0.02
-        if group_proportion >= 0.98:
-            group_proportion = 0.98
-        # group_proportion = 0.4
-        cluster1_mean = torch.rand(d) * d - 1
-        cluster1_var = torch.rand(d) * d
-
-        print(cluster1_mean, cluster1_var)
-
-        cluster1 = sample(
-            cluster1_mean,
-            cluster1_var,
-            nb_samples=math.floor(total_samples * group_proportion * 0.5)
-        )
-        cluster1_labels = torch.zeros([math.floor(total_samples * group_proportion * 0.5)], dtype=torch.long)
-        cluster2_mean = torch.rand(d) * d + 4
-        cluster2_var = torch.rand(d) * d
-
-        print(cluster2_mean, cluster2_var)
-        cluster2 = sample(
-            cluster2_mean,
-            cluster2_var,
-            nb_samples=math.floor(total_samples * group_proportion * 0.5)
-        )
-        cluster2_labels = torch.ones([math.floor(total_samples * group_proportion * 0.5)], dtype=torch.long)
-        cluster3_mean = torch.rand(d) * d + 5
-        cluster3_var = torch.rand(d) * d
-
-        print(cluster3_mean, cluster3_var)
-
-        cluster3 = sample(
-            cluster3_mean,
-            cluster3_var,
-            nb_samples=math.floor(total_samples * (1 - group_proportion) * 0.5)
-        )
-        cluster3_labels = torch.ones([math.floor(total_samples * (1 - group_proportion) * 0.5)], dtype=torch.long) + 1.0
-
-        cluster4_mean = torch.rand(d) * d - 5
-        cluster4_var = torch.rand(d) * d
-
-        print(cluster4_mean, cluster4_var)
-
-        cluster4 = sample(
-            cluster4_mean,
-            cluster4_var,
-            nb_samples=math.floor(total_samples * (1 - group_proportion) * 0.5)
-        )
-        cluster4_labels = torch.ones([math.floor(total_samples * (1 - group_proportion) * 0.5)], dtype=torch.long) + 2.0
-
-        # valid data
-        cluster1_valid = sample(
-            cluster1_mean,
-            cluster1_var,
-            nb_samples=math.floor(total_samples * group_proportion * 0.5)
-        )
-        cluster1_labels_valid = torch.zeros([math.floor(total_samples * group_proportion * 0.5)], dtype=torch.long)
-
-        cluster2_valid = sample(
-            cluster2_mean,
-            cluster2_var,
-            nb_samples=math.floor(total_samples * group_proportion * 0.5)
-        )
-        cluster2_labels_valid = torch.ones([math.floor(total_samples * group_proportion * 0.5)], dtype=torch.long)
-
-        cluster3_valid = sample(
-            cluster3_mean,
-            cluster3_var,
-            nb_samples=math.floor(total_samples * (1 - group_proportion) * 0.5)
-        )
-        cluster3_labels_valid = torch.ones([math.floor(total_samples * (1 - group_proportion) * 0.5)],
-                                           dtype=torch.long) + 1.0
-
-        cluster4_valid = sample(
-            cluster4_mean,
-            cluster4_var,
-            nb_samples=math.floor(total_samples * (1 - group_proportion) * 0.5)
-        )
-        cluster4_labels_valid = torch.ones([math.floor(total_samples * (1 - group_proportion) * 0.5)],
-                                           dtype=torch.long) + 2.0
-        data_x_valid = torch.cat([cluster1_valid, cluster2_valid, cluster3_valid, cluster4_valid])
-        data_y_valid = torch.cat(
-            [cluster1_labels_valid, cluster2_labels_valid, cluster3_labels_valid, cluster4_labels_valid])
-
-        # test data
-        cluster1_test = sample(
-            cluster1_mean,
-            cluster1_var,
-            nb_samples=math.floor(total_samples * group_proportion * 0.5)
-        )
-        cluster1_labels_test = torch.zeros([math.floor(total_samples * group_proportion * 0.5)], dtype=torch.long)
-
-        cluster2_test = sample(
-            cluster2_mean,
-            cluster2_var,
-            nb_samples=math.floor(total_samples * group_proportion * 0.5)
-        )
-        cluster2_labels_test = torch.ones([math.floor(total_samples * group_proportion * 0.5)], dtype=torch.long)
-
-        cluster3_test = sample(
-            cluster3_mean,
-            cluster3_var,
-            nb_samples=math.floor(total_samples * (1 - group_proportion) * 0.5)
-        )
-        cluster3_labels_test = torch.ones([math.floor(total_samples * (1 - group_proportion) * 0.5)],
-                                          dtype=torch.long) + 1.0
-
-        cluster4_test = sample(
-            cluster4_mean,
-            cluster4_var,
-            nb_samples=math.floor(total_samples * (1 - group_proportion) * 0.5)
-        )
-        cluster4_labels_test = torch.ones([math.floor(total_samples * (1 - group_proportion) * 0.5)],
-                                          dtype=torch.long) + 2.0
-        data_x_test = torch.cat([cluster1_test, cluster2_test, cluster3_test, cluster4_test])
-        data_y_test = torch.cat(
-            [cluster1_labels_test, cluster2_labels_test, cluster3_labels_test, cluster4_labels_test])
-
-    data_x = torch.cat([cluster1, cluster2, cluster3, cluster4])
-    data_y = torch.cat([cluster1_labels, cluster2_labels, cluster3_labels, cluster4_labels])
-
-    train_d = Data(data_x, data_y)
-    valid_d = Data(data_x_valid, data_y_valid)
-    test_d = Data(data_x_test, data_y_test)
+    train, val = cifar.read(test=False, only_id=True, data_aug=True)
+    print(len(train), len(val))
 
     alpha = 1.0
     bsz = 1024
-    k = 2
-    n_dataset = 4
-    os.makedirs('./checkpoints', exists_ok=True)
+    k = 5  # classes expert is oracle
+    n_dataset = 10
+    os.makedirs('./checkpoints', exist_ok=True)
     pth = './checkpoints/'
     model = 'synthetic_mutiple_experts'
+
     for n in [2, 4, 6, 8]:
         print("Training with {} experts".format(n), flush=True)
         path = pth + model + '_' + str(n) + '_experts'
         num_experts = n
-        expert = synth_expert(n_dataset)
-        model = Net(dims=[32, 16, 8, n_dataset + num_experts])
+        expert = synth_expert(k, n_dataset)
+        model = WideResNet(28, 3, n_dataset + num_experts, 4, dropRate=0)
         # fill experts in the reverse order
         expert_fns = [expert.predict] * n
-        run_reject(model, train_d, valid_d, n_dataset + num_experts, num_experts, expert_fns, 200, alpha, bsz, k,
+        run_reject(model, train, val, n_dataset + num_experts, num_experts, expert_fns, 200, alpha, bsz, k,
                    save_path=path)  # train for 200 epochs
