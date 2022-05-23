@@ -14,7 +14,6 @@ import json
 import warnings
 warnings.filterwarnings('ignore')
 
-%matplotlib inline
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 import random
