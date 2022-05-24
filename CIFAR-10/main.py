@@ -63,7 +63,6 @@ def evaluate(model,
 
 			_, predicted = torch.max(outputs.data, 1)
 			batch_size = outputs.size()[0]  # batch_size
-			exp_prediction = expert_fn(images, labels)
 
 			expert_predictions = []
 			collection_Ms = [] # a collection of 3-tuple
@@ -256,7 +255,7 @@ def train(model,
 										config["alpha"],
 										config)
 		metrics = evaluate(model,
-							expert_fn,
+							expert_fns,
 							loss_fn, 
 							n_classes,
 							valid_loader,
