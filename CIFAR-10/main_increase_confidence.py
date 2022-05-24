@@ -305,7 +305,7 @@ def increase_confidence(config):
 
     p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
     p_experts = [0.2, 0.4]
-    p_experts = [0.6, 0.8, 0.95]
+    p_experts = [0.8, 0.95]
     print(p_experts)
     n_experts = 4
     for p_in in p_experts:
