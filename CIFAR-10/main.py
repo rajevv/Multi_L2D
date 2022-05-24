@@ -345,8 +345,8 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=1024)
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="scaling parameter for the loss function, default=1.0.")
-    parser.add_argument("--epochs", type=int, default=200)
-    parser.add_argument("--patience", type=int, default=50,
+    parser.add_argument("--epochs", type=int, default=100)
+    parser.add_argument("--patience", type=int, default=20,
                         help="number of patience steps for early stopping the training.")
     parser.add_argument("--expert_type", type=str, default="predict",
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
