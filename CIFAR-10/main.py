@@ -283,12 +283,11 @@ def train(model,
         if validation_loss < best_validation_loss:
             best_validation_loss = validation_loss
             print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
-            torch.save(model.state_dict(), os.path.join(config["ckp_dir"], config["experiment_name"] + '_' + str(
-                config["p_in"]) + '_confidence' + '.pt'))
+            save_path = os.path.join(config["ckp_dir"],
+                                     config["experiment_name"] + '_' + str(config["p_in"]) + '_confidence')
+            torch.save(model.state_dict(), save_path + 'pt')
             # Additionally save the whole config dict
-            with open(os.path.join(config["ckp_dir"],
-                                   config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts' + '.json'),
-                      "w") as f:
+            with open(save_path + '.json', "w") as f:
                 json.dump(config, f)
             patience = 0
         else:
