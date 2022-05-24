@@ -134,6 +134,7 @@ def evaluate(model,
                 "classifier_accuracy": 100 * correct / (total + 0.0001),
                 "alone_classifier": 100 * alone_correct / real_total,
                 "validation_loss": np.average(losses),
+                "n_experts": len(expert_fns),
                 **expert_accuracies}
     print(to_print, flush=True)
     return to_print
@@ -306,6 +307,7 @@ def increase_experts(config):
     experiment_experts = [1, 2, 4, 6, 8]
     # experiment_experts = [config["n_experts"]]
     for n in experiment_experts:
+        print(n)
         num_experts = n
         expert = synth_expert(config["k"], config["n_classes"])
         expert_fn = getattr(expert, config["expert_type"])
