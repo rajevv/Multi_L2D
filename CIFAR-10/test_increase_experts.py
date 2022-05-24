@@ -23,6 +23,10 @@ for n in n_experts:
     exps.append(exp_pred['test'])
     c = torch.tensor(conf['test'])
     print(c.shape)
+    # DANI Correction ===
+    c = c.softmax(dim=1)
+    # DANI Correction ===
+
     temp = 0
     for i in range(n):
         temp += c[:, (n_classes + n) - (i + 1)]
