@@ -107,8 +107,8 @@ def evaluate(model,
                     correct_sys += (predicted[i] == labels[i][0]).item()
                 if r == 1:
                     exp_prediction = expert_predictions[(n_classes - 1) - predicted[i]][i]
-                    exp += (exp_prediction[i] == labels[i][0].item())
-                    correct_sys += (exp_prediction[i] == labels[i][0].item())
+                    exp += (exp_prediction == labels[i][0].item())
+                    correct_sys += (exp_prediction == labels[i][0].item())
                     exp_total += 1
                 real_total += 1
     cov = str(total) + str(" out of") + str(real_total)
