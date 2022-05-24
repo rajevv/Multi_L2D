@@ -307,7 +307,7 @@ if __name__ == "__main__":
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
     parser.add_argument("--n_classes", type=int, default=10,
                         help="K for K class classification.")
-    parser.add_argument("--k", type=int, default=2)
+    parser.add_argument("--k", type=int, default=5)
     parser.add_argument("--lr", type=float, default=0.1,
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
