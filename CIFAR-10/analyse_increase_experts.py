@@ -5,15 +5,13 @@ import json
 import os
 from collections import defaultdict
 
-from torch.utils.data import Dataset
-
 from data_utils import cifar
 from losses.losses import *
 from main_increase_experts import evaluate
 from models.experts import synth_expert
 from models.wideresnet import WideResNet
 
-device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 
 
 def forward(model, dataloader, expert_fns, n_classes, n_experts):
@@ -30,7 +28,7 @@ def forward(model, dataloader, expert_fns, n_classes, n_experts):
                 expert_pred1 = fn(inp, lbl)
                 expert_predictions[i].append(expert_pred1)
             confidence.append(conf.cpu())
-            true.append(lbl)
+            true.append(lbl[:, 0])
 
     true = torch.stack(true, dim=0).view(-1)
     confidence = torch.stack(confidence, dim=0).view(-1, n_classes + n_experts)
@@ -65,7 +63,7 @@ def validation(model_name, expert_fns, config):
         criterion = Criterion()
         loss_fn = getattr(criterion, config["loss_type"])
         n_classes = n_dataset
-        result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl,  config)
+        result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
         # result_ = metrics_print(model, num_experts, expert_fns, n_dataset, dl)
 
         result[severity] = result_
