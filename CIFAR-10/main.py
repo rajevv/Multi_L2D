@@ -284,7 +284,7 @@ def train(model,
             best_validation_loss = validation_loss
             print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
             torch.save(model.state_dict(), os.path.join(config["ckp_dir"], config["experiment_name"] + '_' + str(
-                len(expert_fns)) + '_experts' + '.pt'))
+                config["p_in"]) + '_confidence' + '.pt'))
             # Additionally save the whole config dict
             with open(os.path.join(config["ckp_dir"],
                                    config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts' + '.json'),
@@ -328,10 +328,11 @@ def increase_confidence(config):
     for p_in in p_experts:
         random_expert = synth_expert(config["k"], config["n_classes"])
         random_fn = random_expert.predict_random
+        config["p_in"] = p_in
         increasing_expert = synth_expert(config["k"], config["n_classes"], p_in=p_in, p_out=0.2)
         increasing_fn = increasing_expert.predict_prob_cifar
 
-        expert_fns = [random_fn] + [increasing_fn] * (n_experts-1)
+        expert_fns = [random_fn] + [increasing_fn] * (n_experts - 1)
 
         model = WideResNet(28, 3, int(config["n_classes"]) + n_experts, 4, dropRate=0.0)
         trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
@@ -372,4 +373,3 @@ if __name__ == "__main__":
     print(config)
     # increase_experts(config)
     increase_confidence(config)
-
