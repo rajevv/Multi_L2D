@@ -300,11 +300,11 @@ def train(model,
 
 # === Experiment 1 === #
 def increase_experts(config):
-    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
+    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_new"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     experiment_experts = [1, 2, 4, 6, 8]
-    experiment_experts = [config["n_experts"]]
+    # experiment_experts = [config["n_experts"]]
     for n in experiment_experts:
         num_experts = n
         expert = synth_expert(config["k"], config["n_classes"])
