@@ -283,9 +283,10 @@ def train(model,
 
 def main(config):
 	os.makedirs(config["ckp_dir"], exist_ok=True)
+	k = 5  # classes expert is correct
 	for n in [1,2,4,6,8]:
 		num_experts = n
-		expert = synth_expert(config["k"], config["n_classes"])
+		expert = synth_expert(k, config["n_classes"])
 		expert_fn = getattr(expert, config["expert_type"])
 		expert_fns = [expert_fn] * n
 		model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)

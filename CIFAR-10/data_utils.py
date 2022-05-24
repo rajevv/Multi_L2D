@@ -112,7 +112,7 @@ class cifar(Dataset):
 				'gaussian_noise', 'glass_blur', 'impulse_noise', 'jpeg_compression', 'motion_blur',\
 				'pixelate', 'shot_noise', 'snow', 'zoom_blur'][:slice_]
 		
-		path = './Data/CIFAR-10-C/'
+		path = '../data/CIFAR-10-C/'
 		data = []
 		labels = []
 		lbl_file = np.load(path + 'labels.npy')
@@ -156,7 +156,7 @@ class cifar(Dataset):
 
 	@staticmethod
 	def ID(test):
-		path = './Data/cifar/cifar-10-batches-py/'
+		path = '../data/cifar-10-batches-py/'
 		if not test:
 			data = []
 			labels = []
