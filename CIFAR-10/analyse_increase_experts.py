@@ -63,10 +63,10 @@ def validation(model_name, expert_fns, config):
         criterion = Criterion()
         loss_fn = getattr(criterion, config["loss_type"])
         n_classes = n_dataset
-        result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
+        # result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
         # result_ = metrics_print(model, num_experts, expert_fns, n_dataset, dl)
 
-        result[severity] = result_
+        # result[severity] = result_
         true_label[severity] = true.numpy()
         classifier_confidence[severity] = confidence.numpy()
         expert_preds[severity] = expert_predictions
