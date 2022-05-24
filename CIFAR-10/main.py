@@ -285,7 +285,7 @@ def train(model,
             print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
             save_path = os.path.join(config["ckp_dir"],
                                      config["experiment_name"] + '_' + str(config["p_in"]) + '_confidence')
-            torch.save(model.state_dict(), save_path + 'pt')
+            torch.save(model.state_dict(), save_path + '.pt')
             # Additionally save the whole config dict
             with open(save_path + '.json', "w") as f:
                 json.dump(config, f)
