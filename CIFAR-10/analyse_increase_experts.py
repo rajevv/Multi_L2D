@@ -12,7 +12,7 @@ from models.experts import synth_expert
 from models.wideresnet import WideResNet
 
 device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
-
+print(device)
 
 def forward(model, dataloader, expert_fns, n_classes, n_experts):
     confidence = []
