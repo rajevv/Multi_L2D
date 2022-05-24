@@ -138,7 +138,7 @@ if __name__ == "__main__":
                         help="specify the experiment name. Checkpoints will be saved with this name.")
 
     config = parser.parse_args().__dict__
-    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
+    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts/"
     print(config)
 
     alpha = 1.0
