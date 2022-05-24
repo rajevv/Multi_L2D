@@ -9,7 +9,7 @@ n_classes = 10
 confs = []
 exps = []
 true = []
-path = "softmax_increase_experts"
+path = "softmax_increase_experts/"
 n_experts = [1, 2, 4, 6, 8]
 for n in n_experts:
     model_name = '_' + str(n) + '_experts'
