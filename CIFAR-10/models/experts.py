@@ -12,9 +12,11 @@ class synth_expert:
 	k: number of classes expert can predict
 	n_classes: number of classes (10+1 for CIFAR-10)
 	'''
-	def __init__(self, k, n_classes):
+	def __init__(self, k, n_classes, p_in=1, p_out=0.2):
 		self.k = k
 		self.n_classes = n_classes
+		self.p_in = p_in
+		self.p_out = p_out if p_out is not None else 1/self.n_classes
 
 	def predict(self, input, labels):
 		batch_size = labels.size()[0]  # batch_size
@@ -42,6 +44,24 @@ class synth_expert:
 				outs[i] = prediction_rand
 		return outs
 
+	def predict_prob_cifar(self, input, labels):
+		batch_size = labels.size()[0]
+		outs = [0] * batch_size
+		for i in range(0, batch_size):
+			if labels[i][0].item() <= self.k:
+				coin_flip = np.random.binomial(1, self.p_in)
+				if coin_flip == 1:
+					outs[i] = labels[i][0].item()
+				if coin_flip == 0:
+					outs[i] = random.randint(0, self.n_classes - 1)
+			else:
+				coin_flip = np.random.binomial(1, self.p_out)
+				if coin_flip == 1:
+					outs[i] = labels[i][0].item()
+				if coin_flip == 0:
+					outs[i] = random.randint(0, self.n_classes - 1)
+		return outs
+
 	def predict_prob(self, input, labels, p1=0.75, p2=0.20):
 		batch_size = labels.size()[0]
 		outs = [0] * batch_size
@@ -59,6 +79,7 @@ class synth_expert:
 				if coin_flip == 0:
 					outs[i] = random.randint(0, self.n_classes - 1)
 		return outs
+
 
 
 	def predict_biased(self, input, labels):
