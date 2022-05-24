@@ -71,6 +71,8 @@ def evaluate(model,
                 m = [0] * batch_size
                 m2 = [0] * batch_size
                 for j in range(0, batch_size):
+                    print(exp_prediction1[j])
+                    print(labels[j][0])
                     if exp_prediction1[j] == labels[j][0].item():
                         m[j] = 1
                         m2[j] = 1
