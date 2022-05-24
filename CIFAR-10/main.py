@@ -16,7 +16,7 @@ from models.experts import *
 from losses.losses import *
 
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
 
 def set_seed(seed):
