@@ -12,7 +12,7 @@ true = []
 path = "softmax_increase_confidence/"
 n_experts = 4
 p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
-p_experts = [0.2, 0.4, 0.6, 0.8]
+# p_experts = [0.2, 0.4, 0.6, 0.8]
 for p in p_experts:
     model_name = '_' + str(p) + '_confidence'
     with open(path + 'confidence_multiple_experts' + model_name + '.txt', 'r') as f:
@@ -40,8 +40,9 @@ for i in range(len(p_experts)):
     c = confs[i]
     e = exps[i]
     t = torch.tensor(true[i])
+    eces = []
+
     for j in range(n_experts):
-        eces = []
         e_j = e[j]
         c_j = c[:, c.shape[1] - (j + 1)]
         t_j = t
@@ -49,7 +50,7 @@ for i in range(len(p_experts)):
         c_j[ids_where_gt_one] = 1.0
         acc_j = t_j.eq(torch.tensor(e_j))
         log = compute_calibration(c_j, acc_j)
-        eces.append(log['expected_calibration_error'])
+        eces.append(log['expected_calibration_error'].numpy())
     ECEs.append(eces)
 
 Y = []
