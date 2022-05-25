@@ -13,3 +13,5 @@ CIFAR-10/softmax_increase_confidence
 CIFAR-10/softmax_increase_experts
 CIFAR-10/ova_increase_confidence
 CIFAR-10/ova_increase_experts
+
+.vscode
