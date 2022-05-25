@@ -303,8 +303,8 @@ def train(model,
 def main(config):
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experiment_experts = [4]
-    experiment_experts = [config["n_experts"]]
+    experiment_experts = [4,6,8]
+    #experiment_experts = [config["n_experts"]]
     for n in experiment_experts:
         print("Training for n={}".format(n))
         num_experts = n
