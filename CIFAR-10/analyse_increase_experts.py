@@ -62,8 +62,8 @@ def validation(model_name, expert_fns, config):
 
         criterion = Criterion()
         loss_fn = getattr(criterion, config["loss_type"])
-        n_classes = n_dataset
-        # result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
+        n_classes = n_dataset + len(expert_fns)
+        result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
         # result_ = metrics_print(model, num_experts, expert_fns, n_dataset, dl)
 
         # result[severity] = result_
