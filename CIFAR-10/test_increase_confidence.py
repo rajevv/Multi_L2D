@@ -62,10 +62,11 @@ for l in ECEs:
 plt.plot(Y)
 plt.show()
 
-Y = []
+Y_random = []
 # random expert ECE
 for l in ECEs:
-    Y.append(l[random_expert_idx])
+    Y_random.append(l[random_expert_idx])
 
-plt.plot(Y)
+plt.plot(Y_random)
 plt.show()
+
