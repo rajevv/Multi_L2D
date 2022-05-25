@@ -58,7 +58,7 @@ Y = []
 for l in ECEs:
     Y.append(np.average(l))
 
-print("Average among Experts ECE: {}".format(Y))
+print("Softmax Average among Experts ECE: {}".format(Y))
 plt.plot(Y)
 plt.show()
 
@@ -67,7 +67,7 @@ Y_random = []
 for l in ECEs:
     Y_random.append(l[random_expert_idx][0])
 
-print("Random Expert ECE: {}".format(Y_random))
+print("Softmax Random Expert ECE: {}".format(Y_random))
 plt.plot(Y_random)
 plt.show()
 
