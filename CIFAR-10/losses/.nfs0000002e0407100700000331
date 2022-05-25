@@ -3,6 +3,8 @@ import torch
 import numpy as np
 
 
+
+
 class Criterion(object):
 	def __init__(self):
 		pass

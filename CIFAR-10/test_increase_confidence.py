@@ -9,10 +9,11 @@ n_classes = 10
 confs = []
 exps = []
 true = []
-path = "softmax_increase_experts/"
-n_experts = [1, 2, 4, 6, 8]
-for n in n_experts:
-    model_name = '_' + str(n) + '_experts'
+path = "softmax_increase_confidence/"
+n_experts = 4
+p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
+for p in p_experts:
+    model_name = '_' + str(p) + '_confidence'
     with open(path + 'confidence_multiple_experts' + model_name + '.txt', 'r') as f:
         conf = json.loads(json.load(f))
     with open(path + 'expert_predictions_multiple_experts' + model_name + '.txt', 'r') as f:
@@ -28,8 +29,8 @@ for n in n_experts:
     # DANI Correction ===
 
     temp = 0
-    for i in range(n):
-        temp += c[:, (n_classes + n) - (i + 1)]
+    for i in range(p):
+        temp += c[:, (n_classes + p) - (i + 1)]
     prob = c / (1.0 - temp).unsqueeze(-1)
     confs.append(prob)
 
@@ -38,7 +39,7 @@ for i in range(len(n_experts)):
     c = confs[i]
     e = exps[i]
     t = torch.tensor(true[i])
-    for j in range(len(e)):
+    for j in range(n_experts):
         eces = []
         e_j = e[j]
         c_j = c[:, c.shape[1] - (j + 1)]

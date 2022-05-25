@@ -112,7 +112,8 @@ def evaluate(model,
                     correct += (predicted[i] == labels[i][0]).item()
                     correct_sys += (predicted[i] == labels[i][0]).item()
                 if r == 1:
-                    deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
+                    # deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
+                    deferred_exp = ((n_classes - 1) - predicted[i]).item()  # reverse order, as in loss function
                     exp_prediction = expert_predictions[deferred_exp][i]
                     #
                     # Deferral accuracy: No matter expert ===
@@ -284,12 +285,11 @@ def train(model,
         if validation_loss < best_validation_loss:
             best_validation_loss = validation_loss
             print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
-            torch.save(model.state_dict(), os.path.join(config["ckp_dir"], config["experiment_name"] + '_' + str(
-                len(expert_fns)) + '_experts' + '.pt'))
+            save_path = os.path.join(config["ckp_dir"],
+                                     config["experiment_name"] + '_' + str(config["p_in"]) + '_confidence')
+            torch.save(model.state_dict(), save_path + '.pt')
             # Additionally save the whole config dict
-            with open(os.path.join(config["ckp_dir"],
-                                   config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts' + '.json'),
-                      "w") as f:
+            with open(save_path + '.json', "w") as f:
                 json.dump(config, f)
             patience = 0
         else:
@@ -300,7 +300,9 @@ def train(model,
             break
 
 
-def main(config):
+# === Experiment 1 === #
+def increase_experts(config):
+    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     experiment_experts = [1,6,8]
@@ -316,21 +318,47 @@ def main(config):
         train(model, trainD, valD, expert_fns, config)
 
 
+# === Experiment 2 === #
+def increase_confidence(config):
+    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_confidence"
+    os.makedirs(config["ckp_dir"], exist_ok=True)
+
+    p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
+    p_experts = [0.2, 0.4]
+    p_experts = [0.6, 0.8, 0.95]
+    n_experts = 4
+    for p_in in p_experts:
+        random_expert = synth_expert(config["k"], config["n_classes"])
+        random_fn = random_expert.predict_random
+        config["p_in"] = p_in
+        increasing_expert = synth_expert(config["k"], config["n_classes"], p_in=p_in, p_out=0.2)
+        increasing_fn = increasing_expert.predict_prob_cifar
+
+        expert_fns = [random_fn] + [increasing_fn] * (n_experts - 1)
+
+        model = WideResNet(28, 3, int(config["n_classes"]) + n_experts, 4, dropRate=0.0)
+        trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
+
+        train(model, trainD, valD, expert_fns, config)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--batch_size", type=int, default=1024)
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="scaling parameter for the loss function, default=1.0.")
-    parser.add_argument("--epochs", type=int, default=200)
-    parser.add_argument("--patience", type=int, default=50,
+    parser.add_argument("--epochs", type=int, default=100)
+    parser.add_argument("--patience", type=int, default=20,
                         help="number of patience steps for early stopping the training.")
     parser.add_argument("--expert_type", type=str, default="predict",
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
     parser.add_argument("--n_classes", type=int, default=10,
                         help="K for K class classification.")
     parser.add_argument("--k", type=int, default=5)
+    # Dani experiments =====
     parser.add_argument("--n_experts", type=int, default=2)
+    # Dani experiments =====
     parser.add_argument("--lr", type=float, default=0.1,
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
@@ -345,4 +373,5 @@ if __name__ == "__main__":
     config = parser.parse_args().__dict__
 
     print(config)
-    main(config)
+    # increase_experts(config)
+    increase_confidence(config)
