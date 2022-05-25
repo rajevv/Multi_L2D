@@ -30,21 +30,32 @@ class Criterion(object):
 			temp -= m * torch.log2(outputs[range(batch_size), rcs[len(rcs)-1-i]])  
 		return torch.sum(temp) / batch_size
 
-	# Still ToDo to be compatible with multiple experts
-	def ova(self, outputs, m, labels, m2, n_classes):
+	def ova(outputs, labels, collection_Ms, n_classes):
+		'''
+		Implementation of OvA surrogate loss for L2D compatible with multiple experts
+		outputs : Network outputs (logits! Not softmax values)
+		labels : target
+		collection_Ms : list of tuple, m vector for each expert
+		n_classes : Number of classes (K+E) K=classes in the data, E=number of experts
+
+		'''
+		num_experts = len(collection_Ms)
 		batch_size = outputs.size()[0]
-		l1 = Criterion.LogisticLoss(outputs[range(batch_size), labels], 1)
-		l2 = torch.sum(Criterion.LogisticLoss(outputs[:,:n_classes], -1), dim=1) - Criterion.LogisticLoss(outputs[range(batch_size),labels],-1)
-		l3 = Criterion.LogisticLoss(outputs[range(batch_size), n_classes], -1)
-		l4 = Criterion.LogisticLoss(outputs[range(batch_size), n_classes], 1)
+		l1 = LogisticLoss(outputs[range(batch_size), labels], 1)
+		l2 = torch.sum(LogisticLoss(outputs[:,:(n_classes - len(collection_Ms))], -1), dim=1) - LogisticLoss(outputs[range(batch_size),labels],-1)
+		
+		l3 = 0
+		for j in range(num_experts):
+			l3 += LogisticLoss(outputs[range(batch_size), n_classes-1-j], -1)
 
-		l5 = m * (l4 - l3)
+		l4 = 0
+		for j in range(num_experts):
+			l4 += collection_Ms[j][0] * (LogisticLoss(outputs[range(batch_size), n_classes-1-j], 1) - LogisticLoss(outputs[range(batch_size), n_classes-1-j], -1))
 
-		l = m2 * (l1 + l2) + l3 + l5
-
+		l = l1 + l2 + l3 + l4
 		return torch.mean(l)
 
-	@staticmethod
+
 	def LogisticLoss(outputs, y):
 		outputs[torch.where(outputs==0.0)] = (-1*y)*(-1*np.inf)
 		l = torch.log2(1 + torch.exp((-1*y)*outputs))

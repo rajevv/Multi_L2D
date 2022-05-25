@@ -15,7 +15,7 @@ from models.wideresnet import *
 from models.experts import *
 from losses.losses import *
 
-device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def set_seed(seed):
@@ -62,8 +62,7 @@ def evaluate(model,
             outputs = model(images)
             if config["loss_type"] == "softmax":
                 outputs = F.softmax(outputs, dim=1)
-            if config["loss_type"] == "ova":
-                ouputs = F.sigmoid(outputs)
+            
 
             _, predicted = torch.max(outputs.data, 1)
             batch_size = outputs.size()[0]  # batch_size
@@ -91,6 +90,9 @@ def evaluate(model,
 
             loss = loss_fn(outputs, labels[:, 0], collection_Ms, n_classes)
             losses.append(loss.item())
+
+            if config["loss_type"] == "ova":
+                ouputs = F.sigmoid(outputs)
 
             for i in range(0, batch_size):
                 r = (predicted[i].item() >= n_classes - len(expert_fns))
@@ -303,9 +305,10 @@ def increase_experts(config):
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experiment_experts = [1, 2, 4, 6, 8]
-    experiment_experts = [config["n_experts"]]
+    experiment_experts = [1,6,8]
+    #experiment_experts = [config["n_experts"]]
     for n in experiment_experts:
+        print("Training for n={}".format(n))
         num_experts = n
         expert = synth_expert(config["k"], config["n_classes"])
         expert_fn = getattr(expert, config["expert_type"])

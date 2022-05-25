@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=6
 #SBATCH --time=12:00:00
 #SBATCH --mem=48000M
-#SBATCH --output=multi_l2d_cifar10_loop2
+#SBATCH --output=multi_l2d_cifar10_ova
 
 module purge
 module load 2020
@@ -20,4 +20,4 @@ module load Anaconda3/2020.02
 source activate defer
 
 #run experiment
-srun python main.py --expert_type predict_biasedK --warmup_epochs 20 --patience 20
+srun python main.py --expert_type predict_biasedK --warmup_epochs 20 --patience 20 --loss_type ova
