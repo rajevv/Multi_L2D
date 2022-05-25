@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from reliability_diagram import compute_calibration
 
 n_classes = 10
+random_expert_idx = -1
 confs = []
 exps = []
 true = []
@@ -54,8 +55,17 @@ for i in range(len(p_experts)):
     ECEs.append(eces)
 
 Y = []
+# average on all experts
 for l in ECEs:
     Y.append(np.average(l))
+
+plt.plot(Y)
+plt.show()
+
+Y = []
+# random expert ECE
+for l in ECEs:
+    Y.append(l[random_expert_idx])
 
 plt.plot(Y)
 plt.show()
