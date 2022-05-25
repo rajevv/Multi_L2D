@@ -70,6 +70,7 @@ class cifar(Dataset):
 	@classmethod
 	def read(cls, severity=0, slice_=-1, test=False, data_aug=False, entropy=False, mix=False, only_id=False, only_ood=False,split_train_set=False, train_proportion=1.0):
 
+		# This will allow to have always same test results! Careful!
 		np.random.seed(0)
 		random.seed(0)
 		torch.manual_seed(0)
