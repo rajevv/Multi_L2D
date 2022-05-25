@@ -301,10 +301,14 @@ def train(model,
 
 # === Experiment 1 === #
 def increase_experts(config):
-    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_new"
+    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     experiment_experts = [1, 2, 4, 6, 8]
+    # experiment_experts = [1, 2]
+    # experiment_experts = [4, 6]
+    # experiment_experts = [8]
+
     # experiment_experts = [config["n_experts"]]
     for n in experiment_experts:
         print(n)
