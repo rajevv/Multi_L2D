@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=6
 #SBATCH --time=12:00:00
 #SBATCH --mem=48000M
-#SBATCH --output=multi_l2d_cifar10_loop
+#SBATCH --output=multi_l2d_cifar10_loop2
 
 module purge
 module load 2020

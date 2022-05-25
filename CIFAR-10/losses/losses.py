@@ -30,7 +30,7 @@ class Criterion(object):
 			temp -= m * torch.log2(outputs[range(batch_size), rcs[len(rcs)-1-i]])  
 		return torch.sum(temp) / batch_size
 
-	def OVAloss(outputs, labels, collection_Ms, n_classes):
+	def ova(outputs, labels, collection_Ms, n_classes):
 		'''
 		Implementation of OvA surrogate loss for L2D compatible with multiple experts
 		outputs : Network outputs (logits! Not softmax values)

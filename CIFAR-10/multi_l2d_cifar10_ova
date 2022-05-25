@@ -1,0 +1,17 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+{'batch_size': 1024, 'alpha': 1.0, 'epochs': 200, 'patience': 20, 'expert_type': 'predict_biasedK', 'n_classes': 10, 'k': 5, 'n_experts': 2, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 20, 'loss_type': 'ova', 'ckp_dir': './Models', 'experiment_name': 'multiple_experts'}
+Training for n=4
+Traceback (most recent call last):
+  File "main.py", line 348, in <module>
+    main(config)
+  File "main.py", line 316, in main
+    train(model, trainD, valD, expert_fns, config)
+  File "main.py", line 253, in train
+    loss_fn = getattr(criterion, config["loss_type"])
+AttributeError: 'Criterion' object has no attribute 'ova'
+srun: error: r28n4: task 0: Exited with exit code 1

@@ -113,7 +113,7 @@ if __name__ == "__main__":
     alpha = 1.0
     n_classes = 10 # 10 classes for CIFAR-10
     k = 5
-    for n in [2,4,6]:
+    for n in [1,2,4,8]:
       model_name = '_' + str(n) + '_experts'
       num_experts = n
       expert = synth_expert(k, n_classes)

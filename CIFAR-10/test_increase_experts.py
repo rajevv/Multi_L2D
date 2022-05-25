@@ -11,7 +11,7 @@ confs = []
 exps = []
 true = []
 path = "./validation/"
-n_experts = [2, 4, 6]
+n_experts = [1, 2, 4, 6, 8]
 for n in n_experts:
     model_name = '_' + str(n) + '_experts'
     with open(path + 'confidence_multiple_experts' + model_name + '.txt', 'r') as f:
