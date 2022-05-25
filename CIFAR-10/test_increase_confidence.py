@@ -12,6 +12,7 @@ true = []
 path = "softmax_increase_confidence/"
 n_experts = 4
 p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
+# p_experts = [0.2, 0.4, 0.6, 0.8]
 for p in p_experts:
     model_name = '_' + str(p) + '_confidence'
     with open(path + 'confidence_multiple_experts' + model_name + '.txt', 'r') as f:
@@ -29,18 +30,19 @@ for p in p_experts:
     # DANI Correction ===
 
     temp = 0
-    for i in range(p):
-        temp += c[:, (n_classes + p) - (i + 1)]
+    for i in range(n_experts):
+        temp += c[:, (n_classes + n_experts) - (i + 1)]
     prob = c / (1.0 - temp).unsqueeze(-1)
     confs.append(prob)
 
 ECEs = []
-for i in range(len(n_experts)):
+for i in range(len(p_experts)):
     c = confs[i]
     e = exps[i]
     t = torch.tensor(true[i])
+    eces = []
+
     for j in range(n_experts):
-        eces = []
         e_j = e[j]
         c_j = c[:, c.shape[1] - (j + 1)]
         t_j = t
@@ -48,7 +50,7 @@ for i in range(len(n_experts)):
         c_j[ids_where_gt_one] = 1.0
         acc_j = t_j.eq(torch.tensor(e_j))
         log = compute_calibration(c_j, acc_j)
-        eces.append(log['expected_calibration_error'])
+        eces.append(log['expected_calibration_error'].numpy())
     ECEs.append(eces)
 
 Y = []
