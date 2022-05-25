@@ -6,14 +6,13 @@ import matplotlib.pyplot as plt
 from reliability_diagram import compute_calibration
 
 n_classes = 10
-random_expert_idx = -1
+random_expert_idx = 0
 confs = []
 exps = []
 true = []
 path = "softmax_increase_confidence/"
 n_experts = 4
 p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
-# p_experts = [0.2, 0.4, 0.6, 0.8]
 for p in p_experts:
     model_name = '_' + str(p) + '_confidence'
     with open(path + 'confidence_multiple_experts' + model_name + '.txt', 'r') as f:
@@ -59,13 +58,16 @@ Y = []
 for l in ECEs:
     Y.append(np.average(l))
 
+print("Softmax Average among Experts ECE: {}".format(Y))
 plt.plot(Y)
 plt.show()
 
-Y = []
+Y_random = []
 # random expert ECE
 for l in ECEs:
-    Y.append(l[random_expert_idx])
+    Y_random.append(l[random_expert_idx][0])
 
-plt.plot(Y)
+print("Softmax Random Expert ECE: {}".format(Y_random))
+plt.plot(Y_random)
 plt.show()
+

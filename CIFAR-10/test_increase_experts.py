@@ -38,8 +38,8 @@ for i in range(len(n_experts)):
     c = confs[i]
     e = exps[i]
     t = torch.tensor(true[i])
+    eces = []
     for j in range(len(e)):
-        eces = []
         e_j = e[j]
         c_j = c[:, c.shape[1] - (j + 1)]
         t_j = t
@@ -47,12 +47,13 @@ for i in range(len(n_experts)):
         c_j[ids_where_gt_one] = 1.0
         acc_j = t_j.eq(torch.tensor(e_j))
         log = compute_calibration(c_j, acc_j)
-        eces.append(log['expected_calibration_error'])
+        eces.append(log['expected_calibration_error'].numpy())
     ECEs.append(eces)
 
 Y = []
 for l in ECEs:
     Y.append(np.average(l))
 
+print("Increasing # Experts ECE: {}".format(Y))
 plt.plot(Y)
 plt.show()
