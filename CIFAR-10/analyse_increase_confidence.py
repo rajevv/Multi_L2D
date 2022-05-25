@@ -147,7 +147,7 @@ if __name__ == "__main__":
     n_dataset = 10
     n_experts = 4
     p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
-    p_experts = [0.2, 0.4, 0.6, 0.8]
+    # p_experts = [0.2, 0.4, 0.6, 0.8]
 
     for p_in in p_experts:
         model_name = '_' + str(p_in) + '_confidence'
