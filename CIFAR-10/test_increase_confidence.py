@@ -92,16 +92,10 @@ for p in p_experts:
     true.append(true_label['test'])
     exps.append(exp_pred['test'])
     c = torch.tensor(conf['test'])
-    print(c.shape)
     # DANI Correction ===
-    c = c.softmax(dim=1)
+    c = c.sigmoid()
     # DANI Correction ===
-
-    temp = 0
-    for i in range(n_experts):
-        temp += c[:, (n_classes + n_experts) - (i + 1)]
-    prob = c / (1.0 - temp).unsqueeze(-1)
-    confs.append(prob)
+    confs.append(c)
 
 ECEs = []
 for i in range(len(p_experts)):
