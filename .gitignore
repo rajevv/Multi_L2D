@@ -3,3 +3,8 @@ Models/
 data/
 *.sw*
 nfs*
+.idea/
+CIFAR-10/__pycache__
+CIFAR-10/models/__pycache__
+CIFAR-10/losses/__pycache__
+__pycache__
