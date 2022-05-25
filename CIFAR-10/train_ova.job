@@ -20,4 +20,4 @@ module load Anaconda3/2020.02
 source activate defer
 
 #run experiment
-srun python main.py --expert_type predict_biasedK --warmup_epochs 20 --patience 20 --loss_type ova
+srun python main.py --expert_type predict_biasedK --warmup_epochs 20 --patience 20 --loss_type ova --experiment_name OvA_multiple_experts
