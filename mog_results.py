@@ -67,3 +67,42 @@ plt.legend()
 plt.grid()
 plt.tight_layout()
 plt.savefig("mog_increase_experts.pdf")
+
+# # ====== Experiment 2: Increase confidence for 3 experts ======
+# p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
+# # Percentage
+
+# ece_softmax = np.array([0.2047, 0.2982, 0.3592, 0.3907, 0.4194, 0.4165]) * 100
+# ece_ova = np.array([0.0793, 0.0691, 0.0567, 0.0517, 0.0527, 0.0561]) * 100
+#
+# sns.set_context("notebook", font_scale=1.5, rc={"lines.linewidth": 30})
+#
+# f, ax = plt.subplots(1, 1)
+# ax.plot(p_experts, ece_softmax, label=r"Softmax", **plot_args)
+# ax.plot(p_experts, ece_ova, label=r"OvA", **plot_args)
+# plt.xticks(p_experts, p_experts)
+# plt.ylabel(r'ECE ($\%$) for Random Expert')
+# plt.xlabel(r'Probability of Expert Correctness')
+# plt.legend()
+# plt.grid()
+# plt.tight_layout()
+# plt.savefig("mog_increase_confidence.pdf")
+#
+
+n_experts = [1, 2, 4, 6, 8]
+# # ====== Accuracies: Increasing # Experts ======
+acc_softmax = np.array([91.416, 90.730, 90.599, 90.614, 78.75])
+acc_ova = np.array([91.785, 90.955, 91.135, 90.970, 90.995])
+
+sns.set_context("notebook", font_scale=1.5, rc={"lines.linewidth": 30})
+
+f, ax = plt.subplots(1, 1)
+ax.plot(n_experts, acc_softmax, label=r"Softmax", **plot_args)
+ax.plot(n_experts, acc_ova, label=r"OvA", **plot_args)
+plt.xticks(n_experts, n_experts)
+plt.ylabel(r'System Accuracy ($\%$)')
+plt.xlabel(r'Number of Experts')
+plt.legend()
+plt.grid()
+plt.tight_layout()
+plt.savefig("mog_acc_increase_experts.pdf")
