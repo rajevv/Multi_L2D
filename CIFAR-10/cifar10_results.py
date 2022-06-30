@@ -75,3 +75,41 @@ plt.xlabel(r'Number of Experts')
 plt.grid()
 f.set_tight_layout(True)
 plt.savefig("cifar_acc_increase_experts.pdf", bbox_inches='tight')
+
+# # ====== Experiment 3:Overlapping Experts ======
+n_experts = [1, 2, 3, 4, 5]
+# Percentage
+ece_softmax = np.array([0.06, 0.084, 0.072, 0.094, 0.112]) * 100
+ece_ova = np.array([0.043, 0.049, 0.038, 0.051, 0.045]) * 100
+
+f, ax = plt.subplots(1, 1, figsize=fig_size)
+ax.plot(n_experts, ece_softmax, label=r"Softmax", **plot_args)
+ax.plot(n_experts, ece_ova, label=r"OvA", **plot_args)
+plt.xticks(n_experts, n_experts)
+plt.yticks(list(plt.yticks()[0])[::2])
+plt.ylabel(r'Average ECE ($\%$)')
+plt.xlabel(r'Number of Experts')
+# plt.title(r"CIFAR-10")
+# plt.legend(loc="best")
+plt.grid()
+f.set_tight_layout(True)
+plt.savefig("cifar_overlapping_ece.pdf", bbox_inches='tight')
+
+# # ====== Accuracy Experiment 3:Overlapping Experts ======
+n_experts = [1, 2, 3, 4, 5]
+# Percentage
+acc_softmax = np.array([87.22, 88.34, 87.71, 87.02, 88.43])
+acc_ova = np.array([87.84, 90.917, 89.35, 87.08, 89.73])
+
+f, ax = plt.subplots(1, 1, figsize=fig_size)
+ax.plot(n_experts, acc_softmax, label=r"Softmax", **plot_args)
+ax.plot(n_experts, acc_ova, label=r"OvA", **plot_args)
+plt.xticks(n_experts, n_experts)
+plt.yticks(list(plt.yticks()[0])[::2])
+plt.ylabel(r'System Accuracy ($\%$)')
+plt.xlabel(r'Number of Experts')
+# plt.title(r"CIFAR-10")
+# plt.legend(loc="best")
+plt.grid()
+f.set_tight_layout(True)
+plt.savefig("cifar_overlapping_acc.pdf", bbox_inches='tight')
