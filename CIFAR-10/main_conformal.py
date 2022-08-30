@@ -1,5 +1,3 @@
-# Analyze the confidences on test data
-
 import argparse
 import json
 import os
@@ -8,11 +6,24 @@ from collections import defaultdict
 from data_utils import cifar
 from losses.losses import *
 from main_increase_experts import evaluate
+from models.experts import *
 from models.experts import synth_expert
+from models.wideresnet import *
 from models.wideresnet import WideResNet
 
-device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
+# Analyze the confidences on test data
+
+device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
 print(device)
+
+def set_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+
 
 def forward(model, dataloader, expert_fns, n_classes, n_experts):
     confidence = []
@@ -143,7 +154,8 @@ if __name__ == "__main__":
 
     alpha = 1.0
     n_dataset = 10
-    for n in [1, 2, 4, 6, 8]:
+    # for n in [1, 2, 4, 6, 8]:
+    for n in [4]:
         model_name = '_' + str(n) + '_experts'
         num_experts = n
         # Expert ===
@@ -152,3 +164,44 @@ if __name__ == "__main__":
         expert_fns = [expert_fn] * n
 
         validation(model_name, expert_fns, config)
+
+
+
+
+## 2. get Q_hat
+probs_val = probs[:n_val, 10:]
+experts_val = [exp[:n_val] for exp in experts]
+y_true_val = y_true[:n_val]
+
+# 2.b Sort J model outputs for experts
+probs_experts = probs[:n_val, 10:]
+sort, pi = probs_experts.sort(dim=1, descending=True)
+
+# 2.c Test statistic S
+S = 0
+
+
+# Check if experts are correct
+correct_exp = (np.array(experts_val) == np.array(y_true_val)).T
+# Swap order to match confidence ordering
+correct_exp = np.flip(correct_exp).copy()  # copy needed!
+
+# idx for correct experts: [[0,1,2], [1,2], [], ...]
+correct_exp_idx = [np.where(correct_exp_i)[0] for correct_exp_i in correct_exp]
+
+# obtain the last expert to be retrieved. If empty, then add all values.
+# indexes are not the real expert index, but the sorted indexes, e.g. [[1, 0 ,2],  [1,0], [], ...]
+pi_corr_exp = [probs_experts[i, corr_exp].sort(descending=True)[1] for i, corr_exp in enumerate(correct_exp)]
+pi_corr_exp_stop = [pi_corr_exp_i[-1] if len(pi_corr_exp_i)!=0 else -1 for pi_corr_exp_i in pi_corr_exp]  # last expert
+
+# obtain real expert index back, e.g. [2,1,-1,...]
+pi_stop = [correct_exp_idx[i][pi_corr_exp_stop_i] if len(correct_exp_idx[i])!=0 else -1 for i, pi_corr_exp_stop_i in enumerate(pi_corr_exp_stop)]
+
+
+# =========
+n_val = n_val
+alpha = 0.95
+scores = sort.cumsum(dim=1).gather(1, pi.argsort(1))[range(len(torch.tensor(pi_stop))), torch.tensor(pi_stop)]
+qhat = torch.quantile(scores, np.ceil((n + 1) * (1 - alpha)) / n)
+
+qhat
