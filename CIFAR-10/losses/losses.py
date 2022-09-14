@@ -7,7 +7,7 @@ class Criterion(object):
 	def __init__(self):
 		pass
 		
-	def softmax(self, outputs,labels, collection_Ms, n_classes):
+	def softmax(self, outputs, labels, collection_Ms, n_classes):
 		'''
 		The L_{CE} loss implementation for CIFAR
 		----

@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --partition=gpu_short
+#SBATCH --partition=gpu_titanrtx_shared
 #SBATCH --gres=gpu:1
 #SBATCH --job-name=control
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=6
-#SBATCH --time=1:00:00
-#SBATCH --mem=48000M
-#SBATCH --output=multi_l2d_cifar10_ova
+#SBATCH --time=4:00:00
+#SBATCH --mem=36000M
+#SBATCH --output=multi_l2d_cifar10_nonoverlapping
 
 module purge
 module load 2020
@@ -20,4 +20,4 @@ module load Anaconda3/2020.02
 source activate defer
 
 #run experiment
-srun python main.py --expert_type predict_biasedK --warmup_epochs 20 --patience 20 --loss_type ova
+srun python main_increase_experts_nonoverlapping.py --warmup_epochs 20 --patience 20 --loss_type softmax
