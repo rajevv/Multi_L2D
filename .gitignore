@@ -1,5 +1,3 @@
-Data/
-Models/
 data/
 *.sw*
 nfs*
@@ -15,3 +13,5 @@ CIFAR-10/ova_increase_confidence
 CIFAR-10/ova_increase_experts
 
 .vscode
+
+.ipynb_checkpoints/
