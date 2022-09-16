@@ -48,7 +48,7 @@ class Criterion(object):
 
 		l4 = 0
 		for j in range(num_experts):
-			l4 += collection_Ms[n_classes-1-j][0] * (Criterion.LogisticLoss(outputs[range(batch_size), n_classes-1-j], 1) - Criterion.LogisticLoss(outputs[range(batch_size), n_classes-1-j], -1))
+			l4 += collection_Ms[len(collection_Ms)-1-j][0] * (Criterion.LogisticLoss(outputs[range(batch_size), n_classes-1-j], 1) - Criterion.LogisticLoss(outputs[range(batch_size), n_classes-1-j], -1))
 
 		l = l1 + l2 + l3 + l4
 		return torch.mean(l)
