@@ -25,7 +25,7 @@ class Criterion(object):
 		
 		temp = -m2 * torch.log2(outputs[range(batch_size), labels])
 		for i, (m,_) in enumerate(collection_Ms):
-			temp -= m * torch.log2(outputs[range(batch_size), rcs[i]])  
+			temp -= m * torch.log2(outputs[range(batch_size), rcs[n_classes-i-1]])  
 		return torch.sum(temp) / batch_size
 
 	def ova(self, outputs, labels, collection_Ms, n_classes):
