@@ -317,9 +317,9 @@ def increase_experts(config):
         expert = synth_expert2(i*2, i*2 + 2, config["n_classes"])
         expert_fn = getattr(expert, config["expert_type"])
         expert_fns.append(expert_fn)
-        model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
-        trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
-        train(model, trainD, valD, expert_fns, config)
+    model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
+    trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
+    train(model, trainD, valD, expert_fns, config)
 
 
 if __name__ == "__main__":
