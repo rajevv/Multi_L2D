@@ -14,7 +14,7 @@ class synth_expert2:
 		batch_size = labels.size()[0]  # batch_size
 		outs = [0] * batch_size
 		for i in range(0, batch_size):
-			if labels[i][0].item() <= self.k2 and labels[i][0].item() >= self.k1:
+			if labels[i][0].item() < self.k2 and labels[i][0].item() >= self.k1:
 				outs[i] = labels[i][0].item()
 			else:
 				prediction_rand = random.randint(0, self.n_classes - 1)
