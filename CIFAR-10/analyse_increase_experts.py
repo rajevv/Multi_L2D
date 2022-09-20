@@ -64,14 +64,11 @@ def validation(model_name, expert_fns, config):
 
         criterion = Criterion()
         loss_fn = getattr(criterion, config["loss_type"])
-<<<<<<< HEAD
         n_classes = n_dataset
         print("Evaluate...")
         result_ = evaluate(model, expert_fns, loss_fn, n_classes+len(expert_fns), dl, config)
-=======
         n_classes = n_dataset + len(expert_fns)
         result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
->>>>>>> 0b2b6379afa289367f21ef382ee42456ac67ea51
         # result_ = metrics_print(model, num_experts, expert_fns, n_dataset, dl)
         print(result_)
         # result[severity] = result_
@@ -104,13 +101,13 @@ def validation(model_name, expert_fns, config):
 
     get('test', test_dl)
 
-    with open(config["ckp_dir"] + 'true_label_multiple_experts' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'true_label_multiple_experts_new' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(true_label, cls=NumpyEncoder), f)
 
-    with open(config["ckp_dir"] + 'confidence_multiple_experts' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'confidence_multiple_experts_new' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(classifier_confidence, cls=NumpyEncoder), f)
 
-    with open(config["ckp_dir"] + 'expert_predictions_multiple_experts' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'expert_predictions_multiple_experts_new' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(expert_preds, cls=NumpyEncoder), f)
 
     # with open(path + 'inp_log_density.txt', 'w') as f:
@@ -152,17 +149,17 @@ if __name__ == "__main__":
     alpha = 1.0
     n_dataset = 10
     expert_fns = []
-    for i, n in enumerate([1,2]):
+    for i, n in enumerate([1,2, 4, 6, 8, 10, 12, 16, 18, 20]):
         print("n is {}".format(n))
         model_name = '_' + str(n) + '_experts'
         num_experts = n
         # Expert ===
-        # expert = synth_expert(config["k"], config["n_classes"])
-        # expert_fn = getattr(expert, config["expert_type"])
-        # expert_fns = [expert_fn] * n
-
-        expert = synth_expert2(i*2, i*2 + 2, config["n_classes"])
+        expert = synth_expert(config["k"], config["n_classes"])
         expert_fn = getattr(expert, config["expert_type"])
-        expert_fns.append(expert_fn)
+        expert_fns = [expert_fn] * n
+
+        # expert = synth_expert2(i*2, i*2 + 2, config["n_classes"])
+        # expert_fn = getattr(expert, config["expert_type"])
+        # expert_fns.append(expert_fn)
 
         validation(model_name, expert_fns, config)
