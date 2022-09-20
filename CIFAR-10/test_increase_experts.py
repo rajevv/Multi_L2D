@@ -10,8 +10,8 @@ n_classes = 10
 confs = []
 exps = []
 true = []
-path = "softmax_increase_experts/"
-n_experts = [1, 2, 4, 6, 8]
+path = "ova_increase_experts/"
+n_experts = [1, 2]
 for n in n_experts:
     model_name = '_' + str(n) + '_experts'
     with open(path + 'confidence_multiple_experts' + model_name + '.txt', 'r') as f:
@@ -24,14 +24,15 @@ for n in n_experts:
     exps.append(exp_pred['test'])
     c = torch.tensor(conf['test'])
     # DANI Correction ===
-    c = c.softmax(dim=1)
+    #c = c.softmax(dim=1)
+    c = c.sigmoid()
     # DANI Correction ===
 
-    temp = 0
-    for i in range(n):
-        temp += c[:, (n_classes + n) - (i + 1)]
-    prob = c / (1.0 - temp).unsqueeze(-1)
-    confs.append(prob)
+    # temp = 0
+    # for i in range(n):
+    #     temp += c[:, (n_classes + n) - (i + 1)]
+    # prob = c / (1.0 - temp).unsqueeze(-1)
+    # confs.append(prob)
 
 ECEs = []
 for i in range(len(n_experts)):
@@ -54,6 +55,12 @@ Y = []
 for l in ECEs:
     Y.append(np.average(l))
 
+<<<<<<< HEAD
+print("Increasing # Experts ECE: {}".format(Y))
+print(Y)
+# plt.plot(Y)
+# plt.show()
+=======
 print("Softmax Increasing # Experts ECE: {}".format(Y))
 plt.plot(Y)
 plt.show()
@@ -107,3 +114,4 @@ for l in ECEs:
 print("OvA Increasing # Experts ECE: {}".format(Y))
 plt.plot(Y)
 plt.show()
+>>>>>>> 0b2b6379afa289367f21ef382ee42456ac67ea51

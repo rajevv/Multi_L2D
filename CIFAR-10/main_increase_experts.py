@@ -15,7 +15,7 @@ from models.wideresnet import *
 from models.experts import *
 from losses.losses import *
 
-device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
 def set_seed(seed):
@@ -304,10 +304,10 @@ def increase_experts(config):
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experiment_experts = [1, 2, 4, 6, 8]
-    experiment_experts = [1, 2]
-    experiment_experts = [4, 6]
-    experiment_experts = [8]
+    experiment_experts = [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+    # experiment_experts = [1, 2]
+    # experiment_experts = [4, 6]
+    # experiment_experts = [8]
 
     # experiment_experts = [config["n_experts"]]
     for n in experiment_experts:

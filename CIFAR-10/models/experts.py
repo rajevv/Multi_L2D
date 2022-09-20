@@ -4,6 +4,24 @@ import torch.nn as nn
 import random
 
 
+class synth_expert2:
+	def __init__(self, k1, k2, n_classes):
+		self.k1 = k1
+		self.k2 = k2
+		self.n_classes = n_classes
+		
+	def predict(self, input, labels):
+		batch_size = labels.size()[0]  # batch_size
+		outs = [0] * batch_size
+		for i in range(0, batch_size):
+			if labels[i][0].item() < self.k2 and labels[i][0].item() >= self.k1:
+				outs[i] = labels[i][0].item()
+			else:
+				prediction_rand = random.randint(0, self.n_classes - 1)
+				outs[i] = prediction_rand
+		return outs
+
+
 
 class synth_expert:
 	'''
@@ -17,6 +35,17 @@ class synth_expert:
 		self.n_classes = n_classes
 		self.p_in = p_in
 		self.p_out = p_out if p_out is not None else 1/self.n_classes
+
+	def predict(self, input, labels):
+		batch_size = labels.size()[0]  # batch_size
+		outs = [0] * batch_size
+		for i in range(0, batch_size):
+			if labels[i][0].item() <= self.k:
+				outs[i] = labels[i][0].item()
+			else:
+				prediction_rand = random.randint(0, self.n_classes - 1)
+				outs[i] = prediction_rand
+		return outs
 
 	def predict(self, input, labels):
 		batch_size = labels.size()[0]  # batch_size

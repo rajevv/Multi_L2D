@@ -15,7 +15,7 @@ from models.wideresnet import *
 from models.experts import *
 from losses.losses import *
 
-device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def set_seed(seed):
@@ -304,7 +304,7 @@ def increase_confidence(config):
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
-    p_experts = [0.2, 0.4]
+    #p_experts = [0.2, 0.4]
     # p_experts = [0.6, 0.8]
     # p_experts = [0.95]
     print(p_experts)

@@ -7,7 +7,7 @@ class Criterion(object):
 	def __init__(self):
 		pass
 		
-	def softmax(self, outputs,labels, collection_Ms, n_classes):
+	def softmax(self, outputs, labels, collection_Ms, n_classes):
 		'''
 		The L_{CE} loss implementation for CIFAR
 		----
@@ -25,7 +25,7 @@ class Criterion(object):
 		
 		temp = -m2 * torch.log2(outputs[range(batch_size), labels])
 		for i, (m,_) in enumerate(collection_Ms):
-			temp -= m * torch.log2(outputs[range(batch_size), rcs[len(rcs)-1-i]])  
+			temp -= m * torch.log2(outputs[range(batch_size), rcs[len(rcs)-i-1]])  
 		return torch.sum(temp) / batch_size
 
 	def ova(self, outputs, labels, collection_Ms, n_classes):
@@ -48,7 +48,7 @@ class Criterion(object):
 
 		l4 = 0
 		for j in range(num_experts):
-			l4 += collection_Ms[j][0] * (Criterion.LogisticLoss(outputs[range(batch_size), n_classes-1-j], 1) - Criterion.LogisticLoss(outputs[range(batch_size), n_classes-1-j], -1))
+			l4 += collection_Ms[len(collection_Ms)-1-j][0] * (Criterion.LogisticLoss(outputs[range(batch_size), n_classes-1-j], 1) - Criterion.LogisticLoss(outputs[range(batch_size), n_classes-1-j], -1))
 
 		l = l1 + l2 + l3 + l4
 		return torch.mean(l)

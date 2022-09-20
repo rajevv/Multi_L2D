@@ -286,7 +286,7 @@ def train(model,
             best_validation_loss = validation_loss
             print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
             save_path = os.path.join(config["ckp_dir"],
-                                     config["experiment_name"] + '_' + str(config["p_in"]) + '_confidence')
+                                     config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts')
             torch.save(model.state_dict(), save_path + '.pt')
             # Additionally save the whole config dict
             with open(save_path + '.json', "w") as f:
@@ -305,7 +305,7 @@ def increase_experts(config):
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experiment_experts = [1,6,8]
+    experiment_experts = [4]
     #experiment_experts = [config["n_experts"]]
     for n in experiment_experts:
         print("Training for n={}".format(n))
@@ -367,11 +367,11 @@ if __name__ == "__main__":
                         help="surrogate loss type for learning to defer.")
     parser.add_argument("--ckp_dir", type=str, default="./Models",
                         help="directory name to save the checkpoints.")
-    parser.add_argument("--experiment_name", type=str, default="multiple_experts",
+    parser.add_argument("--experiment_name", type=str, default="exp1",
                         help="specify the experiment name. Checkpoints will be saved with this name.")
 
     config = parser.parse_args().__dict__
 
     print(config)
-    # increase_experts(config)
-    increase_confidence(config)
+    increase_experts(config)
+    #increase_confidence(config)
