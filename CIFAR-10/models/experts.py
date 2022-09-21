@@ -1,6 +1,6 @@
 
 # Experts for CIFAR-10
-
+from __future__ import division
 import numpy as np
 import torch
 import torch.nn as nn
@@ -11,7 +11,7 @@ import random
 
 # Synthetic Expert for Non-overlapping expertise
 class synth_expert2:
-	def __init__(self, k1, k2, n_classes):
+	def __init__(self, k1, k2, n_classes, p_in=None, p_out=None):
 		''' 
 		class to model the non-overlapping synthetic experts
 		
@@ -23,8 +23,11 @@ class synth_expert2:
 		'''
 		self.k1 = k1
 		self.k2 = k2
+		self.p_in = p_in if p_in is not None else 1.0
+		self.p_out = p_out if is not None else 1/n_classes
 		self.n_classes = n_classes
-		
+	
+	# expert correct in [k1,k2) classes else random across all the classes	
 	def predict(self, input, labels):
 		batch_size = labels.size()[0]  # batch_size
 		outs = [0] * batch_size
@@ -34,6 +37,25 @@ class synth_expert2:
 			else:
 				prediction_rand = random.randint(0, self.n_classes - 1)
 				outs[i] = prediction_rand
+		return outs
+
+	# expert correct in [k1, k2) classes with prob. p_in; correct on other classes with prob. p_out
+	def predict_prob_cifar(self, input, labels):
+		batch_size = labels.size()[0]
+		outs = [0] * batch_size
+		for i in range(0, batch_size):
+			if labels[i][0].item() < self.k2 and labels[i][0].item() >= self.k1:
+				coin_flip = np.random.binomial(1, self.p_in)
+				if coin_flip == 1:
+					outs[i] = labels[i][0].item()
+				if coin_flip == 0:
+					outs[i] = random.randint(0, self.n_classes - 1)
+			else:
+				coin_flip = np.random.binomial(1, self.p_out)
+				if coin_flip == 1:
+					outs[i] = labels[i][0].item()
+				if coin_flip == 0:
+					outs[i] = random.randint(0, self.n_classes - 1)
 		return outs
 
 
