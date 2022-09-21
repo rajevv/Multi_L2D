@@ -24,7 +24,7 @@ class synth_expert2:
 		self.k1 = k1
 		self.k2 = k2
 		self.p_in = p_in if p_in is not None else 1.0
-		self.p_out = p_out if is not None else 1/n_classes
+		self.p_out = p_out if p_out is not None else 1/n_classes
 		self.n_classes = n_classes
 	
 	# expert correct in [k1,k2) classes else random across all the classes	
