@@ -1,11 +1,26 @@
+
+# Experts for CIFAR-10
+
 import numpy as np
 import torch
 import torch.nn as nn
 import random
 
 
+
+
+# Synthetic Expert for Non-overlapping expertise
 class synth_expert2:
 	def __init__(self, k1, k2, n_classes):
+		''' 
+		class to model the non-overlapping synthetic experts
+		
+		The expert predicts correctly for classes k1 (inclusive) to k2 (exclusive), and 
+		random across the total number of classes for other classes outside of [k1, k2).
+
+		For example, an expert could be correct for classes 2 (k1) to 4 (k2) for CIFAR-10.
+
+		'''
 		self.k1 = k1
 		self.k2 = k2
 		self.n_classes = n_classes
