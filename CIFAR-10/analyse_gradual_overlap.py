@@ -106,13 +106,13 @@ def validation(model_name, expert_fns, config):
 
     get('test', test_dl)
 
-    with open(config["ckp_dir"] + 'true_label_multiple_experts' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'true_label_multiple_experts_' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(true_label, cls=NumpyEncoder), f)
 
-    with open(config["ckp_dir"] + 'confidence_multiple_experts' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'confidence_multiple_experts_' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(classifier_confidence, cls=NumpyEncoder), f)
 
-    with open(config["ckp_dir"] + 'expert_predictions_multiple_experts' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'expert_predictions_multiple_experts_' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(expert_preds, cls=NumpyEncoder), f)
 
     # with open(path + 'inp_log_density.txt', 'w') as f:
