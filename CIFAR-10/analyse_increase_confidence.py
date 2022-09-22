@@ -7,7 +7,7 @@ from collections import defaultdict
 
 from data_utils import cifar
 from losses.losses import *
-from main_increase_experts import evaluate
+from main_increase_confidence import evaluate
 from models.experts import synth_expert
 from models.wideresnet import WideResNet
 

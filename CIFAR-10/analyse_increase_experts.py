@@ -7,7 +7,7 @@ from collections import defaultdict
 
 from data_utils import cifar
 from losses.losses import *
-from main_increase_experts_nonoverlapping import evaluate
+from main_increase_experts import evaluate
 from models.experts import synth_expert
 from models.experts import synth_expert2
 from models.wideresnet import WideResNet
@@ -30,15 +30,15 @@ def forward(model, dataloader, expert_fns, n_classes, n_experts):
                 expert_predictions[i].append(expert_pred1)
             confidence.append(conf.cpu())
             true.append(lbl[:, 0])
-            break
+
 
     true = torch.stack(true, dim=0).view(-1)
     confidence = torch.stack(confidence, dim=0).view(-1, n_classes + n_experts)
     for k, v in expert_predictions.items():
         expert_predictions[k] = torch.stack([torch.tensor(k) for k in v], dim=0).view(-1)
 
-    # print(true.shape, confidence.shape, [v.shape for k, v in
-    #                                      expert_predictions.items()])  # ,expert_predictions1.shape, expert_predictions2.shape) #, density.shape)
+    print(true.shape, confidence.shape, [v.shape for k, v in
+                                         expert_predictions.items()])  # ,expert_predictions1.shape, expert_predictions2.shape) #, density.shape)
     return true, confidence, [v.numpy() for k, v in
                               expert_predictions.items()]  # (expert_predictions1, expert_predictions2) #, density
 
@@ -61,14 +61,16 @@ def validation(model_name, expert_fns, config):
 
     def get(severity, dl):
         true, confidence, expert_predictions = forward(model, dl, expert_fns, n_dataset, n_expert)
+        print("shapes: true labels {}, confidences {}, expert_predictions {}".format(\
+            true.shape, confidence.shape, np.array(expert_predictions).shape))
 
         criterion = Criterion()
         loss_fn = getattr(criterion, config["loss_type"])
         n_classes = n_dataset
         print("Evaluate...")
         result_ = evaluate(model, expert_fns, loss_fn, n_classes+len(expert_fns), dl, config)
-        n_classes = n_dataset + len(expert_fns)
-        result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
+        # n_classes = n_dataset + len(expert_fns)
+        # result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
         # result_ = metrics_print(model, num_experts, expert_fns, n_dataset, dl)
         print(result_)
         # result[severity] = result_
@@ -85,7 +87,7 @@ def validation(model_name, expert_fns, config):
 
     n_dataset = 10
     batch_size = 1024
-    n_expert = num_experts
+    n_expert = len(expert_fns)
     # Data ===
     ood_d, test_d = cifar.read(severity=0, slice_=-1, test=True, only_id=True)
 
