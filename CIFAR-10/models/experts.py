@@ -55,7 +55,7 @@ class synth_expert2:
 				if coin_flip == 1:
 					outs[i] = labels[i][0].item()
 				if coin_flip == 0:
-					outs[i] = random.randint(0, self.n_classes - 1)
+					outs[i] = random.randint(self.k2, self.n_classes - 1)
 		return outs
 
 

@@ -319,14 +319,14 @@ def increaseOracles(config):
 			expert_fns = []
 
 			# an expert who is an oracle on the kth class with prob_in 0.95
-			expert_oracle = synth_expert2(k, k+1, config["n_classes"], p_in = 0.95, p_out = p_out)
+			expert_oracle = synth_expert2(0, k+1, config["n_classes"], p_in = 0.95, p_out = p_out)
 			expert_fn = getattr(expert_oracle, 'predict_prob_cifar')
 
 			# have k of such experts
 			expert_fns.extend([expert_fn]*(k+1))
 
 			# remaning 10 - k experts are random
-			expert_notOracle = synth_expert2(k, k+1, config["n_classes"], p_in=0.1, p_out = p_out)
+			expert_notOracle = synth_expert2(0, k+1, config["n_classes"], p_in=0.1, p_out = p_out)
 
 			expert_fn = getattr(expert_notOracle, 'predict_prob_cifar')
 			expert_fns.extend([expert_fn]*(num_experts - (k+1)))
