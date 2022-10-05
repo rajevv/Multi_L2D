@@ -11,7 +11,7 @@ import random
 
 # Synthetic Expert for Non-overlapping expertise
 class synth_expert2:
-	def __init__(self, k1, k2, n_classes, p_in=None, p_out=None):
+	def __init__(self, k1=None, k2=None, n_classes=None, S=None, p_in=None, p_out=None):
 		''' 
 		class to model the non-overlapping synthetic experts
 		
@@ -26,6 +26,7 @@ class synth_expert2:
 		self.p_in = p_in if p_in is not None else 1.0
 		self.p_out = p_out if p_out is not None else 1/n_classes
 		self.n_classes = n_classes
+		self.S = S # list : set of classes where the oracle predicts
 	
 	# expert correct in [k1,k2) classes else random across all the classes	
 	def predict(self, input, labels):
@@ -56,6 +57,25 @@ class synth_expert2:
 					outs[i] = labels[i][0].item()
 				if coin_flip == 0:
 					outs[i] = random.randint(self.k2, self.n_classes - 1)
+		return outs
+
+	
+	def predict_prob_cifar_2(self, input, labels):
+		batch_size = labels.size()[0]
+		outs = [0] * batch_size
+		for i in range(0, batch_size):
+			if labels[i][0].item() in self.S:
+				coin_flip = np.random.binomial(1, self.p_in)
+				if coin_flip == 1:
+					outs[i] = labels[i][0].item()
+				if coin_flip == 0:
+					outs[i] = random.randint(0, self.n_classes - 1)
+			else:
+				coin_flip = np.random.binomial(1, self.p_out)
+				if coin_flip == 1:
+					outs[i] = labels[i][0].item()
+				if coin_flip == 0:
+					outs[i] = random.choice(list(set(range(self.n_classes)) - set(self.S)))
 		return outs
 
 
