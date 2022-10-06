@@ -313,20 +313,20 @@ def increaseOracles(config):
 	num_experts = 10 # equal to the number of classes
 	p_out = 1/9 #, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
 	
-	for seed in [ 948,  625,  436,  791, 1750]: #,  812, 1331, 1617,  650, 1816]:
+	for seed in [436,  791, 1750]: #, 948,  625,   812, 1331, 1617,  650, 1816]:
 		set_seed(seed)
 		for k in range(config["n_classes"]):
 			expert_fns = []
 
 			# an expert who is an oracle on the kth class with prob_in 0.95
-			expert_oracle = synth_expert2(0, k+1, config["n_classes"], p_in = 0.95, p_out = p_out)
+			expert_oracle = synth_expert2(k1=0, k2=k+1, n_classes=config["n_classes"], p_in = 0.95, p_out = p_out)
 			expert_fn = getattr(expert_oracle, 'predict_prob_cifar')
 
 			# have k of such experts
 			expert_fns.extend([expert_fn]*(k+1))
 
 			# remaning 10 - k experts are random
-			expert_notOracle = synth_expert2(0, k+1, config["n_classes"], p_in=0.1, p_out = p_out)
+			expert_notOracle = synth_expert2(k1=0, k2=k+1, n_classes=config["n_classes"], p_in=0.1, p_out = p_out)
 
 			expert_fn = getattr(expert_notOracle, 'predict_prob_cifar')
 			expert_fns.extend([expert_fn]*(num_experts - (k+1)))

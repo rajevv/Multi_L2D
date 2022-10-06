@@ -1,0 +1,26 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+{'batch_size': 1024, 'alpha': 1.0, 'epochs': 150, 'patience': 20, 'expert_type': 'predict_prob_cifar', 'n_classes': 10, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 20, 'loss_type': 'ova', 'ckp_dir': './Models', 'experiment_name': 'gradual_overlap'}
+p_out is 0.1
+Traceback (most recent call last):
+  File "main_gradual_overlap.py", line 362, in <module>
+    gradualOverlapping(config)
+  File "main_gradual_overlap.py", line 330, in gradualOverlapping
+    train(model, trainD, valD, expert_fns, config, ckp_name)
+  File "main_gradual_overlap.py", line 269, in train
+    iters, train_loss = train_epoch(iters,
+  File "main_gradual_overlap.py", line 193, in train_epoch
+    m = fn(input, target)
+  File "/home/rverma/Multi-L2D/CIFAR-10/models/experts.py", line 59, in predict_prob_cifar
+    outs[i] = random.randint(self.k2, self.n_classes - 1)
+  File "/home/rverma/.conda/envs/defer/lib/python3.8/random.py", line 248, in randint
+    return self.randrange(a, b+1)
+  File "/home/rverma/.conda/envs/defer/lib/python3.8/random.py", line 226, in randrange
+    raise ValueError("empty range for randrange() (%d, %d, %d)" % (istart, istop, width))
+ValueError: empty range for randrange() (10, 10, 0)
+srun: error: r28n2: task 0: Exited with exit code 1

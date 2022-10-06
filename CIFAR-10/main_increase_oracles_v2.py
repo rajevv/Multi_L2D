@@ -330,7 +330,7 @@ def increaseOracles(config):
 			# log the randomly selected classes on which the oracles operate
 			log['oracles_classes'][k] = S
 
-			expert_fns = np.zeros(num_experts)
+			expert_fns = [0]*(num_experts) #np.zeros(num_experts)
 
 
 			
@@ -338,24 +338,28 @@ def increaseOracles(config):
 			# add the random (across S^{C}) experts
 			expert_notOracle = synth_expert2(n_classes=config["n_classes"], p_in=0.0, p_out = 0.0, S=S)
 
-			expert_fn = getattr(expert_notOracle, 'predict_prob_cifar_2')
-			expert_fns[np.array(range(num_experts))] = expert_fn
+			expert_fn_rand = getattr(expert_notOracle, 'predict_prob_cifar_2')
+			#expert_fns[np.array(range(num_experts))] = expert_fn
 
 
 			
 
 			# an expert who is an oracle on the kth class with prob_in 1.0
 			expert_oracle = synth_expert2(n_classes = config["n_classes"], p_in = 1.0, p_out = 0.0, S=S)
-			expert_fn = getattr(expert_oracle, 'predict_prob_cifar_2')
+			expert_fn_oracle = getattr(expert_oracle, 'predict_prob_cifar_2')
 
 			# randomly select positions of the oracle experts
-			idx = np.array(random.sample(range(num_experts), k))
+			idx = random.sample(range(num_experts), k)
 			# add oracle experts
-			expert_fns[idx] = expert_fn
+			#expert_fns[idx] = expert_fn
 
-			log['oracles_positions'][k] = idx.tolist()
+			log['oracles_positions'][k] = idx
 
-			expert_fns = expert_fns.tolist()
+			for i in range(len(expert_fns)):
+					if i in idx:
+						expert_fns[i] = expert_fn_oracle
+					else:
+						expert_fns[i] = expert_fn_rand
 
 			
 			# setup the model

@@ -1,0 +1,62 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+{'batch_size': 1024, 'alpha': 1.0, 'epochs': 100, 'patience': 20, 'expert_type': 'predict_prob_cifar', 'n_classes': 10, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 20, 'loss_type': 'softmax', 'ckp_dir': './Models', 'experiment_name': 'increase_oracles'}
+Epoch: [0][0/43]	Time 2.455 (2.455)	Loss 13.0059 (13.0059)	Prec@1 0.098 (0.098)
+Epoch: [0][10/43]	Time 0.866 (1.032)	Loss 13.1510 (13.2416)	Prec@1 0.000 (0.302)
+Epoch: [0][20/43]	Time 0.887 (0.966)	Loss 12.7505 (13.1387)	Prec@1 0.000 (0.158)
+Epoch: [0][30/43]	Time 0.896 (0.942)	Loss 12.9365 (13.0566)	Prec@1 0.000 (0.107)
+Epoch: [0][40/43]	Time 0.900 (0.933)	Loss 12.7741 (13.0056)	Prec@1 0.098 (0.157)
+{'coverage': '64 out of4096', 'system_accuracy': 20.6787109375, 'expert_accuracy': 20.064483131722067, 'classifier_accuracy': 59.37490722670746, 'alone_classifier': 22.7783203125, 'validation_loss': 12.694096565246582, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 19.99973333688884, 'expert_2': 19.38201158313956, 'expert_3': 0.0, 'expert_4': 25.465806874774067, 'expert_5': 0.0, 'expert_6': 34.177128665497044, 'expert_7': 26.66631111585179, 'expert_8': 21.17345858497011, 'expert_9': 19.33554688800353}
+Saving the model with classifier accuracy 59.37490722670746
+Epoch: [1][0/43]	Time 0.904 (0.904)	Loss 12.7643 (12.7643)	Prec@1 1.074 (1.074)
+Epoch: [1][10/43]	Time 0.889 (0.894)	Loss 12.6227 (12.6395)	Prec@1 2.637 (1.438)
+Epoch: [1][20/43]	Time 0.896 (0.892)	Loss 12.4353 (12.5903)	Prec@1 5.371 (3.111)
+Epoch: [1][30/43]	Time 0.903 (0.895)	Loss 12.4428 (12.5300)	Prec@1 15.039 (5.437)
+Epoch: [1][40/43]	Time 0.880 (0.895)	Loss 12.4233 (12.4728)	Prec@1 13.965 (7.350)
+{'coverage': '1592 out of4096', 'system_accuracy': 28.1494140625, 'expert_accuracy': 21.405749088997677, 'classifier_accuracy': 38.756278972595545, 'alone_classifier': 31.7138671875, 'validation_loss': 12.207165718078613, 'n_experts': 10, 'expert_0': 25.773182591142994, 'expert_1': 7.142755103498522, 'expert_2': 24.999791668402764, 'expert_3': 20.11660634600213, 'expert_4': 24.827551961997294, 'expert_5': 0.0, 'expert_6': 24.999583340277663, 'expert_7': 15.384378701866126, 'expert_8': 16.666111129629012, 'expert_9': 20.555912016042402}
+Saving the model with classifier accuracy 38.756278972595545
+Epoch: [2][0/43]	Time 0.904 (0.904)	Loss 12.0977 (12.0977)	Prec@1 15.918 (15.918)
+Epoch: [2][10/43]	Time 0.858 (0.893)	Loss 12.2746 (12.2388)	Prec@1 21.191 (16.504)
+Epoch: [2][20/43]	Time 0.893 (0.887)	Loss 11.8629 (12.1461)	Prec@1 22.363 (18.634)
+Epoch: [2][30/43]	Time 0.891 (0.890)	Loss 11.7953 (12.0903)	Prec@1 23.438 (20.306)
+Epoch: [2][40/43]	Time 0.890 (0.889)	Loss 12.1542 (12.0722)	Prec@1 24.219 (21.542)
+{'coverage': '2565 out of4096', 'system_accuracy': 37.353515625, 'expert_accuracy': 21.68517025667273, 'classifier_accuracy': 46.7056512005594, 'alone_classifier': 40.6494140625, 'validation_loss': 12.087767601013184, 'n_experts': 10, 'expert_0': 24.99937501562461, 'expert_1': 0.0, 'expert_2': 27.777469139231787, 'expert_3': 0.0, 'expert_4': 27.777726337543818, 'expert_5': 21.052409974631846, 'expert_6': 25.581276366156438, 'expert_7': 0.0, 'expert_8': 23.43742675804138, 'expert_9': 20.96518655614137}
+Saving the model with classifier accuracy 46.7056512005594
+Epoch: [3][0/43]	Time 0.885 (0.885)	Loss 11.8192 (11.8192)	Prec@1 26.074 (26.074)
+Epoch: [3][10/43]	Time 0.891 (0.895)	Loss 11.7829 (11.8554)	Prec@1 30.078 (28.631)
+Epoch: [3][20/43]	Time 0.898 (0.890)	Loss 11.5782 (11.8224)	Prec@1 29.297 (29.832)
+Epoch: [3][30/43]	Time 0.897 (0.894)	Loss 12.0254 (11.8420)	Prec@1 31.543 (30.611)
+Epoch: [3][40/43]	Time 0.891 (0.895)	Loss 11.9983 (11.8485)	Prec@1 35.645 (31.617)
+{'coverage': '3030 out of4096', 'system_accuracy': 43.8232421875, 'expert_accuracy': 20.168851750684475, 'classifier_accuracy': 52.145212800488025, 'alone_classifier': 47.021484375, 'validation_loss': 11.681626796722412, 'n_experts': 10, 'expert_0': 14.285306134110453, 'expert_1': 23.809410431378897, 'expert_2': 99.98000399920016, 'expert_3': 24.999583340277663, 'expert_4': 17.05423712521376, 'expert_5': 0.0, 'expert_6': 18.181487609316196, 'expert_7': 29.999850000749998, 'expert_8': 18.181763085566406, 'expert_9': 20.159145846380415}
+Saving the model with classifier accuracy 52.145212800488025
+Epoch: [4][0/43]	Time 0.905 (0.905)	Loss 11.6638 (11.6638)	Prec@1 37.109 (37.109)
+Epoch: [4][10/43]	Time 0.896 (0.895)	Loss 11.4845 (11.5871)	Prec@1 41.113 (37.642)
+Epoch: [4][20/43]	Time 0.895 (0.893)	Loss 11.6036 (11.6159)	Prec@1 44.434 (38.570)
+Epoch: [4][30/43]	Time 0.895 (0.896)	Loss 11.4173 (11.6113)	Prec@1 42.578 (39.352)
+Epoch: [4][40/43]	Time 0.892 (0.895)	Loss 11.3780 (11.5789)	Prec@1 44.727 (40.456)
+{'coverage': '3311 out of4096', 'system_accuracy': 51.171875, 'expert_accuracy': 18.089167365817232, 'classifier_accuracy': 59.01540141904556, 'alone_classifier': 55.0537109375, 'validation_loss': 11.439972162246704, 'n_experts': 10, 'expert_0': 29.411418689191894, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 14.285688775555757, 'expert_4': 0.0, 'expert_5': 7.142755103498522, 'expert_6': 19.99960000799984, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 18.730152784078484}
+Saving the model with classifier accuracy 59.01540141904556
+Epoch: [5][0/43]	Time 0.899 (0.899)	Loss 11.5336 (11.5336)	Prec@1 48.438 (48.438)
+Epoch: [5][10/43]	Time 0.904 (0.901)	Loss 11.3941 (11.4321)	Prec@1 47.559 (46.831)
+Epoch: [5][20/43]	Time 0.870 (0.893)	Loss 11.1780 (11.4321)	Prec@1 48.145 (47.270)
+Epoch: [5][30/43]	Time 0.887 (0.895)	Loss 11.0916 (11.3921)	Prec@1 48.926 (47.700)
+Epoch: [5][40/43]	Time 0.901 (0.896)	Loss 11.0404 (11.3660)	Prec@1 51.758 (48.528)
+{'coverage': '3390 out of4096', 'system_accuracy': 53.9794921875, 'expert_accuracy': 16.713876285020884, 'classifier_accuracy': 61.74041115809996, 'alone_classifier': 57.666015625, 'validation_loss': 11.344460725784302, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 19.999968000051197, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 15.999872001023991, 'expert_9': 16.211287354722277}
+Saving the model with classifier accuracy 61.74041115809996
+Epoch: [6][0/43]	Time 0.915 (0.915)	Loss 11.4100 (11.4100)	Prec@1 51.562 (51.562)
+Epoch: [6][10/43]	Time 0.887 (0.901)	Loss 11.4554 (11.3347)	Prec@1 48.828 (51.731)
+Epoch: [6][20/43]	Time 0.875 (0.901)	Loss 11.5488 (11.2998)	Prec@1 51.465 (52.000)
+Epoch: [6][30/43]	Time 0.896 (0.898)	Loss 11.3223 (11.2700)	Prec@1 52.441 (52.492)
+Epoch: [6][40/43]	Time 0.895 (0.898)	Loss 10.9434 (11.2227)	Prec@1 54.883 (53.087)
+{'coverage': '3490 out of4096', 'system_accuracy': 60.009765625, 'expert_accuracy': 18.15180919082205, 'classifier_accuracy': 67.27793503501618, 'alone_classifier': 63.5009765625, 'validation_loss': 11.21451449394226, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 28.570612268220906, 'expert_3': 42.85591840233136, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 17.826819074085204}
+Saving the model with classifier accuracy 67.27793503501618
+Epoch: [7][0/43]	Time 0.931 (0.931)	Loss 11.0314 (11.0314)	Prec@1 54.883 (54.883)
+Epoch: [7][10/43]	Time 0.889 (0.894)	Loss 11.1885 (11.1564)	Prec@1 56.934 (55.975)
+Epoch: [7][20/43]	Time 0.892 (0.895)	Loss 11.2708 (11.1456)	Prec@1 59.668 (56.394)
+Epoch: [7][30/43]	Time 0.900 (0.893)	Loss 11.2264 (11.1512)	Prec@1 62.207 (56.952)
+Epoch: [7][40/43]	Time 0.900 (0.893)	Loss 10.8684 (11.1228)	Prec@1 64.746 (57.555)
