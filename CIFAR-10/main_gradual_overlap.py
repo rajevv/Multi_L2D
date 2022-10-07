@@ -315,17 +315,19 @@ def gradualOverlapping(config):
     p_outs = [0.1, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
     
 
-    for p_out in p_outs:
-        print("p_out is {}".format(p_out))
-        expert_fns = []
-        for i in range(config["n_classes"]):
-            expert = synth_expert2(i, i+1, config["n_classes"], p_in = 1.0, p_out = p_out)
-            expert_fn = getattr(expert, 'predict_prob_cifar')
-            expert_fns.append(expert_fn)
-        model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
-        trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
-        ckp_name = 'p_out_' + str(p_out)
-        train(model, trainD, valD, expert_fns, config, ckp_name)
+    for seed in [948,  625, 436,  791, 1750]:
+        set_seed(seed)
+        for p_out in p_outs:
+            print("p_out is {}".format(p_out))
+            expert_fns = []
+            for i in range(config["n_classes"]):
+                expert = synth_expert2(k1=i, k2=i+1, n_classes=config["n_classes"], p_in = 1.0, p_out = p_out)
+                expert_fn = getattr(expert, 'predict_prob_cifar')
+                expert_fns.append(expert_fn)
+            model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
+            trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
+            ckp_name = 'p_out_' + str(p_out) + '_seed_' + str(seed)
+            train(model, trainD, valD, expert_fns, config, ckp_name)
 
 
 if __name__ == "__main__":

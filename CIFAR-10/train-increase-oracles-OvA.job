@@ -4,9 +4,9 @@
 #SBATCH --job-name=asymptotics
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=6
-#SBATCH --time=18:00:00
+#SBATCH --time=36:00:00
 #SBATCH --mem=48000M
-#SBATCH --output=./SLURMS/CIFAR-10-increase-oracles-OvA.out
+#SBATCH --output=./SLURMS/CIFAR-10-increase-oracles-OvA-nextseeds.out
 
 module purge
 module load 2020
