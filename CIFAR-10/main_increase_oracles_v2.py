@@ -324,6 +324,7 @@ def increaseOracles(config):
 			'oracles_positions': {}}
 
 		for k in range(config["n_classes"]):
+			k_experts = k+1
 			# randomly sample classes on which oracles operate: S is a list
 			S = random.sample(range(config["n_classes"]), number_oracle_classes)
 
@@ -349,7 +350,7 @@ def increaseOracles(config):
 			expert_fn_oracle = getattr(expert_oracle, 'predict_prob_cifar_2')
 
 			# randomly select positions of the oracle experts
-			idx = random.sample(range(num_experts), k)
+			idx = random.sample(range(num_experts), k_experts)
 			# add oracle experts
 			#expert_fns[idx] = expert_fn
 
