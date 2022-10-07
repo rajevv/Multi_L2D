@@ -170,7 +170,7 @@ if __name__ == "__main__":
     import json
 
 
-    for seed in [625]: #,436,  791, 1750]:
+    for seed in [625, 436, 791]: #,436,  791, 1750]:
         set_seed(seed)
         # save the log dict
         load_path = os.path.join(config["ckp_dir"],config["experiment_name"] + \
