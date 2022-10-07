@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=6
 #SBATCH --time=1:00:00
 #SBATCH --mem=48000M
-#SBATCH --output=./SLURMS/analyze_increase_oracles_OvA_v2.out
+#SBATCH --output=./SLURMS/analyze_increase_oracles_OvA.out
 
 module purge
 module load 2020
@@ -20,4 +20,4 @@ module load Anaconda3/2020.02
 source activate defer
 
 #run experiment
-srun python analyse_increase_oracles_v2.py --loss_type ova
+srun python analyse_increase_oracles.py --loss_type ova
