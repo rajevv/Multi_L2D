@@ -7,20 +7,35 @@ but cannot be loaded as requested: "cuDNN"
 cuda:0
 {'batch_size': 1024, 'alpha': 1.0, 'epochs': 150, 'patience': 20, 'expert_type': 'predict_prob_cifar', 'n_classes': 10, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 20, 'loss_type': 'ova', 'ckp_dir': './Models', 'experiment_name': 'gradual_overlap'}
 p_out is 0.1
-Traceback (most recent call last):
-  File "main_gradual_overlap.py", line 362, in <module>
-    gradualOverlapping(config)
-  File "main_gradual_overlap.py", line 330, in gradualOverlapping
-    train(model, trainD, valD, expert_fns, config, ckp_name)
-  File "main_gradual_overlap.py", line 269, in train
-    iters, train_loss = train_epoch(iters,
-  File "main_gradual_overlap.py", line 193, in train_epoch
-    m = fn(input, target)
-  File "/home/rverma/Multi-L2D/CIFAR-10/models/experts.py", line 59, in predict_prob_cifar
-    outs[i] = random.randint(self.k2, self.n_classes - 1)
-  File "/home/rverma/.conda/envs/defer/lib/python3.8/random.py", line 248, in randint
-    return self.randrange(a, b+1)
-  File "/home/rverma/.conda/envs/defer/lib/python3.8/random.py", line 226, in randrange
-    raise ValueError("empty range for randrange() (%d, %d, %d)" % (istart, istop, width))
-ValueError: empty range for randrange() (10, 10, 0)
-srun: error: r28n2: task 0: Exited with exit code 1
+Epoch: [0][0/43]	Time 2.539 (2.539)	Loss 19.9769 (19.9769)	Prec@1 0.391 (0.391)
+Epoch: [0][10/43]	Time 0.938 (1.081)	Loss 16.2527 (18.7642)	Prec@1 0.000 (0.204)
+Epoch: [0][20/43]	Time 0.930 (1.011)	Loss 13.2711 (16.4437)	Prec@1 0.000 (0.107)
+Epoch: [0][30/43]	Time 0.928 (0.986)	Loss 13.5483 (15.4877)	Prec@1 0.000 (0.072)
+Epoch: [0][40/43]	Time 0.929 (0.975)	Loss 12.9767 (14.9464)	Prec@1 0.000 (0.055)
+{'coverage': '0 out of4096', 'system_accuracy': 27.392578125, 'expert_accuracy': 27.392576787471835, 'classifier_accuracy': 0.0, 'alone_classifier': 22.4853515625, 'validation_loss': 12.78612494468689, 'n_experts': 10, 'expert_0': 27.546283543387247, 'expert_1': 0.0, 'expert_2': 21.712524946467923, 'expert_3': 49.999375007812404, 'expert_4': 24.99982142984693, 'expert_5': 29.93347451585931, 'expert_6': 27.47246709347891, 'expert_7': 27.404337661977735, 'expert_8': 28.008287133490814, 'expert_9': 26.17923910867002}
+Saving the model with classifier accuracy 0.0
+Epoch: [1][0/43]	Time 0.949 (0.949)	Loss 12.8342 (12.8342)	Prec@1 0.000 (0.000)
+Epoch: [1][10/43]	Time 0.938 (0.941)	Loss 12.6046 (12.6981)	Prec@1 0.098 (0.053)
+Epoch: [1][20/43]	Time 0.933 (0.940)	Loss 12.2401 (12.5634)	Prec@1 0.000 (0.047)
+Epoch: [1][30/43]	Time 0.944 (0.939)	Loss 12.1298 (12.4527)	Prec@1 1.367 (0.110)
+Epoch: [1][40/43]	Time 0.939 (0.941)	Loss 11.8783 (12.3610)	Prec@1 1.562 (0.438)
+{'coverage': '103 out of4096', 'system_accuracy': 27.05078125, 'expert_accuracy': 26.170797587237786, 'classifier_accuracy': 61.1649891602047, 'alone_classifier': 32.763671875, 'validation_loss': 11.94078016281128, 'n_experts': 10, 'expert_0': 24.2811346446424, 'expert_1': 30.714263775525875, 'expert_2': 24.92667159726006, 'expert_3': 32.217564234989055, 'expert_4': 21.32130851573062, 'expert_5': 25.170056612219224, 'expert_6': 26.785618622790633, 'expert_7': 25.245885084665517, 'expert_8': 25.597742447892422, 'expert_9': 22.379023234264825}
+Saving the model with classifier accuracy 61.1649891602047
+Epoch: [2][0/43]	Time 0.947 (0.947)	Loss 11.9228 (11.9228)	Prec@1 1.172 (1.172)
+Epoch: [2][10/43]	Time 0.933 (0.941)	Loss 11.9838 (11.9621)	Prec@1 2.148 (1.855)
+Epoch: [2][20/43]	Time 0.937 (0.940)	Loss 11.7970 (11.9054)	Prec@1 1.367 (1.935)
+Epoch: [2][30/43]	Time 0.939 (0.940)	Loss 11.6954 (11.8457)	Prec@1 1.270 (2.278)
+Epoch: [2][40/43]	Time 0.939 (0.939)	Loss 11.6522 (11.8060)	Prec@1 3.223 (2.282)
+{'coverage': '434 out of4096', 'system_accuracy': 29.248046875, 'expert_accuracy': 24.358272836795585, 'classifier_accuracy': 70.5068961965677, 'alone_classifier': 39.5751953125, 'validation_loss': 11.553420543670654, 'n_experts': 10, 'expert_0': 20.12986141564441, 'expert_1': 27.12763071528647, 'expert_2': 17.05880346023122, 'expert_3': 26.304790686934993, 'expert_4': 24.25196086552414, 'expert_5': 23.046856994642972, 'expert_6': 27.061841720700144, 'expert_7': 25.818163041335968, 'expert_8': 30.555540123464585, 'expert_9': 20.09684256811498}
+Saving the model with classifier accuracy 70.5068961965677
+Epoch: [3][0/43]	Time 1.163 (1.163)	Loss 11.6627 (11.6627)	Prec@1 5.176 (5.176)
+Epoch: [3][10/43]	Time 1.144 (1.152)	Loss 11.4790 (11.5638)	Prec@1 6.836 (5.007)
+Epoch: [3][20/43]	Time 1.144 (1.148)	Loss 11.3904 (11.4604)	Prec@1 6.348 (5.366)
+Epoch: [3][30/43]	Time 1.144 (1.147)	Loss 11.3685 (11.4218)	Prec@1 6.934 (5.680)
+Epoch: [3][40/43]	Time 1.150 (1.148)	Loss 11.0885 (11.3967)	Prec@1 8.594 (6.052)
+{'coverage': '580 out of4096', 'system_accuracy': 33.5205078125, 'expert_accuracy': 25.369736895919402, 'classifier_accuracy': 82.93102018430687, 'alone_classifier': 48.5595703125, 'validation_loss': 11.048314332962036, 'n_experts': 10, 'expert_0': 22.383707916448884, 'expert_1': 25.330385317010872, 'expert_2': 24.471284307381083, 'expert_3': 34.908118158468156, 'expert_4': 25.19684047368485, 'expert_5': 23.97474828091591, 'expert_6': 27.86882961571343, 'expert_7': 20.647756560521003, 'expert_8': 27.35041176614714, 'expert_9': 19.764000139232955}
+Saving the model with classifier accuracy 82.93102018430687
+Epoch: [4][0/43]	Time 1.142 (1.142)	Loss 11.0376 (11.0376)	Prec@1 10.449 (10.449)
+Epoch: [4][10/43]	Time 1.147 (1.146)	Loss 10.9055 (11.0309)	Prec@1 10.449 (10.982)
+Epoch: [4][20/43]	Time 1.143 (1.144)	Loss 10.8705 (10.9752)	Prec@1 14.062 (11.096)
+Epoch: [4][30/43]	Time 1.141 (1.144)	Loss 10.7614 (10.9479)	Prec@1 17.578 (12.831)
