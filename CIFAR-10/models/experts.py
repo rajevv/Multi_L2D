@@ -69,7 +69,7 @@ class synth_expert2:
 				if coin_flip == 1:
 					outs[i] = labels[i][0].item()
 				if coin_flip == 0:
-					outs[i] = random.randint(0, self.n_classes - 1)
+					outs[i] = random.choice(list(set(range(self.n_classes)) - set(self.S)))
 			else:
 				coin_flip = np.random.binomial(1, self.p_out)
 				if coin_flip == 1:

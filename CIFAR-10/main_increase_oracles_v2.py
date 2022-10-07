@@ -316,14 +316,15 @@ def increaseOracles(config):
 
 	
 	
-	for seed in [ 948,  625,  436,  791, 1750]: #,  812, 1331, 1617,  650, 1816]:
+	for seed in [ 948,  625,  436]: #,  791, 1750]: #,  812, 1331, 1617,  650, 1816]:
 		set_seed(seed)
 
 		# for logging
 		log = {'oracles_classes' : {},
 			'oracles_positions': {}}
 
-		for k in range(config["n_classes"]):
+		for k in [1,3,5,7,9]:
+			k_experts = k+1
 			# randomly sample classes on which oracles operate: S is a list
 			S = random.sample(range(config["n_classes"]), number_oracle_classes)
 
@@ -349,7 +350,7 @@ def increaseOracles(config):
 			expert_fn_oracle = getattr(expert_oracle, 'predict_prob_cifar_2')
 
 			# randomly select positions of the oracle experts
-			idx = random.sample(range(num_experts), k)
+			idx = random.sample(range(num_experts), k_experts)
 			# add oracle experts
 			#expert_fns[idx] = expert_fn
 
