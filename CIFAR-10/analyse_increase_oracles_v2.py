@@ -170,7 +170,7 @@ if __name__ == "__main__":
     import json
 
 
-    for seed in [625, 436, 791]: #,436,  791, 1750]:
+    for seed in [625, 436, 948]: #,436,  791, 1750]:
         set_seed(seed)
         # save the log dict
         load_path = os.path.join(config["ckp_dir"],config["experiment_name"] + \
@@ -178,7 +178,7 @@ if __name__ == "__main__":
         with open(load_path + '.json', "r") as f:
                 log = json.load(f)
         print("log is of type {}".format(type(log)))
-        for k in range(config["n_classes"]):
+        for k in [1,3,5,7,9]:
 
             S = log['oracles_classes'][str(k)]
             idx = log['oracles_positions'][str(k)]
