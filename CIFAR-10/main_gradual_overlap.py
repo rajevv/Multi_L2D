@@ -315,7 +315,7 @@ def gradualOverlapping(config):
     p_outs = [0.1, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
     
 
-    for seed in [948,  625, 436,  791, 1750]:
+    for seed in [948,  625, 436]: #,  791, 1750]:
         set_seed(seed)
         for p_out in p_outs:
             print("p_out is {}".format(p_out))

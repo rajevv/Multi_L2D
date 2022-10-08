@@ -158,19 +158,19 @@ if __name__ == "__main__":
     num_experts = 10
     p_out = 1/9
 
-    for seed in [948]: #, 625]: #,436,  791, 1750]:
+    for seed in [948, 436, 791, 1750]: #, 625]: #,436,  791, 1750]:
         for k in range(config["n_classes"]):
             expert_fns = []
             # Expert ===
             # an expert who is an oracle on the kth class with prob_in 0.95
-            expert_oracle = synth_expert2(k, k+1, config["n_classes"], p_in = 0.95, p_out = p_out)
+            expert_oracle = synth_expert2(k1=0, k2=k+1, n_classes=config["n_classes"], p_in = 0.95, p_out = p_out)
             expert_fn = getattr(expert_oracle, 'predict_prob_cifar')
 
             # have k of such experts
             expert_fns.extend([expert_fn]*(k+1))
 
             # remaning 10 - k experts are random
-            expert_notOracle = synth_expert2(k, k+1, config["n_classes"], p_in=0.1, p_out = p_out)
+            expert_notOracle = synth_expert2(k1=0, k2=k+1, n_classes=config["n_classes"], p_in=0.1, p_out = p_out)
 
             expert_fn = getattr(expert_notOracle, 'predict_prob_cifar')
             expert_fns.extend([expert_fn]*(num_experts - (k+1)))
