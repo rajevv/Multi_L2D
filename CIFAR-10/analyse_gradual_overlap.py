@@ -164,7 +164,7 @@ if __name__ == "__main__":
 	n_dataset = 10
 	p_outs = [0.1, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
 
-	for seed in [948,  625, 436,  791, 1750]:
+	for seed in [948,  625, 436]: #,  791, 1750]:
 		set_seed(seed)
 		for p_out in p_outs:
 			expert_fns = []
