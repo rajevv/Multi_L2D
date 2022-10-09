@@ -190,7 +190,8 @@ if __name__ == '__main__':
 
     # Process Results ===
     exp_args = {"n_experts": 10,
-                "n_classes": 10}
+                "n_classes": 10,
+                "ensemble_size": 5}
     conformal.process_conformal_results(ova_results, exp_list, exp_args, cal_percent=0.8, alpha=0.1)
 
 

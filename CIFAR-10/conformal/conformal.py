@@ -6,6 +6,13 @@ import matplotlib.pyplot as plt
 import torch.nn as nn
 
 from scipy import stats
+
+# Global variables ===
+metric_methods = ["standard",  # standard L2D
+                  "last", "random", "voting",  # conformal-based
+                  "ensemble"]  # basic fixed-size ensemble
+
+
 # Load results functions ===
 def load_results(path_confidence, path_experts, path_labels, model_name, seeds, exp_list, method="ova"):
     results = dict.fromkeys(seeds)
@@ -51,7 +58,8 @@ def load_results(path_confidence, path_experts, path_labels, model_name, seeds, 
         return results
 
 
-def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alpha=0.1):
+def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alpha=0.1,
+                              metric_methods=metric_methods):
     seeds = results.keys()
     metrics = dict.fromkeys(seeds)
 
@@ -62,8 +70,9 @@ def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alph
 
     for seed in seeds:
         seed_dict = results[seed]  # confs, exps, true
-        k_dict = {}
         for k, exp in enumerate(exp_list):
+            k_dict = {}
+
             confs_k = seed_dict["confs"][k]
             exps_k = seed_dict["exps"][k]
             true_k = seed_dict["true"][k]
@@ -89,22 +98,189 @@ def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alph
             k_dict["idx_cal"] = idx_test
 
             # Model Coverage (non-deferred)
-            k_dict["coverage_cal"] = (r[idx_cal] == 0).sum()/ n_cal
+            k_dict["coverage_cal"] = (r[idx_cal] == 0).sum() / n_cal
             k_dict["coverage_test"] = (r[idx_test] == 0).sum() / n_test
 
             # 2. Calculate Qhat on calibration
             qhat_k = get_qhat(confs_k, exps_k, true_k, r, idx_cal, n_classes, alpha=0.1)
             k_dict["qhat"] = qhat_k
 
-            # TODO. WIP
+            # 3. Get metrics
 
-
-
+            for method in metric_methods:
+                metrics_dict = get_metrics(confs_k, exps_k, true_k, r, idx_test, n_classes, qhat=qhat_k, args=exp_args,
+                                           method=method)
+                k_dict[method] = metrics_dict
+            metrics[seed] = k_dict
 
     return
 
 
+def get_metrics(confs, exps, true, deferral, idx_test, n_classes, qhat, args, method="standard"):
+    # Init Metrics
+    correct = 0
+    correct_sys = 0
+    exp = 0
+    alone_correct = 0
+
+    # Test ===
+    confs_test = confs[idx_test]  # model + experts
+    confs_experts_test = confs_test[:, n_classes:]  # experts
+    experts_test = [np.array(exp)[idx_test].tolist() for exp in exps]
+    true_test = torch.tensor(true)[idx_test]
+    r_test = deferral[idx_test]
+    N_test = len(r_test)
+
+    # Individual Expert Accuracies === # TODO
+    expert_correct_dic = {k: 0 for k in range(len(experts_test))}
+    expert_total_dic = {k: 0 for k in range(len(experts_test))}
+
+    # Predicted value
+    _, predicted = torch.max(confs_test.data, 1)
+    _, model_prediction = torch.max(confs_test.data[:, :n_classes], 1)
+
+    # r == 0 -> Not deferred ===========
+    # Classifier alone ===
+    alone_correct += (model_prediction[~r_test] == true_test[~r_test]).sum()
+    correct_sys += alone_correct  # for non-deferred samples
+    correct += alone_correct
+
+    # r == 1 -> Deferred ===========
+    # Filter by deferred
+    experts_r_test = np.array(experts_test).T
+    experts_r_test = experts_r_test[r_test]
+    # confs_experts_r_test = confs_experts_test[r_test]
+
+    conformal_dict = {}
+    # Non Conformal prediction ===
+    if method == "standard":
+        exp_prediction = predicted[r_test] - n_classes
+
+    # Conformal prediction ===
+    if method in ["voting", "last", "random"]:
+        experts_conformal_mask, experts_conformal_sets = get_conformal_set(confs_experts_test[r_test], qhat=qhat)
+        exp_prediction = get_expert_prediction(experts_r_test, experts_conformal_mask, method=method)
+        set_sizes = experts_conformal_mask.sum(axis=1)
+        avg_set_size = set_sizes.numpy().mean()
+        conformal_dict["set_sizes"] = set_sizes,
+        conformal_dict["avg_set_size"] = avg_set_size
+
+    # Naive Top-k ensemble, without conformal
+    if method == "ensemble":
+        exp_prediction, experts_ensemble_sets = get_fixed_ensemble(experts_r_test, confs_experts_test[r_test],
+                                                                   ensemble_size=args["ensemble_size"])
+
+    # Deferral accuracy: No matter expert ===
+    exp += (exp_prediction == true_test[r_test]).sum()
+
+    # Individual Expert Accuracy ===  # TODO
+    # expert_correct_dic[deferred_exp] += (exp_prediction == labels[i].item())
+    # expert_total_dic[deferred_exp] += 1
+
+    # Total system accuracy
+    correct_sys += (exp_prediction == true_test[r_test]).sum()
+
+    # Metrics dict ===
+    metrics_dict = {"alone_classifier": alone_correct / N_test,  # clf. acc. w.r.t all samples
+                    "classifier_accuracy": correct / ((~r_test).sum() + 0.00001),  # acc. only for non-deferred samples
+                    "expert_accuracy": exp / (r_test.sum() + 0.00001),  # on deferred samples
+                    "system_accuracy": correct_sys / N_test,  # on all samples
+                    **conformal_dict}  # for conformal methods
+
+    return metrics_dict
+
+
+# Obtain deferral r ===
+def get_deferral(probs, n_classes_exp, n_experts):
+    _, predicted = torch.max(probs.data, 1)
+    r = (predicted >= n_classes_exp - n_experts)
+    return r
+
+
+# Ensemble functions ===
+def get_expert_prediction(experts_pred, experts_conformal_mask, method="voting", ensemble_size=5):
+    r"""
+
+    Args:
+        experts:
+        prediction_set_i:
+        method:
+
+    Returns:
+
+    """
+    N = len(experts_pred)
+    ensemble_exp_pred = [experts_pred[i, experts_conformal_mask[i]] for i in range(N)]
+
+    ensemble_final_pred = []
+    for ensemble_exp_pred_i in ensemble_exp_pred:
+
+        # If no set, wrong label.
+        if len(ensemble_exp_pred_i) == 0:
+            pred_i = -1
+        else:
+            # Last ===
+            if method == "last":
+                pred_i = ensemble_exp_pred_i[-1]
+
+            # Random ===
+            if method == "random":
+                idx = np.random.randint(len(ensemble_exp_pred_i))
+                pred_i = ensemble_exp_pred_i[idx]
+
+            # Top-k ensemble ===
+            if method == "ensemble":
+                pred_i = ensemble_exp_pred_i[:ensemble_size]  # top-K.
+
+            # Majority Voting ===
+            if method == "voting":
+                pred_i = torch.mode(torch.tensor(ensemble_exp_pred_i))[0]
+        ensemble_final_pred.append(pred_i)
+    return torch.tensor(ensemble_final_pred)
+
+
+def get_fixed_ensemble(experts_pred, confs_exp, ensemble_size=5):
+    r"""
+
+    Args:
+        experts_pred:
+        confs_exp:
+        ensemble_size:
+
+    Returns:
+        prediction: Final prediction as the mode of all the experts in the ensemble.
+        pi[:ensemble_size]: Expert belonging to the ensemble.
+    """
+    # Sort and get top-K ensemble prediction
+    sort, pi = confs_exp.sort(descending=True)
+
+    # Expert prediction from ensemble
+    experts_pred_final = np.array([experts_pred[i, pi[i, :ensemble_size]] for i in range(len(pi))])
+    prediction = torch.mode(torch.tensor(experts_pred_final))[0]
+    return prediction, pi[:ensemble_size]
+
+
+# ======================================= #
+# ====== Naive Conformal Inference ====== #
+# ======================================= #
+
+
 def get_qhat(confs, exps, true, deferral, idx_cal, n_classes, alpha=0.1):
+    r"""
+    Obtain conformal quantile for a multi-expert scenario.
+    We add to the conformal set until ALL correct experts are included.
+    Args:
+        confs:
+        exps:
+        true:
+        deferral:
+        idx_cal:
+        n_classes:
+        alpha:
+
+    Returns:
+
+    """
     # Val/Calibration ===
     confs_experts_cal = confs[idx_cal, n_classes:]
     experts_cal = [np.array(exp)[idx_cal].tolist() for exp in exps]
@@ -144,49 +320,14 @@ def get_qhat(confs, exps, true, deferral, idx_cal, n_classes, alpha=0.1):
     return qhat
 
 
-def get_deferral(probs, n_classes_exp, n_experts):
-    _, predicted = torch.max(probs.data, 1)
-    r = (predicted >= n_classes_exp - n_experts)
-    return r
-
-# Ensemble functions ===
-# def get_expert_prediction(experts, prediction_set_i, method="voting"):  # TODO: Debug and prepare correectly.
-#     r"""
-#
-#     Args:
-#         experts:
-#         prediction_set_i:
-#         method:
-#
-#     Returns:
-#
-#     """
-#     ensemble_expert_pred_i = np.array(experts)[prediction_set_i][:, i]
-#     # Last ===
-#     if method == "last":
-#         exp_prediction = ensemble_expert_pred_i[-1] if len(ensemble_expert_pred_i) != 0 else []
-#
-#     # Random ===
-#     if method == "random":
-#         idx = np.random.randint(len(ensemble_expert_pred_i)) if len(ensemble_expert_pred_i) != 0 else -1
-#         exp_prediction = ensemble_expert_pred_i[idx] if idx != -1 else []
-#
-#     # Fixed-size ensemble ===
-#     if method == "ensemble":
-#         # exp_prediction = # TODO
-#
-#     # Majority Voting ===
-#     if method == "voting":
-#         exp_prediction = stats.mode(ensemble_expert_pred_i).mode if len(ensemble_expert_pred_i) != 0 else []
-#
-#     return exp_prediction
-
-
-# ======================================= #
-# ====== Naive Conformal Inference ====== #
-# ======================================= #
-
-
+def get_conformal_set(confs_exp, qhat):
+    # Sort J model outputs for experts. sorted probs and sorted indexes
+    sort, pi = confs_exp.sort(descending=True)
+    # Conformal set mask
+    conformal_mask = (sort.cumsum(dim=1) <= qhat)
+    # Get last sorted index to be below Q_hat
+    prediction_set = [pi[i, conformal_mask[i]] for i in range(len(pi))]
+    return conformal_mask, prediction_set
 
 
 # ======================================= #
@@ -314,5 +455,3 @@ def pick_parameters(calibration_probs, gt_labels, prop=0.3, alpha=0.1):
     betastar = get_betaparam(paramtune_probs, paramtune_gt_labels, kstar, alpha)
 
     return kstar, betastar, calib_probs, calib_gt_labels
-
-
