@@ -16,6 +16,20 @@ metric_methods = ["standard",  # standard L2D
 
 # Load results functions ===
 def load_results(path_confidence, path_experts, path_labels, model_name, seeds, exp_list, method="ova"):
+    r"""
+    Load results.
+    Args:
+        path_confidence: Path from the confidence values.
+        path_experts: Path from the expert values.
+        path_labels: Path from the expert values.
+        model_name: Model name in the appropriate format.
+        seeds: List containing the seeds.
+        exp_list: List containing the experiment values ,e.g. prob_out = [0.1, 0.2, 0.3, ...]
+        method: OvA or Softmax method.
+
+    Returns:
+        results: Dict containing confidences, expert predictions and true labels.
+    """
     results = dict.fromkeys(seeds)
     print("\nLoad {} results".format(method))
     for seed in tqdm(seeds):
@@ -140,8 +154,8 @@ def get_metrics(confs, exps, true, deferral, idx_test, n_classes, qhat, args, me
     N_test = len(r_test)
 
     # Individual Expert Accuracies === # TODO
-    expert_correct_dic = {k: 0 for k in range(len(experts_test))}
-    expert_total_dic = {k: 0 for k in range(len(experts_test))}
+    # expert_correct_dic = {k: 0 for k in range(len(experts_test))}
+    # expert_total_dic = {k: 0 for k in range(len(experts_test))}
 
     # Predicted value
     _, predicted = torch.max(confs_test.data, 1)
@@ -157,24 +171,25 @@ def get_metrics(confs, exps, true, deferral, idx_test, n_classes, qhat, args, me
     # Filter by deferred
     experts_r_test = np.array(experts_test).T
     experts_r_test = experts_r_test[r_test]
-    # confs_experts_r_test = confs_experts_test[r_test]
 
-    conformal_dict = {}
     # Non Conformal prediction ===
-    if method == "standard":
+    if method == "standard":  # Top-1
         top1_experts = predicted[r_test] - n_classes
         exp_prediction = torch.tensor([experts_r_test[i, top1] for i, top1 in enumerate(top1_experts)])
 
     # Conformal prediction ===
+    conformal_dict = {}
     if method in ["voting", "last", "random"]:
         experts_conformal_mask, experts_conformal_sets = get_conformal_set(confs_experts_test[r_test], qhat=qhat)
         exp_prediction = get_expert_prediction(experts_r_test, experts_conformal_mask, method=method)
+
+        # Conformal set sizes
         set_sizes = experts_conformal_mask.sum(axis=1)
         avg_set_size = set_sizes.numpy().mean()
         conformal_dict["set_sizes"] = set_sizes,
         conformal_dict["avg_set_size"] = avg_set_size
 
-    # Naive Top-k ensemble, without conformal
+    # Naive Top-k ensemble, without conformal ====
     if method == "ensemble":
         exp_prediction, experts_ensemble_sets = get_fixed_ensemble(experts_r_test, confs_experts_test[r_test],
                                                                    ensemble_size=args["ensemble_size"])
@@ -201,6 +216,16 @@ def get_metrics(confs, exps, true, deferral, idx_test, n_classes, qhat, args, me
 
 # Obtain deferral r ===
 def get_deferral(probs, n_classes_exp, n_experts):
+    r"""
+    Obtain deferral vector, with 1 indicating deferred samples to expert.
+    Args:
+        probs:
+        n_classes_exp: Number of classes + number of experts.
+        n_experts: Number of experts.
+
+    Returns:
+        r: Deferral vector.
+    """
     _, predicted = torch.max(probs.data, 1)
     r = (predicted >= n_classes_exp - n_experts)
     return r
@@ -209,14 +234,18 @@ def get_deferral(probs, n_classes_exp, n_experts):
 # Ensemble functions ===
 def get_expert_prediction(experts_pred, experts_conformal_mask, method="voting", ensemble_size=5):
     r"""
-
+    Obtain a vector with the expert
     Args:
-        experts:
-        prediction_set_i:
-        method:
-
+        experts_pred: Experts predictions.
+        experts_conformal_mask: Boolean mask indicating the experts in the conformal set.
+        method: Ensemble method. It can be:
+            - voting: majority voting among experts.
+            - random: pick random expert from conformal set.
+            - last: take last expert from the conformal set. It will be the worst one.
+            - ensemble: take a fixed-size ensemble from the conformal expert set. If ensemble>size_conf_set, take whole
+                conformal set.
     Returns:
-
+        ensemble_final_pred: Tensor with the final expert prediction after the appropriate method.
     """
     N = len(experts_pred)
     ensemble_exp_pred = [experts_pred[i, experts_conformal_mask[i]] for i in range(N)]
@@ -250,11 +279,12 @@ def get_expert_prediction(experts_pred, experts_conformal_mask, method="voting",
 
 def get_fixed_ensemble(experts_pred, confs_exp, ensemble_size=5):
     r"""
-
+    Naive ensemble method where we sort the experts according to the confidences of the output model and pick the top-k
+    experts, where k is the ensemble size.
     Args:
-        experts_pred:
-        confs_exp:
-        ensemble_size:
+        experts_pred: Expert predictions.
+        confs_exp: Confidences output from the model for the experts.
+        ensemble_size: Size of the ensemble k.
 
     Returns:
         prediction: Final prediction as the mode of all the experts in the ensemble.
@@ -279,16 +309,16 @@ def get_qhat(confs, exps, true, deferral, idx_cal, n_classes, alpha=0.1):
     Obtain conformal quantile for a multi-expert scenario.
     We add to the conformal set until ALL correct experts are included.
     Args:
-        confs:
-        exps:
-        true:
-        deferral:
-        idx_cal:
-        n_classes:
-        alpha:
+        confs: Confidence values from the model.
+        exps: Expert predictions.
+        true: Ground truth labels.
+        deferral: Deferral boolean vector indicating deferred samples to experts.
+        idx_cal: indexes for the calibration values.
+        n_classes: Number of classes for the dataset.
+        alpha: alpha value for the calculation of the quantile in the  conformal prediction.
 
     Returns:
-
+        qhat: Conformal quantile.
     """
     # Val/Calibration ===
     confs_experts_cal = confs[idx_cal, n_classes:]
@@ -330,6 +360,16 @@ def get_qhat(confs, exps, true, deferral, idx_cal, n_classes, alpha=0.1):
 
 
 def get_conformal_set(confs_exp, qhat):
+    r"""
+    Obtain conformal mask indicating which experts are in the conformal set, and the conformal set.
+    Args:
+        confs_exp: Confidences output from the model for the experts.
+        qhat: Conformal quantile.
+
+    Returns:
+        conformal_mask: Boolean mask indicating the experts in the conformal set.
+        prediction_set: List with the conformal sets with the final experts.
+    """
     # Sort J model outputs for experts. sorted probs and sorted indexes
     sort, pi = confs_exp.sort(descending=True)
     # Conformal set mask
