@@ -1,4 +1,24 @@
 import numpy as np
+import json
+
+
+# Json functions ===
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
+
+
+def save_dict_as_txt(dict, path):
+    with open(path, 'w') as f:
+        json.dump(json.dumps(dict, cls=NumpyEncoder), f)
+
+
+def load_dict_txt(path):
+    with open(path, 'r') as f:
+        dict = json.loads(json.load(f))
+    return dict
 
 
 def get_metric(results, seeds_list, exp_list, metric, method):
@@ -25,13 +45,13 @@ def get_metric(results, seeds_list, exp_list, metric, method):
     return metric_np
 
 
-def get_accuracies(results):
-    pass
-
-
-def get_coverage():
-    pass
-
-
-def get_avg_set_sizes():
-    pass
+# def get_accuracies(results):
+#     pass
+#
+#
+# def get_coverage():
+#     pass
+#
+#
+# def get_avg_set_sizes():
+#     pass
