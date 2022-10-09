@@ -6,15 +6,19 @@ import matplotlib.pyplot as plt
 import torch.nn as nn
 
 from scipy import stats
-
-# === Naïve Conformal Inference === #
 # Ensemble functions ===
-def get_expert_prediction(experts, prediction_set_i, method="voting"):  # TODO: Debug and prepare correectly. 
-    ensemble_expert_pred_i = np.array(experts)[prediction_set_i][:, i]
-    # Voting ===
-    if method == "voting":
-        exp_prediction = stats.mode(ensemble_expert_pred_i).mode if len(ensemble_expert_pred_i) != 0 else []
+def get_expert_prediction(experts, prediction_set_i, method="voting"):  # TODO: Debug and prepare correectly.
+    r"""
 
+    Args:
+        experts:
+        prediction_set_i:
+        method:
+
+    Returns:
+
+    """
+    ensemble_expert_pred_i = np.array(experts)[prediction_set_i][:, i]
     # Last ===
     if method == "last":
         exp_prediction = ensemble_expert_pred_i[-1] if len(ensemble_expert_pred_i) != 0 else []
@@ -24,7 +28,22 @@ def get_expert_prediction(experts, prediction_set_i, method="voting"):  # TODO: 
         idx = np.random.randint(len(ensemble_expert_pred_i)) if len(ensemble_expert_pred_i) != 0 else -1
         exp_prediction = ensemble_expert_pred_i[idx] if idx != -1 else []
 
+    # Fixed-size ensemble ===
+    if method == "ensemble":
+        # exp_prediction = # TODO
+
+    # Majority Voting ===
+    if method == "voting":
+        exp_prediction = stats.mode(ensemble_expert_pred_i).mode if len(ensemble_expert_pred_i) != 0 else []
+
     return exp_prediction
+
+# ======================================= #
+# ====== Naive Conformal Inference ====== #
+# ======================================= #
+
+
+
 
 # ======================================= #
 # === Regularized Conformal Inference === #
