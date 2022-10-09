@@ -3,7 +3,6 @@ import sys
 sys.path.append("../")  # append for conformal function
 from conformal import conformal
 
-
 # n_val = int(0.8 * len(true[0]))
 # n_test = len(true[0]) - n_val
 # print("N val:{}".format(n_val))
@@ -172,6 +171,10 @@ from conformal import conformal
 
 #
 if __name__ == '__main__':
+    # Process Results ===
+    experiment_args = {"n_experts": 10,
+                       "n_classes": 10,
+                       "ensemble_size": 5}
 
     # =========== #
     # === OvA === #
@@ -189,11 +192,8 @@ if __name__ == '__main__':
                                          seeds, exp_list, method="ova")
 
     # Process Results ===
-    exp_args = {"n_experts": 10,
-                "n_classes": 10,
-                "ensemble_size": 5}
-    conformal.process_conformal_results(ova_results, exp_list, exp_args, cal_percent=0.8, alpha=0.1)
-
+    ova_metrics = conformal.process_conformal_results(ova_results, exp_list, experiment_args, cal_percent=0.8,
+                                                      alpha=0.1)
 
     # =============== #
     # === Softmax === #
@@ -209,4 +209,6 @@ if __name__ == '__main__':
 
     softmax_results = conformal.load_results(path_confidence_softmax, path_experts_softmax, path_labels_softmax,
                                              model_name, seeds, exp_list, method="softmax")
-
+    # Process Results ===
+    softmax_metrics = conformal.process_conformal_results(softmax_results, exp_list, experiment_args, cal_percent=0.8,
+                                                          alpha=0.1)
