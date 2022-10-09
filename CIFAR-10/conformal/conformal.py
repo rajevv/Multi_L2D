@@ -6,37 +6,181 @@ import matplotlib.pyplot as plt
 import torch.nn as nn
 
 from scipy import stats
+# Load results functions ===
+def load_results(path_confidence, path_experts, path_labels, model_name, seeds, exp_list, method="ova"):
+    results = dict.fromkeys(seeds)
+    for seed in seeds:
+        # === OvA ===
+        confs = []
+        exps = []
+        true = []
+
+        for exp in exp_list:
+            model_name = model_name.format(exp)  # model name for each specific experiment, .e.g  '_p_out_0.9'
+            seed_path = "_seed_{}".format(seed)
+            # Load ===
+            full_conf_path = path_confidence + model_name + seed_path + '.txt'
+            with open(full_conf_path, 'r') as f:
+                conf = json.loads(json.load(f))
+
+            full_experts_path = path_experts + model_name + seed_path + '.txt'
+            with open(full_experts_path, 'r') as f:
+                exp_pred = json.loads(json.load(f))
+
+            full_true_path = path_labels + model_name + seed_path + '.txt'
+            with open(full_true_path, 'r') as f:
+                true_label = json.loads(json.load(f))
+
+            true.append(true_label['test'])
+            exps.append(exp_pred['test'])
+            c = torch.tensor(conf['test'])
+            if method == "ova":
+                # logits to probs OvA -> sigmoid
+                c = c.sigmoid()
+            elif method == "softmax":
+                # logits to probs Softmax -> Softmax
+                c = c.softmax(dim=1)
+            confs.append(c)
+
+        seed_result = {"confs": confs,
+                       "exps": exps,
+                       "true": true
+                       }
+        # Fill dict for seed
+        results[seed] = seed_result
+        return results
+
+
+def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alpha=0.1):
+    seeds = results.keys()
+    metrics = dict.fromkeys(seeds)
+
+    # Params ===
+    n_classes = exp_args["n_classes"]
+    n_experts = exp_args["n_experts"]
+    n_classes_exp = n_classes + n_experts
+
+    for seed in seeds:
+        seed_dict = results[seed]  # confs, exps, true
+        k_dict = {}
+        for k, exp in enumerate(exp_list):
+            confs_k = seed_dict["confs"][k]
+            exps_k = seed_dict["exps"][k]
+            true_k = seed_dict["true"][k]
+
+            # 1. Split Calibration / Test ===
+            n_cal = int(cal_percent * len(true_k))
+            n_test = len(true_k) - n_cal
+
+            # for shuffling
+            idx = np.array([1] * n_cal + [0] * (len(true_k) - n_cal)) > 0
+            assert int(sum(idx)) == n_cal
+            np.random.shuffle(idx)
+
+            idx_cal = idx
+            idx_test = ~idx
+
+            # 2. Get deferral ===
+            r = get_deferral(confs_k, n_classes_exp, n_experts)
+
+            # Deferral
+            k_dict["deferral"] = r
+            k_dict["idx_cal"] = idx_cal
+            k_dict["idx_cal"] = idx_test
+
+            # Model Coverage (non-deferred)
+            k_dict["coverage_cal"] = (r[idx_cal] == 0).sum()/ n_cal
+            k_dict["coverage_test"] = (r[idx_test] == 0).sum() / n_test
+
+            # 2. Calculate Qhat on calibration
+            qhat_k = get_qhat(confs_k, exps_k, true_k, r, idx_cal, n_classes, alpha=0.1)
+            k_dict["qhat"] = qhat_k
+
+            # TODO. WIP
+
+
+
+
+    return
+
+
+def get_qhat(confs, exps, true, deferral, idx_cal, n_classes, alpha=0.1):
+    # Val/Calibration ===
+    confs_experts_cal = confs[idx_cal, n_classes:]
+    experts_cal = [np.array(exp)[idx_cal].tolist() for exp in exps]
+    true_cal = np.array(true)[idx_cal].astype(list)
+    r_cal = deferral[idx_cal]
+
+    # Calculate Q_hat ===
+    # Only on deferred samples !
+    confs_experts_cal = confs_experts_cal[r_cal]
+    experts_cal = [np.array(exp)[r_cal] for exp in experts_cal]
+    true_cal = np.array(true_cal)[r_cal]
+
+    # Model expert probs ===
+    # Sort J model outputs for experts
+    sort, pi = confs_experts_cal.sort(dim=1, descending=True)
+
+    # Correctness experts ===
+    # Check if experts are correct
+    correct_exp = (np.array(experts_cal) == np.array(true_cal)).T
+    # idx for correct experts: [[0,1,2], [1,2], [], ...]
+    correct_exp_idx = [np.where(correct_exp_i)[0] for correct_exp_i in correct_exp]
+
+    # obtain the last expert to be retrieved. If empty, then add all values.
+    # indexes are not the real expert index, but the sorted indexes, e.g. [[1, 0 ,2],  [1,0], [], ...]
+    pi_corr_exp = [confs_experts_cal[i, corr_exp].sort(descending=True)[1] for i, corr_exp in enumerate(correct_exp)]
+    pi_corr_exp_stop = [pi_corr_exp_i[-1] if len(pi_corr_exp_i) != 0 else -1 for pi_corr_exp_i in
+                        pi_corr_exp]  # last expert
+
+    # obtain real expert index back, e.g. [2,1,-1,...]
+    pi_stop = [correct_exp_idx[i][pi_corr_exp_stop_i] if len(correct_exp_idx[i]) != 0 else -1 for i, pi_corr_exp_stop_i
+               in enumerate(pi_corr_exp_stop)]
+
+    # Obtain quantile
+    scores = sort.cumsum(dim=1).gather(1, pi.argsort(1))[range(len(torch.tensor(pi_stop))), torch.tensor(pi_stop)]
+    n_quantile = r_cal.sum()
+    qhat = torch.quantile(scores, np.ceil((n_quantile + 1) * (1 - alpha)) / n_quantile, interpolation="higher")
+    return qhat
+
+
+def get_deferral(probs, n_classes_exp, n_experts):
+    _, predicted = torch.max(probs.data, 1)
+    r = (predicted >= n_classes_exp - n_experts)
+    return r
+
 # Ensemble functions ===
-def get_expert_prediction(experts, prediction_set_i, method="voting"):  # TODO: Debug and prepare correectly.
-    r"""
+# def get_expert_prediction(experts, prediction_set_i, method="voting"):  # TODO: Debug and prepare correectly.
+#     r"""
+#
+#     Args:
+#         experts:
+#         prediction_set_i:
+#         method:
+#
+#     Returns:
+#
+#     """
+#     ensemble_expert_pred_i = np.array(experts)[prediction_set_i][:, i]
+#     # Last ===
+#     if method == "last":
+#         exp_prediction = ensemble_expert_pred_i[-1] if len(ensemble_expert_pred_i) != 0 else []
+#
+#     # Random ===
+#     if method == "random":
+#         idx = np.random.randint(len(ensemble_expert_pred_i)) if len(ensemble_expert_pred_i) != 0 else -1
+#         exp_prediction = ensemble_expert_pred_i[idx] if idx != -1 else []
+#
+#     # Fixed-size ensemble ===
+#     if method == "ensemble":
+#         # exp_prediction = # TODO
+#
+#     # Majority Voting ===
+#     if method == "voting":
+#         exp_prediction = stats.mode(ensemble_expert_pred_i).mode if len(ensemble_expert_pred_i) != 0 else []
+#
+#     return exp_prediction
 
-    Args:
-        experts:
-        prediction_set_i:
-        method:
-
-    Returns:
-
-    """
-    ensemble_expert_pred_i = np.array(experts)[prediction_set_i][:, i]
-    # Last ===
-    if method == "last":
-        exp_prediction = ensemble_expert_pred_i[-1] if len(ensemble_expert_pred_i) != 0 else []
-
-    # Random ===
-    if method == "random":
-        idx = np.random.randint(len(ensemble_expert_pred_i)) if len(ensemble_expert_pred_i) != 0 else -1
-        exp_prediction = ensemble_expert_pred_i[idx] if idx != -1 else []
-
-    # Fixed-size ensemble ===
-    if method == "ensemble":
-        # exp_prediction = # TODO
-
-    # Majority Voting ===
-    if method == "voting":
-        exp_prediction = stats.mode(ensemble_expert_pred_i).mode if len(ensemble_expert_pred_i) != 0 else []
-
-    return exp_prediction
 
 # ======================================= #
 # ====== Naive Conformal Inference ====== #
