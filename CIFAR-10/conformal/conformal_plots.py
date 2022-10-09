@@ -21,6 +21,7 @@ fig_size = (7, 7)
 
 # === Plotting functions === #
 def plot_sys_acc(results, method_list, plot_args):
+    # TODO: Fancier plots. Seaborn
     r"""
     Plot system accuracy for one L2D formulation type.
     Args:
@@ -43,6 +44,7 @@ def plot_sys_acc(results, method_list, plot_args):
         method_acc_std = acc_np.std(axis=0)
         label = r"{}"
         ax.plot(exp_list, method_acc_mean, "-", label=label.format(method), color=cm(i), **global_plot_args)
+        plt.errorbar(exp_list, method_acc_mean, yerr=method_acc_std)
 
     plt.xticks(exp_list, exp_list)
     plt.yticks(list(plt.yticks()[0])[::2])
