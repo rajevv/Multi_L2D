@@ -4,6 +4,7 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt
 import torch.nn as nn
+from tqdm import tqdm
 
 from scipy import stats
 
@@ -55,13 +56,14 @@ def load_results(path_confidence, path_experts, path_labels, model_name, seeds, 
                        }
         # Fill dict for seed
         results[seed] = seed_result
-        return results
+
+    return results
 
 
 def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alpha=0.1,
                               metric_methods=metric_methods):
     seeds = results.keys()
-    metrics = dict.fromkeys(seeds)
+    results_dict = dict.fromkeys(seeds)
 
     # Params ===
     n_classes = exp_args["n_classes"]
@@ -70,9 +72,11 @@ def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alph
 
     for seed in seeds:
         seed_dict = results[seed]  # confs, exps, true
+
+        results_dict[seed] = dict.fromkeys(exp_list)
+
         for k, exp in enumerate(exp_list):
             k_dict = {}
-
             confs_k = seed_dict["confs"][k]
             exps_k = seed_dict["exps"][k]
             true_k = seed_dict["true"][k]
@@ -111,9 +115,9 @@ def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alph
                 metrics_dict = get_metrics(confs_k, exps_k, true_k, r, idx_test, n_classes, qhat=qhat_k, args=exp_args,
                                            method=method)
                 k_dict[method] = metrics_dict
-            metrics[seed] = k_dict
+            results_dict[seed][exp] = k_dict
 
-    return
+    return results_dict
 
 
 def get_metrics(confs, exps, true, deferral, idx_test, n_classes, qhat, args, method="standard"):
@@ -154,7 +158,9 @@ def get_metrics(confs, exps, true, deferral, idx_test, n_classes, qhat, args, me
     conformal_dict = {}
     # Non Conformal prediction ===
     if method == "standard":
-        exp_prediction = predicted[r_test] - n_classes
+        top1_experts = predicted[r_test] - n_classes
+        exp_prediction = torch.tensor([experts_r_test[i, top1] for i, top1 in enumerate(top1_experts)])
+
 
     # Conformal prediction ===
     if method in ["voting", "last", "random"]:
