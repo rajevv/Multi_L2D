@@ -39,18 +39,17 @@ def load_results(path_confidence, path_experts, path_labels, model_name, seeds, 
         true = []
 
         for exp in exp_list:
-            model_name = model_name.format(exp)  # model name for each specific experiment, .e.g  '_p_out_0.9'
             seed_path = "_seed_{}".format(seed)
             # Load ===
-            full_conf_path = path_confidence + model_name + seed_path + '.txt'
+            full_conf_path = path_confidence + model_name.format(exp) + seed_path + '.txt'
             with open(full_conf_path, 'r') as f:
                 conf = json.loads(json.load(f))
 
-            full_experts_path = path_experts + model_name + seed_path + '.txt'
+            full_experts_path = path_experts + model_name.format(exp) + seed_path + '.txt'
             with open(full_experts_path, 'r') as f:
                 exp_pred = json.loads(json.load(f))
 
-            full_true_path = path_labels + model_name + seed_path + '.txt'
+            full_true_path = path_labels + model_name.format(exp)+ seed_path + '.txt'
             with open(full_true_path, 'r') as f:
                 true_label = json.loads(json.load(f))
 
@@ -65,6 +64,7 @@ def load_results(path_confidence, path_experts, path_labels, model_name, seeds, 
                 c = c.softmax(dim=1)
             confs.append(c)
 
+            # Reset model name?
         seed_result = {"confs": confs,
                        "exps": exps,
                        "true": true
