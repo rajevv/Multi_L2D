@@ -17,7 +17,8 @@ metric_methods = ["standard",  # standard L2D
 # Load results functions ===
 def load_results(path_confidence, path_experts, path_labels, model_name, seeds, exp_list, method="ova"):
     results = dict.fromkeys(seeds)
-    for seed in seeds:
+    print("\nLoad {} results".format(method))
+    for seed in tqdm(seeds):
         # === OvA ===
         confs = []
         exps = []
@@ -71,11 +72,14 @@ def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alph
     n_classes_exp = n_classes + n_experts
 
     for seed in seeds:
+        print("\n============================")
+        print("\nResults Seed {}".format(seed))
+        print("\n============================")
         seed_dict = results[seed]  # confs, exps, true
 
         results_dict[seed] = dict.fromkeys(exp_list)
 
-        for k, exp in enumerate(exp_list):
+        for k, exp in tqdm(enumerate(exp_list)):
             k_dict = {}
             confs_k = seed_dict["confs"][k]
             exps_k = seed_dict["exps"][k]
@@ -106,7 +110,7 @@ def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alph
             k_dict["coverage_test"] = (r[idx_test] == 0).sum() / n_test
 
             # 2. Calculate Qhat on calibration
-            qhat_k = get_qhat(confs_k, exps_k, true_k, r, idx_cal, n_classes, alpha=0.1)
+            qhat_k = get_qhat(confs_k, exps_k, true_k, r, idx_cal, n_classes, alpha=alpha)
             k_dict["qhat"] = qhat_k
 
             # 3. Get metrics
@@ -160,7 +164,6 @@ def get_metrics(confs, exps, true, deferral, idx_test, n_classes, qhat, args, me
     if method == "standard":
         top1_experts = predicted[r_test] - n_classes
         exp_prediction = torch.tensor([experts_r_test[i, top1] for i, top1 in enumerate(top1_experts)])
-
 
     # Conformal prediction ===
     if method in ["voting", "last", "random"]:
