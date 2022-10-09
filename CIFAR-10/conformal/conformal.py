@@ -9,7 +9,7 @@ from scipy import stats
 
 # === Naïve Conformal Inference === #
 # Ensemble functions ===
-def get_expert_prediction(experts, prediction_set_i, method="voting"):
+def get_expert_prediction(experts, prediction_set_i, method="voting"):  # TODO: Debug and prepare correectly. 
     ensemble_expert_pred_i = np.array(experts)[prediction_set_i][:, i]
     # Voting ===
     if method == "voting":
