@@ -13,6 +13,7 @@ experiment_args = {"n_experts": 10,
                    "ensemble_size": 5}
 exp_list = [0.1, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
 seeds = [436, 625, 948]
+seed_name = "_seed_{}"
 model_name = "_p_out_{}"  # to include values in exp_list
 # *** Change from here for other exps ***
 
@@ -39,7 +40,7 @@ path_confidence_ova = ova_path + "confidence_multiple_experts"
 path_experts_ova = ova_path + "expert_predictions_multiple_experts"
 path_labels_ova = ova_path + "true_label_multiple_experts"
 
-ova_results = conformal.load_results(path_confidence_ova, path_experts_ova, path_labels_ova, model_name,
+ova_results = conformal.load_results(path_confidence_ova, path_experts_ova, path_labels_ova, model_name, seed_name,
                                      seeds, exp_list, method="ova")
 
 # Process Results ===
@@ -70,7 +71,7 @@ path_experts_softmax = softmax_path + "expert_predictions_multiple_experts"
 path_labels_softmax = softmax_path + "true_label_multiple_experts"
 
 softmax_results = conformal.load_results(path_confidence_softmax, path_experts_softmax, path_labels_softmax,
-                                         model_name, seeds, exp_list, method="softmax")
+                                         model_name, seed_name, seeds, exp_list, method="softmax")
 # Process Results ===
 softmax_metrics = conformal.process_conformal_results(softmax_results, exp_list, experiment_args,
                                                       cal_percent=cal_percent,
