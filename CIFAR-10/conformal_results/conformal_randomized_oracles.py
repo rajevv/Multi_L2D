@@ -29,6 +29,21 @@ cal_percent = 0.8
 results_path = "../results/{}/".format(experiment_name)
 if not os.path.exists(results_path):
     os.makedirs(results_path)
+
+ova_fig_path = "{}_ova_".format(experiment_name)
+plot_args_ova = {"xlabel": "Oracles",
+                 "title": "CIFAR-10 OvA",
+                 "fig_path": results_path + ova_fig_path + "{}.pdf"}
+
+softmax_fig_path = "{}_softmax_".format(experiment_name)
+plot_args_softmax = {"xlabel": "Oracles",
+                     "title": "CIFAR-10 Softmax",
+                     "fig_path": results_path + softmax_fig_path + "{}.pdf"}
+
+compare_fig_path = "{}_".format(experiment_name)
+plot_args = {"xlabel": "Oracles",
+             "title": "CIFAR-10",
+             "fig_path": results_path + compare_fig_path + "{}.pdf"}
 # =================================
 
 # =========== #
