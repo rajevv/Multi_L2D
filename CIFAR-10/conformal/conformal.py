@@ -15,7 +15,7 @@ metric_methods = ["standard",  # standard L2D
 
 
 # Load results functions ===
-def load_results(path_confidence, path_experts, path_labels, model_name, seeds, exp_list, method="ova"):
+def load_results(path_confidence, path_experts, path_labels, model_name, seed_name, seeds, exp_list, method="ova"):
     r"""
     Load results.
     Args:
@@ -39,7 +39,7 @@ def load_results(path_confidence, path_experts, path_labels, model_name, seeds, 
         true = []
 
         for exp in exp_list:
-            seed_path = "_seed_{}".format(seed)
+            seed_path = seed_name.format(seed)
             # Load ===
             full_conf_path = path_confidence + model_name.format(exp) + seed_path + '.txt'
             with open(full_conf_path, 'r') as f:
