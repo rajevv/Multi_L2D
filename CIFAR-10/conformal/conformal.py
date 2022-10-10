@@ -123,9 +123,11 @@ def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alph
             k_dict["coverage_cal"] = (r[idx_cal] == 0).sum() / n_cal
             k_dict["coverage_test"] = (r[idx_test] == 0).sum() / n_test
 
+            # ====== CONFORMAL ====== #
             # 2. Calculate Qhat on calibration
             qhat_k = get_qhat(confs_k, exps_k, true_k, r, idx_cal, n_classes, alpha=alpha)
             k_dict["qhat"] = qhat_k
+            # ====== CONFORMAL ====== #
 
             # 3. Get metrics
 
