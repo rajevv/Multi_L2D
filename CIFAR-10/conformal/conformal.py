@@ -250,33 +250,39 @@ def get_expert_prediction(experts_pred, experts_conformal_mask, method="voting",
         ensemble_final_pred: Tensor with the final expert prediction after the appropriate method.
     """
     N = len(experts_pred)
-    ensemble_exp_pred = [experts_pred[i, experts_conformal_mask[i]] for i in range(N)]
 
-    ensemble_final_pred = []
-    for ensemble_exp_pred_i in ensemble_exp_pred:
+    # Multiple Experts
+    if experts_pred.shape[1] != 1:
+        ensemble_exp_pred = [experts_pred[i, experts_conformal_mask[i]] for i in range(N)]
+        ensemble_final_pred = []
+        for ensemble_exp_pred_i in ensemble_exp_pred:
 
-        # If no set, wrong label.
-        if len(ensemble_exp_pred_i) == 0:
-            pred_i = -1
-        else:
-            # Last ===
-            if method == "last":
-                pred_i = ensemble_exp_pred_i[-1]
+            # If no set, wrong label.
+            if len(ensemble_exp_pred_i) == 0:
+                pred_i = -1
+            else:
+                # Last ===
+                if method == "last":
+                    pred_i = ensemble_exp_pred_i[-1]
 
-            # Random ===
-            if method == "random":
-                idx = np.random.randint(len(ensemble_exp_pred_i))
-                pred_i = ensemble_exp_pred_i[idx]
+                # Random ===
+                if method == "random":
+                    idx = np.random.randint(len(ensemble_exp_pred_i))
+                    pred_i = ensemble_exp_pred_i[idx]
 
-            # Top-k ensemble ===
-            if method == "ensemble":
-                pred_i = ensemble_exp_pred_i[:ensemble_size]  # top-K.
+                # Top-k ensemble ===
+                if method == "ensemble":
+                    pred_i = ensemble_exp_pred_i[:ensemble_size]  # top-K.
 
-            # Majority Voting ===
-            if method == "voting":
-                pred_i = torch.mode(torch.tensor(ensemble_exp_pred_i))[0]
-        ensemble_final_pred.append(pred_i)
-    return torch.tensor(ensemble_final_pred)
+                # Majority Voting ===
+                if method == "voting":
+                    pred_i = torch.mode(torch.tensor(ensemble_exp_pred_i))[0]
+            ensemble_final_pred.append(pred_i)
+        return torch.tensor(ensemble_final_pred)
+
+    # Single Expert
+    else:
+        return torch.tensor(experts_pred).flatten()
 
 
 def get_fixed_ensemble(experts_pred, confs_exp, ensemble_size=5):
@@ -293,12 +299,21 @@ def get_fixed_ensemble(experts_pred, confs_exp, ensemble_size=5):
         pi[:ensemble_size]: Expert belonging to the ensemble.
     """
     # Sort and get top-K ensemble prediction
-    sort, pi = confs_exp.sort(descending=True)
+    # Multiple Experts
+    if experts_pred.shape[1] != 1:
 
-    # Expert prediction from ensemble
-    experts_pred_final = np.array([experts_pred[i, pi[i, :ensemble_size]] for i in range(len(pi))])
-    prediction = torch.mode(torch.tensor(experts_pred_final))[0]
-    return prediction, pi[:ensemble_size]
+        sort, pi = confs_exp.sort(descending=True)
+
+        # Expert prediction from ensemble
+        experts_pred_final = np.array([experts_pred[i, pi[i, :ensemble_size]] for i in range(len(pi))])
+        prediction = torch.mode(torch.tensor(experts_pred_final))[0]
+        return prediction, pi[:ensemble_size]
+
+    # Single Expert
+    else:
+        prediction = torch.tensor(experts_pred).flatten()
+        pi = [torch.tensor([0])] * len(experts_pred)
+        return prediction, pi
 
 
 # ======================================= #
@@ -358,6 +373,9 @@ def get_qhat(confs, exps, true, deferral, idx_cal, n_classes, alpha=0.1):
     scores = sort.cumsum(dim=1).gather(1, pi.argsort(1))[range(len(torch.tensor(pi_stop))), torch.tensor(pi_stop)]
     n_quantile = r_cal.sum()
     qhat = torch.quantile(scores, np.ceil((n_quantile + 1) * (1 - alpha)) / n_quantile, interpolation="higher")
+
+    # Round precision
+    # qhat = torch.round(qhat, decimals=4)
     return qhat
 
 
@@ -373,12 +391,20 @@ def get_conformal_set(confs_exp, qhat):
         prediction_set: List with the conformal sets with the final experts.
     """
     # Sort J model outputs for experts. sorted probs and sorted indexes
-    sort, pi = confs_exp.sort(descending=True)
-    # Conformal set mask
-    conformal_mask = (sort.cumsum(dim=1) <= qhat)
-    # Get last sorted index to be below Q_hat
-    prediction_set = [pi[i, conformal_mask[i]] for i in range(len(pi))]
-    return conformal_mask, prediction_set
+    # Multi-expert
+    if confs_exp.shape[1] != 1:
+        sort, pi = confs_exp.sort(descending=True)
+        # Conformal set mask
+        conformal_mask = (sort.cumsum(dim=1) <= qhat)
+        # Get last sorted index to be below Q_hat
+        prediction_set = [pi[i, conformal_mask[i]] for i in range(len(pi))]
+        return conformal_mask, prediction_set
+    # Single Expert
+    else:
+        conformal_mask = torch.ones(confs_exp.shape)>0
+        prediction_set = [torch.tensor([0])] * len(confs_exp)
+        return conformal_mask, prediction_set
+
 
 
 # ======================================= #
