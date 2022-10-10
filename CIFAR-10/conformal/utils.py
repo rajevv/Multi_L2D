@@ -1,6 +1,8 @@
 import numpy as np
 import json
 
+METHOD_METRIC = ['deferral', 'idx_cal', 'coverage_cal', 'coverage_test', 'qhat']
+
 
 # Json functions ===
 class NumpyEncoder(json.JSONEncoder):
@@ -40,10 +42,12 @@ def get_metric(results, seeds_list, exp_list, metric, method):
     """
     metric_np = np.zeros((len(seeds_list), len(exp_list)))
     for i, seed in enumerate(seeds_list):
-        exp_metric = np.array([results[seed][exp][method][metric] for exp in exp_list])
+        if metric in METHOD_METRIC:
+            exp_metric = np.array([results[seed][exp][metric] for exp in exp_list])
+        else:  # implement methods: 'standard', 'last', 'random', 'voting', 'ensemble'
+            exp_metric = np.array([results[seed][exp][method][metric] for exp in exp_list])
         metric_np[i, :] = exp_metric
     return metric_np
-
 
 # def get_accuracies(results):
 #     pass
