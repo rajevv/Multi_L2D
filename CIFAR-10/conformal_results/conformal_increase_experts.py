@@ -18,7 +18,11 @@ exp_list = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
 seeds = [436, 625, 948]
 seed_name = ""
 model_name = "_{}_experts"  # to include values in exp_list
-# *** Change from here for other exps ***
+
+# Plot params
+xlabel = "Degree of overlap $(\%)$"
+
+# Experiment params ==============
 
 # Ensemble methods ==============
 metric_methods = ["standard",  # standard L2D
@@ -49,7 +53,7 @@ plot_args_softmax = {"xlabel": "Number of Experts",
                      "fig_path": results_path + softmax_fig_path + "{}.pdf"}
 
 compare_fig_path = "{}_".format(experiment_name)
-plot_args = {"xlabel": "Numver of Experts",
+plot_args = {"xlabel": "Number of Experts",
              "title": "CIFAR-10",
              "fig_path": results_path + compare_fig_path + "{}.pdf",
              "metric_path": results_path + compare_fig_path + "{}_{}.txt"}
