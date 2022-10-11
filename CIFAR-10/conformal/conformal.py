@@ -459,7 +459,8 @@ def get_conformal_set(confs_exp, qhat):
 
 
 def false_negative_rate(prediction_set, gt_labels):
-    return 1 - ((prediction_set * gt_labels).sum(axis=1) / gt_labels.sum(axis=1)).mean()
+    # return 1 - ((prediction_set * gt_labels).sum(axis=1) / gt_labels.sum(axis=1)).mean()  # BEFORE
+    return 1 - ((prediction_set * gt_labels).sum(axis=1) / (gt_labels.sum(axis=1) + 0.00001)).mean()
 
 
 def get_lhat(calib_loss_table, lambdas, alpha, B=1):
