@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --partition=gpu_short
+#SBATCH --partition=gpu_shared
 #SBATCH --gres=gpu:1
 #SBATCH --job-name=logging
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=6
 #SBATCH --time=1:00:00
 #SBATCH --mem=48000M
-#SBATCH --output=./SLURMS/CIFAR-10-increase-experts-softmax-logging.out
+#SBATCH --output=./SLURMS/CIFAR-10-increase-experts-softmax-logging-seeds.out
 
 module purge
 module load 2020
