@@ -14,7 +14,7 @@ path = "softmax_increase_experts/"
 n_experts = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
 ECE = []
 for n in n_experts:
-    model_name = '_' + 'new' + '_' + str(n) + '_experts' # 
+    model_name = "_{}_experts".format(n)
     with open(path + 'confidence_multiple_experts' + model_name + '.txt', 'r') as f:
         conf = json.loads(json.load(f))
     with open(path + 'expert_predictions_multiple_experts' + model_name + '.txt', 'r') as f:
@@ -33,7 +33,8 @@ for n in n_experts:
 
     temp = 0
     for i in range(n):
-        temp += c[:, (n_classes + n) - (i + 1)]
+        # temp += c[:, (n_classes + n) - (i + 1)]  # BEFGORE
+        temp += c[:, n_classes + i]
     prob = c / (1.0 - temp).unsqueeze(-1)
     # print(prob.shape)
     # confs.append(prob)
@@ -65,7 +66,7 @@ path = "ova_increase_experts/"
 n_experts = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
 ECE = []
 for n in n_experts:
-    model_name = '_' + 'new' + '_' + str(n) + '_experts' #'_' + 'new' + 
+    model_name = "_{}_experts".format(n)
     with open(path + 'confidence_multiple_experts' + model_name + '.txt', 'r') as f:
         conf = json.loads(json.load(f))
     with open(path + 'expert_predictions_multiple_experts' + model_name + '.txt', 'r') as f:
