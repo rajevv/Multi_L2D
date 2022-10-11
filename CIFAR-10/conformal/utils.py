@@ -1,7 +1,7 @@
 import numpy as np
 import json
 
-METHOD_METRIC = ['deferral', 'idx_cal', 'coverage_cal', 'coverage_test', 'qhat']
+METHOD_METRIC = ['deferral', 'idx_cal', 'coverage_cal', 'coverage_test', 'qhat', 'lamhat']
 
 
 # Json functions ===
@@ -23,6 +23,21 @@ def load_dict_txt(path):
     return dict
 
 
+def save_metric(results, metric, method_list, path):
+    # Retrieve metric
+    # Sanity check
+    method_list_cp = method_list.copy()
+    if metric == "avg_set_size":
+        method_list_cp.remove("standard")
+        method_list_cp.remove("ensemble")
+    # Lists
+    seeds_list = list(results.keys())
+    exp_list = list(results[seeds_list[0]].keys())
+    metric_dict_ova = {method: get_metric(results, seeds_list, exp_list, metric, method)
+                       for method in method_list_cp}
+    save_dict_as_txt(metric_dict_ova, path)
+
+
 def get_metric(results, seeds_list, exp_list, metric, method):
     r"""
     Obtain the desired metric from the results dict.
@@ -40,6 +55,7 @@ def get_metric(results, seeds_list, exp_list, metric, method):
     Returns:
 
     """
+
     metric_np = np.zeros((len(seeds_list), len(exp_list)))
     for i, seed in enumerate(seeds_list):
         if metric in METHOD_METRIC:
