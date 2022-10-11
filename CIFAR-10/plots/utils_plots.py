@@ -6,6 +6,8 @@ from tueplots import bundles
 from tueplots import figsizes, fonts, axes, fontsizes, markers
 
 PALETTE = "deep"
+
+
 # PALETTE = "tab10"
 # PALETTE = "colorblind"
 
@@ -70,6 +72,29 @@ PALETTE = "deep"
 #
 
 
+def set_aistats2023_style():
+    # Color
+    sns.set_palette(sns.color_palette(PALETTE))
+    # === TUEPLOTS CONFIG ===
+    # Increase resolution
+    # plt.rcParams.update({"figure.dpi": 150})
+    # Figsize
+    plt.rcParams.update(figsizes.aistats2023_half(tight_layout=True,
+                                                  height_to_width_ratio=1))  # make square fig.
+
+    # Font
+    plt.rcParams.update(fonts.aistats2022_tex(family="serif"))
+    # Font size
+    # plt.rcParams.update(fontsizes.aistats2023(default_smaller=0))
+    # Axes ===
+    # plt.rcParams.update(axes.lines(base_width=1,  # base width for line params.
+    #                                line_base_ratio=4))  # increase only linewidth
+    plt.rcParams.update(axes.grid(grid_alpha=0.5))  # custom grid. alpha=0-1, for transparency
+    # Markers
+    plt.rcParams.update({"errorbar.capsize": 3})  # error bars capsize
+    plt.rcParams.update(markers.with_edge())  # set markers with black edge
+
+# Before
 def set_aistats2023_style():
     # Color
     sns.set_palette(sns.color_palette(PALETTE))
