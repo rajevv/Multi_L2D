@@ -159,7 +159,7 @@ if __name__ == "__main__":
 
 	alpha = 1.0
 	n_dataset = 10
-	seeds = [948] #, 625, 436]
+	seeds = [948, 625, 436]
 	accuracy = []
 
 	for seed in seeds:

@@ -104,7 +104,7 @@ def get_OvA_ECEs(seed=""):
 
 # if __name__ == "__main__":
 print("---In main---")
-seeds = [948]#, 625, 436]
+seeds = [948, 625, 436]
 ECE_softmax = []
 ECE_OvA = []
 
