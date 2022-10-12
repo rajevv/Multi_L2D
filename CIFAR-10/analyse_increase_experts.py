@@ -85,7 +85,7 @@ def validation(model_name, expert_fns, config, seed=""):
 		true_label[severity] = true.numpy()
 		classifier_confidence[severity] = confidence.numpy()
 		expert_preds[severity] = expert_predictions
-		result[severity] = result_
+		result[severity] = filter(result_)
 
 	result = {}
 	classifier_confidence = {}
@@ -134,7 +134,7 @@ if __name__ == "__main__":
 	parser.add_argument("--epochs", type=int, default=100)
 	parser.add_argument("--patience", type=int, default=20,
 						help="number of patience steps for early stopping the training.")
-	parser.add_argument("--expert_type", type=str, default="predict",
+	parser.add_argument("--expert_type", type=str, default="predict_biasedK",
 						help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
 	parser.add_argument("--n_classes", type=int, default=10,
 						help="K for K class classification.")
@@ -154,19 +154,19 @@ if __name__ == "__main__":
 						help="specify the experiment name. Checkpoints will be saved with this name.")
 
 	config = parser.parse_args().__dict__
-	config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts/"
+	config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_prob/"
 	print(config)
 
 	alpha = 1.0
 	n_dataset = 10
-	seeds = [948, 625, 436]
+	seeds = [948] #, 625, 436]
 	accuracy = []
 
 	for seed in seeds:
 		print("seed is {}".format(seed))
 		set_seed(seed)
 		acc = []
-		for i, n in enumerate([1,2, 4, 6, 8, 10, 14, 18]):
+		for i, n in enumerate([1, 4, 8, 12, 16, 20]):
 			print("n is {}".format(n))
 			model_name = '_' + str(n) + '_experts' + '_seed_' + str(seed)
 			num_experts = n
