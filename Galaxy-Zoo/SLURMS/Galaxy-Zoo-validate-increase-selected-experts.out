@@ -1,0 +1,120 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+run for seed 948
+n is 1
+selected experts ['FlipHuman']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 3]), expert_predictions (1, 1792)
+Evaluate...
+{'coverage': '1751 out of1792', 'system_accuracy': tensor(82.3661), 'expert_accuracy': tensor(43.9022), 'classifier_accuracy': 83.2666999847687, 'alone_classifier': 82.92410714285714, 'validation_loss': 2.1021829673222134, 'n_experts': 1, 'expert_0': tensor(43.9022)}
+n is 2
+selected experts ['predict_random', 'predict_random']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 4]), expert_predictions (2, 1792)
+Evaluate...
+{'coverage': '1607 out of1792', 'system_accuracy': 80.80357142857143, 'expert_accuracy': 43.78373645001464, 'classifier_accuracy': 85.06533384783236, 'alone_classifier': 82.31026785714286, 'validation_loss': 3.6151463304247176, 'n_experts': 2, 'expert_0': 43.64636061175623, 'expert_1': 49.99750012499374}
+n is 4
+selected experts ['predict_prob', 'predict_random', 'HumanExpert', 'predict_prob']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 6]), expert_predictions (4, 1792)
+Evaluate...
+{'coverage': '524 out of1792', 'system_accuracy': 73.38169642857143, 'expert_accuracy': 68.05992617351322, 'classifier_accuracy': 86.25952552299131, 'alone_classifier': 81.97544642857143, 'validation_loss': 9.57186153956822, 'n_experts': 4, 'expert_0': 82.4829651418486, 'expert_1': 50.42443109526958, 'expert_2': 0.0, 'expert_3': 89.01079338287168}
+n is 6
+selected experts ['HumanExpert', 'predict_random', 'predict_prob', 'predict_random', 'predict_prob', 'FlipHuman']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 8]), expert_predictions (6, 1792)
+Evaluate...
+{'coverage': '1000 out of1792', 'system_accuracy': tensor(73.3817), 'expert_accuracy': tensor(49.6212), 'classifier_accuracy': 92.19999078000093, 'alone_classifier': 82.14285714285714, 'validation_loss': 14.399802752903529, 'n_experts': 6, 'expert_0': 99.98000399920016, 'expert_1': 51.19045587680322, 'expert_2': 0.0, 'expert_3': 44.15580592570915, 'expert_4': 0.0, 'expert_5': tensor(57.1427)}
+n is 8
+selected experts ['FlipHuman', 'predict_prob', 'predict_random', 'predict_random', 'HumanExpert', 'FlipHuman', 'predict_prob', 'FlipHuman']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 10]), expert_predictions (8, 1792)
+Evaluate...
+{'coverage': '914 out of1792', 'system_accuracy': 86.04910714285714, 'expert_accuracy': 79.49884293876015, 'classifier_accuracy': 92.34134657096865, 'alone_classifier': 82.421875, 'validation_loss': 19.96761158534459, 'n_experts': 8, 'expert_0': 0.0, 'expert_1': 79.9287221071919, 'expert_2': 0.0, 'expert_3': 41.665972233796104, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 83.33263889467588, 'expert_7': 0.0}
+n is 12
+selected experts ['FlipHuman', 'FlipHuman', 'HumanExpert', 'predict_prob', 'predict_random', 'predict_prob', 'predict_random', 'FlipHuman', 'FlipHuman', 'HumanExpert', 'predict_random', 'predict_prob']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 14]), expert_predictions (12, 1792)
+Evaluate...
+{'coverage': '660 out of1792', 'system_accuracy': tensor(75.3906), 'expert_accuracy': tensor(65.9894), 'classifier_accuracy': 91.51513764922157, 'alone_classifier': 82.421875, 'validation_loss': 33.219361441476, 'n_experts': 12, 'expert_0': tensor(57.7608), 'expert_1': 0.0, 'expert_2': 83.63626225907605, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 48.458107085368205, 'expert_7': 0.0, 'expert_8': tensor(49.9995), 'expert_9': 80.30764288760437, 'expert_10': 0.0, 'expert_11': 0.0}
+n is 16
+selected experts ['predict_random', 'predict_random', 'predict_random', 'predict_prob', 'predict_prob', 'FlipHuman', 'FlipHuman', 'HumanExpert', 'predict_prob', 'predict_random', 'predict_random', 'predict_prob', 'HumanExpert', 'predict_random', 'FlipHuman', 'predict_prob']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 18]), expert_predictions (16, 1792)
+Evaluate...
+{'coverage': '913 out of1792', 'system_accuracy': 86.66294642857143, 'expert_accuracy': 81.79747854437349, 'classifier_accuracy': 91.34719700468817, 'alone_classifier': 84.70982142857143, 'validation_loss': 46.51264081682478, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 99.99818185123907, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 99.99500024998748, 'expert_8': 62.71165182490907, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 83.06349114234344, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+run for seed 625
+n is 1
+selected experts ['predict_prob']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 3]), expert_predictions (1, 1792)
+Evaluate...
+{'coverage': '763 out of1792', 'system_accuracy': 88.83928571428571, 'expert_accuracy': 84.74245194510166, 'classifier_accuracy': 94.36433887754406, 'alone_classifier': 83.59375, 'validation_loss': 2.358382225036621, 'n_experts': 1, 'expert_0': 84.74245194510166}
+n is 2
+selected experts ['predict_prob', 'predict_random']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 4]), expert_predictions (2, 1792)
+Evaluate...
+{'coverage': '777 out of1792', 'system_accuracy': 68.41517857142857, 'expert_accuracy': 52.610827071758216, 'classifier_accuracy': 89.06047759839413, 'alone_classifier': 82.92410714285714, 'validation_loss': 4.146356923239572, 'n_experts': 2, 'expert_0': 0.0, 'expert_1': 52.610827071758216}
+n is 4
+selected experts ['predict_random', 'FlipHuman', 'predict_prob', 'HumanExpert']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 6]), expert_predictions (4, 1792)
+Evaluate...
+{'coverage': '593 out of1792', 'system_accuracy': tensor(69.1964), 'expert_accuracy': tensor(57.5479), 'classifier_accuracy': 92.74871960392588, 'alone_classifier': 83.64955357142857, 'validation_loss': 9.005406788417272, 'n_experts': 4, 'expert_0': 50.602368994081125, 'expert_1': tensor(59.3684), 'expert_2': 0.0, 'expert_3': 0.0}
+n is 6
+selected experts ['HumanExpert', 'predict_prob', 'FlipHuman', 'FlipHuman', 'predict_prob', 'HumanExpert']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 8]), expert_predictions (6, 1792)
+Evaluate...
+{'coverage': '766 out of1792', 'system_accuracy': tensor(87.1094), 'expert_accuracy': tensor(82.5536), 'classifier_accuracy': 93.21147608205274, 'alone_classifier': 83.203125, 'validation_loss': 15.585474559238978, 'n_experts': 6, 'expert_0': 86.66637777874074, 'expert_1': 83.31191699308935, 'expert_2': tensor(59.9976), 'expert_3': tensor(61.5382), 'expert_4': 84.79986432021708, 'expert_5': 99.99600015999359}
+n is 8
+selected experts ['FlipHuman', 'predict_random', 'HumanExpert', 'HumanExpert', 'HumanExpert', 'predict_random', 'FlipHuman', 'predict_random']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 10]), expert_predictions (8, 1792)
+Evaluate...
+{'coverage': '1184 out of1792', 'system_accuracy': tensor(78.7946), 'expert_accuracy': tensor(68.7500), 'classifier_accuracy': 83.95269561210341, 'alone_classifier': 82.421875, 'validation_loss': 19.603386197771346, 'n_experts': 8, 'expert_0': tensor(0.), 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 89.17186092756569, 'expert_4': 74.24886330569673, 'expert_5': 51.64829489198363, 'expert_6': 0.0, 'expert_7': 32.35275086617138}
+n is 12
+selected experts ['FlipHuman', 'predict_prob', 'HumanExpert', 'predict_prob', 'predict_random', 'HumanExpert', 'predict_random', 'predict_prob', 'HumanExpert', 'FlipHuman', 'predict_prob', 'predict_random']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 14]), expert_predictions (12, 1792)
+Evaluate...
+{'coverage': '1172 out of1792', 'system_accuracy': tensor(77.9576), 'expert_accuracy': tensor(59.0322), 'classifier_accuracy': 87.96927577053961, 'alone_classifier': 81.41741071428571, 'validation_loss': 34.432430267333984, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 66.66617284316412, 'expert_2': 0.0, 'expert_3': 66.66222251849877, 'expert_4': 49.59012328678419, 'expert_5': 0.0, 'expert_6': 41.8602704173469, 'expert_7': 0.0, 'expert_8': 66.19041315198747, 'expert_9': tensor(46.6660), 'expert_10': 78.20492767967261, 'expert_11': 0.0}
+n is 16
+selected experts ['predict_prob', 'predict_prob', 'HumanExpert', 'HumanExpert', 'predict_prob', 'predict_prob', 'predict_prob', 'predict_prob', 'predict_prob', 'FlipHuman', 'HumanExpert', 'predict_prob', 'HumanExpert', 'FlipHuman', 'HumanExpert', 'FlipHuman']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 18]), expert_predictions (16, 1792)
+Evaluate...
+{'coverage': '504 out of1792', 'system_accuracy': tensor(75.6138), 'expert_accuracy': tensor(70.8074), 'classifier_accuracy': 87.89680795698256, 'alone_classifier': 83.59375, 'validation_loss': 53.67495782034738, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 88.32103894738839, 'expert_4': 0.0, 'expert_5': 49.99500049995, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 49.99500049995, 'expert_9': tensor(57.9268), 'expert_10': 71.92957217693973, 'expert_11': 86.30125164212103, 'expert_12': 87.096703954271, 'expert_13': tensor(66.6663), 'expert_14': 66.66222251849877, 'expert_15': tensor(0.)}
+run for seed 436
+n is 1
+selected experts ['predict_prob']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 3]), expert_predictions (1, 1792)
+Evaluate...
+{'coverage': '853 out of1792', 'system_accuracy': 85.65848214285714, 'expert_accuracy': 81.04364621008601, 'classifier_accuracy': 90.73855911622988, 'alone_classifier': 83.09151785714286, 'validation_loss': 2.354719638824463, 'n_experts': 1, 'expert_0': 81.04364621008601}
+n is 2
+selected experts ['predict_random', 'predict_prob']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 4]), expert_predictions (2, 1792)
+Evaluate...
+{'coverage': '1195 out of1792', 'system_accuracy': 74.66517857142857, 'expert_accuracy': 48.91120639490573, 'classifier_accuracy': 87.53137342833695, 'alone_classifier': 83.76116071428571, 'validation_loss': 4.081758975982666, 'n_experts': 2, 'expert_0': 47.88730708193413, 'expert_1': 68.96504162040262}
+n is 4
+selected experts ['FlipHuman', 'predict_random', 'HumanExpert', 'predict_random']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 6]), expert_predictions (4, 1792)
+Evaluate...
+{'coverage': '871 out of1792', 'system_accuracy': tensor(72.3772), 'expert_accuracy': tensor(52.6601), 'classifier_accuracy': 93.22616610491778, 'alone_classifier': 84.09598214285714, 'validation_loss': 8.276338441031319, 'n_experts': 4, 'expert_0': tensor(99.9933), 'expert_1': 52.57392057526384, 'expert_2': 33.33111125924938, 'expert_3': 49.99500049995}
+n is 6
+selected experts ['predict_random', 'predict_prob', 'HumanExpert', 'FlipHuman', 'FlipHuman', 'predict_prob']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 8]), expert_predictions (6, 1792)
+Evaluate...
+{'coverage': '762 out of1792', 'system_accuracy': tensor(72.9911), 'expert_accuracy': tensor(58.0582), 'classifier_accuracy': 93.17584079057208, 'alone_classifier': 83.31473214285714, 'validation_loss': 14.772368703569684, 'n_experts': 6, 'expert_0': 33.33111125924938, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': tensor(66.6665), 'expert_4': tensor(57.2805), 'expert_5': 0.0}
+n is 8
+selected experts ['HumanExpert', 'FlipHuman', 'predict_random', 'predict_prob', 'HumanExpert', 'HumanExpert', 'predict_prob', 'HumanExpert']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 10]), expert_predictions (8, 1792)
+Evaluate...
+{'coverage': '1146 out of1792', 'system_accuracy': tensor(80.7478), 'expert_accuracy': tensor(64.0867), 'classifier_accuracy': 90.13960819026107, 'alone_classifier': 84.04017857142857, 'validation_loss': 21.855444499424525, 'n_experts': 8, 'expert_0': 79.28560102056997, 'expert_1': tensor(53.2818), 'expert_2': 99.98000399920016, 'expert_3': 89.99820003599929, 'expert_4': 65.23599550558326, 'expert_5': 0.0, 'expert_6': 99.98000399920016, 'expert_7': 99.9900009999}
+n is 12
+selected experts ['FlipHuman', 'predict_random', 'predict_random', 'HumanExpert', 'predict_random', 'predict_random', 'predict_random', 'predict_random', 'HumanExpert', 'predict_random', 'predict_random', 'HumanExpert']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 14]), expert_predictions (12, 1792)
+Evaluate...
+{'coverage': '1075 out of1792', 'system_accuracy': tensor(80.3571), 'expert_accuracy': tensor(79.9163), 'classifier_accuracy': 80.65115528826463, 'alone_classifier': 82.64508928571429, 'validation_loss': 29.763395036969865, 'n_experts': 12, 'expert_0': tensor(99.9800), 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 78.17587030101946, 'expert_4': 66.66222251849877, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 90.72146242997437, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 99.9900009999}
+n is 16
+selected experts ['predict_prob', 'HumanExpert', 'FlipHuman', 'FlipHuman', 'predict_prob', 'FlipHuman', 'HumanExpert', 'FlipHuman', 'FlipHuman', 'FlipHuman', 'FlipHuman', 'predict_random', 'FlipHuman', 'predict_prob', 'FlipHuman', 'predict_prob']
+shapes: true labels torch.Size([1792]), confidences torch.Size([1792, 18]), expert_predictions (16, 1792)
+Evaluate...
+{'coverage': '952 out of1792', 'system_accuracy': tensor(75.6696), 'expert_accuracy': tensor(60.9524), 'classifier_accuracy': 88.65545287232638, 'alone_classifier': 83.53794642857143, 'validation_loss': 48.31320462908064, 'n_experts': 16, 'expert_0': 66.66222251849877, 'expert_1': 0.0, 'expert_2': tensor(56.4102), 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': tensor(72.8811), 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': tensor(62.9333), 'expert_15': 84.6140828602637}
+===Mean and Standard Error===
+Mean [85.62128049 74.62797619 71.65178608 77.82738241 81.86383711 77.90178426
+ 79.31547474]
+Standard Error [1.86874795 3.57626935 1.261458   4.64236602 2.16725927 1.43398075
+ 3.67377116]

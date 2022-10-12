@@ -5,9 +5,9 @@
 #SBATCH --job-name=asymptotics
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=6
-#SBATCH --time=24:00:00
+#SBATCH --time=36:00:00
 #SBATCH --mem=48000M
-#SBATCH --output=./SLURMS/ham10000-increase-selected-experts.out
+#SBATCH --output=./SLURMS/ham10000-increase-selected-experts-seeds.out
 
 
 module purge
@@ -22,7 +22,7 @@ module load Anaconda3/2020.02
 source activate defer
 
 #run experiment
-srun python main-increase-experts-select.py --batch_size 512
+srun python main-increase-experts-select.py --lr 0.001 --patience 50 --batch_size 512
 
 
 

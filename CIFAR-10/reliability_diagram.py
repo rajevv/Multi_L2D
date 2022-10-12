@@ -1,5 +1,5 @@
 from __future__ import division
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 #from reliability_diagrams import compute_calibration_
 import torch
 import numpy as np
