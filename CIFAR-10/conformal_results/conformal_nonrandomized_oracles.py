@@ -9,7 +9,7 @@ from conformal.conformal_plots import plot_metric, compare_metric
 # Experiment params ==============
 # *** Change from here for other exps ***
 
-conformal_type = "naive"
+conformal_type = "regularized"
 
 experiment_name = "increase_oracle_v2"
 experiment_args = {"n_experts": 10,
