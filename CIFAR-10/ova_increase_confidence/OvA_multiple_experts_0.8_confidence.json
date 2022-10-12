@@ -1,0 +1,1 @@
+{"batch_size": 1024, "alpha": 1.0, "epochs": 100, "patience": 20, "expert_type": "predict_biasedK", "n_classes": 10, "k": 5, "n_experts": 2, "lr": 0.1, "weight_decay": 0.0005, "warmup_epochs": 20, "loss_type": "ova", "ckp_dir": "./ova_increase_confidence", "experiment_name": "OvA_multiple_experts", "p_in": 0.8}

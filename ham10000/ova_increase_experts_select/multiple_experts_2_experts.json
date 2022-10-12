@@ -1,0 +1,1 @@
+{"batch_size": 512, "alpha": 1.0, "epochs": 150, "patience": 20, "expert_type": "MLPMixer", "n_classes": 7, "k": 5, "n_experts": 2, "lr": 0.1, "weight_decay": 0.0005, "warmup_epochs": 20, "loss_type": "ova", "ckp_dir": "./ova_increase_experts_select", "experiment_name": "multiple_experts"}

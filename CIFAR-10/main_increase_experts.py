@@ -302,10 +302,10 @@ def train(model,
 
 # === Experiment 1 === #
 def increase_experts(config):
-	config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
+	config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_prob"
 	os.makedirs(config["ckp_dir"], exist_ok=True)
 
-	experiment_experts = [1, 2, 4, 6, 8, 10, 14, 18]
+	experiment_experts = [1, 4, 8, 12, 16, 20]
 	# experiment_experts = [1, 2]
 	# experiment_experts = [4, 6]
 	# experiment_experts = [8]
@@ -333,7 +333,7 @@ if __name__ == "__main__":
 	parser.add_argument("--epochs", type=int, default=100)
 	parser.add_argument("--patience", type=int, default=20,
 						help="number of patience steps for early stopping the training.")
-	parser.add_argument("--expert_type", type=str, default="predict",
+	parser.add_argument("--expert_type", type=str, default="predict_biasedK",
 						help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
 	parser.add_argument("--n_classes", type=int, default=10,
 						help="K for K class classification.")

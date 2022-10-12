@@ -1,0 +1,120 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+run for seed 948
+n is 1
+selected experts ['predict_prob']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 8]), expert_predictions (1, 1280)
+Evaluate...
+{'coverage': '674 out of1280', 'system_accuracy': 82.734375, 'expert_accuracy': 71.94717097453103, 'classifier_accuracy': 92.43322070723728, 'alone_classifier': 78.515625, 'validation_loss': 2.6341983795166017, 'n_experts': 1, 'expert_0': 71.94717097453103}
+n is 2
+selected experts ['MLPMixer', 'predict']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 9]), expert_predictions (2, 1280)
+Evaluate...
+{'coverage': '322 out of1280', 'system_accuracy': 77.8125, 'expert_accuracy': 74.42587172737542, 'classifier_accuracy': 87.8881714633008, 'alone_classifier': 79.296875, 'validation_loss': 5.107096195220947, 'n_experts': 2, 'expert_0': 69.17611671133048, 'expert_1': 88.97630789267095}
+n is 4
+selected experts ['predict_prob', 'predict_random', 'MLPMixer', 'predict_prob']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 11]), expert_predictions (4, 1280)
+Evaluate...
+{'coverage': '382 out of1280', 'system_accuracy': 60.15625, 'expert_accuracy': 47.550100768351726, 'classifier_accuracy': 89.79055241085015, 'alone_classifier': 78.90625, 'validation_loss': 8.185204315185548, 'n_experts': 4, 'expert_0': 73.18175165295304, 'expert_1': 15.934057179089463, 'expert_2': 0.0, 'expert_3': 66.24199602420636}
+n is 6
+selected experts ['predict_prob', 'predict_prob', 'predict_prob', 'predict', 'predict', 'predict_prob']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 13]), expert_predictions (6, 1280)
+Evaluate...
+{'coverage': '330 out of1280', 'system_accuracy': 79.53125, 'expert_accuracy': 75.15787891413076, 'classifier_accuracy': 92.12118420570177, 'alone_classifier': 78.984375, 'validation_loss': 17.058444213867187, 'n_experts': 6, 'expert_0': 60.8693005682584, 'expert_1': 72.5075090589069, 'expert_2': 78.4945814545261, 'expert_3': 78.78764003745442, 'expert_4': 82.55794753965688, 'expert_5': 63.26504789776369}
+n is 8
+selected experts ['predict_random', 'predict_prob', 'predict_prob', 'predict_random', 'predict_prob', 'predict', 'predict_random', 'predict']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 15]), expert_predictions (8, 1280)
+Evaluate...
+{'coverage': '275 out of1280', 'system_accuracy': 51.796875, 'expert_accuracy': 41.79103645949523, 'classifier_accuracy': 88.36360423141664, 'alone_classifier': 77.109375, 'validation_loss': 16.79731140136719, 'n_experts': 8, 'expert_0': 14.357675386561517, 'expert_1': 0.0, 'expert_2': 74.47912787545422, 'expert_3': 17.857100340237285, 'expert_4': 0.0, 'expert_5': 81.24974609454344, 'expert_6': 13.157860110894443, 'expert_7': 0.0}
+n is 12
+selected experts ['predict_prob', 'MLPMixer', 'predict', 'predict_random', 'predict_prob', 'MLPMixer', 'predict_random', 'predict_random', 'predict_prob', 'MLPMixer', 'predict_prob', 'predict_prob']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 19]), expert_predictions (12, 1280)
+Evaluate...
+{'coverage': '218 out of1280', 'system_accuracy': 67.1875, 'expert_accuracy': 63.088500359981104, 'classifier_accuracy': 87.15592332297095, 'alone_classifier': 77.5, 'validation_loss': 30.174430465698244, 'n_experts': 12, 'expert_0': 66.66632478807801, 'expert_1': 54.38577408500321, 'expert_2': 93.3822156143888, 'expert_3': 15.384536489556464, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 12.121193755767036, 'expert_7': 17.4999125004375, 'expert_8': 0.0, 'expert_9': 73.91301134216899, 'expert_10': 75.9688744668613, 'expert_11': 63.33291111392591}
+n is 16
+selected experts ['predict', 'MLPMixer', 'predict', 'predict_random', 'predict_random', 'predict', 'MLPMixer', 'predict_random', 'predict_prob', 'predict', 'MLPMixer', 'predict_prob', 'predict', 'MLPMixer', 'predict_prob', 'predict_random']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 23]), expert_predictions (16, 1280)
+Evaluate...
+{'coverage': '139 out of1280', 'system_accuracy': 62.578125, 'expert_accuracy': 60.385616058612435, 'classifier_accuracy': 80.57548160037295, 'alone_classifier': 75.390625, 'validation_loss': 45.18107986450195, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 38.8884567949245, 'expert_2': 92.92018952178846, 'expert_3': 14.173206026447202, 'expert_4': 14.285510206997044, 'expert_5': 91.26195871464327, 'expert_6': 69.87170529268552, 'expert_7': 18.181707989648547, 'expert_8': 0.0, 'expert_9': 90.24368233248211, 'expert_10': 75.75746097354397, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 62.0914221027162, 'expert_14': 70.73153480113463, 'expert_15': 16.40622436527443}
+run for seed 625
+n is 1
+selected experts ['predict']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 8]), expert_predictions (1, 1280)
+Evaluate...
+{'coverage': '452 out of1280', 'system_accuracy': 92.109375, 'expert_accuracy': 92.9951466195298, 'classifier_accuracy': 90.48670564453415, 'alone_classifier': 76.640625, 'validation_loss': 2.8635794162750243, 'n_experts': 1, 'expert_0': 92.9951466195298}
+n is 2
+selected experts ['predict_random', 'predict_random']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 9]), expert_predictions (2, 1280)
+Evaluate...
+{'coverage': '1206 out of1280', 'system_accuracy': 76.40625, 'expert_accuracy': 16.216172388723272, 'classifier_accuracy': 80.09949584581295, 'alone_classifier': 77.65625, 'validation_loss': 2.2450573444366455, 'n_experts': 2, 'expert_0': 9.374941406616209, 'expert_1': 21.42846938824101}
+n is 4
+selected experts ['predict_random', 'predict', 'predict_prob', 'MLPMixer']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 11]), expert_predictions (4, 1280)
+Evaluate...
+{'coverage': '334 out of1280', 'system_accuracy': 66.71875, 'expert_accuracy': 58.668063706540444, 'classifier_accuracy': 89.52093128115831, 'alone_classifier': 78.4375, 'validation_loss': 8.493353271484375, 'n_experts': 4, 'expert_0': 12.096764438093194, 'expert_1': 81.52156190964801, 'expert_2': 74.25740123518112, 'expert_3': 0.0}
+n is 6
+selected experts ['predict', 'predict_random', 'predict_random', 'predict', 'predict', 'predict_prob']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 13]), expert_predictions (6, 1280)
+Evaluate...
+{'coverage': '284 out of1280', 'system_accuracy': 48.75, 'expert_accuracy': 37.65059484927814, 'classifier_accuracy': 87.67602546618822, 'alone_classifier': 75.9375, 'validation_loss': 13.275920867919922, 'n_experts': 6, 'expert_0': 82.4995875020625, 'expert_1': 15.248216136016925, 'expert_2': 14.153837443792343, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 72.4927951330687}
+n is 8
+selected experts ['predict_random', 'MLPMixer', 'predict_prob', 'MLPMixer', 'MLPMixer', 'predict_random', 'predict_random', 'MLPMixer']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 15]), expert_predictions (8, 1280)
+Evaluate...
+{'coverage': '312 out of1280', 'system_accuracy': 52.421875, 'expert_accuracy': 41.32230551192035, 'classifier_accuracy': 86.85894651956843, 'alone_classifier': 77.03125, 'validation_loss': 15.805499458312989, 'n_experts': 8, 'expert_0': 15.748006696052446, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 82.87283660460044, 'expert_4': 82.32314916853619, 'expert_5': 12.418292537063701, 'expert_6': 18.589719756769544, 'expert_7': 0.0}
+n is 12
+selected experts ['predict_random', 'predict', 'MLPMixer', 'predict_random', 'MLPMixer', 'MLPMixer', 'MLPMixer', 'MLPMixer', 'predict_random', 'predict_random', 'MLPMixer', 'predict_random']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 19]), expert_predictions (12, 1280)
+Evaluate...
+{'coverage': '163 out of1280', 'system_accuracy': 69.140625, 'expert_accuracy': 66.4279200666213, 'classifier_accuracy': 87.73000752760274, 'alone_classifier': 75.9375, 'validation_loss': 24.940185165405275, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 87.65410455776652, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 82.69214866894487, 'expert_5': 88.88870931573875, 'expert_6': 82.07531683902482, 'expert_7': 85.57675850623363, 'expert_8': 0.0, 'expert_9': 9.090890725473281, 'expert_10': 59.54196200688474, 'expert_11': 0.0}
+n is 16
+selected experts ['predict_prob', 'MLPMixer', 'MLPMixer', 'MLPMixer', 'predict_random', 'predict_prob', 'predict_random', 'predict_random', 'predict_prob', 'MLPMixer', 'predict_prob', 'predict', 'predict', 'predict', 'predict_random', 'predict']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 23]), expert_predictions (16, 1280)
+Evaluate...
+{'coverage': '222 out of1280', 'system_accuracy': 62.734375, 'expert_accuracy': 56.80528226743247, 'classifier_accuracy': 90.99095000407657, 'alone_classifier': 77.265625, 'validation_loss': 44.111531829833986, 'n_experts': 16, 'expert_0': 78.73554168328542, 'expert_1': 0.0, 'expert_2': 68.0554610340819, 'expert_3': 69.61318274786437, 'expert_4': 17.910421029222345, 'expert_5': 68.4203324175535, 'expert_6': 14.634110648510612, 'expert_7': 14.28557823258826, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 71.11079506313305, 'expert_11': 0.0, 'expert_12': 93.02303948130353, 'expert_13': 91.04450434476314, 'expert_14': 7.368405540198863, 'expert_15': 79.99840003199937}
+run for seed 436
+n is 1
+selected experts ['predict_random']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 8]), expert_predictions (1, 1280)
+Evaluate...
+{'coverage': '1217 out of1280', 'system_accuracy': 79.0625, 'expert_accuracy': 22.222151675708965, 'classifier_accuracy': 82.00492341783702, 'alone_classifier': 79.921875, 'validation_loss': 1.5965907096862793, 'n_experts': 1, 'expert_0': 22.222151675708965}
+n is 2
+selected experts ['predict_prob', 'predict_prob']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 9]), expert_predictions (2, 1280)
+Evaluate...
+{'coverage': '596 out of1280', 'system_accuracy': 82.421875, 'expert_accuracy': 74.268984131876, 'classifier_accuracy': 91.77850809085434, 'alone_classifier': 76.796875, 'validation_loss': 4.8453045845031735, 'n_experts': 2, 'expert_0': 76.27114334963652, 'expert_1': 72.12116841141308}
+n is 4
+selected experts ['predict', 'predict_random', 'MLPMixer', 'predict_random']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 11]), expert_predictions (4, 1280)
+Evaluate...
+{'coverage': '322 out of1280', 'system_accuracy': 33.046875, 'expert_accuracy': 13.674318648367715, 'classifier_accuracy': 90.68320165117962, 'alone_classifier': 77.734375, 'validation_loss': 6.68994026184082, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 12.345668851301356, 'expert_2': 0.0, 'expert_3': 14.12587017458177}
+n is 6
+selected experts ['predict_prob', 'predict_prob', 'predict_random', 'predict', 'predict', 'MLPMixer']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 13]), expert_predictions (6, 1280)
+Evaluate...
+{'coverage': '252 out of1280', 'system_accuracy': 58.046875, 'expert_accuracy': 50.097266518041536, 'classifier_accuracy': 90.47615457295453, 'alone_classifier': 76.328125, 'validation_loss': 14.860712242126464, 'n_experts': 6, 'expert_0': 74.58555294414039, 'expert_1': 74.58559415160543, 'expert_2': 11.256538609142089, 'expert_3': 0.0, 'expert_4': 76.47013841095053, 'expert_5': 59.420117622847464}
+n is 8
+selected experts ['MLPMixer', 'predict_prob', 'predict_random', 'predict_prob', 'predict', 'predict_prob', 'MLPMixer', 'MLPMixer']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 15]), expert_predictions (8, 1280)
+Evaluate...
+{'coverage': '246 out of1280', 'system_accuracy': 77.421875, 'expert_accuracy': 75.24176494356578, 'classifier_accuracy': 86.58533065636965, 'alone_classifier': 77.109375, 'validation_loss': 20.884455108642577, 'n_experts': 8, 'expert_0': 82.72712231432305, 'expert_1': 74.99987500020833, 'expert_2': 15.624902344360349, 'expert_3': 75.95956526886252, 'expert_4': 91.13900977465879, 'expert_5': 0.0, 'expert_6': 61.85554256589161, 'expert_7': 83.16815214227297}
+n is 12
+selected experts ['predict_random', 'predict', 'MLPMixer', 'predict', 'predict', 'MLPMixer', 'predict_random', 'predict_prob', 'MLPMixer', 'MLPMixer', 'predict_prob', 'predict_prob']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 19]), expert_predictions (12, 1280)
+Evaluate...
+{'coverage': '150 out of1280', 'system_accuracy': 71.953125, 'expert_accuracy': 69.38051869371351, 'classifier_accuracy': 91.33327244448503, 'alone_classifier': 75.546875, 'validation_loss': 33.81251068115235, 'n_experts': 12, 'expert_0': 13.513440467889364, 'expert_1': 73.68382271672255, 'expert_2': 90.24368233248211, 'expert_3': 89.69053672054284, 'expert_4': 83.33293650982614, 'expert_5': 0.0, 'expert_6': 11.392376221832349, 'expert_7': 72.8069536781108, 'expert_8': 66.66660033174097, 'expert_9': 83.33311965866754, 'expert_10': 72.98381210982895, 'expert_11': 0.0}
+n is 16
+selected experts ['MLPMixer', 'MLPMixer', 'predict', 'predict_random', 'predict', 'predict_random', 'predict', 'predict', 'predict', 'predict_random', 'predict', 'predict_prob', 'predict', 'predict_random', 'predict', 'predict']
+shapes: true labels torch.Size([1280]), confidences torch.Size([1280, 23]), expert_predictions (16, 1280)
+Evaluate...
+{'coverage': '181 out of1280', 'system_accuracy': 66.484375, 'expert_accuracy': 63.057313365366085, 'classifier_accuracy': 87.29276945150859, 'alone_classifier': 77.734375, 'validation_loss': 47.727175903320315, 'n_experts': 16, 'expert_0': 70.66647822272473, 'expert_1': 73.33313777829925, 'expert_2': 0.0, 'expert_3': 7.777760493865569, 'expert_4': 71.79450361793016, 'expert_5': 8.86073706142516, 'expert_6': 0.0, 'expert_7': 98.6298667674883, 'expert_8': 92.30748943408915, 'expert_9': 17.582378939826505, 'expert_10': 0.0, 'expert_11': 76.6231776021361, 'expert_12': 0.0, 'expert_13': 14.117613840908609, 'expert_14': 93.91879200163243, 'expert_15': 91.47716877594456}
+===Mean and Standard Error===
+Mean [84.63541667 78.88020833 53.30729167 62.109375   60.546875   69.42708333
+ 63.93229167]
+Standard Error [ 3.8844007   1.8167679  10.30582302  9.11499255  8.43942879  1.3831533
+  1.27683861]

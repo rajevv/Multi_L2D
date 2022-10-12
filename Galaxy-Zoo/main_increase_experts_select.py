@@ -1,32 +1,28 @@
 import math
-import torch
-import torch.nn as nn
 import random
-import numpy as np
-import torch.nn.functional as F
 import argparse
-import os
 import shutil
 import time
-import torch.nn.parallel
-import torch.backends.cudnn as cudnn
 import torch.optim
 import torch.utils.data
-import torchvision
-import torchvision.transforms as transforms
-import torchvision.datasets as datasets
 from torch.autograd import Variable
-from expert_model import MLPMixer
 import json
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import copy
+import os
+import pickle5 as pickle
+
 from utils import *
 from data_utils import *
-from models.resnet34 import *
+from models.resnet50 import *
 from models.experts import *
 from losses.losses import *
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-print(device)
+print(device,  flush=True)
 
 
 def set_seed(seed):
@@ -68,8 +64,8 @@ def evaluate(model,
 	losses = []
 	with torch.no_grad():
 		for data in data_loader:
-			images, labels, Z = data
-			images, labels, Z = images.to(device), labels.to(device), Z.float().to(device)
+			images, labels, hpred = data
+			images, labels, hpred = images.to(device), labels.to(device), hpred
 			outputs = model(images)
 			if config["loss_type"] == "softmax":
 				outputs = F.softmax(outputs, dim=1)
@@ -82,7 +78,7 @@ def evaluate(model,
 			expert_predictions = []
 			collection_Ms = []  # a collection of 3-tuple
 			for i, fn in enumerate(expert_fns, 0):
-				exp_prediction1 = fn(images, labels, Z)
+				exp_prediction1 = fn(images, labels, hpred)
 				m = [0] * batch_size
 				m2 = [0] * batch_size
 				for j in range(0, batch_size):
@@ -176,16 +172,16 @@ def train_epoch(iters,
 
 	epoch_train_loss = []
 
-	for i, (input, target, Z) in enumerate(train_loader):
+	for i, (input, target, hpred) in enumerate(train_loader):
 		if iters < warmup_iters:
 			lr = lrate * float(iters) / warmup_iters
-			# print(iters, lr)
+			print(iters, lr)
 			for param_group in optimizer.param_groups:
 				param_group['lr'] = lr
 
 		target = target.to(device)
 		input = input.to(device)
-		Z = Z.float().to(device)
+		hpred = hpred
 
 		# compute output
 		output = model(input)
@@ -199,7 +195,7 @@ def train_epoch(iters,
 		# We only support \alpha=1
 		for _, fn in enumerate(expert_fns):
 			# We assume each expert function has access to the extra metadata, even if they don't use it.
-			m = fn(input, target, Z)
+			m = fn(input, target, hpred)
 			m2 = [0] * batch_size
 			for j in range(0, batch_size):
 				if m[j] == target[j].item():
@@ -252,17 +248,18 @@ def train(model,
 		  train_dataset,
 		  validation_dataset,
 		  expert_fns,
-		  config):
+		  config,
+		  seed=""):
 	n_classes = config["n_classes"] + len(expert_fns)
 	kwargs = {'num_workers': 0, 'pin_memory': True}
+
 	train_loader = torch.utils.data.DataLoader(train_dataset,
 											   batch_size=config["batch_size"], shuffle=True, drop_last=True, **kwargs)
 	valid_loader = torch.utils.data.DataLoader(validation_dataset,
 											   batch_size=config["batch_size"], shuffle=True, drop_last=True, **kwargs)
 	model = model.to(device)
 	cudnn.benchmark = True
-	optimizer = torch.optim.SGD(model.parameters(), config["lr"],
-								momentum=0.9, nesterov=True,
+	optimizer = torch.optim.Adam(model.parameters(), config["lr"],
 								weight_decay=config["weight_decay"])
 	criterion = Criterion()
 	loss_fn = getattr(criterion, config["loss_type"])
@@ -300,7 +297,7 @@ def train(model,
 			best_validation_loss = validation_loss
 			print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
 			save_path = os.path.join(config["ckp_dir"],
-									 config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts')
+									 config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts' + '_seed_' + str(seed))
 			torch.save(model.state_dict(), save_path + '.pt')
 			# Additionally save the whole config dict
 			with open(save_path + '.json', "w") as f:
@@ -315,30 +312,40 @@ def train(model,
 
 
 # === Experiment 1 === #
-all_available_experts = ['MLPMixer', 'predict', 'predict_prob', 'predict_random']
+all_available_experts = ['HumanExpert', 'FlipHuman', 'predict_prob', 'predict_random']
 def increase_experts(config):
 	config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_select"
 	os.makedirs(config["ckp_dir"], exist_ok=True)
 
-	experiment_experts = [1, 2, 4, 6, 8, 12, 14, 16, 18, 20]
-	# experiment_experts = [1, 2]
-	# experiment_experts = [4, 6]
-	# experiment_experts = [8]
+	experiment_experts = [4, 6, 2, 1, 8, 12, 16]
+	
+
+
 
 	# experiment_experts = [config["n_experts"]]
-	for n in experiment_experts:
-		print(n)
-		num_experts = n
-		selected_experts = random.choices(all_available_experts,k=n)
-		expert = synth_expert()
-		expert_fns = []
-		for expert_type in selected_experts:
-			expert_fn = getattr(expert, expert_type)
-			expert_fns.append(expert_fn)
-		model = model = ResNet34_defer(int(config["n_classes"])+num_experts) #WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
-		trainD, valD, _ = ham10000_expert.read(data_aug=True)
-		train(model, trainD, valD, expert_fns, config)
+	for seed in [948, 625, 436]:
+		print("run for seed {}".format(seed))
+		set_seed(seed)
+		log = {'selected_experts' : {}}
+		for n in experiment_experts:
+			print("n is {}".format(n))
+			num_experts = n
+			selected_experts = random.choices(all_available_experts,k=n)
+			print("selected experts {}".format(selected_experts))
+			log['selected_experts'][n] = selected_experts
+			expert = synth_expert()
+			expert_fns = []
+			for expert_type in selected_experts:
+				expert_fn = getattr(expert, expert_type)
+				expert_fns.append(expert_fn)
+			model = model = ResNet50_defer(int(config["n_classes"])+num_experts) 
+			trainD = GalaxyZooDataset()
+			valD = GalaxyZooDataset(split='val')
+			train(model, trainD, valD, expert_fns, config, seed=seed)
 
+		pth = os.path.join(config['ckp_dir'], config['experiment_name'] + '_log_' + '_seed_' + str(seed))
+		with open(pth + '.json', 'w') as f:
+			json.dump(log, f)
 
 
 
@@ -347,24 +354,24 @@ if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser()
 
-	parser.add_argument("--batch_size", type=int, default=1024)
+	parser.add_argument("--batch_size", type=int, default=128)
 	parser.add_argument("--alpha", type=float, default=1.0,
 						help="scaling parameter for the loss function, default=1.0.")
-	parser.add_argument("--epochs", type=int, default=100)
-	parser.add_argument("--patience", type=int, default=20,
+	parser.add_argument("--epochs", type=int, default=150)
+	parser.add_argument("--patience", type=int, default=50,
 						help="number of patience steps for early stopping the training.")
 	parser.add_argument("--expert_type", type=str, default="MLPMixer",
 						help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
-	parser.add_argument("--n_classes", type=int, default=7,
+	parser.add_argument("--n_classes", type=int, default=2,
 						help="K for K class classification.")
-	parser.add_argument("--k", type=int, default=5)
+	parser.add_argument("--k", type=int, default=0)
 	# Dani experiments =====
 	parser.add_argument("--n_experts", type=int, default=2)
 	# Dani experiments =====
-	parser.add_argument("--lr", type=float, default=0.1,
+	parser.add_argument("--lr", type=float, default=0.001,
 						help="learning rate.")
 	parser.add_argument("--weight_decay", type=float, default=5e-4)
-	parser.add_argument("--warmup_epochs", type=int, default=20)
+	parser.add_argument("--warmup_epochs", type=int, default=5)
 	parser.add_argument("--loss_type", type=str, default="softmax",
 						help="surrogate loss type for learning to defer.")
 	parser.add_argument("--ckp_dir", type=str, default="./Models",
@@ -374,5 +381,20 @@ if __name__ == "__main__":
 
 	config = parser.parse_args().__dict__
 
-	print(config)
+	# print(config)
 	increase_experts(config)
+
+	# def load_data(file_name):
+	# 	assert(os.path.exists(file_name+'.pkl'))
+	# 	with open(file_name + '.pkl', 'rb') as f:
+	# 		data = pickle.load(f)
+	# 	return data
+
+	# data_path = 'galaxy_data'
+
+	# data = load_data(data_path)
+	# X = torch.from_numpy(data['X']).float().to(device)
+	# Y = torch.from_numpy(data['Y']).to(device).long()
+	# hlabel = data['hpred']
+
+	# print(X.shape, Y.shape, hlabel.shape)
