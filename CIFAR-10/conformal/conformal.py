@@ -4,6 +4,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from tqdm import tqdm
+from conformal.utils import save_dict_as_txt
 
 # Global variables ===
 METRIC_METHODS = ["standard",  # standard L2D
@@ -145,6 +146,7 @@ def process_conformal_results(results, exp_list, exp_args, cal_percent=0.8, alph
                                            method=method,
                                            conformal_type=conformal_type)
                 k_dict[method] = metrics_dict
+
             results_dict[seed][exp] = k_dict
 
     return results_dict
@@ -186,12 +188,12 @@ def get_metrics(confs, exps, true, deferral, idx_test, n_classes, conformal_dict
     experts_r_test = experts_r_test[r_test]
 
     # Top-1 experts
-    top1_experts = predicted[r_test] - n_classes
-
+    top1_experts = predicted[r_test] - n_classes  # these are expert indexes
+    top1_exp_prediction = torch.tensor([experts_r_test[i, top1] for i, top1 in enumerate(top1_experts)])
     # Non Conformal prediction ===
     # ============================
     if method == "standard":  # Top-1
-        exp_prediction = torch.tensor([experts_r_test[i, top1] for i, top1 in enumerate(top1_experts)])
+        exp_prediction = top1_exp_prediction
 
     # Conformal prediction ===
     # ============================
@@ -208,7 +210,7 @@ def get_metrics(confs, exps, true, deferral, idx_test, n_classes, conformal_dict
 
         # Don't allow empty sets -> Take top-1 expert (standard L2D)
         # Empty sets encoded as -1.
-        exp_prediction[exp_prediction == -1] = top1_experts[exp_prediction == -1]
+        exp_prediction[exp_prediction == -1] = top1_exp_prediction[exp_prediction == -1]
 
         # Conformal set sizes
         set_sizes = experts_conformal_mask.sum(axis=1)
