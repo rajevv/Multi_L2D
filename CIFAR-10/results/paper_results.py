@@ -480,7 +480,9 @@ def experiment2():
 def experiment3():
     # Non-randomized experts ===
     cmap = sns.color_palette()
-    exp_list = [1, 2, 3, 4, 5, 7, 9]
+    exp_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    x_ticks = [e + 1 for e in exp_list]
+
     ova_args = {"color": cmap[0],
                 "marker": "o"}
     softmax_args = {"color": cmap[1],
@@ -491,16 +493,16 @@ def experiment3():
         # Naive ===
         exp_path_naive = "increase_oracle/naive/"
         ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_avg_set_size_ova.txt")
-        ova_setsize_naive = np.array(ova_setsize_naive["voting"])
+        ova_setsize_naive = np.array(ova_setsize_naive["voting"])[:, 1:]
         softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_avg_set_size_softmax.txt")
-        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
+        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])[:, 1:]
 
         # Regularized ===
         exp_path_reg = "increase_oracle/regularized/"
         ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_avg_set_size_ova.txt")
-        ova_setsize_reg = np.array(ova_setsize_reg["voting"])
+        ova_setsize_reg = np.array(ova_setsize_reg["voting"])[:, 1:]
         softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_avg_set_size_softmax.txt")
-        softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
+        softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])[:, 1:]
 
         # OvA ===
         # naive
@@ -534,7 +536,7 @@ def experiment3():
                     label="Softmax Reg. Conformal", **softmax_args)
         softmax_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
 
-        ax.set_xticks(exp_list, exp_list)
+        ax.set_xticks(exp_list, x_ticks)
         # plt.yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"Average Set Size")
         ax.set_xlabel(r"Oracles")
@@ -586,7 +588,7 @@ def experiment3():
                     **softmax_args)
         softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
                                                   **softmax_args)
-        ax.set_xticks(exp_list, exp_list)
+        ax.set_xticks(exp_list, x_ticks)
         ax.set_ylabel(r"System Accuracy $(\%)$")
         ax.set_xlabel(r"Oracles")
         ax.grid()
@@ -646,7 +648,7 @@ def experiment3():
         softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
                                                   **softmax_args)
 
-        ax.set_xticks(exp_list, exp_list)
+        ax.set_xticks(exp_list, x_ticks)
         ax.set_ylabel(r"System Accuracy $(\%)$")
         ax.set_xlabel(r"Oracles")
         ax.grid()
