@@ -1,0 +1,107 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+cuda:0
+{'batch_size': 1024, 'alpha': 1.0, 'epochs': 100, 'patience': 20, 'expert_type': 'predict_biasedK', 'n_classes': 10, 'k': 5, 'n_experts': 2, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 0, 'loss_type': 'ova', 'ckp_dir': './ova_increase_experts_prob/', 'experiment_name': 'multiple_experts'}
+seed is 948
+n is 1
+torch.Size([9216]) torch.Size([9216, 11]) [torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 11]), expert_predictions (1, 9216)
+Evaluate...
+{'coverage': '8460 out of9216', 'system_accuracy': 87.98828125, 'expert_accuracy': 60.71426965230962, 'classifier_accuracy': 90.42553084603392, 'alone_classifier': 86.48003472222223, 'validation_loss': 1.7674239079157512, 'n_experts': 1, 'expert_0': 60.71426965230962}
+n is 4
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/torch/nn/functional.py:1944: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
+  warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")
+torch.Size([9216]) torch.Size([9216, 14]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 14]), expert_predictions (4, 9216)
+Evaluate...
+{'coverage': '8599 out of9216', 'system_accuracy': 88.74782986111111, 'expert_accuracy': 62.560757678846784, 'classifier_accuracy': 90.6268160178298, 'alone_classifier': 87.54340277777777, 'validation_loss': 4.092728932698567, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 59.99880002399952, 'expert_2': 62.60294477662446, 'expert_3': 0.0}
+n is 8
+torch.Size([9216]) torch.Size([9216, 18]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 18]), expert_predictions (8, 9216)
+Evaluate...
+{'coverage': '8733 out of9216', 'system_accuracy': 90.21267361111111, 'expert_accuracy': 66.45959980968952, 'classifier_accuracy': 91.52639308912867, 'alone_classifier': 89.07335069444444, 'validation_loss': 7.012882126702203, 'n_experts': 8, 'expert_0': 99.99666677777407, 'expert_1': 65.95716613971855, 'expert_2': 49.99500049995, 'expert_3': 0.0, 'expert_4': 66.3398259216824, 'expert_5': 0.0, 'expert_6': 61.11077160682441, 'expert_7': 67.44170362394506}
+n is 12
+torch.Size([9216]) torch.Size([9216, 22]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 22]), expert_predictions (12, 9216)
+Evaluate...
+{'coverage': '8823 out of9216', 'system_accuracy': 89.82204861111111, 'expert_accuracy': 55.47070968411721, 'classifier_accuracy': 91.35214676014796, 'alone_classifier': 89.05164930555556, 'validation_loss': 10.118631150987413, 'n_experts': 12, 'expert_0': 61.643751172943595, 'expert_1': 59.61515532632567, 'expert_2': 53.703504801834065, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 51.72378121530196, 'expert_8': 50.574596380238205, 'expert_9': 11.11086420301771, 'expert_10': 57.142040827988176, 'expert_11': 0.0}
+n is 16
+torch.Size([9216]) torch.Size([9216, 26]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 26]), expert_predictions (16, 9216)
+Evaluate...
+{'coverage': '8844 out of9216', 'system_accuracy': 90.04991319444444, 'expert_accuracy': 63.97846022663428, 'classifier_accuracy': 91.14653899653393, 'alone_classifier': 89.24696180555556, 'validation_loss': 13.147229300604927, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 63.07672899468001, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 59.25882030503478, 'expert_5': 79.99893334755537, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 49.99875003124922, 'expert_9': 0.0, 'expert_10': 55.554321015088554, 'expert_11': 61.635142597304906, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 70.45438533094243}
+n is 20
+torch.Size([9216]) torch.Size([9216, 30]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 30]), expert_predictions (20, 9216)
+Evaluate...
+{'coverage': '8690 out of9216', 'system_accuracy': 89.46397569444444, 'expert_accuracy': 62.16727674248033, 'classifier_accuracy': 91.11622449808718, 'alone_classifier': 88.10763888888889, 'validation_loss': 16.2894385655721, 'n_experts': 20, 'expert_0': 68.23521384092489, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 99.99333377774815, 'expert_5': 0.0, 'expert_6': 24.99875006249687, 'expert_7': 42.85591840233136, 'expert_8': 0.0, 'expert_9': 24.99875006249687, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 68.87408096148216, 'expert_13': 99.98000399920016, 'expert_14': 49.23069349124078, 'expert_15': 49.99500049995, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 61.11088477450084, 'expert_19': 0.0}
+seed is 625
+n is 1
+torch.Size([9216]) torch.Size([9216, 11]) [torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 11]), expert_predictions (1, 9216)
+Evaluate...
+{'coverage': '8672 out of9216', 'system_accuracy': 88.33550347222223, 'expert_accuracy': 59.74262509462313, 'classifier_accuracy': 90.12915025220076, 'alone_classifier': 87.38064236111111, 'validation_loss': 1.8187879191504583, 'n_experts': 1, 'expert_0': 59.74262509462313}
+n is 4
+torch.Size([9216]) torch.Size([9216, 14]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 14]), expert_predictions (4, 9216)
+Evaluate...
+{'coverage': '8616 out of9216', 'system_accuracy': 88.78038194444444, 'expert_accuracy': 59.99998000000667, 'classifier_accuracy': 90.7845857615531, 'alone_classifier': 87.83637152777777, 'validation_loss': 4.0693978733486595, 'n_experts': 4, 'expert_0': 63.04343910345397, 'expert_1': 0.0, 'expert_2': 56.55733069071255, 'expert_3': 57.575408633887065}
+n is 8
+torch.Size([9216]) torch.Size([9216, 18]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 18]), expert_predictions (8, 9216)
+Evaluate...
+{'coverage': '8454 out of9216', 'system_accuracy': 88.16189236111111, 'expert_accuracy': 64.30444506445012, 'classifier_accuracy': 90.31227714321888, 'alone_classifier': 86.54513888888889, 'validation_loss': 7.210592428843181, 'n_experts': 8, 'expert_0': 49.99500049995, 'expert_1': 64.11039011632508, 'expert_2': 44.99955000449996, 'expert_3': 45.45426997412137, 'expert_4': 58.49034531945163, 'expert_5': 67.46570721526903, 'expert_6': 49.9990000199996, 'expert_7': 88.46085799340005}
+n is 12
+torch.Size([9216]) torch.Size([9216, 22]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 22]), expert_predictions (12, 9216)
+Evaluate...
+{'coverage': '8855 out of9216', 'system_accuracy': 90.12586805555556, 'expert_accuracy': 62.326835275991535, 'classifier_accuracy': 91.25917457640685, 'alone_classifier': 89.19270833333333, 'validation_loss': 10.177277459038628, 'n_experts': 12, 'expert_0': 57.391204537035584, 'expert_1': 45.4541322351615, 'expert_2': 69.23059171643149, 'expert_3': 99.9900009999, 'expert_4': 66.66222251849877, 'expert_5': 59.997600095996155, 'expert_6': 0.0, 'expert_7': 63.15756232861932, 'expert_8': 73.91282923817612, 'expert_9': 39.99840006399744, 'expert_10': 52.94055364054541, 'expert_11': 28.570612268220906}
+n is 16
+torch.Size([9216]) torch.Size([9216, 26]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 26]), expert_predictions (16, 9216)
+Evaluate...
+{'coverage': '8631 out of9216', 'system_accuracy': 89.48567708333333, 'expert_accuracy': 62.90596139967132, 'classifier_accuracy': 91.28721942663401, 'alone_classifier': 88.28125, 'validation_loss': 13.10812250773112, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 60.075999942205364, 'expert_2': 62.49843753906153, 'expert_3': 67.1639786149892, 'expert_4': 57.14231293035304, 'expert_5': 0.0, 'expert_6': 68.18150826587151, 'expert_7': 49.99500049995, 'expert_8': 62.16182615229107, 'expert_9': 81.24898438769516, 'expert_10': 68.18119835274224, 'expert_11': 0.0, 'expert_12': 63.46141642035303, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+n is 20
+torch.Size([9216]) torch.Size([9216, 30]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 30]), expert_predictions (20, 9216)
+Evaluate...
+{'coverage': '7874 out of9216', 'system_accuracy': 86.00260416666667, 'expert_accuracy': 61.698947585849844, 'classifier_accuracy': 90.14477914471959, 'alone_classifier': 84.15798611111111, 'validation_loss': 16.57088194953071, 'n_experts': 20, 'expert_0': 66.66444451851605, 'expert_1': 66.66577778962947, 'expert_2': 0.0, 'expert_3': 65.24820381269369, 'expert_4': 65.21724952771841, 'expert_5': 58.33236112731455, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 99.99500024998748, 'expert_11': 57.948688231441935, 'expert_12': 58.33236112731455, 'expert_13': 63.63520663260668, 'expert_14': 72.72705234226562, 'expert_15': 0.0, 'expert_16': 68.18119835274224, 'expert_17': 99.9900009999, 'expert_18': 50.73521950703014, 'expert_19': 49.99500049995}
+seed is 436
+n is 1
+torch.Size([9216]) torch.Size([9216, 11]) [torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 11]), expert_predictions (1, 9216)
+Evaluate...
+{'coverage': '8424 out of9216', 'system_accuracy': 88.72612847222223, 'expert_accuracy': 62.24745902841944, 'classifier_accuracy': 91.21557346610194, 'alone_classifier': 87.45659722222223, 'validation_loss': 1.7248163885540433, 'n_experts': 1, 'expert_0': 62.24745902841944}
+n is 4
+torch.Size([9216]) torch.Size([9216, 14]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 14]), expert_predictions (4, 9216)
+Evaluate...
+{'coverage': '8442 out of9216', 'system_accuracy': 88.22699652777777, 'expert_accuracy': 64.3410686457187, 'classifier_accuracy': 90.4169617339853, 'alone_classifier': 86.69704861111111, 'validation_loss': 4.0813629097408715, 'n_experts': 4, 'expert_0': 49.99750012499374, 'expert_1': 33.33111125924938, 'expert_2': 0.0, 'expert_3': 64.53714092903758}
+n is 8
+torch.Size([9216]) torch.Size([9216, 18]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 18]), expert_predictions (8, 9216)
+Evaluate...
+{'coverage': '8667 out of9216', 'system_accuracy': 89.0625, 'expert_accuracy': 62.84150716156388, 'classifier_accuracy': 90.72343266731934, 'alone_classifier': 87.86892361111111, 'validation_loss': 7.203608724806044, 'n_experts': 8, 'expert_0': 66.9999553333631, 'expert_1': 49.99916668055533, 'expert_2': 0.0, 'expert_3': 74.99812504687384, 'expert_4': 62.49987980792344, 'expert_5': 0.0, 'expert_6': 55.813693889795864, 'expert_7': 53.086288675830424}
+n is 12
+torch.Size([9216]) torch.Size([9216, 22]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 22]), expert_predictions (12, 9216)
+Evaluate...
+{'coverage': '8234 out of9216', 'system_accuracy': 88.10763888888889, 'expert_accuracy': 63.441942272516854, 'classifier_accuracy': 91.04930664258798, 'alone_classifier': 86.02430555555556, 'validation_loss': 10.126505851745605, 'n_experts': 12, 'expert_0': 56.24964843969725, 'expert_1': 59.99920001066653, 'expert_2': 68.88882765437542, 'expert_3': 57.77752098879561, 'expert_4': 62.68638004065659, 'expert_5': 63.70102227685247, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 51.06361249526598, 'expert_9': 62.69836293780719, 'expert_10': 66.66592593415629, 'expert_11': 0.0}
+n is 16
+torch.Size([9216]) torch.Size([9216, 26]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 26]), expert_predictions (16, 9216)
+Evaluate...
+{'coverage': '8179 out of9216', 'system_accuracy': 87.890625, 'expert_accuracy': 61.04145399393366, 'classifier_accuracy': 91.2947781966649, 'alone_classifier': 86.36067708333333, 'validation_loss': 13.262903107537163, 'n_experts': 16, 'expert_0': 69.99860002799944, 'expert_1': 0.0, 'expert_2': 45.832951392071735, 'expert_3': 0.0, 'expert_4': 59.68580137612421, 'expert_5': 70.21246718099071, 'expert_6': 59.997600095996155, 'expert_7': 99.99333377774815, 'expert_8': 63.549130192263696, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 41.891778670868455, 'expert_12': 64.40670688507696, 'expert_13': 33.33111125924938, 'expert_14': 28.570612268220906, 'expert_15': 62.82035174268783}
+n is 20
+torch.Size([9216]) torch.Size([9216, 30]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 30]), expert_predictions (20, 9216)
+Evaluate...
+{'coverage': '7778 out of9216', 'system_accuracy': 86.62109375, 'expert_accuracy': 65.43809938274, 'classifier_accuracy': 90.53741205274605, 'alone_classifier': 84.30989583333333, 'validation_loss': 16.385999467637802, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 49.99500049995, 'expert_9': 64.29318025273712, 'expert_10': 70.51276024550407, 'expert_11': 0.0, 'expert_12': 70.58740485406054, 'expert_13': 51.02019991755136, 'expert_14': 0.0, 'expert_15': 68.18174070256738, 'expert_16': 99.99500024998748, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+===Mean and Standard Error===
+[88.34997106 88.58506944 89.14568866 89.35185185 89.14207176 87.36255787]
+[0.21312095 0.1792829  0.59346895 0.62825844 0.64657555 1.06577046]
