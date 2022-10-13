@@ -972,5 +972,5 @@ if __name__ == '__main__':
     # experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
     experiment2()  # GRADUAL OVERLAP ===
     # experiment3()  # RANDOMIZED ===
-    # experiment4()  # NON-RANDOMIZED ===
+    experiment4()  # NON-RANDOMIZED ===
     # increase_experts_other_datasets()
