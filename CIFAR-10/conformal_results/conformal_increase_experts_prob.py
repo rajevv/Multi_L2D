@@ -10,11 +10,11 @@ from conformal.conformal_plots import plot_metric, compare_metric
 
 conformal_type = "naive"
 
-experiment_name = "increase_experts"
+experiment_name = "increase_experts_prob"
 experiment_args = {"n_experts": 10,
                    "n_classes": 10,
                    "ensemble_size": 5}
-exp_list = [1, 2, 4, 6, 8, 10, 14, 18]
+exp_list = [1, 4, 8, 12, 16, 20]
 seeds = [436, 625, 948]
 seed_name = "_seed_{}"
 model_name = "_new_{}_experts"  # to include values in exp_list
