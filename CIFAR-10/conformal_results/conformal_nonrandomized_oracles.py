@@ -9,14 +9,14 @@ from conformal.conformal_plots import plot_metric, compare_metric
 # Experiment params ==============
 # *** Change from here for other exps ***
 
-conformal_type = "regularized"
+conformal_type = "naive"
 
 experiment_name = "increase_oracle_v2"
 experiment_args = {"n_experts": 10,
                    "n_classes": 10,
                    "ensemble_size": 5}
 
-exp_list = [1, 3, 5, 7, 9]
+exp_list = [1, 2, 3, 4, 5, 7, 9]
 seeds = [436, 625, 948]
 seed_name = "seed_{}"
 model_name = "_k_{}"  # to include values in exp_list
