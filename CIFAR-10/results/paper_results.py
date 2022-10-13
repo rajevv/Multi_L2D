@@ -26,10 +26,10 @@ def experiment1():
 
     def increase_experts_accuracy(f, ax):
         # exp_list = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
-        exp_list = [2, 4, 6, 8, 10, 12, 16, 18, 20]
+        exp_list = [2, 4, 6, 8, 10, 14, 18]
         exp_path = "increase_experts/naive/"
-        ova_accuracies = load_dict_txt(exp_path + "increase_experts_expert_accuracy_ova.txt")
-        softmax_accuracies = load_dict_txt(exp_path + "increase_experts_expert_accuracy_softmax.txt")
+        ova_accuracies = load_dict_txt(exp_path + "increase_experts_system_accuracy_ova.txt")
+        softmax_accuracies = load_dict_txt(exp_path + "increase_experts_system_accuracy_softmax.txt")
 
         ova_accuracies = np.array(ova_accuracies["standard"]) * 100
         softmax_accuracies = np.array(softmax_accuracies["standard"]) * 100
@@ -84,6 +84,40 @@ def experiment1():
         ax.set_xticks(exp_list, exp_list)
         # plt.yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"Average ECE $(\%)$")
+        ax.set_xlabel(r"Number of Experts")
+        ax.grid()
+
+        ova_leg = mlines.Line2D([], [], linestyle='-', label='OvA', **ova_args)
+        softmax_leg = mlines.Line2D([], [], linestyle='-', label='Softmax', **softmax_args)
+        ax.legend(handles=[ova_leg, softmax_leg], loc="best")
+        return ax
+
+    def increase_experts_accuracy_70(f, ax):
+        # exp_list = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
+        exp_list = [4, 8, 12, 16, 20]
+        exp_path = "increase_experts_prob/naive/"
+        ova_accuracies = load_dict_txt(exp_path + "increase_experts_prob_system_accuracy_ova.txt")
+        softmax_accuracies = load_dict_txt(exp_path + "increase_experts_prob_system_accuracy_softmax.txt")
+
+        ova_accuracies = np.array(ova_accuracies["standard"]) * 100
+        softmax_accuracies = np.array(softmax_accuracies["standard"]) * 100
+
+        ova_accuracies = ova_accuracies[:, 1:]
+        softmax_accuracies = softmax_accuracies[:, 1:]
+        # OvA
+        ova_acc_mean = ova_accuracies.mean(axis=0)
+        ova_acc_std = ova_accuracies.std(axis=0)
+        ax.errorbar(exp_list, ova_acc_mean, yerr=ova_acc_std,
+                    alpha=0.75, label="OvA", **ova_args)
+
+        # Softmax
+        softmax_acc_mean = softmax_accuracies.mean(axis=0)
+        softmax_acc_std = softmax_accuracies.std(axis=0)
+        ax.errorbar(exp_list, softmax_acc_mean, yerr=softmax_acc_std,
+                    alpha=0.75, label="Softmax", **softmax_args)
+        ax.set_xticks(exp_list, exp_list)
+        plt.yticks(list(plt.yticks()[0])[::2])
+        ax.set_ylabel(r"System Accuracy $(\%)$")
         ax.set_xlabel(r"Number of Experts")
         ax.grid()
 
@@ -178,7 +212,7 @@ def experiment1():
 
         ax.set_xticks(exp_list, exp_list)
         # plt.yticks(list(plt.yticks()[0])[::2])
-        ax.set_ylabel(r"Average ECE $(\%)$")
+        ax.set_ylabel(r"Random Expert ECE $(\%)$")
         ax.set_xlabel(r"Expert Correctness ($\%$)")
         ax.grid()
 
@@ -192,6 +226,12 @@ def experiment1():
     f.set_tight_layout(True)
     plt.show()
     f.savefig(paper_results_path + "increase_experts_sys_accuracy.pdf")
+
+    f, ax = plt.subplots(1, 1)
+    ax = increase_experts_accuracy_70(f, ax)
+    f.set_tight_layout(True)
+    plt.show()
+    f.savefig(paper_results_path + "increase_experts_sys_accuracy_70.pdf")
 
     f, ax = plt.subplots(1, 1)
     ax = increase_experts_calibration(f, ax)
@@ -440,8 +480,7 @@ def experiment2():
 def experiment3():
     # Non-randomized experts ===
     cmap = sns.color_palette()
-    exp_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    exp_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    exp_list = [1, 2, 3, 4, 5, 7, 9]
     ova_args = {"color": cmap[0],
                 "marker": "o"}
     softmax_args = {"color": cmap[1],
@@ -452,16 +491,16 @@ def experiment3():
         # Naive ===
         exp_path_naive = "increase_oracle/naive/"
         ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_avg_set_size_ova.txt")
-        ova_setsize_naive = np.array(ova_setsize_naive["voting"])[:, 1:]
+        ova_setsize_naive = np.array(ova_setsize_naive["voting"])
         softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_avg_set_size_softmax.txt")
-        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])[:, 1:]
+        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
 
         # Regularized ===
         exp_path_reg = "increase_oracle/regularized/"
         ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_avg_set_size_ova.txt")
-        ova_setsize_reg = np.array(ova_setsize_reg["voting"])[:, 1:]
+        ova_setsize_reg = np.array(ova_setsize_reg["voting"])
         softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_avg_set_size_softmax.txt")
-        softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])[:, 1:]
+        softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
 
         # OvA ===
         # naive
@@ -511,12 +550,12 @@ def experiment3():
         # Naive ===
         exp_path = "increase_oracle/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_ova.txt")
-        ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:]
-        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"])[:, 1:]
+        ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:] * 100
+        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"])[:, 1:] * 100
 
         softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"])[:, 1:]
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"])[:, 1:]
+        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"])[:, 1:] * 100
+        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"])[:, 1:] * 100
 
         # OvA ===
         # naive
@@ -642,7 +681,9 @@ def experiment3():
 def experiment4():
     # Non-randomized experts ===
     cmap = sns.color_palette()
-    exp_list = [1, 3, 5, 7, 9]
+    exp_list = [1, 2, 3, 4, 5, 7, 9]
+    x_ticks = [e + 1 for e in exp_list]
+    # exp_list = [1, 2, 3, 4, 5]
     ova_args = {"color": cmap[0],
                 "marker": "o"}
     softmax_args = {"color": cmap[1],
@@ -696,7 +737,7 @@ def experiment4():
                     label="Softmax Reg. Conformal", **softmax_args)
         softmax_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
 
-        ax.set_xticks(exp_list, exp_list)
+        ax.set_xticks(exp_list, x_ticks)
         # plt.yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"Average Set Size")
         ax.set_xlabel(r"Oracles")
@@ -712,12 +753,12 @@ def experiment4():
         # Naive ===
         exp_path = "increase_oracle_v2/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_ova.txt")
-        ova_sys_acc_voting = np.array(ova_sys_acc["voting"])
-        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"])
+        ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
+        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
 
         softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"])
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"])
+        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
+        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
 
         # OvA ===
         # naive
@@ -748,7 +789,7 @@ def experiment4():
                     **softmax_args)
         softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
                                                   **softmax_args)
-        ax.set_xticks(exp_list, exp_list)
+        ax.set_xticks(exp_list, x_ticks)
         ax.set_ylabel(r"System Accuracy $(\%)$")
         ax.set_xlabel(r"Oracles")
         ax.grid()
@@ -764,12 +805,12 @@ def experiment4():
         # Naive ===
         exp_path = "increase_oracle_v2/regularized/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_ova.txt")
-        ova_sys_acc_voting = np.array(ova_sys_acc["voting"])
-        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"])
+        ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
+        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
 
         softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"])
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"])
+        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
+        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
 
         # # Regularized ===
         # exp_path_reg = "increase_oracle_v2/regularized/"
@@ -808,7 +849,7 @@ def experiment4():
         softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
                                                   **softmax_args)
 
-        ax.set_xticks(exp_list, exp_list)
+        ax.set_xticks(exp_list, x_ticks)
         ax.set_ylabel(r"System Accuracy $(\%)$")
         ax.set_xlabel(r"Oracles")
         ax.grid()
@@ -921,5 +962,5 @@ if __name__ == '__main__':
     # experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
     # experiment2()  # GRADUAL OVERLAP ===
     # experiment3()  # RANDOMIZED ===
-    # experiment4()  # NON-RANDOMIZED ===
-    increase_experts_other_datasets()
+    experiment4()  # NON-RANDOMIZED ===
+    # increase_experts_other_datasets()
