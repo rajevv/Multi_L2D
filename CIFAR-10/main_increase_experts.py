@@ -305,7 +305,7 @@ def increase_experts(config):
 	config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_prob"
 	os.makedirs(config["ckp_dir"], exist_ok=True)
 
-	experiment_experts = [1, 4, 8, 12, 16, 20]
+	experiment_experts = [2,3] #[1, 4, 8, 12, 16, 20]
 	# experiment_experts = [1, 2]
 	# experiment_experts = [4, 6]
 	# experiment_experts = [8]
