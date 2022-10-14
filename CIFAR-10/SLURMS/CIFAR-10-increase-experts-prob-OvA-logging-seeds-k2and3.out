@@ -1,0 +1,47 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+cuda:0
+{'batch_size': 1024, 'alpha': 1.0, 'epochs': 100, 'patience': 20, 'expert_type': 'predict_biasedK', 'n_classes': 10, 'k': 5, 'n_experts': 2, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 0, 'loss_type': 'ova', 'ckp_dir': './ova_increase_experts_prob/', 'experiment_name': 'multiple_experts'}
+seed is 948
+n is 2
+torch.Size([9216]) torch.Size([9216, 12]) [torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 12]), expert_predictions (2, 9216)
+Evaluate...
+{'coverage': '8595 out of9216', 'system_accuracy': 87.94487847222223, 'expert_accuracy': 63.28500377294565, 'classifier_accuracy': 89.72658418002811, 'alone_classifier': 86.77300347222223, 'validation_loss': 2.647649606068929, 'n_experts': 2, 'expert_0': 62.626136108815935, 'expert_1': 63.409937390828595}
+n is 3
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/torch/nn/functional.py:1944: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
+  warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")
+torch.Size([9216]) torch.Size([9216, 13]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 13]), expert_predictions (3, 9216)
+Evaluate...
+{'coverage': '8542 out of9216', 'system_accuracy': 88.60677083333333, 'expert_accuracy': 62.01778575139889, 'classifier_accuracy': 90.70475192338151, 'alone_classifier': 87.32638888888889, 'validation_loss': 3.338877730899387, 'n_experts': 3, 'expert_0': 59.999942857197276, 'expert_1': 64.34420955392659, 'expert_2': 61.36358057856311}
+seed is 625
+n is 2
+torch.Size([9216]) torch.Size([9216, 12]) [torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 12]), expert_predictions (2, 9216)
+Evaluate...
+{'coverage': '8247 out of9216', 'system_accuracy': 87.98828125, 'expert_accuracy': 62.22908932320138, 'classifier_accuracy': 91.01491341075648, 'alone_classifier': 86.14366319444444, 'validation_loss': 2.576041168636746, 'n_experts': 2, 'expert_0': 63.55926817011172, 'expert_1': 61.8008016914593}
+n is 3
+torch.Size([9216]) torch.Size([9216, 13]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 13]), expert_predictions (3, 9216)
+Evaluate...
+{'coverage': '8401 out of9216', 'system_accuracy': 88.14019097222223, 'expert_accuracy': 64.2944627498251, 'classifier_accuracy': 90.4535163617008, 'alone_classifier': 86.67534722222223, 'validation_loss': 3.298040919833713, 'n_experts': 3, 'expert_0': 61.111077160512686, 'expert_1': 67.57366549947143, 'expert_2': 42.85653062099113}
+seed is 436
+n is 2
+torch.Size([9216]) torch.Size([9216, 12]) [torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 12]), expert_predictions (2, 9216)
+Evaluate...
+{'coverage': '8223 out of9216', 'system_accuracy': 87.42404513888889, 'expert_accuracy': 62.33634192621513, 'classifier_accuracy': 90.45360463999022, 'alone_classifier': 85.80729166666667, 'validation_loss': 2.599904431237115, 'n_experts': 2, 'expert_0': 66.00978718247568, 'expert_1': 61.39238952091405}
+n is 3
+torch.Size([9216]) torch.Size([9216, 13]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 13]), expert_predictions (3, 9216)
+Evaluate...
+{'coverage': '8569 out of9216', 'system_accuracy': 88.96484375, 'expert_accuracy': 61.36010468002947, 'classifier_accuracy': 91.04912952445876, 'alone_classifier': 87.80381944444444, 'validation_loss': 3.337486505508423, 'n_experts': 3, 'expert_0': 62.36783832226709, 'expert_1': 54.5449586821938, 'expert_2': 59.210448407304725}
+===Mean and Standard Error===
+[87.78573495 88.57060185]
+[0.18127842 0.23874268]

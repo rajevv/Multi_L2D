@@ -13,7 +13,7 @@ def get_softmax_ECEs(seed=""):
 	# exps = []
 	# true = []
 	path = "softmax_increase_experts_prob/"
-	n_experts = [1, 4, 8, 12, 16, 20]
+	n_experts = [1, 2, 3, 4, 8, 12, 16, 20]
 	ECE = []
 	for n in n_experts:
 		model_name = '_' + 'new' + '_' + str(n) + '_experts' + '_seed_' + str(seed) # 
@@ -66,7 +66,7 @@ def get_OvA_ECEs(seed=""):
 
 	n_classes = 10
 	path = "ova_increase_experts_prob/"
-	n_experts = [1, 4, 8, 12, 16, 20]
+	n_experts = [1, 2, 3, 4, 8, 12, 16, 20]
 	ECE = []
 	for n in n_experts:
 		model_name = '_' + 'new' + '_' + str(n) + '_experts' + '_seed_' + str(seed) 

@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=6
 #SBATCH --time=36:00:00
 #SBATCH --mem=48000M
-#SBATCH --output=./SLURMS/CIFAR-10-increase-oracles-v2-OvA-k=2and4.out
+#SBATCH --output=./SLURMS/CIFAR-10-increase-oracles-v2-OvA-k=0.out
 
 module purge
 module load 2020
