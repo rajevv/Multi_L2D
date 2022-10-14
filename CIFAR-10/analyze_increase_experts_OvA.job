@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=6
 #SBATCH --time=1:00:00
 #SBATCH --mem=48000M
-#SBATCH --output=./SLURMS/CIFAR-10-increase-experts-prob-OvA-logging-seeds.out
+#SBATCH --output=./SLURMS/CIFAR-10-increase-experts-prob-OvA-logging-seeds-k2and3.out
 
 module purge
 module load 2020

@@ -166,7 +166,7 @@ if __name__ == "__main__":
 		print("seed is {}".format(seed))
 		set_seed(seed)
 		acc = []
-		for i, n in enumerate([1, 4, 8, 12, 16, 20]):
+		for i, n in enumerate([2,3]): #[1, 4, 8, 12, 16, 20]):
 			print("n is {}".format(n))
 			model_name = '_' + str(n) + '_experts' + '_seed_' + str(seed)
 			num_experts = n

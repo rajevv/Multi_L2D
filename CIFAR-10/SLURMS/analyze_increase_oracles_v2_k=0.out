@@ -1,0 +1,30 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+cuda:0
+{'batch_size': 1024, 'alpha': 1.0, 'epochs': 100, 'patience': 20, 'expert_type': 'predict', 'n_classes': 10, 'k': 5, 'n_experts': 10, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 0, 'loss_type': 'softmax', 'ckp_dir': './softmax_increase_oracle_v2/', 'experiment_name': 'increase_oracles_v2'}
+log is of type <class 'dict'>
+type of S, type of idx  <class 'list'> <class 'list'>
+torch.Size([9216]) torch.Size([9216, 20]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 20]), expert_predictions (10, 9216)
+Evaluate...
+{'coverage': '6093 out of9216', 'system_accuracy': 60.384114583333336, 'expert_accuracy': 2.6577007583925227, 'classifier_accuracy': 89.97209765350242, 'alone_classifier': 86.10026041666667, 'validation_loss': 6.6266715791490345, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 2.6602562397271643, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0}
+{'coverage': '6093 out of9216', 'system_accuracy': 60.384114583333336, 'expert_accuracy': 2.6577007583925227, 'classifier_accuracy': 89.97209765350242, 'alone_classifier': 86.10026041666667, 'validation_loss': 6.6266715791490345, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 2.6602562397271643, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0}
+log is of type <class 'dict'>
+type of S, type of idx  <class 'list'> <class 'list'>
+torch.Size([9216]) torch.Size([9216, 20]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 20]), expert_predictions (10, 9216)
+Evaluate...
+{'coverage': '8114 out of9216', 'system_accuracy': 78.22265625, 'expert_accuracy': 4.6279483433850555, 'classifier_accuracy': 88.21789390907205, 'alone_classifier': 85.77473958333333, 'validation_loss': 6.608799775441487, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 99.98000399920016, 'expert_3': 39.99840006399744, 'expert_4': 4.387567753643921, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0}
+{'coverage': '8114 out of9216', 'system_accuracy': 78.22265625, 'expert_accuracy': 4.6279483433850555, 'classifier_accuracy': 88.21789390907205, 'alone_classifier': 85.77473958333333, 'validation_loss': 6.608799775441487, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 99.98000399920016, 'expert_3': 39.99840006399744, 'expert_4': 4.387567753643921, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0}
+log is of type <class 'dict'>
+type of S, type of idx  <class 'list'> <class 'list'>
+torch.Size([9216]) torch.Size([9216, 20]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 20]), expert_predictions (10, 9216)
+Evaluate...
+{'coverage': '5300 out of9216', 'system_accuracy': 51.627604166666664, 'expert_accuracy': 2.1705821159048972, 'classifier_accuracy': 88.1698096571734, 'alone_classifier': 86.46918402777777, 'validation_loss': 6.72491651111179, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 2.171691253362736, 'expert_9': 0.0}
+{'coverage': '5300 out of9216', 'system_accuracy': 51.627604166666664, 'expert_accuracy': 2.1705821159048972, 'classifier_accuracy': 88.1698096571734, 'alone_classifier': 86.46918402777777, 'validation_loss': 6.72491651111179, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 2.171691253362736, 'expert_9': 0.0}
