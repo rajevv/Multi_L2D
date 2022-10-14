@@ -165,7 +165,7 @@ def experiment1():
 
     def increase_confidence_calibration_average(f, ax):  # TODO
         exp_list = [0.2, 0.4, 0.6, 0.8, 0.95]
-
+        x_ticks = [int(100 * e) for e in exp_list]
         softmax_ece_mean = np.array(
             [0.03834392, 0.04669855, 0.0517783, 0.0499814, 0.0400186]) * 100
         softmax_ece_std = np.array(
@@ -182,7 +182,7 @@ def experiment1():
         ax.errorbar(exp_list, softmax_ece_mean, yerr=softmax_ece_std,
                     alpha=0.75, label="Softmax", marker="s")
 
-        ax.set_xticks(exp_list, exp_list)
+        ax.set_xticks(exp_list, x_ticks)
         ax.set_yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"Average ECE $(\%)$")
         ax.set_xlabel(r"Expert Correctness ($\%$)")
@@ -195,6 +195,7 @@ def experiment1():
 
     def increase_confidence_calibration_random(f, ax):  # TODO
         exp_list = [0.2, 0.4, 0.6, 0.8, 0.95]
+        x_ticks = [int(100 * e) for e in exp_list]
 
         softmax_ece_mean = np.array(
             [0.01336952, 0.02237696, 0.02346867, 0.01674813, 0.02441374]) * 100
@@ -212,7 +213,7 @@ def experiment1():
         ax.errorbar(exp_list, softmax_ece_mean, yerr=softmax_ece_std,
                     alpha=0.75, label="Softmax", marker="s")
 
-        ax.set_xticks(exp_list, exp_list)
+        ax.set_xticks(exp_list, x_ticks)
         ax.set_yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"Random Expert ECE $(\%)$")
         ax.set_xlabel(r"Expert Correctness ($\%$)")
@@ -687,7 +688,7 @@ def experiment3():
 def experiment4():
     # Non-randomized experts ===
     cmap = sns.color_palette()
-    exp_list = [1, 2, 3, 4, 5, 7, 9]
+    exp_list = [0, 1, 2, 3, 4, 5, 7, 9]
     x_ticks = [e + 1 for e in exp_list]
     # exp_list = [1, 2, 3, 4, 5]
     ova_args = {"color": cmap[0],
@@ -875,19 +876,19 @@ def experiment4():
     ax = plot_avg_set_size(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "avg_set_size_nonrandomized.pdf")
+    f.savefig(paper_results_path + "avg_set_size_nonrandomized_new.pdf")
 
     f, ax = plt.subplots(1, 1)
     ax = plot_sys_acc_naive(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "system_accuracy_nonrandomized_naive.pdf")
+    f.savefig(paper_results_path + "system_accuracy_nonrandomized_naive_new.pdf")
 
     f, ax = plt.subplots(1, 1)
     ax = plot_sys_acc_reg(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "system_accuracy_nonrandomized_reg.pdf")
+    f.savefig(paper_results_path + "system_accuracy_nonrandomized_reg_new.pdf")
 
 def ham10000():
     # Non-randomized experts ===
@@ -1130,8 +1131,8 @@ if __name__ == '__main__':
     # plt.rcParams.update(figsizes.aistats2023_half(tight_layout=True, height_to_width_ratio=1))  # make square fig.
 
     # Experiment 1: Multi-expert accuracies and calibration
-    # experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
+    experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
     # experiment2()  # GRADUAL OVERLAP ===
     # experiment3()  # RANDOMIZED ===
-    experiment4()  # NON-RANDOMIZED ===
-    ham10000()
+    # experiment4()  # NON-RANDOMIZED ===
+    # ham10000()
