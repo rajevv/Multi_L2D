@@ -84,27 +84,28 @@ ova_metrics = conformal.process_conformal_results(ova_results, exp_list, experim
                                                   alpha=alpha, metric_methods=metric_methods,
                                                   conformal_type=conformal_type)
 
-
-set_sizes = np.zeros((experiment_args["n_experts"], len(exp_list)))
-for seed in seeds:
-    for i, exp in enumerate(exp_list):
-        set_size = np.array(ova_metrics[seed][exp]["voting"]["set_sizes"][0])
-        counter = Counter(set_size)
-        idx = list(counter.keys())
-        idx = [j - 1 for j in idx]
-        counts = list(counter.values())
-        set_sizes[idx, i] += counts
-
-max_col = np.max(set_sizes, 0)
-renorm_by_col = np.tile(max_col, (10, 1))
-set_sizes_renorm = set_sizes/renorm_by_col
-f, ax = plt.subplots(1, 1)
-sns.heatmap(set_sizes_renorm, cmap="viridis")
-ax.set_xticks(np.array(exp_list)+0.5, exp_list)
-ax.set_yticks(np.arange(1,11) - 0.5, np.arange(1,11))
-ax.set_ylabel("Set sizes")
-ax.set_xlabel("Oracles")
-plt.title("{}".format(conformal_type))
+#
+# set_sizes = np.zeros((experiment_args["n_experts"], len(exp_list)))
+# for seed in seeds:
+#     for i, exp in enumerate(exp_list):
+#         set_size = np.array(ova_metrics[seed][exp]["voting"]["set_sizes"][0])
+#         counter = Counter(set_size)
+#         idx = list(counter.keys())
+#         idx = [j - 1 for j in idx]
+#         counts = list(counter.values())
+#         set_sizes[idx, i] += counts
+#
+# max_col = np.max(set_sizes, 0)
+# renorm_by_col = np.tile(max_col, (10, 1))
+# set_sizes_renorm = set_sizes/renorm_by_col
+# f, ax = plt.subplots(1, 1)
+# sns.heatmap(set_sizes_renorm, cmap="viridis")
+# ax.set_xticks(np.array(exp_list)+0.5, exp_list)
+# ax.set_yticks(np.arange(1,11) - 0.5, np.arange(1,11))
+# ax.set_ylabel("Set sizes")
+# ax.set_xlabel("Oracles")
+# plt.title("{}".format(conformal_type))
+# plt.show()
 
 for met in metrics:
     utils.save_metric(ova_metrics, met, metric_methods, plot_args["metric_path"].format(met, "ova"))
