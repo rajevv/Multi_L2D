@@ -223,37 +223,37 @@ def experiment1():
         ax.legend(handles=[ova_leg, softmax_leg], loc="best")
         return ax
 
-    f, ax = plt.subplots(1, 1)
+    f, ax = plt.subplots(1, 1, figsize=(2.5, 2.5))
     ax = increase_experts_accuracy(f, ax)
     f.set_tight_layout(True)
     plt.show()
     f.savefig(paper_results_path + "increase_experts_sys_accuracy.pdf")
 
-    f, ax = plt.subplots(1, 1)
+    f, ax = plt.subplots(1, 1, figsize=(2.5, 2.5))
     ax = increase_experts_accuracy_70(f, ax)
     f.set_tight_layout(True)
     plt.show()
     f.savefig(paper_results_path + "increase_experts_sys_accuracy_70.pdf")
 
-    f, ax = plt.subplots(1, 1)
+    f, ax = plt.subplots(1, 1, figsize=(2.5, 2.5))
     ax = increase_experts_calibration(f, ax)
     f.set_tight_layout(True)
     plt.show()
     f.savefig(paper_results_path + "increase_experts_calibration.pdf")
 
-    f, ax = plt.subplots(1, 1)
+    f, ax = plt.subplots(1, 1, figsize=(2.5, 2.5))
     ax = increase_experts_calibration_70(f, ax)
     f.set_tight_layout(True)
     plt.show()
     f.savefig(paper_results_path + "increase_experts_calibration_70.pdf")
 
-    f, ax = plt.subplots(1, 1)
+    f, ax = plt.subplots(1, 1, figsize=(2.5, 2.5))
     ax = increase_confidence_calibration_average(f, ax)
     f.set_tight_layout(True)
     plt.show()
     f.savefig(paper_results_path + "increase_confidence_calibration_average.pdf")
 
-    f, ax = plt.subplots(1, 1)
+    f, ax = plt.subplots(1, 1, figsize=(2.5, 2.5))
     ax = increase_confidence_calibration_random(f, ax)
     f.set_tight_layout(True)
     plt.show()
@@ -859,7 +859,7 @@ def experiment4():
 
         ax.set_xticks(exp_list, x_ticks)
         ax.set_ylim(ax.get_ylim())
-        ax.set_yticks(list(plt.yticks()[0])[::2])
+        # ax.set_yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"System Accuracy $(\%)$")
         ax.set_xlabel(r"Oracles")
         ax.grid()
@@ -889,78 +889,239 @@ def experiment4():
     plt.show()
     f.savefig(paper_results_path + "system_accuracy_nonrandomized_reg.pdf")
 
-
-def increase_experts_other_datasets():
+def ham10000():
+    # Non-randomized experts ===
+    cmap = sns.color_palette()
     exp_list = [1, 2, 4, 6, 8, 12, 16]
-    cmap = sns.color_palette("deep")
-    ova_plot_args = {"alpha": 0.5,
-                     "marker": "o",
-                     "color": cmap[0],
-                     "linestyle": "dotted"}
+    x_ticks = exp_list
+    # exp_list = [1, 2, 3, 4, 5]
+    ova_args = {"color": cmap[0],
+                "marker": "o"}
+    softmax_args = {"color": cmap[1],
+                    "marker": "s"}
 
-    softmax_plot_args = {"alpha": 0.5,
-                         "marker": "s",
-                         "color": cmap[1],
-                         "linestyle": "dashed"}
+    # Naive ===
+    def plot_avg_set_size(f, ax):
+        # Naive ===
+        exp_path_naive = "increase_experts_select/naive/"
+        ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_experts_select_avg_set_size_ova.txt")
+        ova_setsize_naive = np.array(ova_setsize_naive["voting"])
+        softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_experts_select_avg_set_size_softmax.txt")
+        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
 
-    def ham10000():
-        dataset = "HAM10000"
-        softmax_ham_mean = np.array([84.63, 78.88, 53.30, 62.10, 60.54, 69.42, 63.93])
-        softmax_ham_std = np.array([3.88, 1.81, 10.30, 9.11, 8.43, 1.38, 1.27])
-        ova_ham_mean = np.array([83.46, 87.26, 58.20, 69.89, 52.18, 50.59, 67.29])
-        ova_ham_std = np.array([0.56, 2.93, 16.48, 12.32, 5.82, 12.63, 4.49])
+        # Regularized ===
+        exp_path_reg = "increase_experts_select/regularized/"
+        ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_experts_select_avg_set_size_ova.txt")
+        ova_setsize_reg = np.array(ova_setsize_reg["voting"])
+        softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_experts_select_avg_set_size_softmax.txt")
+        softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
 
-        fig, ax = plt.subplots(1, 1)  # note we must use plt.subplots, not plt.subplot
-        xaxis = [exp * 10 for exp in exp_list]
+        # OvA ===
+        # naive
+        ova_setsize_naive_mean = ova_setsize_naive.mean(axis=0)
+        ova_setsize_naive_std = ova_setsize_naive.std(axis=0)
+        ax.errorbar(exp_list, ova_setsize_naive_mean, yerr=ova_setsize_naive_std, linestyle="-", alpha=0.75,
+                    label="OvA Naive Conformal", **ova_args)
+        ova_naive_leg = mlines.Line2D([], [], linestyle='-', label="OvA, naive", **ova_args)
 
-        scale_mark = 5
-        scale_y = 4
-        for i, e in enumerate(exp_list):
-            radius_ova = ova_ham_std[i]
-            print("{} | OvA {} expert: Mean {} \ Std {}".format(dataset, e, ova_ham_mean[i], ova_ham_std[i]))
-            plt.gca().add_patch(
-                plt.Circle((xaxis[i], ova_ham_mean[i] * scale_y), radius_ova + scale_mark, fill=True, alpha=0.5,
-                           color=cmap[0]))
-            radius_softmax = softmax_ham_std[i]
-            print("{} | Softmax {} expert: Mean {} \ Std {}".format(dataset, e, softmax_ham_mean[i],
-                                                                    softmax_ham_std[i]))
-            plt.gca().add_patch(
-                plt.Circle((xaxis[i], softmax_ham_mean[i] * scale_y), radius_softmax + scale_mark, fill=True,
-                           alpha=0.5, color=cmap[1]))
+        # Softmax ===
+        # naive
+        softmax_setsize_naive_mean = softmax_setsize_naive.mean(axis=0)
+        softmax_setsize_naive_std = softmax_setsize_naive.std(axis=0)
+        ax.errorbar(exp_list, softmax_setsize_naive_mean, yerr=softmax_setsize_naive_std, linestyle="-", alpha=0.75,
+                    label="Softmax Naive Conformal", **softmax_args)
+        softmax_naive_leg = mlines.Line2D([], [], linestyle='-', label="Softmax, naive", **softmax_args)
 
-        # plt.plot(x_axis, ova_galaxy_mean, color="black", linestyle="dotted", alpha=0.5)
-        # plt.plot(x_axis, softmax_galaxy_mean, color="black", linestyle="dashed", alpha=0.5)
+        # OvA ===
+        # reg
+        ova_setsize_reg_mean = ova_setsize_reg.mean(axis=0)
+        ova_setsize_reg_std = ova_setsize_reg.std(axis=0)
+        ax.errorbar(exp_list, ova_setsize_reg_mean, yerr=ova_setsize_reg_std, linestyle="--", alpha=0.75,
+                    label="OvA Reg. Conformal", **ova_args)
+        ova_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA, regularized", **ova_args)
 
-        ax.set_xlim(0, 170)
-        ax.set_ylim(270, 360)
-        ax.set_xticks(xaxis, exp_list)
-        min_y = min(min(ova_ham_mean), min(softmax_ham_mean))
-        max_y = max(max(ova_ham_mean), max(softmax_ham_mean))
-        yticks = np.round(np.linspace(min_y, max_y, len(exp_list)))[::2]
-        ax.set_yticks(yticks * scale_y, yticks)
+        # Softmax ===
+        # reg
+        softmax_setsize_reg_mean = softmax_setsize_reg.mean(axis=0)
+        softmax_setsize_reg_std = softmax_setsize_reg.std(axis=0)
+        ax.errorbar(exp_list, softmax_setsize_reg_mean, yerr=softmax_setsize_reg_std, linestyle="--", alpha=0.75,
+                    label="Softmax Reg. Conformal", **softmax_args)
+        softmax_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
 
-        # Legend
-        ova_leg = mlines.Line2D([], [], label="OvA", alpha=0.5, marker="o", color=cmap[0])
-        softmax_leg = mlines.Line2D([], [], label="Softmax", alpha=0.5, marker="o", color=cmap[1])
-        plt.legend(handles=[ova_leg, softmax_leg], loc="best")
-
-        ax.set_ylabel(r"System Accuracy $(\%)$")
-        ax.set_xlabel(r"Number of experts")
-        plt.title("{}".format(dataset))
+        ax.set_xticks(exp_list, x_ticks)
+        # plt.yticks(list(plt.yticks()[0])[::2])
+        ax.set_ylabel(r"Average Set Size")
+        ax.set_xlabel(r"Oracles")
         ax.grid()
 
-        # IMPORTANT! This allows to get the circles. Otherwise, ellipses!
-        plt.gca().set_aspect(1, adjustable='box')
+        ax.legend(handles=[ova_naive_leg, softmax_naive_leg, ova_reg_leg, softmax_reg_leg],
+                  loc="best")
+        # prop = {"size"})
 
-        plt.savefig("ham10000_system_accuracy.pdf")
-        return
+        return ax
 
-    ham10000()
+    def plot_sys_acc_naive(f, ax):
+        # Naive ===
+        exp_path = "increase_experts_select/naive/"
+        ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
+        ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
+        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
 
-    # def hatespeech():
+        softmax_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_softmax.txt")
+        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
+        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
+
+        # OvA ===
+        # naive
+        ova_sys_acc_voting_mean = ova_sys_acc_voting.mean(axis=0)
+        ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
+        ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
+                    **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+
+        ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
+        ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
+        ax.errorbar(exp_list, ova_sys_acc_ensem_mean, yerr=ova_sys_acc_ensem_std, linestyle="--", alpha=0.75,
+                    **ova_args)
+        ova_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA Fixed-Size ($k=5$)",
+                                              **ova_args)
+
+        # Softmax ===
+        # naive
+        softmax_sys_acc_voting_mean = softmax_sys_acc_voting.mean(axis=0)
+        softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
+        ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
+                    **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+
+        softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
+        softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
+        ax.errorbar(exp_list, softmax_sys_acc_ensem_mean, yerr=softmax_sys_acc_ensem_std, linestyle="--", alpha=0.75,
+                    **softmax_args)
+        softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
+                                                  **softmax_args)
+        ax.set_xticks(exp_list, x_ticks)
+        # ax.set_ylim((ax.get_ylim()[0], 100))
+        # ax.set_yticks(list(plt.yticks()[0])[::2])
+        ax.set_ylabel(r"System Accuracy $(\%)$")
+        ax.set_xlabel(r"Oracles")
+        ax.grid()
+
+        ax.legend(
+            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+            loc="best")
+        # prop = {"size"})
+
+        return ax
+
+    def plot_sys_acc_reg(f, ax):
+        # Naive ===
+        exp_path = "increase_experts_select/regularized/"
+        ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
+        ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
+        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
+
+        softmax_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_softmax.txt")
+        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
+        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
+
+        # # Regularized ===
+        # exp_path_reg = "increase_oracle_v2/regularized/"
+        # ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
+        # ova_setsize_reg = np.array(ova_setsize_reg["voting"])
+        # softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
+        # softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
+
+        # OvA ===
+        # naive
+        ova_sys_acc_voting_mean = ova_sys_acc_voting.mean(axis=0)
+        ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
+        ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="", alpha=0.7,
+                    **ova_args)
+        ax.plot(exp_list, ova_sys_acc_voting_mean, linestyle="-", alpha=0.45, color=cmap[0])
+        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+
+        ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
+        ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
+        ax.errorbar(exp_list, ova_sys_acc_ensem_mean, yerr=ova_sys_acc_ensem_std, linestyle="", alpha=0.7,
+                    **ova_args)
+        ax.plot(exp_list, ova_sys_acc_ensem_mean, linestyle="--", alpha=0.45, color=cmap[0])
+        ova_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA Fixed-Size ($k=5$)",
+                                              **ova_args)
+
+        # Softmax ===
+        # naive
+        softmax_sys_acc_voting_mean = softmax_sys_acc_voting.mean(axis=0)
+        softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
+        ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="", alpha=0.7,
+                    **softmax_args)
+        ax.plot(exp_list, softmax_sys_acc_voting_mean, linestyle="-", alpha=0.45, color=cmap[1])
+        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+
+        softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
+        softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
+        ax.errorbar(exp_list, softmax_sys_acc_ensem_mean, yerr=softmax_sys_acc_ensem_std, linestyle="", alpha=0.7,
+                    **softmax_args)
+        ax.plot(exp_list, softmax_sys_acc_ensem_mean, linestyle="--", alpha=0.45, color=cmap[1])
+        softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
+                                                  **softmax_args)
+
+        ax.set_xticks(exp_list, x_ticks)
+        ax.set_ylim(ax.get_ylim())
+        ax.set_yticks(list(plt.yticks()[0])[::2])
+        ax.set_ylabel(r"System Accuracy $(\%)$")
+        ax.set_xlabel(r"Oracles")
+        ax.grid()
+
+        ax.legend(
+            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+            loc="best")
+        # prop = {"size"})
+
+        return ax
+
+    def get_sys_acc_standard():
+        # Naive ===
+        exp_path = "increase_experts_select/naive/"
+        ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
+        ova_sys_acc = np.array(ova_sys_acc["standard"]) * 100
+
+        softmax_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_softmax.txt")
+        softmax_sys_acc = np.array(softmax_sys_acc["standard"]) * 100
+
+        # OvA ===
+        # naive
+        ova_sys_acc_mean = ova_sys_acc.mean(axis=0)
+        ova_sys_acc__std = ova_sys_acc.std(axis=0)
+
+        softmax_sys_acc_mean = softmax_sys_acc.mean(axis=0)
+        softmax_sys_acc_std = softmax_sys_acc.std(axis=0)
+        print("OvA ======")
+        print("Mean: {}".format(ova_sys_acc_mean))
+        print("Std: {}".format(ova_sys_acc__std))
+        print("Softmax ======")
+        print("Mean: {}".format(softmax_sys_acc_mean))
+        print("Std: {}".format(softmax_sys_acc_std))
+
+    # f, ax = plt.subplots(1, 1)
+    # ax = plot_avg_set_size(f, ax)
+    # f.set_tight_layout(True)
+    # plt.show()
+    # f.savefig(paper_results_path + "avg_set_size_ham10000.pdf")
     #
+    # f, ax = plt.subplots(1, 1)
+    # ax = plot_sys_acc_naive(f, ax)
+    # f.set_tight_layout(True)
+    # plt.show()
+    # f.savefig(paper_results_path + "system_accuracy_ham10000_naive.pdf")
     #
-    # def ham10000():
+    f, ax = plt.subplots(1, 1)
+    ax = plot_sys_acc_reg(f, ax)
+    f.set_tight_layout(True)
+    plt.show()
+    f.savefig(paper_results_path + "system_accuracy_ham10000_reg.pdf")
+
+    get_sys_acc_standard()
 
 
 if __name__ == '__main__':
@@ -970,7 +1131,7 @@ if __name__ == '__main__':
 
     # Experiment 1: Multi-expert accuracies and calibration
     # experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
-    experiment2()  # GRADUAL OVERLAP ===
+    # experiment2()  # GRADUAL OVERLAP ===
     # experiment3()  # RANDOMIZED ===
     experiment4()  # NON-RANDOMIZED ===
-    # increase_experts_other_datasets()
+    ham10000()
