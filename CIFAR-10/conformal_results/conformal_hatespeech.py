@@ -15,13 +15,13 @@ import seaborn as sns
 conformal_type = "regularized"
 
 path_name = "increase_experts_select"
-experiment_name = "increase_experts_galaxyzoo"
+experiment_name = "increase_experts_hatespeech"
 experiment_args = {"n_experts": 10,
                    "n_classes": 2,
                    "ensemble_size": 5}
 
 exp_list = [1, 2, 4, 6, 8, 12, 16]
-seeds = [948, 625, 436]  # TODO: seed 625 throws error on computing betastar!
+seeds = [948, 625, 436]
 seed_name = "_seed_{}"
 model_name = "_{}_experts"  # to include values in exp_list
 
