@@ -14,7 +14,8 @@ import seaborn as sns
 
 conformal_type = "naive"
 
-experiment_name = "increase_experts_select"
+path_name = "increase_experts_select"
+experiment_name = "increase_experts_hatespeech"
 experiment_args = {"n_experts": 10,
                    "n_classes": 7,
                    "ensemble_size": 5}
@@ -69,7 +70,7 @@ plot_args = {"xlabel": xlabel,
 # === OvA === #
 # =========== #
 # Load data OvA ===
-ova_path = "../ova_{}/".format(experiment_name)
+ova_path = "../../hatespeech/ova_{}/".format(path_name)
 path_confidence_ova = ova_path + "confidence_multiple_experts"
 path_experts_ova = ova_path + "expert_predictions_multiple_experts"
 path_labels_ova = ova_path + "true_label_multiple_experts"
@@ -90,7 +91,7 @@ for met in metrics:
 # === Softmax === #
 # =============== #
 # Load data Softmax ===
-softmax_path = "../softmax_{}/".format(experiment_name)
+softmax_path = "../../hatespeech/softmax_{}/".format(path_name)
 path_confidence_softmax = softmax_path + "confidence_multiple_experts"
 path_experts_softmax = softmax_path + "expert_predictions_multiple_experts"
 path_labels_softmax = softmax_path + "true_label_multiple_experts"
