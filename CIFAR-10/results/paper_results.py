@@ -890,6 +890,7 @@ def experiment4():
     plt.show()
     f.savefig(paper_results_path + "system_accuracy_nonrandomized_reg_new.pdf")
 
+
 def ham10000():
     # Non-randomized experts ===
     cmap = sns.color_palette()
@@ -904,14 +905,14 @@ def ham10000():
     # Naive ===
     def plot_avg_set_size(f, ax):
         # Naive ===
-        exp_path_naive = "increase_experts_select/naive/"
+        exp_path_naive = "increase_experts_ham10000/naive/"
         ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_experts_select_avg_set_size_ova.txt")
         ova_setsize_naive = np.array(ova_setsize_naive["voting"])
         softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_experts_select_avg_set_size_softmax.txt")
         softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
 
         # Regularized ===
-        exp_path_reg = "increase_experts_select/regularized/"
+        exp_path_reg = "increase_experts_ham10000/regularized/"
         ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_experts_select_avg_set_size_ova.txt")
         ova_setsize_reg = np.array(ova_setsize_reg["voting"])
         softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_experts_select_avg_set_size_softmax.txt")
@@ -963,7 +964,7 @@ def ham10000():
 
     def plot_sys_acc_naive(f, ax):
         # Naive ===
-        exp_path = "increase_experts_select/naive/"
+        exp_path = "increase_experts_ham10000/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
@@ -1017,7 +1018,7 @@ def ham10000():
 
     def plot_sys_acc_reg(f, ax):
         # Naive ===
-        exp_path = "increase_experts_select/regularized/"
+        exp_path = "increase_experts_ham10000/regularized/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
@@ -1083,7 +1084,7 @@ def ham10000():
 
     def get_sys_acc_standard():
         # Naive ===
-        exp_path = "increase_experts_select/naive/"
+        exp_path = "increase_experts_ham10000/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
         ova_sys_acc = np.array(ova_sys_acc["standard"]) * 100
 
@@ -1123,6 +1124,16 @@ def ham10000():
     f.savefig(paper_results_path + "system_accuracy_ham10000_reg.pdf")
 
     get_sys_acc_standard()
+
+
+def galaxyzoo():
+    # TODO
+    pass
+
+
+def hatespeech():
+    # TODO
+    pass
 
 
 if __name__ == '__main__':
