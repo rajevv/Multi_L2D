@@ -14,13 +14,14 @@ import seaborn as sns
 
 conformal_type = "regularized"
 
-experiment_name = "increase_experts_select"
+path_name = "increase_experts_select"
+experiment_name = "increase_experts_galaxyzoo"
 experiment_args = {"n_experts": 10,
                    "n_classes": 2,
                    "ensemble_size": 5}
 
 exp_list = [1, 2, 4, 6, 8, 12, 16]
-seeds = [948, 625, 436]
+seeds = [948, 625, 436]  # TODO: seed 625 throws error on computing betastar!
 seed_name = "_seed_{}"
 model_name = "_{}_experts"  # to include values in exp_list
 
@@ -69,7 +70,7 @@ plot_args = {"xlabel": xlabel,
 # === OvA === #
 # =========== #
 # Load data OvA ===
-ova_path = "../ova_{}/".format(experiment_name)
+ova_path = "../../Galaxy-Zoo/ova_{}/".format(path_name)
 path_confidence_ova = ova_path + "confidence_multiple_experts"
 path_experts_ova = ova_path + "expert_predictions_multiple_experts"
 path_labels_ova = ova_path + "true_label_multiple_experts"
@@ -90,7 +91,7 @@ for met in metrics:
 # === Softmax === #
 # =============== #
 # Load data Softmax ===
-softmax_path = "../softmax_{}/".format(experiment_name)
+softmax_path = "../../Galaxy-Zoo/softmax_{}/".format(path_name)
 path_confidence_softmax = softmax_path + "confidence_multiple_experts"
 path_experts_softmax = softmax_path + "expert_predictions_multiple_experts"
 path_labels_softmax = softmax_path + "true_label_multiple_experts"
