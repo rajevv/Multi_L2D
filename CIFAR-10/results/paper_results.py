@@ -1104,18 +1104,18 @@ def ham10000():
         print("Mean: {}".format(softmax_sys_acc_mean))
         print("Std: {}".format(softmax_sys_acc_std))
 
-    # f, ax = plt.subplots(1, 1)
-    # ax = plot_avg_set_size(f, ax)
-    # f.set_tight_layout(True)
-    # plt.show()
-    # f.savefig(paper_results_path + "avg_set_size_ham10000.pdf")
-    #
-    # f, ax = plt.subplots(1, 1)
-    # ax = plot_sys_acc_naive(f, ax)
-    # f.set_tight_layout(True)
-    # plt.show()
-    # f.savefig(paper_results_path + "system_accuracy_ham10000_naive.pdf")
-    #
+    f, ax = plt.subplots(1, 1)
+    ax = plot_avg_set_size(f, ax)
+    f.set_tight_layout(True)
+    plt.show()
+    f.savefig(paper_results_path + "avg_set_size_ham10000.pdf")
+
+    f, ax = plt.subplots(1, 1)
+    ax = plot_sys_acc_naive(f, ax)
+    f.set_tight_layout(True)
+    plt.show()
+    f.savefig(paper_results_path + "system_accuracy_ham10000_naive.pdf")
+
     f, ax = plt.subplots(1, 1)
     ax = plot_sys_acc_reg(f, ax)
     f.set_tight_layout(True)
@@ -1131,8 +1131,8 @@ if __name__ == '__main__':
     # plt.rcParams.update(figsizes.aistats2023_half(tight_layout=True, height_to_width_ratio=1))  # make square fig.
 
     # Experiment 1: Multi-expert accuracies and calibration
-    experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
+    # experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
     # experiment2()  # GRADUAL OVERLAP ===
     # experiment3()  # RANDOMIZED ===
     # experiment4()  # NON-RANDOMIZED ===
-    # ham10000()
+    ham10000()
