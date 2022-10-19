@@ -266,6 +266,7 @@ def experiment2():
     # Non-randomized experts ===
     cmap = sns.color_palette()
     exp_list = [0.1, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
+    exp_list = [0.1, 0.2, 0.4, 0.6, 0.8, 0.95]
     ova_args = {"color": cmap[0],
                 "marker": "o"}
     softmax_args = {"color": cmap[1],
@@ -276,16 +277,16 @@ def experiment2():
         # Naive ===
         exp_path_naive = "gradual_overlap/naive/"
         ova_setsize_naive = load_dict_txt(exp_path_naive + "gradual_overlap_avg_set_size_ova.txt")
-        ova_setsize_naive = np.array(ova_setsize_naive["voting"])
+        ova_setsize_naive = np.array(ova_setsize_naive["voting"])[:, :-1]
         softmax_setsize_naive = load_dict_txt(exp_path_naive + "gradual_overlap_avg_set_size_softmax.txt")
-        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
+        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])[:, :-1]
 
         # Regularized ===
         exp_path_reg = "gradual_overlap/regularized/"
         ova_setsize_reg = load_dict_txt(exp_path_reg + "gradual_overlap_avg_set_size_ova.txt")
-        ova_setsize_reg = np.array(ova_setsize_reg["voting"])
+        ova_setsize_reg = np.array(ova_setsize_reg["voting"])[:, :-1]
         softmax_setsize_reg = load_dict_txt(exp_path_reg + "gradual_overlap_avg_set_size_softmax.txt")
-        softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
+        softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])[:, :-1]
 
         # OvA ===
         # naive
@@ -336,12 +337,12 @@ def experiment2():
         # Naive ===
         exp_path = "gradual_overlap/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_ova.txt")
-        ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
-        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
+        ova_sys_acc_voting = (np.array(ova_sys_acc["voting"]) * 100)[:, :-1]
+        ova_sys_acc_ensem = (np.array(ova_sys_acc["ensemble"]) * 100)[:, :-1]
 
         softmax_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
+        softmax_sys_acc_voting = (np.array(softmax_sys_acc["voting"]) * 100)[:, :-1]
+        softmax_sys_acc_ensem = (np.array(softmax_sys_acc["ensemble"]) * 100)[:, :-1]
 
         # # Regularized ===
         # exp_path_reg = "increase_oracle_v2/regularized/"
@@ -411,12 +412,12 @@ def experiment2():
         # Naive ===
         exp_path = "gradual_overlap/regularized/"
         ova_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_ova.txt")
-        ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
-        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
+        ova_sys_acc_voting = (np.array(ova_sys_acc["voting"]) * 100)[:, :-1]
+        ova_sys_acc_ensem = (np.array(ova_sys_acc["ensemble"]) * 100)[:, :-1]
 
         softmax_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
+        softmax_sys_acc_voting = (np.array(softmax_sys_acc["voting"]) * 100)[:, :-1]
+        softmax_sys_acc_ensem = (np.array(softmax_sys_acc["ensemble"]) * 100)[:, :-1]
 
         # OvA ===
         # naive
@@ -876,19 +877,19 @@ def experiment4():
     ax = plot_avg_set_size(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "avg_set_size_nonrandomized_new.pdf")
+    f.savefig(paper_results_path + "avg_set_size_nonrandomized.pdf")
 
     f, ax = plt.subplots(1, 1)
     ax = plot_sys_acc_naive(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "system_accuracy_nonrandomized_naive_new.pdf")
+    f.savefig(paper_results_path + "system_accuracy_nonrandomized_naive.pdf")
 
     f, ax = plt.subplots(1, 1)
     ax = plot_sys_acc_reg(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "system_accuracy_nonrandomized_reg_new.pdf")
+    f.savefig(paper_results_path + "system_accuracy_nonrandomized_reg.pdf")
 
 
 def ham10000():
@@ -1143,7 +1144,7 @@ if __name__ == '__main__':
 
     # Experiment 1: Multi-expert accuracies and calibration
     # experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
-    # experiment2()  # GRADUAL OVERLAP ===
+    experiment2()  # GRADUAL OVERLAP ===
     # experiment3()  # RANDOMIZED ===
     # experiment4()  # NON-RANDOMIZED ===
-    ham10000()
+    # ham10000()
