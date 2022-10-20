@@ -954,7 +954,7 @@ def ham10000():
         ax.set_xticks(exp_list, x_ticks)
         # plt.yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"Average Set Size")
-        ax.set_xlabel(r"Oracles")
+        ax.set_xlabel(r"Number of experts")
         ax.grid()
 
         ax.legend(handles=[ova_naive_leg, softmax_naive_leg, ova_reg_leg, softmax_reg_leg],
@@ -1007,7 +1007,7 @@ def ham10000():
         # ax.set_ylim((ax.get_ylim()[0], 100))
         # ax.set_yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"System Accuracy $(\%)$")
-        ax.set_xlabel(r"Oracles")
+        ax.set_xlabel(r"Number of experts")
         ax.grid()
 
         ax.legend(
@@ -1073,7 +1073,7 @@ def ham10000():
         ax.set_ylim(ax.get_ylim())
         ax.set_yticks(list(plt.yticks()[0])[::2])
         ax.set_ylabel(r"System Accuracy $(\%)$")
-        ax.set_xlabel(r"Oracles")
+        ax.set_xlabel(r"Number of experts")
         ax.grid()
 
         ax.legend(
@@ -1144,7 +1144,7 @@ if __name__ == '__main__':
 
     # Experiment 1: Multi-expert accuracies and calibration
     # experiment1()  # INCREASE NUMBER OF EXPERTS AND CONFIDENCE
-    experiment2()  # GRADUAL OVERLAP ===
+    # experiment2()  # GRADUAL OVERLAP ===
     # experiment3()  # RANDOMIZED ===
     # experiment4()  # NON-RANDOMIZED ===
-    # ham10000()
+    ham10000()
