@@ -1,0 +1,1 @@
+{"batch_size": 1024, "alpha": 1.0, "epochs": 100, "patience": 20, "expert_type": "predict", "n_classes": 10, "k": 5, "n_experts": 2, "lr": 0.1, "weight_decay": 0.0005, "warmup_epochs": 0, "loss_type": "softmax", "ckp_dir": "./softmax_increase_experts_nonoverlapping", "experiment_name": "multiple_experts"}
