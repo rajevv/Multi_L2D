@@ -12,6 +12,7 @@ from utils import *
 import json
 from data_utils import *
 from models.wideresnet import *
+from models.resnet50 import *
 from models.experts import *
 from losses.losses import *
 
@@ -304,17 +305,17 @@ def increase_experts(config):
 	config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_nonoverlapping"
 	os.makedirs(config["ckp_dir"], exist_ok=True)
 
-	experiment_experts = [2, 3, 4, 5]
+	experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 	expert_fns = []
-	i = 0
-	expert = synth_expert2(k1=i*2, k2=i*2 + 2, n_classes=config["n_classes"])
-	expert_fn = getattr(expert, config["expert_type"])
-	expert_fns.append(expert_fn)
-	for i,n in enumerate(experiment_experts,1):
+	# i = 0
+	# expert = synth_expert2(k1=i*2, k2=i*2 + 2, n_classes=config["n_classes"])
+	# expert_fn = getattr(expert, config["expert_type"])
+	# expert_fns.append(expert_fn)
+	for i,n in enumerate(experiment_experts,0):
 		print("training for n={}".format(n))
 		num_experts = n
-		expert = synth_expert2(k1=i*2, k2=i*2 + 2, n_classes=config["n_classes"])
+		expert = synth_expert2(S=[i], p_in=1.0, p_out=0.0, n_classes=config["n_classes"])
 		expert_fn = getattr(expert, config["expert_type"])
 		expert_fns.append(expert_fn)
 		model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
@@ -331,7 +332,7 @@ if __name__ == "__main__":
 	parser.add_argument("--epochs", type=int, default=100)
 	parser.add_argument("--patience", type=int, default=20,
 						help="number of patience steps for early stopping the training.")
-	parser.add_argument("--expert_type", type=str, default="predict",
+	parser.add_argument("--expert_type", type=str, default="predict_prob_cifar_2",
 						help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
 	parser.add_argument("--n_classes", type=int, default=10,
 						help="K for K class classification.")
