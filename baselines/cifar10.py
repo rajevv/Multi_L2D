@@ -25,7 +25,7 @@ device
 
 """# Hyperparameter Definition"""
 
-NUM_CLASSES = 20
+NUM_CLASSES = 10
 DROPOUT = 0.00
 NUM_HIDDEN_UNITS = 100
 LR = 5e-3
@@ -289,7 +289,7 @@ class Network(nn.Module):
 """Classes and Functions for Experts"""
 
 # TODO: Replace by our experts.
-class Cifar100Expert:
+class Cifar10Expert(synth_expert2):
     """A class used to represent an Expert on CIFAR100 data.
 
     Parameters
@@ -316,64 +316,68 @@ class Cifar100Expert:
         makes a prediction based on the specified strengths or weaknesses and the given subclass indices
     """
 
-    def __init__(self, strengths: list = [], weaknesses: list = []):
-        self.strengths = strengths
-        self.weaknesses = weaknesses
+    # Hemmer et al code
+    def __init__(self, k1, k2, n_classes=NUM_CLASSES):
+        super(Cifar10Expert, self).__init__(k1, k2, n_classes)
 
-        assert len(self.strengths) > 0 or len(
-            self.weaknesses) > 0, "the competence of a Cifar100Expert needs to be specified using either strengths or weaknesses"
+    # def __init__(self, strengths: list = [], weaknesses: list = []):
+    #     self.strengths = strengths
+    #     self.weaknesses = weaknesses
+    #
+    #     assert len(self.strengths) > 0 or len(
+    #         self.weaknesses) > 0, "the competence of a Cifar100Expert needs to be specified using either strengths or weaknesses"
+    #
+    #     self.use_strengths = len(self.strengths) > 0
+    #
+    #     self.subclass_idx_to_superclass_idx = {0: 4, 1: 1, 2: 14, 3: 8, 4: 0, 5: 6, 6: 7, 7: 7, 8: 18, 9: 3, 10: 3,
+    #                                            11: 14, 12: 9, 13: 18, 14: 7,
+    #                                            15: 11, 16: 3, 17: 9, 18: 7, 19: 11,
+    #                                            20: 6, 21: 11, 22: 5, 23: 10, 24: 7, 25: 6, 26: 13, 27: 15, 28: 3,
+    #                                            29: 15, 30: 0, 31: 11, 32: 1,
+    #                                            33: 10, 34: 12, 35: 14, 36: 16, 37: 9,
+    #                                            38: 11, 39: 5, 40: 5, 41: 19, 42: 8, 43: 8, 44: 15, 45: 13, 46: 14,
+    #                                            47: 17, 48: 18, 49: 10, 50: 16,
+    #                                            51: 4, 52: 17, 53: 4, 54: 2, 55: 0,
+    #                                            56: 17, 57: 4, 58: 18, 59: 17, 60: 10, 61: 3, 62: 2, 63: 12, 64: 12,
+    #                                            65: 16, 66: 12, 67: 1, 68: 9,
+    #                                            69: 19, 70: 2, 71: 10, 72: 0, 73: 1,
+    #                                            74: 16, 75: 12, 76: 9, 77: 13, 78: 15, 79: 13, 80: 16, 81: 19, 82: 2,
+    #                                            83: 4, 84: 6, 85: 19, 86: 5,
+    #                                            87: 5, 88: 8, 89: 19, 90: 18, 91: 1,
+    #                                            92: 2, 93: 15, 94: 6, 95: 0, 96: 17, 97: 8, 98: 14, 99: 13}
 
-        self.use_strengths = len(self.strengths) > 0
-
-        self.subclass_idx_to_superclass_idx = {0: 4, 1: 1, 2: 14, 3: 8, 4: 0, 5: 6, 6: 7, 7: 7, 8: 18, 9: 3, 10: 3,
-                                               11: 14, 12: 9, 13: 18, 14: 7,
-                                               15: 11, 16: 3, 17: 9, 18: 7, 19: 11,
-                                               20: 6, 21: 11, 22: 5, 23: 10, 24: 7, 25: 6, 26: 13, 27: 15, 28: 3,
-                                               29: 15, 30: 0, 31: 11, 32: 1,
-                                               33: 10, 34: 12, 35: 14, 36: 16, 37: 9,
-                                               38: 11, 39: 5, 40: 5, 41: 19, 42: 8, 43: 8, 44: 15, 45: 13, 46: 14,
-                                               47: 17, 48: 18, 49: 10, 50: 16,
-                                               51: 4, 52: 17, 53: 4, 54: 2, 55: 0,
-                                               56: 17, 57: 4, 58: 18, 59: 17, 60: 10, 61: 3, 62: 2, 63: 12, 64: 12,
-                                               65: 16, 66: 12, 67: 1, 68: 9,
-                                               69: 19, 70: 2, 71: 10, 72: 0, 73: 1,
-                                               74: 16, 75: 12, 76: 9, 77: 13, 78: 15, 79: 13, 80: 16, 81: 19, 82: 2,
-                                               83: 4, 84: 6, 85: 19, 86: 5,
-                                               87: 5, 88: 8, 89: 19, 90: 18, 91: 1,
-                                               92: 2, 93: 15, 94: 6, 95: 0, 96: 17, 97: 8, 98: 14, 99: 13}
-
-    def predict(self, subclass_idxs: list) -> list:
-        """Predicts the superclass indices for the given subclass indices
-
-        Parameters
-        ----------
-        subclass_idxs : list of int
-            list of subclass indices to get a prediction for. Predictions are made based on the specified strengths or weaknesses.
-
-        Returns
-        -------
-        list of int
-            returns a list of superclass indices that represent the experts prediction
-
-        """
-        predictions = []
-        if self.use_strengths:
-            for subclass_idx in subclass_idxs:
-                if subclass_idx in self.strengths:
-                    predictions.append(self.subclass_idx_to_superclass_idx[subclass_idx.item()])
-                else:
-                    predictions.append(random.randint(0, 19))
-        else:
-            for subclass_idx in subclass_idxs:
-                if subclass_idx in self.weaknesses:
-                    predictions.append(random.randint(0, 19))
-                else:
-                    predictions.append(self.subclass_idx_to_superclass_idx[subclass_idx.item()])
-
-        return predictions
+    # def predict(self, subclass_idxs: list) -> list:
+    #     """Predicts the superclass indices for the given subclass indices
+    #
+    #     Parameters
+    #     ----------
+    #     subclass_idxs : list of int
+    #         list of subclass indices to get a prediction for. Predictions are made based on the specified strengths or weaknesses.
+    #
+    #     Returns
+    #     -------
+    #     list of int
+    #         returns a list of superclass indices that represent the experts prediction
+    #
+    #     """
+    #     predictions = []
+    #     if self.use_strengths:
+    #         for subclass_idx in subclass_idxs:
+    #             if subclass_idx in self.strengths:
+    #                 predictions.append(self.subclass_idx_to_superclass_idx[subclass_idx.item()])
+    #             else:
+    #                 predictions.append(random.randint(0, 19))
+    #     else:
+    #         for subclass_idx in subclass_idxs:
+    #             if subclass_idx in self.weaknesses:
+    #                 predictions.append(random.randint(0, 19))
+    #             else:
+    #                 predictions.append(self.subclass_idx_to_superclass_idx[subclass_idx.item()])
+    #
+    #     return predictions
 
 
-class Cifar100AverageExpert:
+class Cifar10AverageExpert:
     """A class used to represent a cohort of Cifar100Experts.
 
         Parameters
@@ -398,7 +402,7 @@ class Cifar100AverageExpert:
         self.expert_fns = expert_fns
         self.num_experts = len(self.expert_fns)
 
-    def predict(self, subclass_idxs):
+    def predict(self, input, labels):
         """Returns the predictions of a random Cifar100Expert for each image for the given subclass indices
 
         The first expert in expert_fns predicts the first image in subclass_idx.
@@ -417,7 +421,7 @@ class Cifar100AverageExpert:
         list of int
             returns a list of superclass indices that represent the experts prediction
         """
-        all_experts_predictions = [expert_fn(subclass_idxs) for expert_fn in self.expert_fns]
+        all_experts_predictions = [expert_fn(input, labels) for expert_fn in self.expert_fns]
         predictions = [None] * len(subclass_idxs)
 
         for idx, expert_predictions in enumerate(all_experts_predictions):
@@ -704,23 +708,25 @@ def get_accuracy_of_best_expert(seed, expert_fns):
     # _, _, test_loader = cifar_dl.get_data_loader()
 
     # Test loader
-    kwargs = {'num_workers': 1, 'pin_memory': True}
+    kwargs = {'num_workers': 0, 'pin_memory': True}
     _, test_d = cifar.read(severity=0, slice_=-1, test=True, only_id=True)
     test_loader = torch.utils.data.DataLoader(test_d, batch_size=1024, shuffle=False, drop_last=True, **kwargs)
 
     targets = torch.tensor([]).long()
-    subclass_idxs = []
+    # subclass_idxs = []
 
     with torch.no_grad():
-        for i, (_, batch_targets, batch_subclass_idxs) in enumerate(test_loader):
+        # for i, (_, batch_targets, batch_subclass_idxs) in enumerate(test_loader):
+        for i, (_, batch_targets) in enumerate(test_loader):
             targets = torch.cat((targets, batch_targets))
-            subclass_idxs.extend(batch_subclass_idxs)
+            # subclass_idxs.extend(batch_subclass_idxs)
 
     expert_preds = np.empty((NUM_EXPERTS, len(targets)))
     for idx, expert_fn in enumerate(expert_fns):
-        expert_preds[idx] = np.array(expert_fn(subclass_idxs))
+        expert_preds[idx] = np.array(expert_fn(targets, targets))
 
     expert_accuracies = []
+    targets = targets[:, 0]  # delete second column
     for idx in range(NUM_EXPERTS):
         preds = expert_preds[idx]
         acc = accuracy_score(targets, preds)
@@ -1218,13 +1224,16 @@ def run_mohe(seed, expert_fns):
 NUM_EXPERTS = len(range(2, 11))
 best_expert_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 avg_expert_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-our_approach_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-our_approach_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-jsf_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-mohe_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-full_automation_accuracies = []
-moae_accuracies = []
+
+# our_approach_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+# our_approach_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+# jsf_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+# jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+#
+# mohe_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+# full_automation_accuracies = []
+# moae_accuracies = []
+
 
 for seed in range(1):
     print(f'Seed: {seed}')
@@ -1232,19 +1241,20 @@ for seed in range(1):
     np.random.seed(seed)
     random.seed(seed)
 
-    subclass_idxs = list(range(0, 100))
-    expert_strengths = []
-    for _ in range(10):
-        strengths = random.sample(subclass_idxs, 60)
-        expert_strengths.append(strengths)
+    # subclass_idxs = list(range(0, 100))
+    # expert_strengths = []
+    # for _ in range(10):
+    #     strengths = random.sample(subclass_idxs, 60)
+    #     expert_strengths.append(strengths)
 
     for num_experts in range(2, 11):
         print(f'Number of Experts: {num_experts}')
         NUM_EXPERTS = num_experts
 
         expert_fns = []
-        for i, strengths in enumerate(expert_strengths[:num_experts]):
-            cifar100_expert = Cifar100Expert(strengths=strengths)
+        for i in range(num_experts):
+
+            cifar100_expert = Cifar10Expert(k1=i*2, k2=i*2 + 2, n_classes=NUM_CLASSES)
             expert_fns.append(cifar100_expert.predict)
 
         best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
@@ -1252,30 +1262,36 @@ for seed in range(1):
 
         avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
         avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
-
-        our_approach_accuracy, our_approach_coverage = run_team_performance_optimization("Our Approach", seed,
-                                                                                         expert_fns)
-        our_approach_accuracies[num_experts].append(our_approach_accuracy)
-
-        jsf_accuracy, jsf_coverage = run_team_performance_optimization("Joint Sparse Framework", seed, expert_fns)
-        jsf_accuracies[num_experts].append(jsf_accuracy)
-
-        mohe_accuracy = run_mohe(seed, expert_fns)
-        mohe_accuracies[num_experts].append(mohe_accuracy)
-
-    full_automation_accuracy = run_full_automation(seed)
-    full_automation_accuracies.append(full_automation_accuracy)
-
-    moae_accuracy = run_moae(seed)
-    moae_accuracies.append(moae_accuracy)
+        #
+        # # === Hemmer et al Baseline ===
+        # our_approach_accuracy, our_approach_coverage = run_team_performance_optimization("Our Approach", seed,
+        #                                                                                  expert_fns)
+        # our_approach_accuracies[num_experts].append(our_approach_accuracy)
+        #
+        # # === Keswani baseline ===
+        # jsf_accuracy, jsf_coverage = run_team_performance_optimization("Joint Sparse Framework", seed, expert_fns)
+        # jsf_accuracies[num_experts].append(jsf_accuracy)
+        #
+        # # === Expert Team ====
+        # mohe_accuracy = run_mohe(seed, expert_fns)
+        # mohe_accuracies[num_experts].append(mohe_accuracy)
+        #
+    # # === One Classifier Team ====
+    # full_automation_accuracy = run_full_automation(seed)
+    # full_automation_accuracies.append(full_automation_accuracy)
+    #
+    # # === Classifier Team === #
+    # moae_accuracy = run_moae(seed)
+    # moae_accuracies.append(moae_accuracy)
     print("-" * 40)
 
 table_list = []
 
-mean_full_automation_accuracy = np.mean(full_automation_accuracies)
-mean_moae_accuracy = np.mean(moae_accuracies)
-table_list.append(['--------', 'Full Automation', mean_full_automation_accuracy])
-table_list.append(['--------', 'MOAE', mean_moae_accuracy])
+# mean_full_automation_accuracy = np.mean(full_automation_accuracies)
+# mean_moae_accuracy = np.mean(moae_accuracies)
+# table_list.append(['--------', 'Full Automation', mean_full_automation_accuracy])
+# table_list.append(['--------', 'MOAE', mean_moae_accuracy])
+
 table_list.append(['--------', '--------', '--------'])
 
 for num_experts in range(2, 11):
@@ -1285,14 +1301,14 @@ for num_experts in range(2, 11):
     mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[num_experts])
     table_list.append([num_experts, 'Random Expert', mean_avg_expert_accuracy])
 
-    mean_our_approach_accuracy = np.mean(our_approach_accuracies[num_experts])
-    table_list.append([num_experts, 'Our Approach', mean_our_approach_accuracy])
-
-    mean_jsf_accuracy = np.mean(jsf_accuracies[num_experts])
-    table_list.append([num_experts, 'JSF', mean_jsf_accuracy])
-
-    mean_mohe_accuracy = np.mean(mohe_accuracies[num_experts])
-    table_list.append([num_experts, 'MOHE', mean_mohe_accuracy])
+    # mean_our_approach_accuracy = np.mean(our_approach_accuracies[num_experts])
+    # table_list.append([num_experts, 'Our Approach', mean_our_approach_accuracy])
+    #
+    # mean_jsf_accuracy = np.mean(jsf_accuracies[num_experts])
+    # table_list.append([num_experts, 'JSF', mean_jsf_accuracy])
+    #
+    # mean_mohe_accuracy = np.mean(mohe_accuracies[num_experts])
+    # table_list.append([num_experts, 'MOHE', mean_mohe_accuracy])
 
     table_list.append(['--------', '--------', '--------'])
 
