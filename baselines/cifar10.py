@@ -691,12 +691,12 @@ def evaluate_one_epoch(epoch, feature_extractor, classifier, allocation_system, 
             targets = torch.cat((targets, batch_targets))
 
     expert_preds = np.empty((NUM_EXPERTS, len(targets)))
-    targets = targets[:, 1]  # Delete column 2
     for idx, expert_fn in enumerate(expert_fns):
         expert_preds[idx] = np.array(expert_fn(targets, targets))
 
     classifier_outputs = classifier_outputs.cpu().numpy()
     allocation_system_outputs = allocation_system_outputs.cpu().numpy()
+    targets = targets[:, 1]  # Delete column 2
     targets = targets.cpu().numpy()
 
     system_accuracy, system_loss, metrics = get_metrics(epoch, allocation_system_outputs, classifier_outputs,
