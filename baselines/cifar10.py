@@ -1,4 +1,3 @@
-
 import random
 import math
 from tqdm import tqdm
@@ -18,7 +17,6 @@ from models.wideresnet import *
 from models.experts import *
 from data_utils import cifar
 
-
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 device
@@ -28,7 +26,7 @@ device
 NUM_CLASSES = 10
 DROPOUT = 0.00
 NUM_HIDDEN_UNITS = 100
-LR = 5e-3
+LR = 0.1
 USE_LR_SCHEDULER = False
 TRAIN_BATCH_SIZE = 512
 TEST_BATCH_SIZE = 512
@@ -230,10 +228,12 @@ def mixture_of_human_experts_loss(allocation_system_output, human_expert_preds, 
 
     return mohe_loss
 
+
 # ======================================== #
 # === Classifier and Allocation network ===#
 # ======================================== #
 """Class for classifier and allocation system network"""
+
 
 # TODO: Replace by Wideresnet as our proposal.
 class Resnet(torch.nn.Module):
@@ -269,7 +269,8 @@ class Network(nn.Module):
 
         self.classifier = nn.Sequential(
             nn.Dropout(DROPOUT),
-            nn.Linear(512, NUM_HIDDEN_UNITS),
+            # nn.Linear(512, NUM_HIDDEN_UNITS),
+            nn.Linear(256, NUM_HIDDEN_UNITS),
             nn.ReLU(),
             nn.Linear(NUM_HIDDEN_UNITS, output_size)
         )
@@ -288,8 +289,98 @@ class Network(nn.Module):
 # ============== #
 """Classes and Functions for Experts"""
 
-# TODO: Replace by our experts.
-class Cifar10Expert(synth_expert2):
+
+#
+# # TODO: Replace by our experts.
+# class Cifar10Expert(synth_expert2):
+#     """A class used to represent an Expert on CIFAR100 data.
+#
+#     Parameters
+#     ----------
+#     strengths : list[int]
+#         list of subclass indices defining the experts strengths
+#     weaknesses : list[int]
+#         list of subclass indices defining the experts weaknesses
+#
+#     Attributes
+#     ----------
+#     strengths : list[int]
+#         list of subclass indices defining the experts strengths. If the subclass index of an image is in strength the expert makes a correct prediction, if not expert predicts a random superclass
+#     weaknesses : list[int]
+#         list of subclass indices defining the experts weaknesses. If the subclass index of an image is in weaknesses the expert predicts a random superclass, if not the expert makes a correct prediction
+#     use_strengths : bool
+#         a boolean indicating whether the expert is defined by its strengths or its weaknesses. True if strengths are not empty, False if strengths are empty
+#     subclass_idx_to_superclass_idx : dict of {int : int}
+#         a dictionary that maps the 100 subclass indices of CIFAR100 to their 20 superclass indices
+#
+#     Methods
+#     -------
+#     predict(fine_ids)
+#         makes a prediction based on the specified strengths or weaknesses and the given subclass indices
+#     """
+#
+#     # Hemmer et al code
+#     def __init__(self, k1, k2, n_classes=NUM_CLASSES):
+#         super(Cifar10Expert, self).__init__(k1, k2, n_classes)
+#
+#     # def __init__(self, strengths: list = [], weaknesses: list = []):
+#     #     self.strengths = strengths
+#     #     self.weaknesses = weaknesses
+#     #
+#     #     assert len(self.strengths) > 0 or len(
+#     #         self.weaknesses) > 0, "the competence of a Cifar100Expert needs to be specified using either strengths or weaknesses"
+#     #
+#     #     self.use_strengths = len(self.strengths) > 0
+#     #
+#     #     self.subclass_idx_to_superclass_idx = {0: 4, 1: 1, 2: 14, 3: 8, 4: 0, 5: 6, 6: 7, 7: 7, 8: 18, 9: 3, 10: 3,
+#     #                                            11: 14, 12: 9, 13: 18, 14: 7,
+#     #                                            15: 11, 16: 3, 17: 9, 18: 7, 19: 11,
+#     #                                            20: 6, 21: 11, 22: 5, 23: 10, 24: 7, 25: 6, 26: 13, 27: 15, 28: 3,
+#     #                                            29: 15, 30: 0, 31: 11, 32: 1,
+#     #                                            33: 10, 34: 12, 35: 14, 36: 16, 37: 9,
+#     #                                            38: 11, 39: 5, 40: 5, 41: 19, 42: 8, 43: 8, 44: 15, 45: 13, 46: 14,
+#     #                                            47: 17, 48: 18, 49: 10, 50: 16,
+#     #                                            51: 4, 52: 17, 53: 4, 54: 2, 55: 0,
+#     #                                            56: 17, 57: 4, 58: 18, 59: 17, 60: 10, 61: 3, 62: 2, 63: 12, 64: 12,
+#     #                                            65: 16, 66: 12, 67: 1, 68: 9,
+#     #                                            69: 19, 70: 2, 71: 10, 72: 0, 73: 1,
+#     #                                            74: 16, 75: 12, 76: 9, 77: 13, 78: 15, 79: 13, 80: 16, 81: 19, 82: 2,
+#     #                                            83: 4, 84: 6, 85: 19, 86: 5,
+#     #                                            87: 5, 88: 8, 89: 19, 90: 18, 91: 1,
+#     #                                            92: 2, 93: 15, 94: 6, 95: 0, 96: 17, 97: 8, 98: 14, 99: 13}
+#
+#     # def predict(self, subclass_idxs: list) -> list:
+#     #     """Predicts the superclass indices for the given subclass indices
+#     #
+#     #     Parameters
+#     #     ----------
+#     #     subclass_idxs : list of int
+#     #         list of subclass indices to get a prediction for. Predictions are made based on the specified strengths or weaknesses.
+#     #
+#     #     Returns
+#     #     -------
+#     #     list of int
+#     #         returns a list of superclass indices that represent the experts prediction
+#     #
+#     #     """
+#     #     predictions = []
+#     #     if self.use_strengths:
+#     #         for subclass_idx in subclass_idxs:
+#     #             if subclass_idx in self.strengths:
+#     #                 predictions.append(self.subclass_idx_to_superclass_idx[subclass_idx.item()])
+#     #             else:
+#     #                 predictions.append(random.randint(0, 19))
+#     #     else:
+#     #         for subclass_idx in subclass_idxs:
+#     #             if subclass_idx in self.weaknesses:
+#     #                 predictions.append(random.randint(0, 19))
+#     #             else:
+#     #                 predictions.append(self.subclass_idx_to_superclass_idx[subclass_idx.item()])
+#     #
+#     #     return predictions
+#
+
+class Cifar10Expert(synth_expert):
     """A class used to represent an Expert on CIFAR100 data.
 
     Parameters
@@ -317,8 +408,8 @@ class Cifar10Expert(synth_expert2):
     """
 
     # Hemmer et al code
-    def __init__(self, k1, k2, n_classes=NUM_CLASSES):
-        super(Cifar10Expert, self).__init__(k1, k2, n_classes)
+    def __init__(self, k, n_classes, p_in=1, p_out=0.2):
+        super(Cifar10Expert, self).__init__(k, n_classes, p_in, p_out)
 
     # def __init__(self, strengths: list = [], weaknesses: list = []):
     #     self.strengths = strengths
@@ -402,7 +493,7 @@ class Cifar10AverageExpert:
         self.expert_fns = expert_fns
         self.num_experts = len(self.expert_fns)
 
-    def predict(self, input, labels):
+    def predict(self, labels):
         """Returns the predictions of a random Cifar100Expert for each image for the given subclass indices
 
         The first expert in expert_fns predicts the first image in subclass_idx.
@@ -422,12 +513,13 @@ class Cifar10AverageExpert:
             returns a list of superclass indices that represent the experts prediction
         """
         all_experts_predictions = [expert_fn(input, labels) for expert_fn in self.expert_fns]
-        predictions = [None] * len(subclass_idxs)
+        predictions = [None] * len(labels)
 
         for idx, expert_predictions in enumerate(all_experts_predictions):
             predictions[idx::self.num_experts] = expert_predictions[idx::self.num_experts]
 
         return predictions
+
 
 # =============== #
 # === Metrics === #
@@ -536,6 +628,7 @@ def get_metrics(epoch, allocation_system_outputs, classifier_outputs, expert_pre
 
     return system_accuracy, system_loss, metrics
 
+
 # ==================================== #
 # === Keswani and Hemmer Baselines === #
 # ==================================== #
@@ -548,15 +641,18 @@ def train_one_epoch(epoch, feature_extractor, classifier, allocation_system, tra
     classifier.train()
     allocation_system.train()
 
-    for i, (batch_input, batch_targets, batch_subclass_idxs) in enumerate(train_loader):
+    # for i, (batch_input, batch_targets, batch_subclass_idxs) in enumerate(train_loader):
+    for i, (batch_input, batch_targets) in enumerate(train_loader):
+
         batch_input = batch_input.to(device)
         batch_targets = batch_targets.to(device)
 
         expert_batch_preds = np.empty((NUM_EXPERTS, len(batch_targets)))
         for idx, expert_fn in enumerate(expert_fns):
-            expert_batch_preds[idx] = np.array(expert_fn(batch_subclass_idxs))
+            expert_batch_preds[idx] = np.array(expert_fn(batch_input, batch_targets))
 
-        batch_features = feature_extractor(batch_input)
+        batch_targets = batch_targets[:, 1]  # Delete column 2
+        batch_features = feature_extractor(batch_input, last_layer=True)
         batch_outputs_classifier = classifier(batch_features)
         batch_outputs_allocation_system = allocation_system(batch_features)
 
@@ -582,7 +678,7 @@ def evaluate_one_epoch(epoch, feature_extractor, classifier, allocation_system, 
     subclass_idxs = []
 
     with torch.no_grad():
-        for i, (batch_input, batch_targets, batch_subclass_idxs) in enumerate(data_loader):
+        for i, (batch_input, batch_targets) in enumerate(data_loader):
             batch_input = batch_input.to(device)
             batch_targets = batch_targets.to(device)
 
@@ -593,11 +689,11 @@ def evaluate_one_epoch(epoch, feature_extractor, classifier, allocation_system, 
             classifier_outputs = torch.cat((classifier_outputs, batch_classifier_outputs))
             allocation_system_outputs = torch.cat((allocation_system_outputs, batch_allocation_system_outputs))
             targets = torch.cat((targets, batch_targets))
-            subclass_idxs.extend(batch_subclass_idxs)
 
     expert_preds = np.empty((NUM_EXPERTS, len(targets)))
+    targets = targets[:, 1]  # Delete column 2
     for idx, expert_fn in enumerate(expert_fns):
-        expert_preds[idx] = np.array(expert_fn(subclass_idxs))
+        expert_preds[idx] = np.array(expert_fn(targets, targets))
 
     classifier_outputs = classifier_outputs.cpu().numpy()
     allocation_system_outputs = allocation_system_outputs.cpu().numpy()
@@ -642,14 +738,17 @@ def run_team_performance_optimization(method, seed, expert_fns):
     train_loader = torch.utils.data.DataLoader(trainD,
                                                batch_size=1024, shuffle=True, drop_last=True, **kwargs)
     val_loader = torch.utils.data.DataLoader(valD,
-                                               batch_size=1024, shuffle=True, drop_last=True, **kwargs)
+                                             batch_size=1024, shuffle=True, drop_last=True, **kwargs)
     # Test loader
     kwargs = {'num_workers': 1, 'pin_memory': True}
     test_loader = torch.utils.data.DataLoader(test_d, batch_size=1024, shuffle=False, drop_last=True, **kwargs)
 
-
     parameters = list(classifier.parameters()) + list(allocation_system.parameters())
-    optimizer = torch.optim.Adam(parameters, lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
+    # optimizer = torch.optim.Adam(parameters, lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
+    optimizer = torch.optim.SGD(parameters, LR,
+                                momentum=0.9, nesterov=True,
+                                weight_decay=5e-4)
+
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, EPOCHS * len(train_loader))
 
     best_val_system_accuracy = 0
@@ -744,20 +843,21 @@ def get_accuracy_of_average_expert(seed, expert_fns):
     # _, _, test_loader = cifar_dl.get_data_loader()
 
     # Test loader
-    kwargs = {'num_workers': 1, 'pin_memory': True}
+    kwargs = {'num_workers': 0, 'pin_memory': True}
     _, test_d = cifar.read(severity=0, slice_=-1, test=True, only_id=True)
     test_loader = torch.utils.data.DataLoader(test_d, batch_size=1024, shuffle=False, drop_last=True, **kwargs)
 
     targets = torch.tensor([]).long()
-    subclass_idxs = []
-
+    # subclass_idxs = []
     with torch.no_grad():
-        for i, (_, batch_targets, batch_subclass_idxs) in enumerate(test_loader):
+        # for i, (_, batch_targets, batch_subclass_idxs) in enumerate(test_loader):
+        for i, (_, batch_targets) in enumerate(test_loader):
             targets = torch.cat((targets, batch_targets))
-            subclass_idxs.extend(batch_subclass_idxs)
+            # subclass_idxs.extend(batch_subclass_idxs)
 
-    avg_expert = Cifar100AverageExpert(expert_fns)
-    avg_expert_preds = avg_expert.predict(subclass_idxs)
+    avg_expert = Cifar10AverageExpert(expert_fns)
+    avg_expert_preds = avg_expert.predict(targets)
+    targets = targets[:, 0]  # delete second column
     avg_expert_acc = accuracy_score(targets, avg_expert_preds)
     print(f'Average Expert Accuracy: {avg_expert_acc}\n')
 
@@ -845,13 +945,17 @@ def run_full_automation(seed):
     train_loader = torch.utils.data.DataLoader(trainD,
                                                batch_size=1024, shuffle=True, drop_last=True, **kwargs)
     val_loader = torch.utils.data.DataLoader(valD,
-                                               batch_size=1024, shuffle=True, drop_last=True, **kwargs)
+                                             batch_size=1024, shuffle=True, drop_last=True, **kwargs)
     # Test loader
     kwargs = {'num_workers': 1, 'pin_memory': True}
     test_loader = torch.utils.data.DataLoader(test_d, batch_size=1024, shuffle=False, drop_last=True, **kwargs)
 
-    optimizer = torch.optim.Adam(classifier.parameters(), lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
+    # optimizer = torch.optim.Adam(classifier.parameters(), lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
+    optimizer = torch.optim.SGD(classifier.parameters(), LR,
+                                momentum=0.9, nesterov=True,
+                                weight_decay=5e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, EPOCHS * len(train_loader))
+
 
     best_val_system_loss = 100
     best_test_system_accuracy = None
@@ -974,7 +1078,7 @@ def run_moae(seed):
     train_loader = torch.utils.data.DataLoader(trainD,
                                                batch_size=1024, shuffle=True, drop_last=True, **kwargs)
     val_loader = torch.utils.data.DataLoader(valD,
-                                               batch_size=1024, shuffle=True, drop_last=True, **kwargs)
+                                             batch_size=1024, shuffle=True, drop_last=True, **kwargs)
     # Test loader
     kwargs = {'num_workers': 1, 'pin_memory': True}
     test_loader = torch.utils.data.DataLoader(test_d, batch_size=1024, shuffle=False, drop_last=True, **kwargs)
@@ -983,7 +1087,10 @@ def run_moae(seed):
     for classifier in classifiers:
         parameters += list(classifier.parameters())
 
-    optimizer = torch.optim.Adam(parameters, lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
+    # optimizer = torch.optim.Adam(parameters, lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
+    optimizer = torch.optim.SGD(parameters, LR,
+                                momentum=0.9, nesterov=True,
+                                weight_decay=5e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, EPOCHS * len(train_loader))
 
     best_val_system_loss = 100
@@ -1098,13 +1205,16 @@ def run_mohe(seed, expert_fns):
     train_loader = torch.utils.data.DataLoader(trainD,
                                                batch_size=1024, shuffle=True, drop_last=True, **kwargs)
     val_loader = torch.utils.data.DataLoader(valD,
-                                               batch_size=1024, shuffle=True, drop_last=True, **kwargs)
+                                             batch_size=1024, shuffle=True, drop_last=True, **kwargs)
     # Test loader
     kwargs = {'num_workers': 1, 'pin_memory': True}
     test_loader = torch.utils.data.DataLoader(test_d, batch_size=1024, shuffle=False, drop_last=True, **kwargs)
 
     parameters = allocation_system.parameters()
-    optimizer = torch.optim.Adam(parameters, lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
+    # optimizer = torch.optim.Adam(parameters, lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
+    optimizer = torch.optim.SGD(parameters, LR,
+                                momentum=0.9, nesterov=True,
+                                weight_decay=5e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, EPOCHS * len(train_loader))
 
     best_val_system_loss = 100
@@ -1125,7 +1235,6 @@ def run_mohe(seed, expert_fns):
 
     print(f'Mixture of Human Experts Accuracy: {best_test_system_accuracy}\n')
     return best_test_system_accuracy
-
 
 
 # ==================== #
@@ -1222,14 +1331,15 @@ def run_mohe(seed, expert_fns):
 # ====================================== #
 """#Run Experiment on Number of Experts"""
 NUM_EXPERTS = len(range(2, 11))
-best_expert_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-avg_expert_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+experts = [4,8,12,16,20]
+best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
+avg_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 
 # our_approach_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 # our_approach_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-# jsf_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-# jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-#
+jsf_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+
 # mohe_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 # full_automation_accuracies = []
 # moae_accuracies = []
@@ -1247,30 +1357,30 @@ for seed in range(1):
     #     strengths = random.sample(subclass_idxs, 60)
     #     expert_strengths.append(strengths)
 
-    for num_experts in range(2, 11):
+    for num_experts in experts:
         print(f'Number of Experts: {num_experts}')
         NUM_EXPERTS = num_experts
 
         expert_fns = []
         for i in range(num_experts):
+            cifar10_expert = Cifar10Expert(k=5, n_classes=NUM_CLASSES, p_in=1, p_out=0.2)  # overlapping
+            # cifar10_expert = Cifar10Expert(k1=i * 2, k2=i * 2 + 2, n_classes=NUM_CLASSES)  # non-overlapping
+            expert_fns.append(cifar10_expert.predict)
+        #
+        # best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
+        # best_expert_accuracies[num_experts].append(best_expert_accuracy)
 
-            cifar100_expert = Cifar10Expert(k1=i*2, k2=i*2 + 2, n_classes=NUM_CLASSES)
-            expert_fns.append(cifar100_expert.predict)
-
-        best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
-        best_expert_accuracies[num_experts].append(best_expert_accuracy)
-
-        avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
-        avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
+        # avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
+        # avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
         #
         # # === Hemmer et al Baseline ===
         # our_approach_accuracy, our_approach_coverage = run_team_performance_optimization("Our Approach", seed,
         #                                                                                  expert_fns)
         # our_approach_accuracies[num_experts].append(our_approach_accuracy)
         #
-        # # === Keswani baseline ===
-        # jsf_accuracy, jsf_coverage = run_team_performance_optimization("Joint Sparse Framework", seed, expert_fns)
-        # jsf_accuracies[num_experts].append(jsf_accuracy)
+        # === Keswani baseline ===
+        jsf_accuracy, jsf_coverage = run_team_performance_optimization("Joint Sparse Framework", seed, expert_fns)
+        jsf_accuracies[num_experts].append(jsf_accuracy)
         #
         # # === Expert Team ====
         # mohe_accuracy = run_mohe(seed, expert_fns)
@@ -1294,18 +1404,18 @@ table_list = []
 
 table_list.append(['--------', '--------', '--------'])
 
-for num_experts in range(2, 11):
-    mean_best_expert_accuracy = np.mean(best_expert_accuracies[num_experts])
-    table_list.append([num_experts, 'Best Expert', mean_best_expert_accuracy])
-
-    mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[num_experts])
-    table_list.append([num_experts, 'Random Expert', mean_avg_expert_accuracy])
+for num_experts in experts:
+    # mean_best_expert_accuracy = np.mean(best_expert_accuracies[num_experts])
+    # table_list.append([num_experts, 'Best Expert', mean_best_expert_accuracy])
+    #
+    # mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[num_experts])
+    # table_list.append([num_experts, 'Random Expert', mean_avg_expert_accuracy])
 
     # mean_our_approach_accuracy = np.mean(our_approach_accuracies[num_experts])
     # table_list.append([num_experts, 'Our Approach', mean_our_approach_accuracy])
     #
-    # mean_jsf_accuracy = np.mean(jsf_accuracies[num_experts])
-    # table_list.append([num_experts, 'JSF', mean_jsf_accuracy])
+    mean_jsf_accuracy = np.mean(jsf_accuracies[num_experts])
+    table_list.append([num_experts, 'JSF', mean_jsf_accuracy])
     #
     # mean_mohe_accuracy = np.mean(mohe_accuracies[num_experts])
     # table_list.append([num_experts, 'MOHE', mean_mohe_accuracy])
