@@ -1125,96 +1125,97 @@ def run_mohe(seed, expert_fns):
 # ==================== #
 # === Experiment 1 === #
 # ==================== #
-"""# Run Experiment on Expert Diversity"""
-
-NUM_EXPERTS = 2
-
-best_expert_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
-avg_expert_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
-our_approach_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
-our_approach_coverages = {diversity_idx: [] for diversity_idx in range(11)}
-jsf_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
-jsf_coverages = {diversity_idx: [] for diversity_idx in range(11)}
-mohe_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
-full_automation_accuracies = []
-moae_accuracies = []
-
-for seed in range(2):
-    print(f'Seed: {seed}')
-    print("-" * 40)
-    np.random.seed(seed)
-    random.seed(seed)
-
-    subclass_idxs = list(range(0, 100))
-    random.shuffle(subclass_idxs)
-
-    for diversity_idx in range(11):
-        print(f'Diversity: {diversity_idx}')
-
-        expert_strengths = [subclass_idxs[0:90], subclass_idxs[0 + diversity_idx:90 + diversity_idx]]
-        expert_fns = []
-        for i, strengths in enumerate(expert_strengths):
-            cifar100_expert = Cifar100Expert(strengths=strengths)
-            expert_fns.append(cifar100_expert.predict)
-
-        best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
-        best_expert_accuracies[diversity_idx].append(best_expert_accuracy)
-
-        avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
-        avg_expert_accuracies[diversity_idx].append(avg_expert_accuracy)
-
-        our_approach_accuracy, our_approach_coverage = run_team_performance_optimization("Our Approach", seed,
-                                                                                         expert_fns)
-        our_approach_accuracies[diversity_idx].append(our_approach_accuracy)
-        our_approach_coverages[diversity_idx].append(our_approach_coverage)
-
-        jsf_accuracy, jsf_coverage = run_team_performance_optimization("Joint Sparse Framework", seed, expert_fns)
-        jsf_accuracies[diversity_idx].append(jsf_accuracy)
-        jsf_coverages[diversity_idx].append(jsf_coverage)
-
-        mohe_accuracy = run_mohe(seed, expert_fns)
-        mohe_accuracies[diversity_idx].append(mohe_accuracy)
-
-    full_automation_accuracy = run_full_automation(seed)
-    full_automation_accuracies.append(full_automation_accuracy)
-
-    moae_accuracy = run_moae(seed)
-    moae_accuracies.append(moae_accuracy)
-    print("-" * 40)
-
-table_list = []
-
-mean_full_automation_accuracy = np.mean(full_automation_accuracies)
-mean_moae_accuracy = np.mean(moae_accuracies)
-table_list.append(['--------', 'Full Automation', mean_full_automation_accuracy])
-table_list.append(['--------', 'MOAE', mean_moae_accuracy])
-table_list.append(['--------', '--------', '--------'])
-
-for diversity_idx in range(11):
-    mean_best_expert_accuracy = np.mean(best_expert_accuracies[diversity_idx])
-    table_list.append([diversity_idx, 'Best Expert', mean_best_expert_accuracy])
-
-    mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[diversity_idx])
-    table_list.append([diversity_idx, 'Random Expert', mean_avg_expert_accuracy])
-
-    mean_our_approach_accuracy = np.mean(our_approach_accuracies[diversity_idx])
-    table_list.append([diversity_idx, 'Our Approach', mean_our_approach_accuracy])
-
-    mean_jsf_accuracy = np.mean(jsf_accuracies[diversity_idx])
-    table_list.append([diversity_idx, 'JSF', mean_jsf_accuracy])
-
-    mean_mohe_accuracy = np.mean(mohe_accuracies[diversity_idx])
-    table_list.append([diversity_idx, 'MOHE', mean_mohe_accuracy])
-
-    table_list.append(['--------', '--------', '--------'])
-
-print(tabulate(table_list, headers=['Diversity', 'Method', 'Accuracy']))
+# TODO: Not considered in the mean time.
+# """# Run Experiment on Expert Diversity"""
+#
+# NUM_EXPERTS = 2
+#
+# best_expert_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
+# avg_expert_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
+# our_approach_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
+# our_approach_coverages = {diversity_idx: [] for diversity_idx in range(11)}
+# jsf_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
+# jsf_coverages = {diversity_idx: [] for diversity_idx in range(11)}
+# mohe_accuracies = {diversity_idx: [] for diversity_idx in range(11)}
+# full_automation_accuracies = []
+# moae_accuracies = []
+#
+# for seed in range(2):
+#     print(f'Seed: {seed}')
+#     print("-" * 40)
+#     np.random.seed(seed)
+#     random.seed(seed)
+#
+#     subclass_idxs = list(range(0, 100))
+#     random.shuffle(subclass_idxs)
+#
+#     for diversity_idx in range(11):
+#         print(f'Diversity: {diversity_idx}')
+#
+#         expert_strengths = [subclass_idxs[0:90], subclass_idxs[0 + diversity_idx:90 + diversity_idx]]
+#         expert_fns = []
+#         for i, strengths in enumerate(expert_strengths):
+#             cifar100_expert = Cifar100Expert(strengths=strengths)
+#             expert_fns.append(cifar100_expert.predict)
+#
+#         best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
+#         best_expert_accuracies[diversity_idx].append(best_expert_accuracy)
+#
+#         avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
+#         avg_expert_accuracies[diversity_idx].append(avg_expert_accuracy)
+#
+#         our_approach_accuracy, our_approach_coverage = run_team_performance_optimization("Our Approach", seed,
+#                                                                                          expert_fns)
+#         our_approach_accuracies[diversity_idx].append(our_approach_accuracy)
+#         our_approach_coverages[diversity_idx].append(our_approach_coverage)
+#
+#         jsf_accuracy, jsf_coverage = run_team_performance_optimization("Joint Sparse Framework", seed, expert_fns)
+#         jsf_accuracies[diversity_idx].append(jsf_accuracy)
+#         jsf_coverages[diversity_idx].append(jsf_coverage)
+#
+#         mohe_accuracy = run_mohe(seed, expert_fns)
+#         mohe_accuracies[diversity_idx].append(mohe_accuracy)
+#
+#     full_automation_accuracy = run_full_automation(seed)
+#     full_automation_accuracies.append(full_automation_accuracy)
+#
+#     moae_accuracy = run_moae(seed)
+#     moae_accuracies.append(moae_accuracy)
+#     print("-" * 40)
+#
+# table_list = []
+#
+# mean_full_automation_accuracy = np.mean(full_automation_accuracies)
+# mean_moae_accuracy = np.mean(moae_accuracies)
+# table_list.append(['--------', 'Full Automation', mean_full_automation_accuracy])
+# table_list.append(['--------', 'MOAE', mean_moae_accuracy])
+# table_list.append(['--------', '--------', '--------'])
+#
+# for diversity_idx in range(11):
+#     mean_best_expert_accuracy = np.mean(best_expert_accuracies[diversity_idx])
+#     table_list.append([diversity_idx, 'Best Expert', mean_best_expert_accuracy])
+#
+#     mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[diversity_idx])
+#     table_list.append([diversity_idx, 'Random Expert', mean_avg_expert_accuracy])
+#
+#     mean_our_approach_accuracy = np.mean(our_approach_accuracies[diversity_idx])
+#     table_list.append([diversity_idx, 'Our Approach', mean_our_approach_accuracy])
+#
+#     mean_jsf_accuracy = np.mean(jsf_accuracies[diversity_idx])
+#     table_list.append([diversity_idx, 'JSF', mean_jsf_accuracy])
+#
+#     mean_mohe_accuracy = np.mean(mohe_accuracies[diversity_idx])
+#     table_list.append([diversity_idx, 'MOHE', mean_mohe_accuracy])
+#
+#     table_list.append(['--------', '--------', '--------'])
+#
+# print(tabulate(table_list, headers=['Diversity', 'Method', 'Accuracy']))
 
 # ====================================== #
 # === Experiment 2: Increase Experts === #
 # ====================================== #
 """#Run Experiment on Number of Experts"""
-
+NUM_EXPERTS = len(range(2, 11))
 best_expert_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 avg_expert_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 our_approach_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
