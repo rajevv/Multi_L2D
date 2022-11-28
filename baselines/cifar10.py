@@ -16,7 +16,7 @@ from tabulate import tabulate
 # OWN ===
 from models.wideresnet import *
 from models.experts import *
-from data_utils import *
+from data_utils import cifar
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
