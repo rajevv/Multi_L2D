@@ -74,10 +74,10 @@ def evaluate_full_automation_one_epoch(model, classifier, data_loader, config):
 
 
 def run_full_automation(seed, config):
-    NUM_CLASSES = config["num_classes"]
+    NUM_CLASSES = config["NUM_CLASSES"]
     device = config["device"]
-    EPOCHS = config["epochs"]
-    LR = config["lr"]
+    EPOCHS = config["EPOCHS"]
+    LR = config["LR"]
 
     print(f'Training full automation baseline')
 
@@ -114,12 +114,12 @@ def run_full_automation(seed, config):
     best_test_system_accuracy = None
 
     for epoch in tqdm(range(1, EPOCHS + 1)):
-        train_full_automation_one_epoch(model, train_loader, optimizer, scheduler)
+        train_full_automation_one_epoch(model, classifier, train_loader, optimizer, scheduler, config)
 
-        val_system_accuracy, val_system_loss = evaluate_full_automation_one_epoch(model,
-                                                                                  val_loader)
-        test_system_accuracy, test_system_loss, = evaluate_full_automation_one_epoch(model,
-                                                                                     test_loader)
+        val_system_accuracy, val_system_loss = evaluate_full_automation_one_epoch(model, classifier,
+                                                                                  val_loader, config)
+        test_system_accuracy, test_system_loss, = evaluate_full_automation_one_epoch(model, classifier,
+                                                                                     test_loader, config)
 
         if val_system_loss < best_val_system_loss:
             best_val_system_loss = val_system_loss
