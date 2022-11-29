@@ -931,10 +931,10 @@ def evaluate_full_automation_one_epoch(model, classifier, data_loader, config):
 
 
 def run_full_automation(seed, config):
-    NUM_CLASSES = config["num_classes"]
+    NUM_CLASSES = config["NUM_CLASSES"]
     device = config["device"]
-    EPOCHS = config["epochs"]
-    LR = config["lr"]
+    EPOCHS = config["EPOCHS"]
+    LR = config["LR"]
 
     print(f'Training full automation baseline')
 
@@ -1354,6 +1354,7 @@ config = {"NUM_EXPERTS": NUM_EXPERTS,
           "DROPOUT": DROPOUT,
           "USE_LR_SCHEDULER": USE_LR_SCHEDULER,
           "EPOCHS": EPOCHS,
+          "device": device
           }
 
 # best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
