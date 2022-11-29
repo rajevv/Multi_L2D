@@ -972,6 +972,8 @@ def run_full_automation(seed):
             best_val_system_loss = val_system_loss
             best_test_system_accuracy = test_system_accuracy
 
+        print("Val Acc:{} | Test Acc: {}".format(val_system_accuracy, test_system_accuracy))
+
     print(f'Full Automation Accuracy: {best_test_system_accuracy}\n')
     return best_test_system_accuracy
 
