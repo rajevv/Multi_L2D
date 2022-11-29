@@ -22,9 +22,9 @@ class CIFAR10Network(nn.Module):
         )
 
     def forward(self, features):
-        output = self.classifier(features)
+        # output = self.classifier(features)  # TODO: don't use for fair comparison.
         if self.softmax_sigmoid == "softmax":
-            output = nn.Softmax(dim=1)(output)
+            output = nn.Softmax(dim=1)(features)
         elif self.softmax_sigmoid == "sigmoid":
-            output = nn.Sigmoid()(output)
+            output = nn.Sigmoid()(features)
         return output

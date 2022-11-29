@@ -276,11 +276,11 @@ class Network(nn.Module):
         )
 
     def forward(self, features):
-        output = self.classifier(features)
+        # output = self.classifier(features)  # TODO: don't use for fair comparison.
         if self.softmax_sigmoid == "softmax":
-            output = nn.Softmax(dim=1)(output)
+            output = nn.Softmax(dim=1)(features)
         elif self.softmax_sigmoid == "sigmoid":
-            output = nn.Sigmoid()(output)
+            output = nn.Sigmoid()(features)
         return output
 
 
@@ -871,7 +871,9 @@ def get_accuracy_of_average_expert(seed, expert_fns):
 """Functions for Training and Evaluation of Full Automation Baseline"""
 
 
-def train_full_automation_one_epoch(model, train_loader, optimizer, scheduler):
+def train_full_automation_one_epoch(model, classifier, train_loader, optimizer, scheduler, config):
+    device = config["device"]
+
     # switch to train mode
 
     model.train()
@@ -880,8 +882,8 @@ def train_full_automation_one_epoch(model, train_loader, optimizer, scheduler):
         batch_input = batch_input.to(device)
         batch_targets = batch_targets.to(device)
 
-        batch_outputs_classifier = model(batch_input)
-        # batch_outputs_classifier = classifier(batch_features)
+        batch_features = model(batch_input)
+        batch_outputs_classifier = classifier(batch_features)
 
         log_output = torch.log(batch_outputs_classifier + 1e-7)
         batch_targets = batch_targets[:, 0]
@@ -891,11 +893,13 @@ def train_full_automation_one_epoch(model, train_loader, optimizer, scheduler):
         optimizer.zero_grad()
         batch_loss.backward()
         optimizer.step()
-        if USE_LR_SCHEDULER:
-            scheduler.step()
+        # if USE_LR_SCHEDULER:
+        #     scheduler.step()
 
 
-def evaluate_full_automation_one_epoch(model, data_loader):
+def evaluate_full_automation_one_epoch(model, classifier, data_loader, config):
+    device = config["device"]
+
     model.eval()
 
     classifier_outputs = torch.tensor([]).to(device)
@@ -907,10 +911,10 @@ def evaluate_full_automation_one_epoch(model, data_loader):
             batch_input = batch_input.to(device)
             batch_targets = batch_targets.to(device)
 
-            batch_classifier_outputs = model(batch_input)
-            # batch_classifier_outputs = classifier(batch_features)
+            batch_features = model(batch_input)
+            batch_outputs_classifier = classifier(batch_features)
 
-            classifier_outputs = torch.cat((classifier_outputs, batch_classifier_outputs))
+            classifier_outputs = torch.cat((classifier_outputs, batch_outputs_classifier))
             targets = torch.cat((targets, batch_targets))
 
     log_output = torch.log(classifier_outputs + 1e-7)
@@ -926,14 +930,19 @@ def evaluate_full_automation_one_epoch(model, data_loader):
     return full_automation_accuracy, full_automation_loss
 
 
-def run_full_automation(seed):
+def run_full_automation(seed, config):
+    NUM_CLASSES = config["num_classes"]
+    device = config["device"]
+    EPOCHS = config["epochs"]
+    LR = config["lr"]
+
     print(f'Training full automation baseline')
 
     # feature_extractor = Resnet().to(device)
     model = WideResNet(28, 3, NUM_CLASSES, 4, dropRate=0.0).to(device)
 
-    # classifier = Network(output_size=NUM_CLASSES,
-    #                      softmax_sigmoid="softmax").to(device)
+    classifier = Network(output_size=NUM_CLASSES,
+                         softmax_sigmoid="softmax").to(device)
 
     # TODO: Change to CIFAR10
     # cifar_dl = CIFAR100_3_Split_Dataloader(train_batch_size=TRAIN_BATCH_SIZE, test_batch_size=TEST_BATCH_SIZE,
@@ -977,7 +986,6 @@ def run_full_automation(seed):
 
     print(f'Full Automation Accuracy: {best_test_system_accuracy}\n')
     return best_test_system_accuracy
-
 
 # ================================ #
 # === Classifier Team Baseline === #

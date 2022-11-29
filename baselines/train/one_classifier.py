@@ -6,6 +6,7 @@ from tqdm import tqdm
 from baselines.data_utils import cifar
 from baselines.metrics import get_accuracy
 from baselines.models.wideresnet import WideResNet
+from baselines.models.networks import CIFAR10Network
 
 # =============================== #
 # === One Classifier Baseline === #
@@ -13,7 +14,7 @@ from baselines.models.wideresnet import WideResNet
 """Functions for Training and Evaluation of Full Automation Baseline"""
 
 
-def train_full_automation_one_epoch(model, train_loader, optimizer, scheduler, config):
+def train_full_automation_one_epoch(model, classifier, train_loader, optimizer, scheduler, config):
     device = config["device"]
 
     # switch to train mode
@@ -24,8 +25,8 @@ def train_full_automation_one_epoch(model, train_loader, optimizer, scheduler, c
         batch_input = batch_input.to(device)
         batch_targets = batch_targets.to(device)
 
-        batch_outputs_classifier = model(batch_input)
-        # batch_outputs_classifier = classifier(batch_features)
+        batch_features = model(batch_input)
+        batch_outputs_classifier = classifier(batch_features)
 
         log_output = torch.log(batch_outputs_classifier + 1e-7)
         batch_targets = batch_targets[:, 0]
@@ -39,7 +40,7 @@ def train_full_automation_one_epoch(model, train_loader, optimizer, scheduler, c
         #     scheduler.step()
 
 
-def evaluate_full_automation_one_epoch(model, data_loader, config):
+def evaluate_full_automation_one_epoch(model, classifier, data_loader, config):
     device = config["device"]
 
     model.eval()
@@ -53,10 +54,10 @@ def evaluate_full_automation_one_epoch(model, data_loader, config):
             batch_input = batch_input.to(device)
             batch_targets = batch_targets.to(device)
 
-            batch_classifier_outputs = model(batch_input)
-            # batch_classifier_outputs = classifier(batch_features)
+            batch_features = model(batch_input)
+            batch_outputs_classifier = classifier(batch_features)
 
-            classifier_outputs = torch.cat((classifier_outputs, batch_classifier_outputs))
+            classifier_outputs = torch.cat((classifier_outputs, batch_outputs_classifier))
             targets = torch.cat((targets, batch_targets))
 
     log_output = torch.log(classifier_outputs + 1e-7)
@@ -83,8 +84,8 @@ def run_full_automation(seed, config):
     # feature_extractor = Resnet().to(device)
     model = WideResNet(28, 3, NUM_CLASSES, 4, dropRate=0.0).to(device)
 
-    # classifier = Network(output_size=NUM_CLASSES,
-    #                      softmax_sigmoid="softmax").to(device)
+    classifier = CIFAR10Network(output_size=NUM_CLASSES,
+                         softmax_sigmoid="softmax").to(device)
 
     # TODO: Change to CIFAR10
     # cifar_dl = CIFAR100_3_Split_Dataloader(train_batch_size=TRAIN_BATCH_SIZE, test_batch_size=TEST_BATCH_SIZE,
