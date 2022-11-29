@@ -563,12 +563,13 @@ def get_classifier_metrics(classifier_preds, allocation_system_decisions, target
 
 
 def get_experts_metrics(expert_preds, allocation_system_decisions, targets):
+    num_experts = len(expert_preds)
     expert_accuracies = []
     expert_task_subset_accuracies = []
     expert_coverages = []
 
     # calculate metrics for each expert
-    for expert_idx in range(NUM_EXPERTS):
+    for expert_idx in range(num_experts):
         # expert performance on all tasks
         preds = expert_preds[expert_idx]
         expert_accuracy = get_accuracy(preds, targets)
@@ -619,12 +620,12 @@ def get_metrics(epoch, allocation_system_outputs, classifier_outputs, expert_pre
     metrics["Classifier Coverage"] = classifier_coverage
 
     # Metrics for experts
-    """expert_accuracies, experts_task_subset_accuracies, experts_coverages = get_experts_metrics(expert_preds, allocation_system_decisions, targets)
+    expert_accuracies, experts_task_subset_accuracies, experts_coverages = get_experts_metrics(expert_preds, allocation_system_decisions, targets)
 
     for expert_idx, (expert_accuracy, expert_task_subset_accuracy, expert_coverage) in enumerate(zip(expert_accuracies, experts_task_subset_accuracies, experts_coverages)):
         metrics[f'Expert {expert_idx+1} Accuracy'] = expert_accuracy
         metrics[f'Expert {expert_idx+1} Task Subset Accuracy'] = expert_task_subset_accuracy
-        metrics[f'Expert {expert_idx+1} Coverage'] = expert_coverage"""
+        metrics[f'Expert {expert_idx+1} Coverage'] = expert_coverage
 
     return system_accuracy, system_loss, metrics
 
@@ -929,7 +930,7 @@ def run_full_automation(seed):
     print(f'Training full automation baseline')
 
     # feature_extractor = Resnet().to(device)
-    model = WideResNet(28, 3, NUM_CLASSES + NUM_EXPERTS, 4, dropRate=0.0).to(device)
+    model = WideResNet(28, 3, NUM_CLASSES, 4, dropRate=0.0).to(device)
 
     # classifier = Network(output_size=NUM_CLASSES,
     #                      softmax_sigmoid="softmax").to(device)
@@ -1339,7 +1340,7 @@ def run_mohe(seed, expert_fns):
 NUM_EXPERTS = len(range(2, 11))
 experts = [4, 8, 12, 16, 20]
 
-# best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
+best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 # avg_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 
 # our_approach_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
@@ -1348,7 +1349,7 @@ experts = [4, 8, 12, 16, 20]
 # jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 
 # mohe_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-full_automation_accuracies = []
+# full_automation_accuracies = []
 # moae_accuracies = []
 
 
@@ -1374,9 +1375,9 @@ for seed in range(1):
             # cifar10_expert = Cifar10Expert(k1=i * 2, k2=i * 2 + 2, n_classes=NUM_CLASSES)  # non-overlapping
             expert_fns.append(cifar10_expert.predict)
         #
-        # best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
-        # best_expert_accuracies[num_experts].append(best_expert_accuracy)
-        #
+        best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
+        best_expert_accuracies[num_experts].append(best_expert_accuracy)
+
         # avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
         # avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
 
