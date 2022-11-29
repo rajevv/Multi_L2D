@@ -1411,7 +1411,7 @@ for seed in range(1):
         # mohe_accuracies[num_experts].append(mohe_accuracy)
         #
     # === One Classifier Team ====
-    full_automation_accuracy = run_full_automation(seed)
+    full_automation_accuracy = run_full_automation(seed, config)
     full_automation_accuracies.append(full_automation_accuracy)
 
     # # === Classifier Team === #
