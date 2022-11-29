@@ -1357,8 +1357,8 @@ experts = [4, 8, 12, 16, 20]
 # jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 
 # mohe_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-# full_automation_accuracies = []
-moae_accuracies = []
+full_automation_accuracies = []
+# moae_accuracies = []
 
 
 for seed in range(1):
@@ -1403,20 +1403,20 @@ for seed in range(1):
         # mohe_accuracies[num_experts].append(mohe_accuracy)
         #
     # === One Classifier Team ====
-    # full_automation_accuracy = run_full_automation(seed)
-    # full_automation_accuracies.append(full_automation_accuracy)
+    full_automation_accuracy = run_full_automation(seed)
+    full_automation_accuracies.append(full_automation_accuracy)
 
     # # === Classifier Team === #
-    moae_accuracy = run_moae(seed)
-    moae_accuracies.append(moae_accuracy)
+    # moae_accuracy = run_moae(seed)
+    # moae_accuracies.append(moae_accuracy)
     print("-" * 40)
 
 table_list = []
 
-# mean_full_automation_accuracy = np.mean(full_automation_accuracies)
-mean_moae_accuracy = np.mean(moae_accuracies)
-# table_list.append(['--------', 'Full Automation', mean_full_automation_accuracy])
-table_list.append(['--------', 'MOAE', mean_moae_accuracy])
+mean_full_automation_accuracy = np.mean(full_automation_accuracies)
+# mean_moae_accuracy = np.mean(moae_accuracies)
+table_list.append(['--------', 'Full Automation', mean_full_automation_accuracy])
+# table_list.append(['--------', 'MOAE', mean_moae_accuracy])
 
 table_list.append(['--------', '--------', '--------'])
 
