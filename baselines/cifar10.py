@@ -1334,16 +1334,17 @@ def run_mohe(seed, expert_fns):
 """#Run Experiment on Number of Experts"""
 NUM_EXPERTS = len(range(2, 11))
 experts = [4, 8, 12, 16, 20]
-best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
-avg_expert_accuracies = {exp_idx: [] for exp_idx in experts}
+
+# best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
+# avg_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 
 # our_approach_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 # our_approach_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-jsf_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+# jsf_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
+# jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 
 # mohe_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-# full_automation_accuracies = []
+full_automation_accuracies = []
 # moae_accuracies = []
 
 
@@ -1368,12 +1369,12 @@ for seed in range(1):
             cifar10_expert = Cifar10Expert(k=5, n_classes=NUM_CLASSES, p_in=1, p_out=0.2)  # overlapping
             # cifar10_expert = Cifar10Expert(k1=i * 2, k2=i * 2 + 2, n_classes=NUM_CLASSES)  # non-overlapping
             expert_fns.append(cifar10_expert.predict)
-
-        best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
-        best_expert_accuracies[num_experts].append(best_expert_accuracy)
-
-        avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
-        avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
+        #
+        # best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
+        # best_expert_accuracies[num_experts].append(best_expert_accuracy)
+        #
+        # avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
+        # avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
 
         # # === Hemmer et al Baseline ===
         # our_approach_accuracy, our_approach_coverage = run_team_performance_optimization("Our Approach", seed,
@@ -1388,10 +1389,10 @@ for seed in range(1):
         # mohe_accuracy = run_mohe(seed, expert_fns)
         # mohe_accuracies[num_experts].append(mohe_accuracy)
         #
-    # # === One Classifier Team ====
-    # full_automation_accuracy = run_full_automation(seed)
-    # full_automation_accuracies.append(full_automation_accuracy)
-    #
+    # === One Classifier Team ====
+    full_automation_accuracy = run_full_automation(seed)
+    full_automation_accuracies.append(full_automation_accuracy)
+
     # # === Classifier Team === #
     # moae_accuracy = run_moae(seed)
     # moae_accuracies.append(moae_accuracy)
@@ -1399,19 +1400,19 @@ for seed in range(1):
 
 table_list = []
 
-# mean_full_automation_accuracy = np.mean(full_automation_accuracies)
+mean_full_automation_accuracy = np.mean(full_automation_accuracies)
 # mean_moae_accuracy = np.mean(moae_accuracies)
-# table_list.append(['--------', 'Full Automation', mean_full_automation_accuracy])
+table_list.append(['--------', 'Full Automation', mean_full_automation_accuracy])
 # table_list.append(['--------', 'MOAE', mean_moae_accuracy])
 
 table_list.append(['--------', '--------', '--------'])
 
 for num_experts in experts:
-    mean_best_expert_accuracy = np.mean(best_expert_accuracies[num_experts])
-    table_list.append([num_experts, 'Best Expert', mean_best_expert_accuracy])
-
-    mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[num_experts])
-    table_list.append([num_experts, 'Random Expert', mean_avg_expert_accuracy])
+    # mean_best_expert_accuracy = np.mean(best_expert_accuracies[num_experts])
+    # table_list.append([num_experts, 'Best Expert', mean_best_expert_accuracy])
+    #
+    # mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[num_experts])
+    # table_list.append([num_experts, 'Random Expert', mean_avg_expert_accuracy])
 
     # mean_our_approach_accuracy = np.mean(our_approach_accuracies[num_experts])
     # table_list.append([num_experts, 'Our Approach', mean_our_approach_accuracy])
