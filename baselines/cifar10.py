@@ -1,21 +1,13 @@
-import random
-import math
-from tqdm import tqdm
-import numpy as np
-import pandas as pd
 import torchvision
-from torchvision import transforms
-import torch
-import torch.nn as nn
 from sklearn.metrics import accuracy_score
-from torch.utils.data import Dataset
-from PIL import Image
 from tabulate import tabulate
+from torch.utils.data import Dataset
+from tqdm import tqdm
 
+from data_utils import cifar
+from models.experts import *
 # OWN ===
 from models.wideresnet import *
-from models.experts import *
-from data_utils import cifar
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -620,12 +612,15 @@ def get_metrics(epoch, allocation_system_outputs, classifier_outputs, expert_pre
     metrics["Classifier Coverage"] = classifier_coverage
 
     # Metrics for experts
-    expert_accuracies, experts_task_subset_accuracies, experts_coverages = get_experts_metrics(expert_preds, allocation_system_decisions, targets)
+    expert_accuracies, experts_task_subset_accuracies, experts_coverages = get_experts_metrics(expert_preds,
+                                                                                               allocation_system_decisions,
+                                                                                               targets)
 
-    for expert_idx, (expert_accuracy, expert_task_subset_accuracy, expert_coverage) in enumerate(zip(expert_accuracies, experts_task_subset_accuracies, experts_coverages)):
-        metrics[f'Expert {expert_idx+1} Accuracy'] = expert_accuracy
-        metrics[f'Expert {expert_idx+1} Task Subset Accuracy'] = expert_task_subset_accuracy
-        metrics[f'Expert {expert_idx+1} Coverage'] = expert_coverage
+    for expert_idx, (expert_accuracy, expert_task_subset_accuracy, expert_coverage) in enumerate(
+            zip(expert_accuracies, experts_task_subset_accuracies, experts_coverages)):
+        metrics[f'Expert {expert_idx + 1} Accuracy'] = expert_accuracy
+        metrics[f'Expert {expert_idx + 1} Task Subset Accuracy'] = expert_task_subset_accuracy
+        metrics[f'Expert {expert_idx + 1} Coverage'] = expert_coverage
 
     return system_accuracy, system_loss, metrics
 
@@ -971,12 +966,12 @@ def run_full_automation(seed, config):
     best_test_system_accuracy = None
 
     for epoch in tqdm(range(1, EPOCHS + 1)):
-        train_full_automation_one_epoch(model, train_loader, optimizer, scheduler)
+        train_full_automation_one_epoch(model, train_loader, optimizer, scheduler, config)
 
         val_system_accuracy, val_system_loss = evaluate_full_automation_one_epoch(model,
-                                                                                  val_loader)
+                                                                                  val_loader, config)
         test_system_accuracy, test_system_loss, = evaluate_full_automation_one_epoch(model,
-                                                                                     test_loader)
+                                                                                     test_loader, config)
 
         if val_system_loss < best_val_system_loss:
             best_val_system_loss = val_system_loss
@@ -986,6 +981,7 @@ def run_full_automation(seed, config):
 
     print(f'Full Automation Accuracy: {best_test_system_accuracy}\n')
     return best_test_system_accuracy
+
 
 # ================================ #
 # === Classifier Team Baseline === #
