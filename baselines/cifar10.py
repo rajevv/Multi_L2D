@@ -988,7 +988,11 @@ def run_full_automation(seed, config):
 """Functions for Training and Evaluation of Mixture of Artificial Experts Baseline"""
 
 
-def train_moae_one_epoch(feature_extractor, classifiers, allocation_system, train_loader, optimizer, scheduler):
+def train_moae_one_epoch(feature_extractor, classifiers, allocation_system, train_loader, optimizer, scheduler, config):
+    NUM_EXPERTS = config["num_experts"]
+    NUM_CLASSES = config["num_classes"]
+    device = config["device"]
+
     # switch to train mode
     feature_extractor.eval()
     allocation_system.train()
@@ -1014,11 +1018,15 @@ def train_moae_one_epoch(feature_extractor, classifiers, allocation_system, trai
         optimizer.zero_grad()
         batch_loss.backward()
         optimizer.step()
-        if USE_LR_SCHEDULER:
-            scheduler.step()
+        # if USE_LR_SCHEDULER:
+        #     scheduler.step()
 
 
-def evaluate_moae_one_epoch(feature_extractor, classifiers, allocation_system, data_loader):
+def evaluate_moae_one_epoch(feature_extractor, classifiers, allocation_system, data_loader, config):
+    NUM_EXPERTS = config["num_experts"]
+    NUM_CLASSES = config["num_classes"]
+    device = config["device"]
+
     feature_extractor.eval()
     allocation_system.eval()
     for classifier in classifiers:
@@ -1059,22 +1067,26 @@ def evaluate_moae_one_epoch(feature_extractor, classifiers, allocation_system, d
     return moae_accuracy, moae_loss
 
 
-def run_moae(seed):
+def run_moae(seed, config):
+    NUM_EXPERTS = config["num_experts"]
+    NUM_CLASSES = config["num_classes"]
+    device = config["device"]
+    EPOCHS = config["epochs"]
+    LR = config["lr"]
+
     print(f'Training Mixture of artificial experts baseline')
 
+    # === Models === TODO: Vary for each dataset
     feature_extractor = Resnet().to(device)
-
     allocation_system = Network(output_size=NUM_EXPERTS + 1,
                                 softmax_sigmoid="softmax").to(device)
-
     classifiers = []
     for _ in range(NUM_EXPERTS + 1):
         classifier = Network(output_size=NUM_CLASSES,
                              softmax_sigmoid="softmax").to(device)
         classifiers.append(classifier)
 
-    # TODO: Change to CIFAR-10
-    #
+    # === Data === TODO: Vary for each dataset
     # cifar_dl = CIFAR100_3_Split_Dataloader(train_batch_size=TRAIN_BATCH_SIZE, test_batch_size=TEST_BATCH_SIZE,
     #                                        seed=seed, small_version=False)
     # train_loader, val_loader, test_loader = cifar_dl.get_data_loader()
