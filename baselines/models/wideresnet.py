@@ -87,7 +87,7 @@ class WideResNet(nn.Module):
 				m.bias.data.zero_()
 			elif isinstance(m, nn.Linear):
 				m.bias.data.zero_()
-	def forward(self, x, last_layer=True):
+	def forward(self, x):
 		out = self.conv1(x)
 		
 		out = self.block1(out)
@@ -101,9 +101,9 @@ class WideResNet(nn.Module):
 		out = F.avg_pool2d(out, 8)
 		
 		features = out.view(-1, self.nChannels)
-
-		if last_layer:
-			return features
+		#
+		# if last_layer:
+		# 	return features
 
 		out = self.fc(features)
 		#out = self.softmax(fc)
