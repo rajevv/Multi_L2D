@@ -1340,7 +1340,7 @@ def run_mohe(seed, expert_fns):
 NUM_EXPERTS = len(range(2, 11))
 experts = [4, 8, 12, 16, 20]
 
-best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
+# best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 # avg_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 
 # our_approach_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
@@ -1349,7 +1349,7 @@ best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 # jsf_coverages = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
 
 # mohe_accuracies = {exp_idx: [] for exp_idx in range(NUM_EXPERTS)}
-# full_automation_accuracies = []
+full_automation_accuracies = []
 # moae_accuracies = []
 
 
@@ -1375,8 +1375,8 @@ for seed in range(1):
             # cifar10_expert = Cifar10Expert(k1=i * 2, k2=i * 2 + 2, n_classes=NUM_CLASSES)  # non-overlapping
             expert_fns.append(cifar10_expert.predict)
         #
-        best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
-        best_expert_accuracies[num_experts].append(best_expert_accuracy)
+        # best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
+        # best_expert_accuracies[num_experts].append(best_expert_accuracy)
 
         # avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
         # avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
