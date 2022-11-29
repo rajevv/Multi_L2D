@@ -1347,6 +1347,14 @@ def run_mohe(seed, expert_fns):
 """#Run Experiment on Number of Experts"""
 NUM_EXPERTS = len(range(2, 11))
 experts = [4, 8, 12, 16, 20]
+config = {"NUM_EXPERTS": NUM_EXPERTS,
+          "NUM_CLASSES": NUM_CLASSES,
+          "NUM_HIDDEN_UNITS": NUM_HIDDEN_UNITS,
+          "LR": LR,
+          "DROPOUT": DROPOUT,
+          "USE_LR_SCHEDULER": USE_LR_SCHEDULER,
+          "EPOCHS": EPOCHS,
+          }
 
 # best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 # avg_expert_accuracies = {exp_idx: [] for exp_idx in experts}
