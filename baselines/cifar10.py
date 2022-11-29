@@ -651,7 +651,7 @@ def train_one_epoch(epoch, feature_extractor, classifier, allocation_system, tra
         for idx, expert_fn in enumerate(expert_fns):
             expert_batch_preds[idx] = np.array(expert_fn(batch_input, batch_targets))
 
-        batch_targets = batch_targets[:, 1]  # Delete column 2
+        batch_targets = batch_targets[:, 0]  # Delete column 2
         batch_features = feature_extractor(batch_input, last_layer=True)
         batch_outputs_classifier = classifier(batch_features)
         batch_outputs_allocation_system = allocation_system(batch_features)
@@ -696,7 +696,7 @@ def evaluate_one_epoch(epoch, feature_extractor, classifier, allocation_system, 
 
     classifier_outputs = classifier_outputs.cpu().numpy()
     allocation_system_outputs = allocation_system_outputs.cpu().numpy()
-    targets = targets[:, 1]  # Delete column 2
+    targets = targets[:, 0]  # Delete column 2
     targets = targets.cpu().numpy()
 
     system_accuracy, system_loss, metrics = get_metrics(epoch, allocation_system_outputs, classifier_outputs,
@@ -875,11 +875,11 @@ def train_full_automation_one_epoch(feature_extractor, classifier, train_loader,
     feature_extractor.eval()
     classifier.train()
 
-    for i, (batch_input, batch_targets, _) in enumerate(train_loader):
+    for i, (batch_input, batch_targets) in enumerate(train_loader):
         batch_input = batch_input.to(device)
         batch_targets = batch_targets.to(device)
 
-        batch_features = feature_extractor(batch_input)
+        batch_features = feature_extractor(batch_input, last_layer=True)
         batch_outputs_classifier = classifier(batch_features)
 
         log_output = torch.log(batch_outputs_classifier + 1e-7)
@@ -902,22 +902,21 @@ def evaluate_full_automation_one_epoch(feature_extractor, classifier, data_loade
     filenames = []
 
     with torch.no_grad():
-        for i, (batch_input, batch_targets, batch_filenames) in enumerate(data_loader):
+        for i, (batch_input, batch_targets,) in enumerate(data_loader):
             batch_input = batch_input.to(device)
             batch_targets = batch_targets.to(device)
 
-            batch_features = feature_extractor(batch_input)
+            batch_features = feature_extractor(batch_input, last_layer=True)
             batch_classifier_outputs = classifier(batch_features)
 
             classifier_outputs = torch.cat((classifier_outputs, batch_classifier_outputs))
             targets = torch.cat((targets, batch_targets))
-            filenames.extend(batch_filenames)
 
     log_output = torch.log(classifier_outputs + 1e-7)
     full_automation_loss = nn.NLLLoss()(log_output, targets.long())
 
     classifier_outputs = classifier_outputs.cpu().numpy()
-    targets = targets.cpu().numpy()
+    targets = targets[:, 0].cpu().numpy()
 
     classifier_preds = np.argmax(classifier_outputs, 1)
     full_automation_accuracy = get_accuracy(classifier_preds, targets)
@@ -956,7 +955,6 @@ def run_full_automation(seed):
                                 weight_decay=5e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, EPOCHS * len(train_loader))
 
-
     best_val_system_loss = 100
     best_test_system_accuracy = None
 
@@ -993,13 +991,14 @@ def train_moae_one_epoch(feature_extractor, classifiers, allocation_system, trai
         batch_input = batch_input.to(device)
         batch_targets = batch_targets.to(device)
 
-        batch_features = feature_extractor(batch_input)
+        batch_features = feature_extractor(batch_input, last_layer=True)
         batch_outputs_allocation_system = allocation_system(batch_features)
         batch_outputs_classifiers = torch.empty((NUM_EXPERTS + 1, len(batch_targets), NUM_CLASSES))
         for idx, classifier in enumerate(classifiers):
             batch_outputs_classifiers[idx] = classifier(batch_features)
 
         # compute and record loss
+        batch_targets = batch_targets[:, 0]
         batch_loss = mixture_of_ai_experts_loss(allocation_system_output=batch_outputs_allocation_system,
                                                 classifiers_outputs=batch_outputs_classifiers, targets=batch_targets)
 
@@ -1026,7 +1025,7 @@ def evaluate_moae_one_epoch(feature_extractor, classifiers, allocation_system, d
             batch_input = batch_input.to(device)
             batch_targets = batch_targets.to(device)
 
-            batch_features = feature_extractor(batch_input)
+            batch_features = feature_extractor(batch_input, last_layer=True)
             batch_allocation_system_outputs = allocation_system(batch_features)
             batch_outputs_classifiers = torch.empty((NUM_EXPERTS + 1, len(batch_targets), NUM_CLASSES)).to(device)
             for idx, classifier in enumerate(classifiers):
@@ -1036,6 +1035,7 @@ def evaluate_moae_one_epoch(feature_extractor, classifiers, allocation_system, d
             allocation_system_outputs = torch.cat((allocation_system_outputs, batch_allocation_system_outputs))
             targets = torch.cat((targets, batch_targets.float()))
 
+    targets = targets[:, 0]
     moae_loss = mixture_of_ai_experts_loss(allocation_system_output=allocation_system_outputs,
                                            classifiers_outputs=classifiers_outputs, targets=targets.long())
 
@@ -1132,10 +1132,11 @@ def train_mohe_one_epoch(feature_extractor, allocation_system, train_loader, opt
         for idx, expert_fn in enumerate(expert_fns):
             expert_batch_preds[idx] = np.array(expert_fn(batch_subclass_idxs))
 
-        batch_features = feature_extractor(batch_input)
+        batch_features = feature_extractor(batch_input, last_layer=True)
         batch_outputs_allocation_system = allocation_system(batch_features)
 
         # compute and record loss
+        batch_targets = batch_targets[:, 0]
         batch_loss = mixture_of_human_experts_loss(allocation_system_output=batch_outputs_allocation_system,
                                                    human_expert_preds=expert_batch_preds, targets=batch_targets)
 
@@ -1160,16 +1161,17 @@ def evaluate_mohe_one_epoch(feature_extractor, allocation_system, data_loader, e
             batch_input = batch_input.to(device)
             batch_targets = batch_targets.to(device)
 
-            batch_features = feature_extractor(batch_input)
+            batch_features = feature_extractor(batch_input, last_layer=True)
             batch_allocation_system_outputs = allocation_system(batch_features)
 
             allocation_system_outputs = torch.cat((allocation_system_outputs, batch_allocation_system_outputs))
             targets = torch.cat((targets, batch_targets))
-            subclass_idxs.extend(batch_subclass_idxs)
+            # subclass_idxs.extend(batch_subclass_idxs)
 
     expert_preds = np.empty((NUM_EXPERTS, len(targets)))
+    targets = targets[:, 0]
     for idx, expert_fn in enumerate(expert_fns):
-        expert_preds[idx] = np.array(expert_fn(subclass_idxs))
+        expert_preds[idx] = np.array(expert_fn(targets, targets))
 
     # compute and record loss
     mohe_loss = mixture_of_human_experts_loss(allocation_system_output=allocation_system_outputs,
@@ -1331,7 +1333,7 @@ def run_mohe(seed, expert_fns):
 # ====================================== #
 """#Run Experiment on Number of Experts"""
 NUM_EXPERTS = len(range(2, 11))
-experts = [4,8,12,16,20]
+experts = [4, 8, 12, 16, 20]
 best_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 avg_expert_accuracies = {exp_idx: [] for exp_idx in experts}
 
@@ -1366,21 +1368,21 @@ for seed in range(1):
             cifar10_expert = Cifar10Expert(k=5, n_classes=NUM_CLASSES, p_in=1, p_out=0.2)  # overlapping
             # cifar10_expert = Cifar10Expert(k1=i * 2, k2=i * 2 + 2, n_classes=NUM_CLASSES)  # non-overlapping
             expert_fns.append(cifar10_expert.predict)
-        #
-        # best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
-        # best_expert_accuracies[num_experts].append(best_expert_accuracy)
 
-        # avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
-        # avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
-        #
+        best_expert_accuracy = get_accuracy_of_best_expert(seed, expert_fns)
+        best_expert_accuracies[num_experts].append(best_expert_accuracy)
+
+        avg_expert_accuracy = get_accuracy_of_average_expert(seed, expert_fns)
+        avg_expert_accuracies[num_experts].append(avg_expert_accuracy)
+
         # # === Hemmer et al Baseline ===
         # our_approach_accuracy, our_approach_coverage = run_team_performance_optimization("Our Approach", seed,
         #                                                                                  expert_fns)
         # our_approach_accuracies[num_experts].append(our_approach_accuracy)
         #
         # === Keswani baseline ===
-        jsf_accuracy, jsf_coverage = run_team_performance_optimization("Joint Sparse Framework", seed, expert_fns)
-        jsf_accuracies[num_experts].append(jsf_accuracy)
+        # jsf_accuracy, jsf_coverage = run_team_performance_optimization("Joint Sparse Framework", seed, expert_fns)
+        # jsf_accuracies[num_experts].append(jsf_accuracy)
         #
         # # === Expert Team ====
         # mohe_accuracy = run_mohe(seed, expert_fns)
@@ -1405,17 +1407,17 @@ table_list = []
 table_list.append(['--------', '--------', '--------'])
 
 for num_experts in experts:
-    # mean_best_expert_accuracy = np.mean(best_expert_accuracies[num_experts])
-    # table_list.append([num_experts, 'Best Expert', mean_best_expert_accuracy])
-    #
-    # mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[num_experts])
-    # table_list.append([num_experts, 'Random Expert', mean_avg_expert_accuracy])
+    mean_best_expert_accuracy = np.mean(best_expert_accuracies[num_experts])
+    table_list.append([num_experts, 'Best Expert', mean_best_expert_accuracy])
+
+    mean_avg_expert_accuracy = np.mean(avg_expert_accuracies[num_experts])
+    table_list.append([num_experts, 'Random Expert', mean_avg_expert_accuracy])
 
     # mean_our_approach_accuracy = np.mean(our_approach_accuracies[num_experts])
     # table_list.append([num_experts, 'Our Approach', mean_our_approach_accuracy])
     #
-    mean_jsf_accuracy = np.mean(jsf_accuracies[num_experts])
-    table_list.append([num_experts, 'JSF', mean_jsf_accuracy])
+    # mean_jsf_accuracy = np.mean(jsf_accuracies[num_experts])
+    # table_list.append([num_experts, 'JSF', mean_jsf_accuracy])
     #
     # mean_mohe_accuracy = np.mean(mohe_accuracies[num_experts])
     # table_list.append([num_experts, 'MOHE', mean_mohe_accuracy])
