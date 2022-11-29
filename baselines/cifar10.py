@@ -927,7 +927,8 @@ def evaluate_full_automation_one_epoch(feature_extractor, classifier, data_loade
 def run_full_automation(seed):
     print(f'Training full automation baseline')
 
-    feature_extractor = Resnet().to(device)
+    # feature_extractor = Resnet().to(device)
+    feature_extractor = WideResNet(28, 3, NUM_CLASSES + NUM_EXPERTS, 4, dropRate=0.0).to(device)
 
     classifier = Network(output_size=NUM_CLASSES,
                          softmax_sigmoid="softmax").to(device)
