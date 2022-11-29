@@ -883,6 +883,7 @@ def train_full_automation_one_epoch(feature_extractor, classifier, train_loader,
         batch_outputs_classifier = classifier(batch_features)
 
         log_output = torch.log(batch_outputs_classifier + 1e-7)
+        batch_targets = batch_targets[:,0]
         batch_loss = nn.NLLLoss()(log_output, batch_targets)
 
         # compute gradient and do SGD step
