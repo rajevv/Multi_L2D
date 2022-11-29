@@ -719,7 +719,7 @@ def run_team_performance_optimization(method, seed, expert_fns):
         allocation_system_activation_function = "softmax"
 
     # feature_extractor = Resnet().to(device) # TODO: Change
-    feature_extractor = WideResNet(28, 3, NUM_CLASSES + NUM_EXPERTS, 4, dropRate=0.0).to(device)
+    feature_extractor = WideResNet(28, 3, NUM_CLASSES, 4, dropRate=0.0).to(device)
 
     classifier = Network(output_size=NUM_CLASSES,
                          softmax_sigmoid="softmax").to(device)
