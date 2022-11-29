@@ -870,17 +870,17 @@ def get_accuracy_of_average_expert(seed, expert_fns):
 """Functions for Training and Evaluation of Full Automation Baseline"""
 
 
-def train_full_automation_one_epoch(feature_extractor, classifier, train_loader, optimizer, scheduler):
+def train_full_automation_one_epoch(model, train_loader, optimizer, scheduler):
     # switch to train mode
-    feature_extractor.eval()
-    classifier.train()
+
+    model.train()
 
     for i, (batch_input, batch_targets) in enumerate(train_loader):
         batch_input = batch_input.to(device)
         batch_targets = batch_targets.to(device)
 
-        batch_features = feature_extractor(batch_input, last_layer=True)
-        batch_outputs_classifier = classifier(batch_features)
+        batch_outputs_classifier = model(batch_input)
+        # batch_outputs_classifier = classifier(batch_features)
 
         log_output = torch.log(batch_outputs_classifier + 1e-7)
         batch_targets = batch_targets[:, 0]
@@ -894,9 +894,8 @@ def train_full_automation_one_epoch(feature_extractor, classifier, train_loader,
             scheduler.step()
 
 
-def evaluate_full_automation_one_epoch(feature_extractor, classifier, data_loader):
-    feature_extractor.eval()
-    classifier.eval()
+def evaluate_full_automation_one_epoch(model, data_loader):
+    model.eval()
 
     classifier_outputs = torch.tensor([]).to(device)
     targets = torch.tensor([]).to(device)
@@ -907,8 +906,8 @@ def evaluate_full_automation_one_epoch(feature_extractor, classifier, data_loade
             batch_input = batch_input.to(device)
             batch_targets = batch_targets.to(device)
 
-            batch_features = feature_extractor(batch_input, last_layer=True)
-            batch_classifier_outputs = classifier(batch_features)
+            batch_classifier_outputs = model(batch_input)
+            # batch_classifier_outputs = classifier(batch_features)
 
             classifier_outputs = torch.cat((classifier_outputs, batch_classifier_outputs))
             targets = torch.cat((targets, batch_targets))
@@ -930,10 +929,10 @@ def run_full_automation(seed):
     print(f'Training full automation baseline')
 
     # feature_extractor = Resnet().to(device)
-    feature_extractor = WideResNet(28, 3, NUM_CLASSES + NUM_EXPERTS, 4, dropRate=0.0).to(device)
+    model = WideResNet(28, 3, NUM_CLASSES + NUM_EXPERTS, 4, dropRate=0.0).to(device)
 
-    classifier = Network(output_size=NUM_CLASSES,
-                         softmax_sigmoid="softmax").to(device)
+    # classifier = Network(output_size=NUM_CLASSES,
+    #                      softmax_sigmoid="softmax").to(device)
 
     # TODO: Change to CIFAR10
     # cifar_dl = CIFAR100_3_Split_Dataloader(train_batch_size=TRAIN_BATCH_SIZE, test_batch_size=TEST_BATCH_SIZE,
@@ -953,7 +952,7 @@ def run_full_automation(seed):
     test_loader = torch.utils.data.DataLoader(test_d, batch_size=1024, shuffle=False, drop_last=True, **kwargs)
 
     # optimizer = torch.optim.Adam(classifier.parameters(), lr=LR, betas=(0.9, 0.999), weight_decay=5e-4)
-    optimizer = torch.optim.SGD(classifier.parameters(), LR,
+    optimizer = torch.optim.SGD(model.parameters(), LR,
                                 momentum=0.9, nesterov=True,
                                 weight_decay=5e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, EPOCHS * len(train_loader))
@@ -962,11 +961,11 @@ def run_full_automation(seed):
     best_test_system_accuracy = None
 
     for epoch in tqdm(range(1, EPOCHS + 1)):
-        train_full_automation_one_epoch(feature_extractor, classifier, train_loader, optimizer, scheduler)
+        train_full_automation_one_epoch(model, train_loader, optimizer, scheduler)
 
-        val_system_accuracy, val_system_loss = evaluate_full_automation_one_epoch(feature_extractor, classifier,
+        val_system_accuracy, val_system_loss = evaluate_full_automation_one_epoch(model,
                                                                                   val_loader)
-        test_system_accuracy, test_system_loss, = evaluate_full_automation_one_epoch(feature_extractor, classifier,
+        test_system_accuracy, test_system_loss, = evaluate_full_automation_one_epoch(model,
                                                                                      test_loader)
 
         if val_system_loss < best_val_system_loss:
