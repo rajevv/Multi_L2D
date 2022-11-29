@@ -9,7 +9,7 @@ from models.experts import *
 # OWN ===
 from models.wideresnet import *
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
 device
 
@@ -28,7 +28,6 @@ EPOCHS = 100
 
 Classes for Dataset and Dataloader
 """
-
 #
 # class CIFAR100_Dataset(torchvision.datasets.CIFAR100):
 #     def __getitem__(self, index: int):
@@ -966,11 +965,11 @@ def run_full_automation(seed, config):
     best_test_system_accuracy = None
 
     for epoch in tqdm(range(1, EPOCHS + 1)):
-        train_full_automation_one_epoch(model, train_loader, optimizer, scheduler, config)
+        train_full_automation_one_epoch(model, classifier, train_loader, optimizer, scheduler, config)
 
-        val_system_accuracy, val_system_loss = evaluate_full_automation_one_epoch(model,
+        val_system_accuracy, val_system_loss = evaluate_full_automation_one_epoch(model, classifier,
                                                                                   val_loader, config)
-        test_system_accuracy, test_system_loss, = evaluate_full_automation_one_epoch(model,
+        test_system_accuracy, test_system_loss, = evaluate_full_automation_one_epoch(model, classifier,
                                                                                      test_loader, config)
 
         if val_system_loss < best_val_system_loss:
