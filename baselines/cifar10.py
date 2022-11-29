@@ -992,7 +992,7 @@ def train_moae_one_epoch(feature_extractor, classifiers, allocation_system, trai
     for classifier in classifiers:
         classifier.train()
 
-    for i, (batch_input, batch_targets, _) in enumerate(train_loader):
+    for i, (batch_input, batch_targets) in enumerate(train_loader):
         batch_input = batch_input.to(device)
         batch_targets = batch_targets.to(device)
 
@@ -1026,7 +1026,7 @@ def evaluate_moae_one_epoch(feature_extractor, classifiers, allocation_system, d
     targets = torch.tensor([]).long().to(device)
 
     with torch.no_grad():
-        for i, (batch_input, batch_targets, _) in enumerate(data_loader):
+        for i, (batch_input, batch_targets) in enumerate(data_loader):
             batch_input = batch_input.to(device)
             batch_targets = batch_targets.to(device)
 
