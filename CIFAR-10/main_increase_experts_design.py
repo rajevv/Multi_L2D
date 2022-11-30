@@ -15,7 +15,7 @@ from models.wideresnet import *
 from models.experts import *
 from losses.losses import *
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print(device)
 
 
@@ -323,7 +323,7 @@ def increase_experts(config):
                expert6, expert7, expert8, expert9, expert10]
 
     num_experts = np.arange(1, 11)
-    num_experts = [3, 4]  # Change for run in different GPUs
+    num_experts = [8, 9, 10]  # Change for run in different GPUs
 
     seeds = [948, 625, 436]
     seeds = [948]
@@ -341,11 +341,11 @@ def increase_experts(config):
                 expert_fn = getattr(expert, "predict")
                 expert_fns.append(expert_fn)
 
-            # # Model ===
-            # model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
-            #
-            # trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
-            # train(model, trainD, valD, expert_fns, config, seed=seed)
+            # Model ===
+            model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
+            
+            trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
+            train(model, trainD, valD, expert_fns, config, seed=seed)
 
 
 if __name__ == "__main__":
@@ -365,7 +365,7 @@ if __name__ == "__main__":
     # Dani experiments =====
     parser.add_argument("--n_experts", type=int, default=2)
     # Dani experiments =====
-    parser.add_argument("--lr", type=float, default=0.1,
+    parser.add_argument("--lr", type=float, default=0.01,
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--warmup_epochs", type=int, default=0)
