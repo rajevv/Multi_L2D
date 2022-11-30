@@ -11,7 +11,7 @@ import random
 
 from data_utils import cifar
 from losses.losses import *
-from main_increase_experts_nonoverlapping import evaluate
+from main_increase_experts_design import evaluate
 from models.experts import *
 from models.wideresnet import WideResNet
 
@@ -103,23 +103,21 @@ def validation(model_name, expert_fns, config, seed=""):
 
     # Model ===
     model = WideResNet(28, 3, n_dataset + num_experts, 4, dropRate=0.0)
-    model_path = os.path.join(config["ckp_dir"], config["experiment_name"] + '_' + str(
-        len(expert_fns)) + '_experts' + '.pt')  # '_seed_' + str(seed) +
+    model_path = os.path.join(config["ckp_dir"], config["experiment_name"] + '_' + model_name + '.pt')
     model.load_state_dict(torch.load(model_path, map_location=device))
     model = model.to(device)
 
     get('test', test_dl)
 
-    with open(config["ckp_dir"] + 'true_label_multiple_experts_new' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'true_label_multiple_experts_' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(true_label, cls=NumpyEncoder), f)
-
-    with open(config["ckp_dir"] + 'confidence_multiple_experts_new' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'confidence_multiple_experts_' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(classifier_confidence, cls=NumpyEncoder), f)
 
-    with open(config["ckp_dir"] + 'expert_predictions_multiple_experts_new' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'expert_predictions_multiple_experts_' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(expert_preds, cls=NumpyEncoder), f)
 
-    with open(config["ckp_dir"] + 'validation_multiple_experts_new' + model_name + '.txt', 'w') as f:
+    with open(config["ckp_dir"] + 'validation_multiple_experts_' + model_name + '.txt', 'w') as f:
         json.dump(json.dumps(result, cls=NumpyEncoder), f)
     return result
 
@@ -153,7 +151,7 @@ if __name__ == "__main__":
                         help="specify the experiment name. Checkpoints will be saved with this name.")
 
     config = parser.parse_args().__dict__
-    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_nonoverlapping/"
+    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_design/"
     print(config)
 
     alpha = 1.0
@@ -187,7 +185,7 @@ if __name__ == "__main__":
         for n in range(1, len(experts) + 1):
             print(n)
             num_experts = n
-            model_name = '_' + str(n) + '_experts'  # + '_seed_' + str(seed)
+            model_name = str(n) + '_experts' + '_seed_' + str(seed)
 
             # Experts ===
             expert_fns = []
