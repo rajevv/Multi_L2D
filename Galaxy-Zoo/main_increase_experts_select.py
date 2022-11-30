@@ -117,8 +117,8 @@ def evaluate(model,
 					correct += (predicted[i] == labels[i]).item()
 					correct_sys += (predicted[i] == labels[i]).item()
 				if r == 1:
-					# deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
-					deferred_exp = ((n_classes - 1) - predicted[i]).item()  # reverse order, as in loss function
+					deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
+					#cdeferred_exp = ((n_classes - 1) - predicted[i]).item()  # reverse order, as in loss function
 					exp_prediction = expert_predictions[deferred_exp][i]
 					#
 					# Deferral accuracy: No matter expert ===

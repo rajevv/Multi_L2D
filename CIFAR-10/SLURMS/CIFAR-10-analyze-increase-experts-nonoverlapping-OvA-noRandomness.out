@@ -1,0 +1,70 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+cuda:0
+{'batch_size': 1024, 'alpha': 1.0, 'epochs': 100, 'patience': 20, 'expert_type': 'predict_prob_cifar_2', 'n_classes': 10, 'k': 5, 'n_experts': 2, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 0, 'loss_type': 'ova', 'ckp_dir': './ova_increase_experts_nonoverlapping/', 'experiment_name': 'multiple_experts'}
+seed is 
+n is 1
+torch.Size([9216]) torch.Size([9216, 11]) [torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 11]), expert_predictions (1, 9216)
+Evaluate...
+{'coverage': '9118 out of9216', 'system_accuracy': 85.9375, 'expert_accuracy': 57.142740525019335, 'classifier_accuracy': 86.24698304181858, 'alone_classifier': 85.89409722222223, 'validation_loss': 1.605198131667243, 'n_experts': 1, 'expert_0': 57.142740525019335}
+n is 2
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/torch/nn/functional.py:1944: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
+  warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")
+torch.Size([9216]) torch.Size([9216, 12]) [torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 12]), expert_predictions (2, 9216)
+Evaluate...
+{'coverage': '9045 out of9216', 'system_accuracy': 86.93576388888889, 'expert_accuracy': 63.15782086804577, 'classifier_accuracy': 87.38529477738757, 'alone_classifier': 86.80555555555556, 'validation_loss': 2.1074603531095715, 'n_experts': 2, 'expert_0': 55.66027233910879, 'expert_1': 75.38438343266635}
+n is 3
+torch.Size([9216]) torch.Size([9216, 13]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 13]), expert_predictions (3, 9216)
+Evaluate...
+{'coverage': '8870 out of9216', 'system_accuracy': 87.34809027777777, 'expert_accuracy': 56.35834892580987, 'classifier_accuracy': 88.5569324852657, 'alone_classifier': 87.20703125, 'validation_loss': 2.626714415020413, 'n_experts': 3, 'expert_0': 65.75333458447317, 'expert_1': 49.31493338374415, 'expert_2': 49.60622109256521}
+n is 4
+torch.Size([9216]) torch.Size([9216, 14]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 14]), expert_predictions (4, 9216)
+Evaluate...
+{'coverage': '8723 out of9216', 'system_accuracy': 87.99913194444444, 'expert_accuracy': 52.332635970533076, 'classifier_accuracy': 90.01490209773127, 'alone_classifier': 87.61935763888889, 'validation_loss': 3.2442690001593695, 'n_experts': 4, 'expert_0': 51.66658055569907, 'expert_1': 52.85699183716618, 'expert_2': 57.9830958267297, 'expert_3': 48.91299031196705}
+n is 5
+torch.Size([9216]) torch.Size([9216, 15]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 15]), expert_predictions (5, 9216)
+Evaluate...
+{'coverage': '8650 out of9216', 'system_accuracy': 88.44401041666667, 'expert_accuracy': 54.24026351934152, 'classifier_accuracy': 90.68207987650776, 'alone_classifier': 88.11848958333333, 'validation_loss': 3.748639954460992, 'n_experts': 5, 'expert_0': 56.98912475457042, 'expert_1': 55.356945153767306, 'expert_2': 47.61895691627254, 'expert_3': 51.97734239848317, 'expert_4': 59.999911111242795}
+n is 6
+torch.Size([9216]) torch.Size([9216, 16]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 16]), expert_predictions (6, 9216)
+Evaluate...
+{'coverage': '8312 out of9216', 'system_accuracy': 87.97743055555556, 'expert_accuracy': 58.185827834993844, 'classifier_accuracy': 91.2175157456988, 'alone_classifier': 87.45659722222223, 'validation_loss': 4.464209026760525, 'n_experts': 6, 'expert_0': 52.830122226261345, 'expert_1': 56.71624860821311, 'expert_2': 59.39840691968884, 'expert_3': 59.82900869315496, 'expert_4': 62.01540772805003, 'expert_5': 57.692244294237035}
+n is 7
+torch.Size([9216]) torch.Size([9216, 17]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 17]), expert_predictions (7, 9216)
+Evaluate...
+{'coverage': '8340 out of9216', 'system_accuracy': 88.21614583333333, 'expert_accuracy': 59.13240659077476, 'classifier_accuracy': 91.27098211905297, 'alone_classifier': 87.81467013888889, 'validation_loss': 4.875929673512776, 'n_experts': 7, 'expert_0': 65.38451479305417, 'expert_1': 52.38070294903358, 'expert_2': 62.65052692707599, 'expert_3': 52.63149980225593, 'expert_4': 49.99993670894087, 'expert_5': 67.24130202149193, 'expert_6': 56.164229687041946}
+n is 8
+torch.Size([9216]) torch.Size([9216, 18]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 18]), expert_predictions (8, 9216)
+Evaluate...
+{'coverage': '7227 out of9216', 'system_accuracy': 86.94661458333333, 'expert_accuracy': 74.45951991357266, 'classifier_accuracy': 90.38328365319934, 'alone_classifier': 86.46918402777777, 'validation_loss': 5.356831232706706, 'n_experts': 8, 'expert_0': 57.69221893504779, 'expert_1': 47.825879017917316, 'expert_2': 74.74739924505127, 'expert_3': 60.20062862834205, 'expert_4': 75.17397903759674, 'expert_5': 84.52376927439558, 'expert_6': 92.35288685124303, 'expert_7': 50.39991936012902}
+n is 9
+torch.Size([9216]) torch.Size([9216, 19]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 19]), expert_predictions (9, 9216)
+Evaluate...
+{'coverage': '7690 out of9216', 'system_accuracy': 86.78385416666667, 'expert_accuracy': 65.59632167807055, 'classifier_accuracy': 90.98829530574388, 'alone_classifier': 86.26302083333333, 'validation_loss': 5.903582202063666, 'n_experts': 9, 'expert_0': 54.45533771220255, 'expert_1': 55.5553086430727, 'expert_2': 51.515089072619304, 'expert_3': 59.09084194222506, 'expert_4': 70.31246337892532, 'expert_5': 83.4687894478106, 'expert_6': 61.1763266439373, 'expert_7': 44.897867555372336, 'expert_8': 56.31057027073734}
+n is 10
+torch.Size([9216]) torch.Size([9216, 20]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 20]), expert_predictions (10, 9216)
+Evaluate...
+{'coverage': '7634 out of9216', 'system_accuracy': 87.28298611111111, 'expert_accuracy': 65.9291952049058, 'classifier_accuracy': 91.7081465587091, 'alone_classifier': 86.71875, 'validation_loss': 6.478066020541721, 'n_experts': 10, 'expert_0': 49.999905660555356, 'expert_1': 59.72205632762131, 'expert_2': 72.84476478899587, 'expert_3': 60.45449049591773, 'expert_4': 73.88880679021467, 'expert_5': 79.99996279071497, 'expert_6': 56.961881109161745, 'expert_7': 37.09671436013813, 'expert_8': 65.78930055447222, 'expert_9': 42.857006803153006}
+===Mean and Standard Error===
+[85.9375     86.93576389 87.34809028 87.99913194 88.44401042 87.97743056
+ 88.21614583 86.94661458 86.78385417 87.28298611]
+[nan nan nan nan nan nan nan nan nan nan]
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/numpy/core/_methods.py:261: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/numpy/core/_methods.py:250: RuntimeWarning: invalid value encountered in true_divide
+  ret = um.true_divide(

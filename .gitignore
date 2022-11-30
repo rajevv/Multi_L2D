@@ -21,6 +21,8 @@ Galaxy-Zoo/results/
 Galaxy-Zoo/training_solutions_rev1.csv
 Galaxy-Zoo/Models
 Galaxy-Zoo/galaxy_data.pkl
+Hatespeech/input_full.pkl
+Hatespeech/hatespeech_data.pkl
 
 .vscode
 

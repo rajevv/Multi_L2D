@@ -134,7 +134,7 @@ if __name__ == "__main__":
 	parser.add_argument("--epochs", type=int, default=100)
 	parser.add_argument("--patience", type=int, default=20,
 						help="number of patience steps for early stopping the training.")
-	parser.add_argument("--expert_type", type=str, default="predict",
+	parser.add_argument("--expert_type", type=str, default="predict_prob_cifar_2",
 						help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
 	parser.add_argument("--n_classes", type=int, default=10,
 						help="K for K class classification.")
@@ -168,13 +168,13 @@ if __name__ == "__main__":
 			set_seed(seed)
 		acc = []
 		expert_fns = []
-		for i, n in enumerate([1,2,3,4,5]): #[1, 4, 8, 12, 16, 20]):
+		for i, n in enumerate([1,2,3,4,5,6,7,8,9,10]): #[1, 4, 8, 12, 16, 20]):
 			print("n is {}".format(n))
 			model_name = '_' + str(n) + '_experts' #+ '_seed_' + str(seed)
 			num_experts = n
 
 			# Expert ===
-			expert = synth_expert2(k1=i*2 , k2 = i*2 + 2, n_classes=config["n_classes"])
+			expert = synth_expert2(S=[i], p_in=1.0, p_out=0.0, n_classes=config["n_classes"])
 			expert_fn = getattr(expert, config["expert_type"])
 			expert_fns.append(expert_fn)
 
