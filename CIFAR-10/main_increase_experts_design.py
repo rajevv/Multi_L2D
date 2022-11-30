@@ -322,11 +322,15 @@ def increase_experts(config):
     experts = [expert1, expert2, expert3, expert4, expert5,
                expert6, expert7, expert8, expert9, expert10]
 
+    num_experts = np.arange(1, 11)
+    num_experts = [3, 4]  # Change for run in different GPUs
+
     seeds = [948, 625, 436]
     seeds = [948]
+
     for seed in seeds:
         set_seed(seed)
-        for n in range(1, len(experts) + 1):
+        for n in num_experts:
             print(n)
             num_experts = n
 
@@ -337,11 +341,11 @@ def increase_experts(config):
                 expert_fn = getattr(expert, "predict")
                 expert_fns.append(expert_fn)
 
-            # Model ===
-            model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
-
-            trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
-            train(model, trainD, valD, expert_fns, config, seed=seed)
+            # # Model ===
+            # model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
+            #
+            # trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
+            # train(model, trainD, valD, expert_fns, config, seed=seed)
 
 
 if __name__ == "__main__":
