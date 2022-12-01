@@ -98,7 +98,7 @@ def evaluate(model,
                 # if r == 0:
                 total += 1
                 correct += (predicted[i] == labels[i][0]).item()
-                correct_sys += correct
+                correct_sys += (predicted[i] == labels[i][0]).item()
                 real_total += 1
     cov = str(total) + str(" out of") + str(real_total)
 
