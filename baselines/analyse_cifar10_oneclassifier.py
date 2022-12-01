@@ -133,7 +133,7 @@ if __name__ == "__main__":
                         help="specify the experiment name. Checkpoints will be saved with this name.")
 
     config = parser.parse_args().__dict__
-    config["ckp_dir"] = "./one_classifier_cifar10"
+    config["ckp_dir"] = "./one_classifier_cifar10/"
     print(config)
 
     n_dataset = 10
