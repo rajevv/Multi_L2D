@@ -86,7 +86,7 @@ def validation(model_name, config, seed=""):
     test_dl = torch.utils.data.DataLoader(test_d, batch_size=batch_size, shuffle=False, drop_last=True, **kwargs)
 
     # Model ===
-    model = WideResNet(28, 3, n_dataset, 4, dropRate=0.0)
+    model = WideResNet(28, 3, num_classes=int(config["n_classes"]), widen_factor=4, dropRate=0.0)
     model_path = os.path.join(config["ckp_dir"], config["experiment_name"] + '_' + model_name + '.pt')
     model.load_state_dict(torch.load(model_path, map_location=device))
     model = model.to(device)

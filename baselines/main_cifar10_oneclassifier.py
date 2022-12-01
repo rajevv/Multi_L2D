@@ -218,7 +218,7 @@ def one_classifier(config):
             num_experts = n
             config["n_experts"] = n
             # Model ===
-            model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
+            model = WideResNet(28, 3, num_classes=int(config["n_classes"]), widen_factor=4, dropRate=0.0)
             # Data ===
             trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
             # Train ===
