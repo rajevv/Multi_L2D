@@ -215,7 +215,6 @@ def one_classifier(config):
         for n in experts:
             print("One classifier | Seed {} | Experts {}".format(seed, n))
 
-            num_experts = n
             config["n_experts"] = n
             # Model ===
             model = WideResNet(28, 3, num_classes=int(config["n_classes"]), widen_factor=4, dropRate=0.0)
