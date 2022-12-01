@@ -206,10 +206,9 @@ def one_classifier(config):
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     experts = [4, 8, 12, 16, 20]
-    experts = [4]
 
     seeds = [948, 625, 436]
-    seeds = [948]
+    seeds = [436]
     for seed in seeds:
         set_seed(seed)
         for n in experts:
