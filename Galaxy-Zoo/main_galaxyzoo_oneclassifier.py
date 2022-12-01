@@ -10,7 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.backends import cudnn
 
-# Cifar 10 specific
+# Galaxy zoo specific
 from data_utils import GalaxyZooDataset
 from models.resnet50 import ResNet50_defer
 
