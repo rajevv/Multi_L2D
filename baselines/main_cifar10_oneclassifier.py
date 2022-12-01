@@ -8,11 +8,13 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.backends import cudnn
 
+# Cifar 10 specific
 from data_utils import cifar
 from models.wideresnet import WideResNet
+# General
 from utils import AverageMeter, accuracy
-from torch.backends import cudnn
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
@@ -27,32 +29,13 @@ def set_seed(seed):
         torch.cuda.manual_seed_all(seed)
 
 
-def evaluate(model,
-             loss_fn,
-             n_classes,
-             data_loader,
-             config):
-    '''
-    Computes metrics for deferal
-    -----
-    Arguments:
-    net: model
-    expert_fn: expert model
-    n_classes: number of classes
-    loader: data loader
-    '''
+def evaluate(model, data_loader, loss_fn):
     correct = 0
     correct_sys = 0
-    # exp = 0
-    # exp_total = 0
     total = 0
     real_total = 0
     alone_correct = 0
-    # #  === Individual Expert Accuracies === #
-    # expert_correct_dic = {k: 0 for k in range(len(expert_fns))}
-    # expert_total_dic = {k: 0 for k in range(len(expert_fns))}
-    #  === Individual  Expert Accuracies === #
-    alpha = config["alpha"]
+
     losses = []
     with torch.no_grad():
         for data in data_loader:
@@ -63,42 +46,19 @@ def evaluate(model,
 
             _, predicted = torch.max(outputs.data, 1)
             batch_size = outputs.size()[0]  # batch_size
-            #
-            # expert_predictions = []
-            # collection_Ms = []  # a collection of 3-tuple
-            # for i, fn in enumerate(expert_fns, 0):
-            #     exp_prediction1 = fn(images, labels)
-            #     m = [0] * batch_size
-            #     m2 = [0] * batch_size
-            #     for j in range(0, batch_size):
-            #         if exp_prediction1[j] == labels[j][0].item():
-            #             m[j] = 1
-            #             m2[j] = 1
-            #         else:
-            #             m[j] = 0
-            #             m2[j] = 1
-            #
-            #     m = torch.tensor(m)
-            #     m2 = torch.tensor(m2)
-            #     m = m.to(device)
-            #     m2 = m2.to(device)
-            #     collection_Ms.append((m, m2))
-            #     expert_predictions.append(exp_prediction1)
 
             # One classifier loss ===
             log_output = torch.log(outputs + 1e-7)
             loss = loss_fn(log_output, labels[:, 0])
-            # loss = loss_fn(output, target[:, 0], collection_Ms, n_classes)
             losses.append(loss.item())
 
             for i in range(0, batch_size):
-                # r = (predicted[i].item() >= n_classes - len(expert_fns))
                 prediction = predicted[i]
                 alone_correct += (prediction == labels[i][0]).item()
-                # if r == 0:
-                total += 1
+
                 correct += (predicted[i] == labels[i][0]).item()
                 correct_sys += (predicted[i] == labels[i][0]).item()
+                total += 1
                 real_total += 1
     cov = str(total) + str(" out of") + str(real_total)
 
@@ -119,25 +79,21 @@ def train_epoch(iters,
                 optimizer,
                 scheduler,
                 epoch,
-                loss_fn,
-                n_classes,
-                alpha,
-                config):
+                loss_fn):
     """ Train for one epoch """
 
+    # Meters ===
     batch_time = AverageMeter()
     losses = AverageMeter()
     top1 = AverageMeter()
 
     model.train()
     end = time.time()
-
     epoch_train_loss = []
 
     for i, (input, target) in enumerate(train_loader):
         if iters < warmup_iters:
             lr = lrate * float(iters) / warmup_iters
-            # print(iters, lr)
             for param_group in optimizer.param_groups:
                 param_group['lr'] = lr
 
@@ -148,13 +104,9 @@ def train_epoch(iters,
         output = model(input)
         output = F.softmax(output, dim=1)
 
-        # get expert  predictions and costs
-        batch_size = output.size()[0]  # batch_size
-
         # One classifier loss ===
         log_output = torch.log(output + 1e-7)
         loss = loss_fn(log_output, target[:, 0])
-        # loss = loss_fn(output, target[:, 0], collection_Ms, n_classes)
         epoch_train_loss.append(loss.item())
 
         # measure accuracy and record loss
@@ -186,24 +138,28 @@ def train_epoch(iters,
     return iters, np.average(epoch_train_loss)
 
 
-def train(model,
-          train_dataset,
-          validation_dataset,
-          config,
-          seed=""):
-    n_classes = config["n_classes"]
+def train(model, train_dataset, validation_dataset, config, seed=""):
+    """
+    General to all datasets.
+    """
+
+    # Data ===
     kwargs = {'num_workers': 0, 'pin_memory': True}
     train_loader = torch.utils.data.DataLoader(train_dataset,
                                                batch_size=config["batch_size"], shuffle=True, drop_last=True, **kwargs)
     valid_loader = torch.utils.data.DataLoader(validation_dataset,
                                                batch_size=config["batch_size"], shuffle=True, drop_last=True, **kwargs)
+
+    # Model ===
     model = model.to(device)
+    # Optimizer and loss ==
     cudnn.benchmark = True
     optimizer = torch.optim.SGD(model.parameters(), config["lr"],
                                 momentum=0.9, nesterov=True,
                                 weight_decay=config["weight_decay"])
     loss_fn = nn.NLLLoss()
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, len(train_loader) * config["epochs"])
+
     best_validation_loss = np.inf
     patience = 0
     iters = 0
@@ -219,15 +175,9 @@ def train(model,
                                         optimizer,
                                         scheduler,
                                         epoch,
-                                        loss_fn,
-                                        n_classes,
-                                        config["alpha"],
-                                        config)
-        metrics = evaluate(model,
-                           loss_fn,
-                           n_classes,
-                           valid_loader,
-                           config)
+                                        loss_fn)
+
+        metrics = evaluate(model, valid_loader, loss_fn)
 
         validation_loss = metrics["validation_loss"]
 
