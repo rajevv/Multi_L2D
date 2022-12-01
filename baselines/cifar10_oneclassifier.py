@@ -236,7 +236,7 @@ def train(model,
             print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
 
             save_path = os.path.join(config["ckp_dir"],
-                                     config["experiment_name"] + '_' + config["n_experts"] +
+                                     config["experiment_name"] + '_' + str(config["n_experts"]) +
                                      '_experts' + '_seed_' + str(seed))
             torch.save(model.state_dict(), save_path + '.pt')
             # Additionally save the whole config dict
