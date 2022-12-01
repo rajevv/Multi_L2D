@@ -1,0 +1,1359 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+updated the model
+evaluation on test data...
+0.6211512717536813 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.23      0.14      0.17       164
+          df       0.00      0.00      0.00        17
+         mel       0.31      0.47      0.37       167
+          nv       0.76      0.81      0.79       999
+        vasc       0.23      0.52      0.32        21
+       akiec       0.50      0.02      0.04        49
+         bcc       0.20      0.04      0.07        77
+
+    accuracy                           0.62      1494
+   macro avg       0.32      0.29      0.25      1494
+weighted avg       0.60      0.62      0.59      1494
+
+[ConvMixer] Epoch: 0 | Train Acc: 0.5974, Test Acc: 0.6144, Time: 92.1, lr: 0.001667
+updated the model
+evaluation on test data...
+0.6880856760374833 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.44      0.33      0.38       164
+          df       0.00      0.00      0.00        17
+         mel       0.44      0.43      0.44       167
+          nv       0.82      0.86      0.84       999
+        vasc       0.17      0.62      0.27        21
+       akiec       0.37      0.39      0.38        49
+         bcc       0.30      0.14      0.19        77
+
+    accuracy                           0.69      1494
+   macro avg       0.36      0.40      0.36      1494
+weighted avg       0.68      0.69      0.68      1494
+
+[ConvMixer] Epoch: 1 | Train Acc: 0.6979, Test Acc: 0.6881, Time: 89.5, lr: 0.003333
+updated the model
+evaluation on test data...
+0.6887550200803213 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.55      0.10      0.17       164
+          df       0.00      0.00      0.00        17
+         mel       0.49      0.18      0.26       167
+          nv       0.73      0.95      0.82       999
+        vasc       0.29      0.76      0.42        21
+       akiec       0.47      0.29      0.35        49
+         bcc       0.29      0.05      0.09        77
+
+    accuracy                           0.69      1494
+   macro avg       0.40      0.33      0.30      1494
+weighted avg       0.64      0.69      0.62      1494
+
+[ConvMixer] Epoch: 2 | Train Acc: 0.7114, Test Acc: 0.6888, Time: 90.2, lr: 0.005000
+updated the model
+evaluation on test data...
+0.6887550200803213 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.40      0.38      0.39       164
+          df       0.00      0.00      0.00        17
+         mel       0.37      0.37      0.37       167
+          nv       0.82      0.87      0.84       999
+        vasc       0.52      0.67      0.58        21
+       akiec       0.27      0.51      0.36        49
+         bcc       0.50      0.01      0.03        77
+
+    accuracy                           0.69      1494
+   macro avg       0.41      0.40      0.37      1494
+weighted avg       0.68      0.69      0.67      1494
+
+[ConvMixer] Epoch: 3 | Train Acc: 0.7168, Test Acc: 0.6888, Time: 90.3, lr: 0.006667
+updated the model
+evaluation on test data...
+0.5682730923694779 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.53      0.32      0.40       164
+          df       0.00      0.00      0.00        17
+         mel       0.37      0.46      0.41       167
+          nv       0.91      0.66      0.76       999
+        vasc       0.07      0.71      0.12        21
+       akiec       0.19      0.61      0.29        49
+         bcc       0.21      0.22      0.22        77
+
+    accuracy                           0.57      1494
+   macro avg       0.33      0.43      0.31      1494
+weighted avg       0.72      0.57      0.62      1494
+
+[ConvMixer] Epoch: 4 | Train Acc: 0.7185, Test Acc: 0.5683, Time: 90.3, lr: 0.008333
+updated the model
+evaluation on test data...
+0.6867469879518072 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.52      0.10      0.17       164
+          df       0.00      0.00      0.00        17
+         mel       0.46      0.08      0.13       167
+          nv       0.71      0.98      0.82       999
+        vasc       0.50      0.10      0.16        21
+       akiec       0.34      0.29      0.31        49
+         bcc       0.50      0.03      0.05        77
+
+    accuracy                           0.69      1494
+   macro avg       0.43      0.22      0.24      1494
+weighted avg       0.62      0.69      0.60      1494
+
+[ConvMixer] Epoch: 5 | Train Acc: 0.7223, Test Acc: 0.6867, Time: 90.4, lr: 0.010000
+updated the model
+evaluation on test data...
+0.713520749665328 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.52      0.17      0.26       164
+          df       0.00      0.00      0.00        17
+         mel       0.48      0.25      0.33       167
+          nv       0.76      0.94      0.85       999
+        vasc       0.42      0.24      0.30        21
+       akiec       0.43      0.41      0.42        49
+         bcc       0.45      0.35      0.39        77
+
+    accuracy                           0.71      1494
+   macro avg       0.44      0.34      0.36      1494
+weighted avg       0.67      0.71      0.67      1494
+
+[ConvMixer] Epoch: 6 | Train Acc: 0.7235, Test Acc: 0.7135, Time: 90.4, lr: 0.011667
+updated the model
+evaluation on test data...
+0.7175368139223561 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.50      0.20      0.28       164
+          df       0.00      0.00      0.00        17
+         mel       0.55      0.28      0.37       167
+          nv       0.74      0.97      0.84       999
+        vasc       0.59      0.48      0.53        21
+       akiec       0.62      0.27      0.37        49
+         bcc       0.00      0.00      0.00        77
+
+    accuracy                           0.72      1494
+   macro avg       0.43      0.31      0.34      1494
+weighted avg       0.64      0.72      0.66      1494
+
+[ConvMixer] Epoch: 7 | Train Acc: 0.7204, Test Acc: 0.7175, Time: 90.4, lr: 0.013333
+updated the model
+evaluation on test data...
+0.7195448460508701 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.47      0.35      0.40       164
+          df       0.00      0.00      0.00        17
+         mel       0.44      0.43      0.43       167
+          nv       0.83      0.89      0.86       999
+        vasc       0.70      0.67      0.68        21
+       akiec       0.33      0.65      0.44        49
+         bcc       0.48      0.21      0.29        77
+
+    accuracy                           0.72      1494
+   macro avg       0.47      0.46      0.44      1494
+weighted avg       0.70      0.72      0.71      1494
+
+[ConvMixer] Epoch: 8 | Train Acc: 0.7279, Test Acc: 0.7195, Time: 90.3, lr: 0.015000
+updated the model
+evaluation on test data...
+0.6987951807228916 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.28      0.15      0.20       164
+          df       0.00      0.00      0.00        17
+         mel       0.53      0.11      0.19       167
+          nv       0.74      0.97      0.84       999
+        vasc       0.79      0.52      0.63        21
+       akiec       0.60      0.06      0.11        49
+         bcc       0.47      0.19      0.28        77
+
+    accuracy                           0.70      1494
+   macro avg       0.49      0.29      0.32      1494
+weighted avg       0.64      0.70      0.63      1494
+
+[ConvMixer] Epoch: 9 | Train Acc: 0.7264, Test Acc: 0.6988, Time: 90.6, lr: 0.016667
+updated the model
+evaluation on test data...
+0.7081659973226239 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.35      0.50      0.42       164
+          df       0.00      0.00      0.00        17
+         mel       0.44      0.22      0.29       167
+          nv       0.83      0.90      0.86       999
+        vasc       0.89      0.38      0.53        21
+       akiec       0.71      0.20      0.32        49
+         bcc       0.32      0.32      0.32        77
+
+    accuracy                           0.71      1494
+   macro avg       0.51      0.36      0.39      1494
+weighted avg       0.70      0.71      0.69      1494
+
+[ConvMixer] Epoch: 10 | Train Acc: 0.7270, Test Acc: 0.7082, Time: 91.3, lr: 0.018333
+updated the model
+evaluation on test data...
+0.642570281124498 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.27      0.75      0.40       164
+          df       0.00      0.00      0.00        17
+         mel       0.46      0.11      0.17       167
+          nv       0.90      0.78      0.83       999
+        vasc       0.47      0.67      0.55        21
+       akiec       0.22      0.41      0.29        49
+         bcc       0.50      0.12      0.19        77
+
+    accuracy                           0.64      1494
+   macro avg       0.40      0.40      0.35      1494
+weighted avg       0.72      0.64      0.65      1494
+
+[ConvMixer] Epoch: 11 | Train Acc: 0.7327, Test Acc: 0.6426, Time: 90.3, lr: 0.020000
+updated the model
+evaluation on test data...
+0.7008032128514057 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.38      0.10      0.16       164
+          df       0.00      0.00      0.00        17
+         mel       0.42      0.05      0.09       167
+          nv       0.72      0.99      0.83       999
+        vasc       0.59      0.62      0.60        21
+       akiec       0.61      0.22      0.33        49
+         bcc       0.65      0.14      0.23        77
+
+    accuracy                           0.70      1494
+   macro avg       0.48      0.30      0.32      1494
+weighted avg       0.63      0.70      0.61      1494
+
+[ConvMixer] Epoch: 12 | Train Acc: 0.7327, Test Acc: 0.7008, Time: 90.2, lr: 0.021667
+updated the model
+evaluation on test data...
+0.7095046854082999 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.34      0.18      0.24       164
+          df       0.00      0.00      0.00        17
+         mel       0.43      0.43      0.43       167
+          nv       0.78      0.94      0.85       999
+        vasc       0.85      0.52      0.65        21
+       akiec       1.00      0.02      0.04        49
+         bcc       0.41      0.09      0.15        77
+
+    accuracy                           0.71      1494
+   macro avg       0.54      0.31      0.34      1494
+weighted avg       0.67      0.71      0.66      1494
+
+[ConvMixer] Epoch: 13 | Train Acc: 0.7284, Test Acc: 0.7095, Time: 90.3, lr: 0.023333
+updated the model
+evaluation on test data...
+0.6860776439089692 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.36      0.54      0.44       164
+          df       0.00      0.00      0.00        17
+         mel       0.50      0.40      0.44       167
+          nv       0.92      0.78      0.85       999
+        vasc       0.75      0.57      0.65        21
+       akiec       0.30      0.61      0.40        49
+         bcc       0.31      0.62      0.41        77
+
+    accuracy                           0.69      1494
+   macro avg       0.45      0.50      0.46      1494
+weighted avg       0.75      0.69      0.71      1494
+
+[ConvMixer] Epoch: 14 | Train Acc: 0.7352, Test Acc: 0.6861, Time: 90.2, lr: 0.025000
+updated the model
+evaluation on test data...
+0.7175368139223561 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.53      0.18      0.26       164
+          df       0.00      0.00      0.00        17
+         mel       0.42      0.54      0.47       167
+          nv       0.82      0.89      0.85       999
+        vasc       0.43      0.62      0.51        21
+       akiec       0.43      0.27      0.33        49
+         bcc       0.48      0.47      0.47        77
+
+    accuracy                           0.72      1494
+   macro avg       0.44      0.42      0.41      1494
+weighted avg       0.70      0.72      0.70      1494
+
+[ConvMixer] Epoch: 15 | Train Acc: 0.7428, Test Acc: 0.7175, Time: 90.2, lr: 0.026667
+updated the model
+evaluation on test data...
+0.6813922356091031 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.31      0.02      0.05       164
+          df       0.00      0.00      0.00        17
+         mel       0.67      0.01      0.02       167
+          nv       0.69      0.99      0.82       999
+        vasc       0.55      0.76      0.64        21
+       akiec       0.00      0.00      0.00        49
+         bcc       0.29      0.06      0.11        77
+
+    accuracy                           0.68      1494
+   macro avg       0.36      0.27      0.23      1494
+weighted avg       0.59      0.68      0.57      1494
+
+[ConvMixer] Epoch: 16 | Train Acc: 0.7363, Test Acc: 0.6814, Time: 90.3, lr: 0.028333
+updated the model
+evaluation on test data...
+0.6921017402945113 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.32      0.07      0.12       164
+          df       0.00      0.00      0.00        17
+         mel       0.67      0.04      0.07       167
+          nv       0.70      0.99      0.82       999
+        vasc       0.85      0.52      0.65        21
+       akiec       0.80      0.08      0.15        49
+         bcc       0.43      0.12      0.18        77
+
+    accuracy                           0.69      1494
+   macro avg       0.54      0.26      0.28      1494
+weighted avg       0.64      0.69      0.60      1494
+
+[ConvMixer] Epoch: 17 | Train Acc: 0.7346, Test Acc: 0.6921, Time: 90.3, lr: 0.030000
+updated the model
+evaluation on test data...
+0.7088353413654619 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.32      0.24      0.27       164
+          df       0.00      0.00      0.00        17
+         mel       0.60      0.02      0.03       167
+          nv       0.75      0.98      0.85       999
+        vasc       0.77      0.48      0.59        21
+       akiec       0.56      0.29      0.38        49
+         bcc       0.47      0.18      0.26        77
+
+    accuracy                           0.71      1494
+   macro avg       0.50      0.31      0.34      1494
+weighted avg       0.66      0.71      0.64      1494
+
+[ConvMixer] Epoch: 18 | Train Acc: 0.7394, Test Acc: 0.7088, Time: 90.2, lr: 0.031667
+updated the model
+evaluation on test data...
+0.6874163319946452 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.54      0.18      0.27       164
+          df       0.00      0.00      0.00        17
+         mel       0.36      0.66      0.47       167
+          nv       0.85      0.82      0.84       999
+        vasc       0.91      0.48      0.62        21
+       akiec       0.30      0.71      0.42        49
+         bcc       0.42      0.25      0.31        77
+
+    accuracy                           0.69      1494
+   macro avg       0.48      0.44      0.42      1494
+weighted avg       0.72      0.69      0.68      1494
+
+[ConvMixer] Epoch: 19 | Train Acc: 0.7308, Test Acc: 0.6874, Time: 91.0, lr: 0.033333
+updated the model
+evaluation on test data...
+0.7182061579651942 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.57      0.16      0.26       164
+          df       0.00      0.00      0.00        17
+         mel       0.40      0.54      0.46       167
+          nv       0.81      0.91      0.85       999
+        vasc       1.00      0.29      0.44        21
+       akiec       0.45      0.37      0.40        49
+         bcc       0.51      0.34      0.41        77
+
+    accuracy                           0.72      1494
+   macro avg       0.53      0.37      0.40      1494
+weighted avg       0.70      0.72      0.69      1494
+
+[ConvMixer] Epoch: 20 | Train Acc: 0.7404, Test Acc: 0.7182, Time: 90.6, lr: 0.035000
+updated the model
+evaluation on test data...
+0.6693440428380187 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.44      0.47      0.46       164
+          df       0.00      0.00      0.00        17
+         mel       0.35      0.49      0.40       167
+          nv       0.92      0.75      0.83       999
+        vasc       0.67      0.57      0.62        21
+       akiec       0.33      0.65      0.44        49
+         bcc       0.29      0.57      0.38        77
+
+    accuracy                           0.67      1494
+   macro avg       0.43      0.50      0.45      1494
+weighted avg       0.74      0.67      0.69      1494
+
+[ConvMixer] Epoch: 21 | Train Acc: 0.7412, Test Acc: 0.6693, Time: 90.4, lr: 0.036667
+updated the model
+evaluation on test data...
+0.7048192771084337 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.38      0.40      0.39       164
+          df       0.00      0.00      0.00        17
+         mel       0.36      0.47      0.41       167
+          nv       0.84      0.88      0.86       999
+        vasc       1.00      0.24      0.38        21
+       akiec       0.61      0.29      0.39        49
+         bcc       0.52      0.16      0.24        77
+
+    accuracy                           0.70      1494
+   macro avg       0.53      0.35      0.38      1494
+weighted avg       0.70      0.70      0.69      1494
+
+[ConvMixer] Epoch: 22 | Train Acc: 0.7393, Test Acc: 0.7048, Time: 90.1, lr: 0.038333
+updated the model
+evaluation on test data...
+0.6867469879518072 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.42      0.10      0.17       164
+          df       0.00      0.00      0.00        17
+         mel       0.46      0.25      0.32       167
+          nv       0.71      0.96      0.82       999
+        vasc       0.50      0.24      0.32        21
+       akiec       1.00      0.02      0.04        49
+         bcc       0.33      0.01      0.03        77
+
+    accuracy                           0.69      1494
+   macro avg       0.49      0.23      0.24      1494
+weighted avg       0.63      0.69      0.61      1494
+
+[ConvMixer] Epoch: 23 | Train Acc: 0.7448, Test Acc: 0.6867, Time: 90.1, lr: 0.040000
+updated the model
+evaluation on test data...
+0.6974564926372155 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.49      0.14      0.22       164
+          df       0.00      0.00      0.00        17
+         mel       0.45      0.41      0.43       167
+          nv       0.73      0.94      0.82       999
+        vasc       0.80      0.38      0.52        21
+       akiec       0.00      0.00      0.00        49
+         bcc       0.75      0.04      0.07        77
+
+    accuracy                           0.70      1494
+   macro avg       0.46      0.27      0.29      1494
+weighted avg       0.64      0.70      0.63      1494
+
+[ConvMixer] Epoch: 24 | Train Acc: 0.7361, Test Acc: 0.6975, Time: 90.1, lr: 0.041667
+updated the model
+evaluation on test data...
+0.6981258366800536 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.38      0.29      0.33       164
+          df       0.00      0.00      0.00        17
+         mel       0.67      0.04      0.07       167
+          nv       0.75      0.97      0.84       999
+        vasc       0.37      0.76      0.50        21
+       akiec       0.00      0.00      0.00        49
+         bcc       0.40      0.10      0.16        77
+
+    accuracy                           0.70      1494
+   macro avg       0.37      0.31      0.27      1494
+weighted avg       0.64      0.70      0.62      1494
+
+[ConvMixer] Epoch: 25 | Train Acc: 0.7418, Test Acc: 0.6981, Time: 90.0, lr: 0.043333
+updated the model
+evaluation on test data...
+0.7168674698795181 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.44      0.27      0.34       164
+          df       0.00      0.00      0.00        17
+         mel       0.48      0.13      0.21       167
+          nv       0.75      0.96      0.85       999
+        vasc       0.75      0.57      0.65        21
+       akiec       0.60      0.06      0.11        49
+         bcc       0.60      0.32      0.42        77
+
+    accuracy                           0.72      1494
+   macro avg       0.52      0.33      0.37      1494
+weighted avg       0.67      0.72      0.66      1494
+
+[ConvMixer] Epoch: 26 | Train Acc: 0.7402, Test Acc: 0.7169, Time: 90.2, lr: 0.045000
+updated the model
+evaluation on test data...
+0.6921017402945113 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.50      0.02      0.05       164
+          df       0.00      0.00      0.00        17
+         mel       0.40      0.07      0.12       167
+          nv       0.70      0.99      0.82       999
+        vasc       0.65      0.62      0.63        21
+       akiec       0.33      0.04      0.07        49
+         bcc       0.59      0.17      0.26        77
+
+    accuracy                           0.69      1494
+   macro avg       0.45      0.27      0.28      1494
+weighted avg       0.62      0.69      0.59      1494
+
+[ConvMixer] Epoch: 27 | Train Acc: 0.7421, Test Acc: 0.6921, Time: 90.3, lr: 0.046667
+updated the model
+evaluation on test data...
+0.7202141900937081 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.35      0.47      0.40       164
+          df       0.00      0.00      0.00        17
+         mel       0.65      0.10      0.18       167
+          nv       0.82      0.93      0.87       999
+        vasc       0.40      0.86      0.55        21
+       akiec       0.82      0.18      0.30        49
+         bcc       0.41      0.35      0.38        77
+
+    accuracy                           0.72      1494
+   macro avg       0.49      0.41      0.38      1494
+weighted avg       0.72      0.72      0.68      1494
+
+[ConvMixer] Epoch: 28 | Train Acc: 0.7409, Test Acc: 0.7202, Time: 90.3, lr: 0.048333
+updated the model
+evaluation on test data...
+0.7182061579651942 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.39      0.48      0.43       164
+          df       0.17      0.12      0.14        17
+         mel       0.53      0.15      0.23       167
+          nv       0.80      0.91      0.85       999
+        vasc       0.78      0.67      0.72        21
+       akiec       0.43      0.31      0.36        49
+         bcc       0.64      0.35      0.45        77
+
+    accuracy                           0.72      1494
+   macro avg       0.53      0.43      0.45      1494
+weighted avg       0.70      0.72      0.69      1494
+
+[ConvMixer] Epoch: 29 | Train Acc: 0.7445, Test Acc: 0.7182, Time: 90.5, lr: 0.050000
+updated the model
+evaluation on test data...
+0.7289156626506024 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.61      0.15      0.24       164
+          df       0.00      0.00      0.00        17
+         mel       0.42      0.53      0.47       167
+          nv       0.82      0.91      0.86       999
+        vasc       0.62      0.76      0.68        21
+       akiec       0.37      0.69      0.48        49
+         bcc       0.93      0.18      0.30        77
+
+    accuracy                           0.73      1494
+   macro avg       0.54      0.46      0.43      1494
+weighted avg       0.73      0.73      0.70      1494
+
+[ConvMixer] Epoch: 30 | Train Acc: 0.7360, Test Acc: 0.7289, Time: 90.4, lr: 0.048417
+updated the model
+evaluation on test data...
+0.7014725568942436 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.29      0.39      0.33       164
+          df       0.00      0.00      0.00        17
+         mel       0.57      0.16      0.24       167
+          nv       0.79      0.94      0.86       999
+        vasc       0.61      0.67      0.64        21
+       akiec       0.25      0.02      0.04        49
+         bcc       0.67      0.03      0.05        77
+
+    accuracy                           0.70      1494
+   macro avg       0.45      0.31      0.31      1494
+weighted avg       0.67      0.70      0.65      1494
+
+[ConvMixer] Epoch: 31 | Train Acc: 0.7417, Test Acc: 0.7015, Time: 90.4, lr: 0.046833
+updated the model
+evaluation on test data...
+0.7128514056224899 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.46      0.15      0.22       164
+          df       0.00      0.00      0.00        17
+         mel       0.44      0.27      0.33       167
+          nv       0.75      0.96      0.84       999
+        vasc       0.63      0.57      0.60        21
+       akiec       0.59      0.20      0.30        49
+         bcc       0.69      0.14      0.24        77
+
+    accuracy                           0.71      1494
+   macro avg       0.51      0.33      0.36      1494
+weighted avg       0.66      0.71      0.66      1494
+
+[ConvMixer] Epoch: 32 | Train Acc: 0.7547, Test Acc: 0.7129, Time: 90.3, lr: 0.045250
+updated the model
+evaluation on test data...
+0.6987951807228916 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.42      0.18      0.25       164
+          df       0.00      0.00      0.00        17
+         mel       0.60      0.02      0.03       167
+          nv       0.72      0.98      0.83       999
+        vasc       0.61      0.67      0.64        21
+       akiec       0.83      0.10      0.18        49
+         bcc       0.41      0.12      0.18        77
+
+    accuracy                           0.70      1494
+   macro avg       0.51      0.30      0.30      1494
+weighted avg       0.65      0.70      0.61      1494
+
+[ConvMixer] Epoch: 33 | Train Acc: 0.7580, Test Acc: 0.6988, Time: 90.3, lr: 0.043667
+updated the model
+evaluation on test data...
+0.7074966532797858 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.32      0.30      0.31       164
+          df       0.17      0.06      0.09        17
+         mel       0.52      0.09      0.15       167
+          nv       0.77      0.95      0.85       999
+        vasc       0.50      0.71      0.59        21
+       akiec       0.61      0.29      0.39        49
+         bcc       0.56      0.18      0.27        77
+
+    accuracy                           0.71      1494
+   macro avg       0.49      0.37      0.38      1494
+weighted avg       0.67      0.71      0.66      1494
+
+[ConvMixer] Epoch: 34 | Train Acc: 0.7591, Test Acc: 0.7075, Time: 90.2, lr: 0.042083
+updated the model
+evaluation on test data...
+0.7168674698795181 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.35      0.27      0.31       164
+          df       0.00      0.00      0.00        17
+         mel       0.46      0.17      0.25       167
+          nv       0.77      0.95      0.85       999
+        vasc       0.68      0.62      0.65        21
+       akiec       0.50      0.33      0.40        49
+         bcc       0.74      0.18      0.29        77
+
+    accuracy                           0.72      1494
+   macro avg       0.50      0.36      0.39      1494
+weighted avg       0.67      0.72      0.67      1494
+
+[ConvMixer] Epoch: 35 | Train Acc: 0.7563, Test Acc: 0.7169, Time: 90.1, lr: 0.040500
+updated the model
+evaluation on test data...
+0.7382864792503346 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.49      0.41      0.45       164
+          df       0.00      0.00      0.00        17
+         mel       0.50      0.35      0.41       167
+          nv       0.85      0.89      0.87       999
+        vasc       0.52      0.71      0.60        21
+       akiec       0.39      0.76      0.51        49
+         bcc       0.51      0.42      0.46        77
+
+    accuracy                           0.74      1494
+   macro avg       0.46      0.51      0.47      1494
+weighted avg       0.72      0.74      0.73      1494
+
+[ConvMixer] Epoch: 36 | Train Acc: 0.7670, Test Acc: 0.7383, Time: 90.3, lr: 0.038917
+updated the model
+evaluation on test data...
+0.7222222222222222 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.41      0.35      0.38       164
+          df       0.00      0.00      0.00        17
+         mel       0.52      0.19      0.28       167
+          nv       0.77      0.95      0.85       999
+        vasc       0.62      0.62      0.62        21
+       akiec       0.64      0.33      0.43        49
+         bcc       0.90      0.12      0.21        77
+
+    accuracy                           0.72      1494
+   macro avg       0.55      0.36      0.39      1494
+weighted avg       0.69      0.72      0.68      1494
+
+[ConvMixer] Epoch: 37 | Train Acc: 0.7640, Test Acc: 0.7222, Time: 90.2, lr: 0.037333
+updated the model
+evaluation on test data...
+0.7242302543507363 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.38      0.28      0.32       164
+          df       0.29      0.24      0.26        17
+         mel       0.64      0.14      0.23       167
+          nv       0.81      0.93      0.87       999
+        vasc       0.60      0.71      0.65        21
+       akiec       0.71      0.20      0.32        49
+         bcc       0.37      0.66      0.47        77
+
+    accuracy                           0.72      1494
+   macro avg       0.54      0.45      0.45      1494
+weighted avg       0.71      0.72      0.69      1494
+
+[ConvMixer] Epoch: 38 | Train Acc: 0.7669, Test Acc: 0.7242, Time: 90.1, lr: 0.035750
+updated the model
+evaluation on test data...
+0.7188755020080321 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.36      0.62      0.45       164
+          df       0.00      0.00      0.00        17
+         mel       0.70      0.19      0.29       167
+          nv       0.84      0.89      0.87       999
+        vasc       0.35      0.81      0.49        21
+       akiec       0.56      0.41      0.47        49
+         bcc       0.52      0.18      0.27        77
+
+    accuracy                           0.72      1494
+   macro avg       0.48      0.44      0.41      1494
+weighted avg       0.73      0.72      0.70      1494
+
+[ConvMixer] Epoch: 39 | Train Acc: 0.7632, Test Acc: 0.7189, Time: 90.5, lr: 0.034167
+updated the model
+evaluation on test data...
+0.7222222222222222 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.39      0.30      0.34       164
+          df       0.00      0.00      0.00        17
+         mel       0.51      0.17      0.26       167
+          nv       0.77      0.97      0.86       999
+        vasc       0.58      0.86      0.69        21
+       akiec       0.60      0.18      0.28        49
+         bcc       1.00      0.10      0.19        77
+
+    accuracy                           0.72      1494
+   macro avg       0.55      0.37      0.37      1494
+weighted avg       0.69      0.72      0.67      1494
+
+[ConvMixer] Epoch: 40 | Train Acc: 0.7807, Test Acc: 0.7222, Time: 90.5, lr: 0.032583
+updated the model
+evaluation on test data...
+0.7175368139223561 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.48      0.26      0.33       164
+          df       0.00      0.00      0.00        17
+         mel       0.36      0.57      0.44       167
+          nv       0.83      0.89      0.86       999
+        vasc       0.92      0.57      0.71        21
+       akiec       0.55      0.35      0.42        49
+         bcc       0.62      0.17      0.27        77
+
+    accuracy                           0.72      1494
+   macro avg       0.54      0.40      0.43      1494
+weighted avg       0.71      0.72      0.70      1494
+
+[ConvMixer] Epoch: 41 | Train Acc: 0.7815, Test Acc: 0.7175, Time: 90.4, lr: 0.031000
+updated the model
+evaluation on test data...
+0.7449799196787149 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.55      0.25      0.34       164
+          df       0.25      0.06      0.10        17
+         mel       0.48      0.54      0.51       167
+          nv       0.85      0.91      0.88       999
+        vasc       1.00      0.52      0.69        21
+       akiec       0.35      0.76      0.47        49
+         bcc       0.57      0.30      0.39        77
+
+    accuracy                           0.74      1494
+   macro avg       0.58      0.48      0.48      1494
+weighted avg       0.74      0.74      0.73      1494
+
+[ConvMixer] Epoch: 42 | Train Acc: 0.7806, Test Acc: 0.7450, Time: 90.2, lr: 0.029417
+updated the model
+evaluation on test data...
+0.7128514056224899 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.41      0.19      0.26       164
+          df       0.00      0.00      0.00        17
+         mel       0.66      0.11      0.19       167
+          nv       0.73      0.98      0.84       999
+        vasc       0.67      0.67      0.67        21
+       akiec       0.70      0.14      0.24        49
+         bcc       0.72      0.17      0.27        77
+
+    accuracy                           0.71      1494
+   macro avg       0.55      0.32      0.35      1494
+weighted avg       0.68      0.71      0.64      1494
+
+[ConvMixer] Epoch: 43 | Train Acc: 0.7910, Test Acc: 0.7129, Time: 90.4, lr: 0.027833
+updated the model
+evaluation on test data...
+0.7034805890227577 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.55      0.15      0.23       164
+          df       1.00      0.06      0.11        17
+         mel       0.41      0.30      0.35       167
+          nv       0.73      0.96      0.83       999
+        vasc       1.00      0.48      0.65        21
+       akiec       0.00      0.00      0.00        49
+         bcc       1.00      0.05      0.10        77
+
+    accuracy                           0.70      1494
+   macro avg       0.67      0.29      0.32      1494
+weighted avg       0.67      0.70      0.64      1494
+
+[ConvMixer] Epoch: 44 | Train Acc: 0.7873, Test Acc: 0.7035, Time: 90.9, lr: 0.026250
+updated the model
+evaluation on test data...
+0.7182061579651942 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.36      0.49      0.41       164
+          df       0.75      0.18      0.29        17
+         mel       0.58      0.22      0.31       167
+          nv       0.80      0.92      0.85       999
+        vasc       0.80      0.76      0.78        21
+       akiec       0.67      0.08      0.15        49
+         bcc       0.72      0.23      0.35        77
+
+    accuracy                           0.72      1494
+   macro avg       0.67      0.41      0.45      1494
+weighted avg       0.71      0.72      0.69      1494
+
+[ConvMixer] Epoch: 45 | Train Acc: 0.7963, Test Acc: 0.7182, Time: 90.2, lr: 0.024667
+updated the model
+evaluation on test data...
+0.7342704149933066 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.52      0.24      0.33       164
+          df       1.00      0.06      0.11        17
+         mel       0.79      0.18      0.29       167
+          nv       0.81      0.93      0.86       999
+        vasc       0.42      0.86      0.56        21
+       akiec       0.49      0.57      0.53        49
+         bcc       0.40      0.66      0.50        77
+
+    accuracy                           0.73      1494
+   macro avg       0.63      0.50      0.46      1494
+weighted avg       0.74      0.73      0.70      1494
+
+[ConvMixer] Epoch: 46 | Train Acc: 0.8045, Test Acc: 0.7343, Time: 90.2, lr: 0.023083
+updated the model
+evaluation on test data...
+0.7556894243641231 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.68      0.22      0.33       164
+          df       0.33      0.29      0.31        17
+         mel       0.51      0.46      0.48       167
+          nv       0.82      0.93      0.87       999
+        vasc       0.61      0.81      0.69        21
+       akiec       0.74      0.35      0.47        49
+         bcc       0.54      0.60      0.57        77
+
+    accuracy                           0.76      1494
+   macro avg       0.60      0.52      0.53      1494
+weighted avg       0.74      0.76      0.73      1494
+
+[ConvMixer] Epoch: 47 | Train Acc: 0.8012, Test Acc: 0.7557, Time: 90.3, lr: 0.021500
+updated the model
+evaluation on test data...
+0.748995983935743 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.49      0.35      0.41       164
+          df       0.40      0.12      0.18        17
+         mel       0.62      0.25      0.35       167
+          nv       0.83      0.92      0.87       999
+        vasc       0.63      0.81      0.71        21
+       akiec       0.43      0.78      0.55        49
+         bcc       0.57      0.60      0.58        77
+
+    accuracy                           0.75      1494
+   macro avg       0.57      0.55      0.52      1494
+weighted avg       0.73      0.75      0.73      1494
+
+[ConvMixer] Epoch: 48 | Train Acc: 0.8198, Test Acc: 0.7490, Time: 90.3, lr: 0.019917
+updated the model
+evaluation on test data...
+0.7402945113788487 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.50      0.35      0.41       164
+          df       0.00      0.00      0.00        17
+         mel       0.44      0.66      0.53       167
+          nv       0.86      0.88      0.87       999
+        vasc       0.75      0.71      0.73        21
+       akiec       0.47      0.53      0.50        49
+         bcc       0.63      0.29      0.39        77
+
+    accuracy                           0.74      1494
+   macro avg       0.52      0.49      0.49      1494
+weighted avg       0.74      0.74      0.73      1494
+
+[ConvMixer] Epoch: 49 | Train Acc: 0.8215, Test Acc: 0.7403, Time: 90.9, lr: 0.018333
+updated the model
+evaluation on test data...
+0.7295850066934404 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.41      0.47      0.44       164
+          df       0.75      0.18      0.29        17
+         mel       0.56      0.38      0.45       167
+          nv       0.88      0.84      0.86       999
+        vasc       0.76      0.76      0.76        21
+       akiec       0.36      0.71      0.48        49
+         bcc       0.44      0.70      0.54        77
+
+    accuracy                           0.73      1494
+   macro avg       0.60      0.58      0.55      1494
+weighted avg       0.75      0.73      0.73      1494
+
+[ConvMixer] Epoch: 50 | Train Acc: 0.8354, Test Acc: 0.7296, Time: 90.5, lr: 0.016750
+updated the model
+evaluation on test data...
+0.6392235609103079 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.34      0.64      0.44       164
+          df       0.67      0.24      0.35        17
+         mel       0.39      0.39      0.39       167
+          nv       0.95      0.69      0.80       999
+        vasc       0.60      0.71      0.65        21
+       akiec       0.23      0.78      0.36        49
+         bcc       0.40      0.55      0.46        77
+
+    accuracy                           0.64      1494
+   macro avg       0.51      0.57      0.49      1494
+weighted avg       0.76      0.64      0.67      1494
+
+[ConvMixer] Epoch: 51 | Train Acc: 0.8470, Test Acc: 0.6392, Time: 90.3, lr: 0.015167
+updated the model
+evaluation on test data...
+0.7342704149933066 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.41      0.54      0.47       164
+          df       0.00      0.00      0.00        17
+         mel       0.59      0.22      0.32       167
+          nv       0.85      0.89      0.87       999
+        vasc       0.55      0.81      0.65        21
+       akiec       0.49      0.39      0.43        49
+         bcc       0.45      0.65      0.53        77
+
+    accuracy                           0.73      1494
+   macro avg       0.48      0.50      0.47      1494
+weighted avg       0.73      0.73      0.72      1494
+
+[ConvMixer] Epoch: 52 | Train Acc: 0.8451, Test Acc: 0.7343, Time: 90.2, lr: 0.013583
+updated the model
+evaluation on test data...
+0.7416331994645248 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.54      0.23      0.32       164
+          df       0.50      0.24      0.32        17
+         mel       0.51      0.35      0.42       167
+          nv       0.78      0.95      0.86       999
+        vasc       0.83      0.71      0.77        21
+       akiec       0.69      0.37      0.48        49
+         bcc       0.63      0.31      0.42        77
+
+    accuracy                           0.74      1494
+   macro avg       0.64      0.45      0.51      1494
+weighted avg       0.71      0.74      0.71      1494
+
+[ConvMixer] Epoch: 53 | Train Acc: 0.8631, Test Acc: 0.7416, Time: 90.3, lr: 0.012000
+updated the model
+evaluation on test data...
+0.7228915662650602 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.63      0.10      0.18       164
+          df       0.43      0.35      0.39        17
+         mel       0.52      0.34      0.41       167
+          nv       0.75      0.96      0.84       999
+        vasc       0.70      0.67      0.68        21
+       akiec       0.75      0.12      0.21        49
+         bcc       0.57      0.26      0.36        77
+
+    accuracy                           0.72      1494
+   macro avg       0.62      0.40      0.44      1494
+weighted avg       0.70      0.72      0.67      1494
+
+[ConvMixer] Epoch: 54 | Train Acc: 0.8844, Test Acc: 0.7229, Time: 90.3, lr: 0.010417
+updated the model
+evaluation on test data...
+0.7329317269076305 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.42      0.53      0.47       164
+          df       0.33      0.18      0.23        17
+         mel       0.46      0.47      0.47       167
+          nv       0.85      0.87      0.86       999
+        vasc       0.80      0.57      0.67        21
+       akiec       0.52      0.33      0.40        49
+         bcc       0.68      0.34      0.45        77
+
+    accuracy                           0.73      1494
+   macro avg       0.58      0.47      0.51      1494
+weighted avg       0.73      0.73      0.73      1494
+
+[ConvMixer] Epoch: 55 | Train Acc: 0.9063, Test Acc: 0.7329, Time: 90.5, lr: 0.008833
+updated the model
+evaluation on test data...
+0.7302543507362784 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.41      0.65      0.50       164
+          df       0.44      0.24      0.31        17
+         mel       0.43      0.42      0.43       167
+          nv       0.90      0.82      0.86       999
+        vasc       0.88      0.71      0.79        21
+       akiec       0.52      0.63      0.57        49
+         bcc       0.57      0.52      0.54        77
+
+    accuracy                           0.73      1494
+   macro avg       0.59      0.57      0.57      1494
+weighted avg       0.76      0.73      0.74      1494
+
+[ConvMixer] Epoch: 56 | Train Acc: 0.9193, Test Acc: 0.7303, Time: 90.4, lr: 0.007250
+updated the model
+evaluation on test data...
+0.751004016064257 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.46      0.41      0.43       164
+          df       0.50      0.12      0.19        17
+         mel       0.58      0.37      0.45       167
+          nv       0.82      0.92      0.87       999
+        vasc       0.68      0.71      0.70        21
+       akiec       0.62      0.41      0.49        49
+         bcc       0.62      0.44      0.52        77
+
+    accuracy                           0.75      1494
+   macro avg       0.61      0.48      0.52      1494
+weighted avg       0.73      0.75      0.73      1494
+
+[ConvMixer] Epoch: 57 | Train Acc: 0.9310, Test Acc: 0.7510, Time: 90.4, lr: 0.005667
+updated the model
+evaluation on test data...
+0.750334672021419 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.51      0.35      0.41       164
+          df       0.40      0.12      0.18        17
+         mel       0.48      0.44      0.46       167
+          nv       0.83      0.90      0.87       999
+        vasc       0.79      0.71      0.75        21
+       akiec       0.55      0.47      0.51        49
+         bcc       0.62      0.62      0.62        77
+
+    accuracy                           0.75      1494
+   macro avg       0.60      0.52      0.54      1494
+weighted avg       0.73      0.75      0.74      1494
+
+[ConvMixer] Epoch: 58 | Train Acc: 0.9560, Test Acc: 0.7503, Time: 90.3, lr: 0.004083
+updated the model
+evaluation on test data...
+0.7536813922356091 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.49      0.43      0.46       164
+          df       0.50      0.18      0.26        17
+         mel       0.45      0.47      0.46       167
+          nv       0.86      0.89      0.88       999
+        vasc       0.71      0.71      0.71        21
+       akiec       0.59      0.49      0.53        49
+         bcc       0.59      0.55      0.57        77
+
+    accuracy                           0.75      1494
+   macro avg       0.60      0.53      0.55      1494
+weighted avg       0.74      0.75      0.75      1494
+
+[ConvMixer] Epoch: 59 | Train Acc: 0.9691, Test Acc: 0.7537, Time: 90.7, lr: 0.002500
+updated the model
+evaluation on test data...
+0.7570281124497992 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.53      0.40      0.45       164
+          df       0.43      0.18      0.25        17
+         mel       0.48      0.48      0.48       167
+          nv       0.85      0.90      0.87       999
+        vasc       0.76      0.76      0.76        21
+       akiec       0.53      0.51      0.52        49
+         bcc       0.62      0.52      0.56        77
+
+    accuracy                           0.76      1494
+   macro avg       0.60      0.54      0.56      1494
+weighted avg       0.74      0.76      0.75      1494
+
+[ConvMixer] Epoch: 60 | Train Acc: 0.9806, Test Acc: 0.7570, Time: 92.3, lr: 0.002333
+updated the model
+evaluation on test data...
+0.7576974564926372 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.52      0.35      0.42       164
+          df       0.40      0.24      0.30        17
+         mel       0.49      0.46      0.48       167
+          nv       0.84      0.90      0.87       999
+        vasc       0.77      0.81      0.79        21
+       akiec       0.56      0.51      0.53        49
+         bcc       0.61      0.62      0.62        77
+
+    accuracy                           0.76      1494
+   macro avg       0.60      0.56      0.57      1494
+weighted avg       0.74      0.76      0.75      1494
+
+[ConvMixer] Epoch: 61 | Train Acc: 0.9844, Test Acc: 0.7577, Time: 92.7, lr: 0.002167
+updated the model
+evaluation on test data...
+0.7610441767068273 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.53      0.44      0.48       164
+          df       0.50      0.18      0.26        17
+         mel       0.47      0.46      0.46       167
+          nv       0.86      0.89      0.88       999
+        vasc       0.77      0.81      0.79        21
+       akiec       0.53      0.65      0.59        49
+         bcc       0.61      0.62      0.62        77
+
+    accuracy                           0.76      1494
+   macro avg       0.61      0.58      0.58      1494
+weighted avg       0.75      0.76      0.76      1494
+
+[ConvMixer] Epoch: 62 | Train Acc: 0.9847, Test Acc: 0.7610, Time: 90.3, lr: 0.002000
+updated the model
+evaluation on test data...
+0.7643908969210174 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.54      0.41      0.46       164
+          df       0.33      0.18      0.23        17
+         mel       0.51      0.46      0.48       167
+          nv       0.85      0.90      0.88       999
+        vasc       0.74      0.81      0.77        21
+       akiec       0.53      0.55      0.54        49
+         bcc       0.63      0.62      0.63        77
+
+    accuracy                           0.76      1494
+   macro avg       0.59      0.56      0.57      1494
+weighted avg       0.75      0.76      0.76      1494
+
+[ConvMixer] Epoch: 63 | Train Acc: 0.9877, Test Acc: 0.7644, Time: 90.3, lr: 0.001833
+updated the model
+evaluation on test data...
+0.7617135207496654 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.54      0.41      0.47       164
+          df       0.29      0.12      0.17        17
+         mel       0.47      0.50      0.48       167
+          nv       0.86      0.89      0.88       999
+        vasc       0.81      0.81      0.81        21
+       akiec       0.52      0.57      0.54        49
+         bcc       0.64      0.58      0.61        77
+
+    accuracy                           0.76      1494
+   macro avg       0.59      0.56      0.57      1494
+weighted avg       0.75      0.76      0.76      1494
+
+[ConvMixer] Epoch: 64 | Train Acc: 0.9923, Test Acc: 0.7617, Time: 90.2, lr: 0.001667
+updated the model
+evaluation on test data...
+0.7590361445783133 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.52      0.42      0.46       164
+          df       0.33      0.18      0.23        17
+         mel       0.49      0.42      0.45       167
+          nv       0.85      0.90      0.88       999
+        vasc       0.77      0.81      0.79        21
+       akiec       0.52      0.55      0.53        49
+         bcc       0.60      0.57      0.59        77
+
+    accuracy                           0.76      1494
+   macro avg       0.58      0.55      0.56      1494
+weighted avg       0.74      0.76      0.75      1494
+
+[ConvMixer] Epoch: 65 | Train Acc: 0.9928, Test Acc: 0.7590, Time: 90.3, lr: 0.001500
+updated the model
+evaluation on test data...
+0.7637215528781793 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.52      0.43      0.47       164
+          df       0.43      0.18      0.25        17
+         mel       0.50      0.43      0.46       167
+          nv       0.85      0.91      0.88       999
+        vasc       0.81      0.81      0.81        21
+       akiec       0.56      0.51      0.53        49
+         bcc       0.65      0.55      0.59        77
+
+    accuracy                           0.76      1494
+   macro avg       0.62      0.54      0.57      1494
+weighted avg       0.75      0.76      0.75      1494
+
+[ConvMixer] Epoch: 66 | Train Acc: 0.9913, Test Acc: 0.7637, Time: 90.2, lr: 0.001333
+updated the model
+evaluation on test data...
+0.7597054886211513 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.49      0.44      0.46       164
+          df       0.33      0.18      0.23        17
+         mel       0.52      0.42      0.46       167
+          nv       0.85      0.91      0.88       999
+        vasc       0.84      0.76      0.80        21
+       akiec       0.56      0.55      0.56        49
+         bcc       0.63      0.51      0.56        77
+
+    accuracy                           0.76      1494
+   macro avg       0.60      0.54      0.56      1494
+weighted avg       0.74      0.76      0.75      1494
+
+[ConvMixer] Epoch: 67 | Train Acc: 0.9912, Test Acc: 0.7597, Time: 90.3, lr: 0.001167
+updated the model
+evaluation on test data...
+0.7543507362784472 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.51      0.40      0.45       164
+          df       0.36      0.24      0.29        17
+         mel       0.50      0.38      0.43       167
+          nv       0.84      0.91      0.87       999
+        vasc       0.71      0.81      0.76        21
+       akiec       0.54      0.53      0.54        49
+         bcc       0.60      0.58      0.59        77
+
+    accuracy                           0.75      1494
+   macro avg       0.58      0.55      0.56      1494
+weighted avg       0.74      0.75      0.74      1494
+
+[ConvMixer] Epoch: 68 | Train Acc: 0.9935, Test Acc: 0.7544, Time: 90.4, lr: 0.001000
+updated the model
+evaluation on test data...
+0.7543507362784472 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.51      0.46      0.48       164
+          df       0.27      0.18      0.21        17
+         mel       0.45      0.45      0.45       167
+          nv       0.86      0.89      0.88       999
+        vasc       0.77      0.81      0.79        21
+       akiec       0.55      0.55      0.55        49
+         bcc       0.59      0.53      0.56        77
+
+    accuracy                           0.75      1494
+   macro avg       0.57      0.55      0.56      1494
+weighted avg       0.75      0.75      0.75      1494
+
+[ConvMixer] Epoch: 69 | Train Acc: 0.9945, Test Acc: 0.7544, Time: 90.6, lr: 0.000833
+updated the model
+evaluation on test data...
+0.7576974564926372 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.54      0.51      0.52       164
+          df       0.40      0.24      0.30        17
+         mel       0.46      0.38      0.42       167
+          nv       0.86      0.89      0.87       999
+        vasc       0.85      0.81      0.83        21
+       akiec       0.51      0.53      0.52        49
+         bcc       0.59      0.61      0.60        77
+
+    accuracy                           0.76      1494
+   macro avg       0.60      0.57      0.58      1494
+weighted avg       0.75      0.76      0.75      1494
+
+[ConvMixer] Epoch: 70 | Train Acc: 0.9950, Test Acc: 0.7577, Time: 90.3, lr: 0.000667
+updated the model
+evaluation on test data...
+0.7617135207496654 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.53      0.47      0.50       164
+          df       0.36      0.24      0.29        17
+         mel       0.48      0.41      0.45       167
+          nv       0.86      0.90      0.88       999
+        vasc       0.89      0.81      0.85        21
+       akiec       0.51      0.55      0.53        49
+         bcc       0.59      0.62      0.60        77
+
+    accuracy                           0.76      1494
+   macro avg       0.60      0.57      0.58      1494
+weighted avg       0.75      0.76      0.76      1494
+
+[ConvMixer] Epoch: 71 | Train Acc: 0.9968, Test Acc: 0.7617, Time: 90.4, lr: 0.000500
+updated the model
+evaluation on test data...
+0.7610441767068273 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.54      0.49      0.52       164
+          df       0.44      0.24      0.31        17
+         mel       0.47      0.40      0.43       167
+          nv       0.85      0.90      0.88       999
+        vasc       0.85      0.81      0.83        21
+       akiec       0.54      0.51      0.53        49
+         bcc       0.60      0.56      0.58        77
+
+    accuracy                           0.76      1494
+   macro avg       0.61      0.56      0.58      1494
+weighted avg       0.75      0.76      0.75      1494
+
+[ConvMixer] Epoch: 72 | Train Acc: 0.9961, Test Acc: 0.7610, Time: 92.1, lr: 0.000333
+updated the model
+evaluation on test data...
+0.7597054886211513 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.53      0.44      0.48       164
+          df       0.40      0.24      0.30        17
+         mel       0.48      0.41      0.44       167
+          nv       0.85      0.90      0.88       999
+        vasc       0.77      0.81      0.79        21
+       akiec       0.53      0.53      0.53        49
+         bcc       0.61      0.58      0.60        77
+
+    accuracy                           0.76      1494
+   macro avg       0.60      0.56      0.57      1494
+weighted avg       0.75      0.76      0.75      1494
+
+[ConvMixer] Epoch: 73 | Train Acc: 0.9953, Test Acc: 0.7597, Time: 90.3, lr: 0.000167
+updated the model
+evaluation on test data...
+0.7623828647925034 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.53      0.48      0.50       164
+          df       0.40      0.24      0.30        17
+         mel       0.48      0.44      0.46       167
+          nv       0.86      0.89      0.88       999
+        vasc       0.89      0.81      0.85        21
+       akiec       0.53      0.55      0.54        49
+         bcc       0.62      0.62      0.62        77
+
+    accuracy                           0.76      1494
+   macro avg       0.62      0.57      0.59      1494
+weighted avg       0.75      0.76      0.76      1494
+
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+[ConvMixer] Epoch: 74 | Train Acc: 0.9962, Test Acc: 0.7624, Time: 90.2, lr: 0.000000

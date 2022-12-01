@@ -1,0 +1,1 @@
+"{\"test\": {\"coverage\": \"8206 out of9216\", \"system_accuracy\": 87.09852430555556, \"expert_accuracy\": 62.77226479757133, \"classifier_accuracy\": 90.09261406175222, \"alone_classifier\": 86.26302083333333, \"validation_loss\": 3.4417026042938232, \"n_experts\": 2, \"expert_0\": 63.68157619861289, \"expert_1\": 59.22324347257915}}"

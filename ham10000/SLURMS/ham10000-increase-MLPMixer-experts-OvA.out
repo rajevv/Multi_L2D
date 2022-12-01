@@ -1,0 +1,793 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+{'batch_size': 512, 'alpha': 1.0, 'epochs': 150, 'patience': 20, 'expert_type': 'MLPMixer', 'n_classes': 7, 'k': 5, 'n_experts': 2, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 20, 'loss_type': 'ova', 'ckp_dir': './Models', 'experiment_name': 'multiple_experts'}
+1
+Epoch: [0][0/12]	Time 3.140 (3.140)	Loss 7.9012 (7.9012)	Prec@1 11.523 (11.523)
+Epoch: [0][10/12]	Time 0.906 (1.102)	Loss 3.4439 (4.8160)	Prec@1 17.383 (15.483)
+{'coverage': '710 out of2048', 'system_accuracy': 73.14453125, 'expert_accuracy': 62.78025967410169, 'classifier_accuracy': 92.67604328506432, 'alone_classifier': 67.529296875, 'validation_loss': 3.224956214427948, 'n_experts': 1, 'expert_0': 62.78025967410169}
+Saving the model with classifier accuracy 92.67604328506432
+Epoch: [1][0/12]	Time 0.467 (0.467)	Loss 2.7325 (2.7325)	Prec@1 32.812 (32.812)
+Epoch: [1][10/12]	Time 0.908 (0.868)	Loss 2.7636 (2.7336)	Prec@1 42.188 (36.932)
+{'coverage': '932 out of2048', 'system_accuracy': 73.828125, 'expert_accuracy': 55.376334161947284, 'classifier_accuracy': 95.92273648897677, 'alone_classifier': 72.216796875, 'validation_loss': 2.4203423261642456, 'n_experts': 1, 'expert_0': 55.376334161947284}
+Saving the model with classifier accuracy 95.92273648897677
+Epoch: [2][0/12]	Time 0.468 (0.468)	Loss 2.3054 (2.3054)	Prec@1 45.117 (45.117)
+Epoch: [2][10/12]	Time 0.912 (0.870)	Loss 2.0904 (2.1578)	Prec@1 57.031 (52.077)
+{'coverage': '1308 out of2048', 'system_accuracy': 75.87890625, 'expert_accuracy': 50.810797078162956, 'classifier_accuracy': 90.06115519410129, 'alone_classifier': 75.29296875, 'validation_loss': 2.300756096839905, 'n_experts': 1, 'expert_0': 50.810797078162956}
+Saving the model with classifier accuracy 90.06115519410129
+Epoch: [3][0/12]	Time 0.485 (0.485)	Loss 2.1901 (2.1901)	Prec@1 58.203 (58.203)
+Epoch: [3][10/12]	Time 0.913 (0.876)	Loss 1.8226 (1.8783)	Prec@1 66.211 (65.945)
+{'coverage': '1535 out of2048', 'system_accuracy': 78.466796875, 'expert_accuracy': 42.10524674259387, 'classifier_accuracy': 90.61888660463279, 'alone_classifier': 80.37109375, 'validation_loss': 2.01157808303833, 'n_experts': 1, 'expert_0': 42.10524674259387}
+Saving the model with classifier accuracy 90.61888660463279
+Epoch: [4][0/12]	Time 0.479 (0.479)	Loss 1.5130 (1.5130)	Prec@1 72.461 (72.461)
+Epoch: [4][10/12]	Time 0.918 (0.877)	Loss 1.5986 (1.5583)	Prec@1 76.367 (76.190)
+{'coverage': '1807 out of2048', 'system_accuracy': 81.15234375, 'expert_accuracy': 40.248929254000615, 'classifier_accuracy': 86.60763217445312, 'alone_classifier': 81.494140625, 'validation_loss': 1.910875827074051, 'n_experts': 1, 'expert_0': 40.248929254000615}
+Saving the model with classifier accuracy 86.60763217445312
+Epoch: [5][0/12]	Time 0.471 (0.471)	Loss 1.1163 (1.1163)	Prec@1 86.328 (86.328)
+Epoch: [5][10/12]	Time 0.916 (0.876)	Loss 1.6134 (1.4467)	Prec@1 75.195 (81.481)
+{'coverage': '1372 out of2048', 'system_accuracy': 80.56640625, 'expert_accuracy': 68.78696189734856, 'classifier_accuracy': 86.37025609546238, 'alone_classifier': 81.201171875, 'validation_loss': inf, 'n_experts': 1, 'expert_0': 68.78696189734856}
+Epoch: [6][0/12]	Time 0.463 (0.463)	Loss 1.3089 (1.3089)	Prec@1 63.672 (63.672)
+Epoch: [6][10/12]	Time 0.919 (0.876)	Loss 1.4368 (1.2983)	Prec@1 79.688 (65.376)
+{'coverage': '1791 out of2048', 'system_accuracy': 81.884765625, 'expert_accuracy': 52.529142000667704, 'classifier_accuracy': 86.0971476215998, 'alone_classifier': 81.8359375, 'validation_loss': 1.982362300157547, 'n_experts': 1, 'expert_0': 52.529142000667704}
+Epoch: [7][0/12]	Time 0.465 (0.465)	Loss 0.9783 (0.9783)	Prec@1 87.109 (87.109)
+Epoch: [7][10/12]	Time 0.919 (0.877)	Loss 1.2743 (1.0717)	Prec@1 82.227 (86.896)
+{'coverage': '1721 out of2048', 'system_accuracy': 82.177734375, 'expert_accuracy': 52.59935620834482, 'classifier_accuracy': 87.7977868798497, 'alone_classifier': 82.861328125, 'validation_loss': 2.136179208755493, 'n_experts': 1, 'expert_0': 52.59935620834482}
+Epoch: [8][0/12]	Time 0.464 (0.464)	Loss 1.1377 (1.1377)	Prec@1 82.422 (82.422)
+Epoch: [8][10/12]	Time 0.919 (0.878)	Loss 0.8013 (0.8977)	Prec@1 81.641 (83.771)
+{'coverage': '1754 out of2048', 'system_accuracy': 79.8828125, 'expert_accuracy': 79.93191841366094, 'classifier_accuracy': 79.87456785207709, 'alone_classifier': 80.029296875, 'validation_loss': 2.33836966753006, 'n_experts': 1, 'expert_0': 79.93191841366094}
+Epoch: [9][0/12]	Time 0.463 (0.463)	Loss 0.7951 (0.7951)	Prec@1 83.984 (83.984)
+Epoch: [9][10/12]	Time 0.919 (0.879)	Loss 0.7339 (0.7508)	Prec@1 87.109 (87.784)
+{'coverage': '1286 out of2048', 'system_accuracy': 82.8125, 'expert_accuracy': 82.54591009293699, 'classifier_accuracy': 82.97044455906341, 'alone_classifier': 83.30078125, 'validation_loss': 2.3061094284057617, 'n_experts': 1, 'expert_0': 82.54591009293699}
+Epoch: [10][0/12]	Time 0.464 (0.464)	Loss 0.7047 (0.7047)	Prec@1 66.602 (66.602)
+Epoch: [10][10/12]	Time 0.923 (0.880)	Loss 0.7931 (0.7556)	Prec@1 69.922 (76.758)
+{'coverage': '1357 out of2048', 'system_accuracy': 84.228515625, 'expert_accuracy': 90.30388124344972, 'classifier_accuracy': 81.13485032167647, 'alone_classifier': 83.935546875, 'validation_loss': 2.067801296710968, 'n_experts': 1, 'expert_0': 90.30388124344972}
+Epoch: [11][0/12]	Time 0.466 (0.466)	Loss 0.4748 (0.4748)	Prec@1 69.922 (69.922)
+Epoch: [11][10/12]	Time 0.921 (0.880)	Loss 0.8749 (0.6530)	Prec@1 65.430 (64.613)
+{'coverage': '1635 out of2048', 'system_accuracy': 82.666015625, 'expert_accuracy': 85.95637483952792, 'classifier_accuracy': 81.83485738013106, 'alone_classifier': 82.470703125, 'validation_loss': 2.269002676010132, 'n_experts': 1, 'expert_0': 85.95637483952792}
+Epoch: [12][0/12]	Time 0.464 (0.464)	Loss 0.5648 (0.5648)	Prec@1 78.711 (78.711)
+Epoch: [12][10/12]	Time 0.920 (0.880)	Loss 0.7218 (0.6156)	Prec@1 53.711 (71.520)
+{'coverage': '1171 out of2048', 'system_accuracy': 83.837890625, 'expert_accuracy': 92.24627314794228, 'classifier_accuracy': 77.54055699909847, 'alone_classifier': 83.7890625, 'validation_loss': 2.259763181209564, 'n_experts': 1, 'expert_0': 92.24627314794228}
+Epoch: [13][0/12]	Time 0.464 (0.464)	Loss 0.4557 (0.4557)	Prec@1 55.273 (55.273)
+Epoch: [13][10/12]	Time 0.924 (0.881)	Loss 0.6745 (0.6029)	Prec@1 58.203 (57.493)
+{'coverage': '1001 out of2048', 'system_accuracy': 82.275390625, 'expert_accuracy': 87.87008827696499, 'classifier_accuracy': 76.42356878885427, 'alone_classifier': 82.470703125, 'validation_loss': 2.4038442373275757, 'n_experts': 1, 'expert_0': 87.87008827696499}
+Epoch: [14][0/12]	Time 0.480 (0.480)	Loss 0.5710 (0.5710)	Prec@1 49.219 (49.219)
+Epoch: [14][10/12]	Time 0.925 (0.883)	Loss 0.5136 (0.4985)	Prec@1 52.930 (58.913)
+{'coverage': '1488 out of2048', 'system_accuracy': 80.6640625, 'expert_accuracy': 89.46425376276652, 'classifier_accuracy': 77.35214533923755, 'alone_classifier': 80.615234375, 'validation_loss': 2.8583234548568726, 'n_experts': 1, 'expert_0': 89.46425376276652}
+Epoch: [15][0/12]	Time 0.466 (0.466)	Loss 0.7300 (0.7300)	Prec@1 67.578 (67.578)
+Epoch: [15][10/12]	Time 0.926 (0.883)	Loss 0.5077 (0.7811)	Prec@1 58.203 (55.913)
+{'coverage': '937 out of2048', 'system_accuracy': 83.740234375, 'expert_accuracy': 90.81906555912411, 'classifier_accuracy': 75.34684361293024, 'alone_classifier': 84.326171875, 'validation_loss': 2.242646276950836, 'n_experts': 1, 'expert_0': 90.81906555912411}
+Epoch: [16][0/12]	Time 0.470 (0.470)	Loss 0.3464 (0.3464)	Prec@1 45.703 (45.703)
+Epoch: [16][10/12]	Time 0.926 (0.884)	Loss 0.6011 (0.4676)	Prec@1 67.578 (54.563)
+{'coverage': '1275 out of2048', 'system_accuracy': 81.25, 'expert_accuracy': 86.28717043022758, 'classifier_accuracy': 78.19607229834727, 'alone_classifier': 81.103515625, 'validation_loss': 2.928865969181061, 'n_experts': 1, 'expert_0': 86.28717043022758}
+Epoch: [17][0/12]	Time 0.469 (0.469)	Loss 0.4602 (0.4602)	Prec@1 65.430 (65.430)
+Epoch: [17][10/12]	Time 0.928 (0.884)	Loss 0.4191 (0.4215)	Prec@1 70.508 (67.933)
+{'coverage': '1415 out of2048', 'system_accuracy': 82.03125, 'expert_accuracy': 83.09634025392094, 'classifier_accuracy': 81.5547645544336, 'alone_classifier': 82.2265625, 'validation_loss': 2.8761199712753296, 'n_experts': 1, 'expert_0': 83.09634025392094}
+Epoch: [18][0/12]	Time 0.470 (0.470)	Loss 0.4113 (0.4113)	Prec@1 72.852 (72.852)
+Epoch: [18][10/12]	Time 0.929 (0.884)	Loss 0.5534 (0.3948)	Prec@1 56.445 (61.967)
+{'coverage': '1269 out of2048', 'system_accuracy': 82.080078125, 'expert_accuracy': 85.36583174176336, 'classifier_accuracy': 80.06303545602557, 'alone_classifier': 82.080078125, 'validation_loss': 3.3113414645195007, 'n_experts': 1, 'expert_0': 85.36583174176336}
+Epoch: [19][0/12]	Time 0.469 (0.469)	Loss 0.5053 (0.5053)	Prec@1 64.844 (64.844)
+Epoch: [19][10/12]	Time 0.926 (0.884)	Loss 0.4879 (0.4006)	Prec@1 59.766 (64.702)
+{'coverage': '1316 out of2048', 'system_accuracy': 81.0546875, 'expert_accuracy': 86.33877422437864, 'classifier_accuracy': 78.1154955839289, 'alone_classifier': 81.25, 'validation_loss': 2.890114486217499, 'n_experts': 1, 'expert_0': 86.33877422437864}
+Epoch: [20][0/12]	Time 0.466 (0.466)	Loss 0.2156 (0.2156)	Prec@1 68.555 (68.555)
+Epoch: [20][10/12]	Time 0.926 (0.884)	Loss 0.4532 (0.3327)	Prec@1 58.789 (57.280)
+{'coverage': '1003 out of2048', 'system_accuracy': 81.201171875, 'expert_accuracy': 86.6985480002779, 'classifier_accuracy': 75.47357173743053, 'alone_classifier': 81.298828125, 'validation_loss': 3.109763443470001, 'n_experts': 1, 'expert_0': 86.6985480002779}
+Epoch: [21][0/12]	Time 0.466 (0.466)	Loss 0.2576 (0.2576)	Prec@1 57.227 (57.227)
+Epoch: [21][10/12]	Time 0.927 (0.884)	Loss 0.3660 (0.4028)	Prec@1 58.594 (52.965)
+{'coverage': '1166 out of2048', 'system_accuracy': 82.421875, 'expert_accuracy': 89.11562605087845, 'classifier_accuracy': 77.35848393151939, 'alone_classifier': 82.91015625, 'validation_loss': 2.906417489051819, 'n_experts': 1, 'expert_0': 89.11562605087845}
+Epoch: [22][0/12]	Time 0.468 (0.468)	Loss 0.2476 (0.2476)	Prec@1 59.180 (59.180)
+Epoch: [22][10/12]	Time 0.928 (0.885)	Loss 0.3076 (0.3299)	Prec@1 63.477 (53.764)
+{'coverage': '1316 out of2048', 'system_accuracy': 81.640625, 'expert_accuracy': 85.51910231718516, 'classifier_accuracy': 79.48327663500937, 'alone_classifier': 81.494140625, 'validation_loss': 3.027510643005371, 'n_experts': 1, 'expert_0': 85.51910231718516}
+Epoch: [23][0/12]	Time 0.465 (0.465)	Loss 0.1284 (0.1284)	Prec@1 70.508 (70.508)
+Epoch: [23][10/12]	Time 0.928 (0.885)	Loss 0.1824 (0.2197)	Prec@1 78.711 (78.107)
+{'coverage': '1535 out of2048', 'system_accuracy': 81.15234375, 'expert_accuracy': 73.48925010165689, 'classifier_accuracy': 83.71334959522153, 'alone_classifier': 81.640625, 'validation_loss': 3.8378108739852905, 'n_experts': 1, 'expert_0': 73.48925010165689}
+Epoch: [24][0/12]	Time 0.466 (0.466)	Loss 0.1345 (0.1345)	Prec@1 78.516 (78.516)
+Epoch: [24][10/12]	Time 0.926 (0.885)	Loss 0.2886 (0.1758)	Prec@1 78.125 (83.132)
+{'coverage': '1409 out of2048', 'system_accuracy': 81.4453125, 'expert_accuracy': 79.18620369758884, 'classifier_accuracy': 82.46983091058688, 'alone_classifier': 81.25, 'validation_loss': 3.9608219265937805, 'n_experts': 1, 'expert_0': 79.18620369758884}
+Early Exiting Training.
+2
+Epoch: [0][0/12]	Time 0.550 (0.550)	Loss 10.5390 (10.5390)	Prec@1 3.906 (3.906)
+Epoch: [0][10/12]	Time 0.992 (0.953)	Loss 4.6747 (6.1636)	Prec@1 6.445 (6.126)
+{'coverage': '406 out of2048', 'system_accuracy': 73.095703125, 'expert_accuracy': 67.17416964991844, 'classifier_accuracy': 97.04431107282979, 'alone_classifier': 66.796875, 'validation_loss': 4.19278085231781, 'n_experts': 2, 'expert_0': 65.08473105429808, 'expert_1': 69.61689045788891}
+Saving the model with classifier accuracy 97.04431107282979
+Epoch: [1][0/12]	Time 0.538 (0.538)	Loss 4.0877 (4.0877)	Prec@1 19.531 (19.531)
+Epoch: [1][10/12]	Time 0.994 (0.952)	Loss 2.8472 (3.3990)	Prec@1 32.617 (33.114)
+{'coverage': '738 out of2048', 'system_accuracy': 73.193359375, 'expert_accuracy': 58.62594524794729, 'classifier_accuracy': 99.05147709329579, 'alone_classifier': 72.265625, 'validation_loss': 3.1677521467208862, 'n_experts': 2, 'expert_0': 58.13202636649715, 'expert_1': 59.07110041477492}
+Saving the model with classifier accuracy 99.05147709329579
+Epoch: [2][0/12]	Time 0.547 (0.547)	Loss 3.0314 (3.0314)	Prec@1 34.570 (34.570)
+Epoch: [2][10/12]	Time 0.999 (0.958)	Loss 2.8716 (3.0315)	Prec@1 50.391 (45.011)
+{'coverage': '1099 out of2048', 'system_accuracy': 73.388671875, 'expert_accuracy': 48.4720656539377, 'classifier_accuracy': 94.90444996319837, 'alone_classifier': 75.537109375, 'validation_loss': 2.931221663951874, 'n_experts': 2, 'expert_0': 46.76143862197832, 'expert_1': 51.89870132993587}
+Saving the model with classifier accuracy 94.90444996319837
+Epoch: [3][0/12]	Time 0.559 (0.559)	Loss 2.7727 (2.7727)	Prec@1 51.172 (51.172)
+Epoch: [3][10/12]	Time 0.999 (0.959)	Loss 2.4089 (2.5227)	Prec@1 64.648 (59.002)
+{'coverage': '1471 out of2048', 'system_accuracy': 76.3671875, 'expert_accuracy': 46.44712428175935, 'classifier_accuracy': 88.10332507795206, 'alone_classifier': 76.611328125, 'validation_loss': 2.725920617580414, 'n_experts': 2, 'expert_0': 50.18178168597696, 'expert_1': 43.04632910839132}
+Saving the model with classifier accuracy 88.10332507795206
+Epoch: [4][0/12]	Time 0.551 (0.551)	Loss 2.4054 (2.4054)	Prec@1 64.453 (64.453)
+Epoch: [4][10/12]	Time 0.999 (0.959)	Loss 2.1273 (2.2372)	Prec@1 69.336 (68.910)
+{'coverage': '1532 out of2048', 'system_accuracy': 78.466796875, 'expert_accuracy': 44.96122288324695, 'classifier_accuracy': 89.75195236606055, 'alone_classifier': 79.39453125, 'validation_loss': 2.6917492747306824, 'n_experts': 2, 'expert_0': 49.09086446285049, 'expert_1': 41.89186358657866}
+Saving the model with classifier accuracy 89.75195236606055
+Epoch: [5][0/12]	Time 0.551 (0.551)	Loss 1.9948 (1.9948)	Prec@1 72.266 (72.266)
+Epoch: [5][10/12]	Time 0.999 (0.959)	Loss 2.1344 (1.9571)	Prec@1 75.586 (75.337)
+{'coverage': '1637 out of2048', 'system_accuracy': 80.6640625, 'expert_accuracy': 50.1216301111289, 'classifier_accuracy': 88.33230981476422, 'alone_classifier': 81.73828125, 'validation_loss': 2.702736973762512, 'n_experts': 2, 'expert_0': 50.81961659058296, 'expert_1': 49.56136003389471}
+Epoch: [6][0/12]	Time 0.536 (0.536)	Loss 1.6361 (1.6361)	Prec@1 77.344 (77.344)
+Epoch: [6][10/12]	Time 0.999 (0.958)	Loss 1.7997 (1.6953)	Prec@1 79.688 (78.888)
+{'coverage': '1841 out of2048', 'system_accuracy': 81.73828125, 'expert_accuracy': 44.44440150299371, 'classifier_accuracy': 85.93155426770483, 'alone_classifier': 82.763671875, 'validation_loss': 2.656579077243805, 'n_experts': 2, 'expert_0': 50.48533886341968, 'expert_1': 38.461464497183655}
+Saving the model with classifier accuracy 85.93155426770483
+Epoch: [7][0/12]	Time 0.550 (0.550)	Loss 1.3239 (1.3239)	Prec@1 85.156 (85.156)
+Epoch: [7][10/12]	Time 0.999 (0.960)	Loss 1.5711 (1.5881)	Prec@1 78.320 (78.320)
+{'coverage': '1760 out of2048', 'system_accuracy': 81.103515625, 'expert_accuracy': 61.45829065396482, 'classifier_accuracy': 84.31817702737631, 'alone_classifier': 81.787109375, 'validation_loss': 2.499333381652832, 'n_experts': 2, 'expert_0': 63.571337755231774, 'expert_1': 59.45937910894715}
+Saving the model with classifier accuracy 84.31817702737631
+Epoch: [8][0/12]	Time 0.541 (0.541)	Loss 1.5389 (1.5389)	Prec@1 80.273 (80.273)
+Epoch: [8][10/12]	Time 0.993 (0.954)	Loss 1.5605 (1.3357)	Prec@1 77.930 (80.327)
+{'coverage': '1933 out of2048', 'system_accuracy': 83.10546875, 'expert_accuracy': 57.391204537035584, 'classifier_accuracy': 84.63527756672129, 'alone_classifier': 83.30078125, 'validation_loss': 2.5864263772964478, 'n_experts': 2, 'expert_0': 64.0622998053131, 'expert_1': 49.019415610134864}
+Epoch: [9][0/12]	Time 0.533 (0.533)	Loss 1.2040 (1.2040)	Prec@1 91.406 (91.406)
+Epoch: [9][10/12]	Time 0.998 (0.954)	Loss 1.2517 (1.2275)	Prec@1 75.000 (83.168)
+{'coverage': '1368 out of2048', 'system_accuracy': 83.984375, 'expert_accuracy': 86.17644524222199, 'classifier_accuracy': 82.89473078254892, 'alone_classifier': 83.837890625, 'validation_loss': 2.6018290519714355, 'n_experts': 2, 'expert_0': 82.031185913136, 'expert_1': 88.67920345320591}
+Epoch: [10][0/12]	Time 0.528 (0.528)	Loss 0.8575 (0.8575)	Prec@1 69.531 (69.531)
+Epoch: [10][10/12]	Time 1.005 (0.955)	Loss 1.5303 (1.3246)	Prec@1 46.484 (53.338)
+{'coverage': '1303 out of2048', 'system_accuracy': 72.119140625, 'expert_accuracy': 85.10064829512798, 'classifier_accuracy': 64.69684844997326, 'alone_classifier': 68.9453125, 'validation_loss': 4.777222096920013, 'n_experts': 2, 'expert_0': 81.87489765637793, 'expert_1': 85.98287658705075}
+Epoch: [11][0/12]	Time 0.533 (0.533)	Loss 3.3962 (3.3962)	Prec@1 45.312 (45.312)
+Epoch: [11][10/12]	Time 0.997 (0.955)	Loss 2.7761 (2.8113)	Prec@1 59.570 (50.142)
+{'coverage': '1285 out of2048', 'system_accuracy': 75.29296875, 'expert_accuracy': 63.95804352344862, 'classifier_accuracy': 82.02333992036266, 'alone_classifier': 74.609375, 'validation_loss': 2.885259211063385, 'n_experts': 2, 'expert_0': 63.18534559511979, 'expert_1': 64.73680803325892}
+Epoch: [12][0/12]	Time 0.532 (0.532)	Loss 2.5421 (2.5421)	Prec@1 53.125 (53.125)
+Epoch: [12][10/12]	Time 0.997 (0.955)	Loss 2.1709 (2.3692)	Prec@1 66.602 (46.200)
+{'coverage': '946 out of2048', 'system_accuracy': 79.98046875, 'expert_accuracy': 80.67149171116303, 'classifier_accuracy': 79.17546731760388, 'alone_classifier': 79.6875, 'validation_loss': 2.709140121936798, 'n_experts': 2, 'expert_0': 69.65695532614494, 'expert_1': 86.44534261539624}
+Epoch: [13][0/12]	Time 0.534 (0.534)	Loss 1.8075 (1.8075)	Prec@1 41.992 (41.992)
+Epoch: [13][10/12]	Time 0.999 (0.956)	Loss 1.6797 (1.8515)	Prec@1 78.125 (56.836)
+{'coverage': '1722 out of2048', 'system_accuracy': 79.150390625, 'expert_accuracy': 71.47234878997007, 'classifier_accuracy': 80.60394421579883, 'alone_classifier': 79.248046875, 'validation_loss': 2.838592529296875, 'n_experts': 2, 'expert_0': 76.41017804084304, 'expert_1': 64.12203950833663}
+Epoch: [14][0/12]	Time 0.535 (0.535)	Loss 1.6941 (1.6941)	Prec@1 74.219 (74.219)
+Epoch: [14][10/12]	Time 1.002 (0.957)	Loss 1.4712 (1.4400)	Prec@1 49.414 (71.129)
+{'coverage': '1764 out of2048', 'system_accuracy': 79.443359375, 'expert_accuracy': 64.78868676853044, 'classifier_accuracy': 81.80271645109318, 'alone_classifier': 79.98046875, 'validation_loss': 3.0923606753349304, 'n_experts': 2, 'expert_0': 66.48037264762833, 'expert_1': 61.9046439911543}
+Epoch: [15][0/12]	Time 0.535 (0.535)	Loss 1.1728 (1.1728)	Prec@1 81.250 (81.250)
+Epoch: [15][10/12]	Time 1.001 (0.958)	Loss 1.2083 (1.0114)	Prec@1 52.734 (62.571)
+{'coverage': '975 out of2048', 'system_accuracy': 79.150390625, 'expert_accuracy': 80.80147608546578, 'classifier_accuracy': 77.33332540171021, 'alone_classifier': 79.345703125, 'validation_loss': 3.966310679912567, 'n_experts': 2, 'expert_0': 85.11977676676501, 'expert_1': 68.57137959187172}
+Epoch: [16][0/12]	Time 0.546 (0.546)	Loss 1.0561 (1.0561)	Prec@1 49.219 (49.219)
+Epoch: [16][10/12]	Time 1.002 (0.959)	Loss 1.0731 (0.8277)	Prec@1 56.055 (60.511)
+{'coverage': '1241 out of2048', 'system_accuracy': 82.470703125, 'expert_accuracy': 87.98015167778149, 'classifier_accuracy': 78.88798719677783, 'alone_classifier': 82.177734375, 'validation_loss': 3.6940008401870728, 'n_experts': 2, 'expert_0': 85.01523852278989, 'expert_1': 89.99996250001563}
+Epoch: [17][0/12]	Time 0.537 (0.537)	Loss 1.0744 (1.0744)	Prec@1 63.672 (63.672)
+Epoch: [17][10/12]	Time 0.999 (0.958)	Loss 0.6794 (0.9230)	Prec@1 46.875 (48.011)
+{'coverage': '1102 out of2048', 'system_accuracy': 80.46875, 'expert_accuracy': 88.47778256283667, 'classifier_accuracy': 73.59345974651, 'alone_classifier': 80.517578125, 'validation_loss': 3.875134825706482, 'n_experts': 2, 'expert_0': 69.65507633782573, 'expert_1': 91.88512062793492}
+Epoch: [18][0/12]	Time 0.536 (0.536)	Loss 0.7112 (0.7112)	Prec@1 51.562 (51.562)
+Epoch: [18][10/12]	Time 1.002 (0.959)	Loss 0.7568 (0.6488)	Prec@1 47.266 (49.272)
+{'coverage': '1756 out of2048', 'system_accuracy': 79.8828125, 'expert_accuracy': 76.02734518674987, 'classifier_accuracy': 80.52391340979992, 'alone_classifier': 80.17578125, 'validation_loss': 3.9472330808639526, 'n_experts': 2, 'expert_0': 66.12881893929375, 'expert_1': 78.69558374297065}
+Epoch: [19][0/12]	Time 0.537 (0.537)	Loss 0.5276 (0.5276)	Prec@1 84.375 (84.375)
+Epoch: [19][10/12]	Time 1.000 (0.959)	Loss 0.5373 (0.5795)	Prec@1 65.820 (71.431)
+{'coverage': '1370 out of2048', 'system_accuracy': 79.931640625, 'expert_accuracy': 85.84068264286648, 'classifier_accuracy': 77.00729364910265, 'alone_classifier': 79.8828125, 'validation_loss': 4.354451656341553, 'n_experts': 2, 'expert_0': 80.6949183823024, 'expert_1': 89.02143722127101}
+Epoch: [20][0/12]	Time 0.538 (0.538)	Loss 0.4052 (0.4052)	Prec@1 68.750 (68.750)
+Epoch: [20][10/12]	Time 1.002 (0.959)	Loss 0.7603 (0.5150)	Prec@1 46.094 (60.476)
+{'coverage': '1199 out of2048', 'system_accuracy': 80.615234375, 'expert_accuracy': 90.9304850576007, 'classifier_accuracy': 73.31108646279513, 'alone_classifier': 80.078125, 'validation_loss': 4.246213793754578, 'n_experts': 2, 'expert_0': 83.47450553008005, 'expert_1': 93.80094818892393}
+Epoch: [21][0/12]	Time 0.535 (0.535)	Loss 0.6351 (0.6351)	Prec@1 57.227 (57.227)
+Epoch: [21][10/12]	Time 1.003 (0.959)	Loss 0.7156 (0.6487)	Prec@1 49.609 (50.444)
+{'coverage': '905 out of2048', 'system_accuracy': 80.17578125, 'expert_accuracy': 85.56428949006309, 'classifier_accuracy': 73.37015763865662, 'alone_classifier': 80.517578125, 'validation_loss': 3.946973979473114, 'n_experts': 2, 'expert_0': 73.59149747077643, 'expert_1': 89.52267997143656}
+Epoch: [22][0/12]	Time 0.545 (0.545)	Loss 0.5105 (0.5105)	Prec@1 44.727 (44.727)
+Epoch: [22][10/12]	Time 1.002 (0.960)	Loss 0.2363 (0.4614)	Prec@1 51.953 (48.988)
+{'coverage': '1088 out of2048', 'system_accuracy': 82.32421875, 'expert_accuracy': 87.91664835069827, 'classifier_accuracy': 77.38969876932916, 'alone_classifier': 82.763671875, 'validation_loss': 3.8450081944465637, 'n_experts': 2, 'expert_0': 83.45582098836692, 'expert_1': 89.68020648831208}
+Epoch: [23][0/12]	Time 0.539 (0.539)	Loss 0.2165 (0.2165)	Prec@1 50.000 (50.000)
+Epoch: [23][10/12]	Time 1.001 (0.960)	Loss 0.4141 (0.2886)	Prec@1 50.195 (54.616)
+{'coverage': '1131 out of2048', 'system_accuracy': 80.224609375, 'expert_accuracy': 85.2780620985688, 'classifier_accuracy': 76.12731422393331, 'alone_classifier': 81.15234375, 'validation_loss': 5.1593849658966064, 'n_experts': 2, 'expert_0': 85.82314456611446, 'expert_1': 83.90798167970752}
+Epoch: [24][0/12]	Time 0.536 (0.536)	Loss 0.2878 (0.2878)	Prec@1 51.367 (51.367)
+Epoch: [24][10/12]	Time 1.003 (0.959)	Loss 0.3526 (0.3324)	Prec@1 59.570 (56.499)
+{'coverage': '1221 out of2048', 'system_accuracy': 80.615234375, 'expert_accuracy': 84.03867375122763, 'classifier_accuracy': 78.29647188399083, 'alone_classifier': 80.908203125, 'validation_loss': 4.5992971658706665, 'n_experts': 2, 'expert_0': 85.08553296550956, 'expert_1': 83.01431434721802}
+Epoch: [25][0/12]	Time 0.539 (0.539)	Loss 0.2331 (0.2331)	Prec@1 60.352 (60.352)
+Epoch: [25][10/12]	Time 1.003 (0.960)	Loss 0.2771 (0.2570)	Prec@1 52.148 (58.168)
+{'coverage': '1012 out of2048', 'system_accuracy': 80.859375, 'expert_accuracy': 87.74129580283865, 'classifier_accuracy': 73.81422195511641, 'alone_classifier': 80.615234375, 'validation_loss': 4.607249736785889, 'n_experts': 2, 'expert_0': 84.16482248814643, 'expert_1': 90.60866413611683}
+Epoch: [26][0/12]	Time 0.546 (0.546)	Loss 0.1730 (0.1730)	Prec@1 50.195 (50.195)
+Epoch: [26][10/12]	Time 1.002 (0.960)	Loss 0.5289 (0.2431)	Prec@1 52.344 (57.262)
+{'coverage': '1515 out of2048', 'system_accuracy': 81.005859375, 'expert_accuracy': 81.61347781858244, 'classifier_accuracy': 80.79207387511063, 'alone_classifier': 80.712890625, 'validation_loss': 5.16263222694397, 'n_experts': 2, 'expert_0': 79.2078423684729, 'expert_1': 83.08152079666417}
+Epoch: [27][0/12]	Time 0.538 (0.538)	Loss 0.1771 (0.1771)	Prec@1 74.219 (74.219)
+Epoch: [27][10/12]	Time 0.999 (0.959)	Loss 0.3101 (0.2655)	Prec@1 52.734 (59.215)
+{'coverage': '1114 out of2048', 'system_accuracy': 79.6875, 'expert_accuracy': 83.08349398640387, 'classifier_accuracy': 76.84020854217158, 'alone_classifier': 80.712890625, 'validation_loss': 5.206587553024292, 'n_experts': 2, 'expert_0': 73.01581506681343, 'expert_1': 86.80349360601362}
+Early Exiting Training.
+4
+Epoch: [0][0/12]	Time 0.689 (0.689)	Loss 13.0480 (13.0480)	Prec@1 2.734 (2.734)
+Epoch: [0][10/12]	Time 1.129 (1.090)	Loss 5.8534 (8.0621)	Prec@1 0.195 (1.847)
+{'coverage': '26 out of2048', 'system_accuracy': 72.802734375, 'expert_accuracy': 72.8486574828232, 'classifier_accuracy': 69.230502959604, 'alone_classifier': 66.650390625, 'validation_loss': 5.40453314781189, 'n_experts': 4, 'expert_0': 83.83832738159772, 'expert_1': 53.78898847281175, 'expert_2': 87.95334508980697, 'expert_3': 65.35709617350273}
+Saving the model with classifier accuracy 69.230502959604
+Epoch: [1][0/12]	Time 0.677 (0.677)	Loss 4.8633 (4.8633)	Prec@1 1.562 (1.562)
+Epoch: [1][10/12]	Time 1.130 (1.089)	Loss 4.5377 (4.5495)	Prec@1 20.117 (9.961)
+{'coverage': '661 out of2048', 'system_accuracy': 73.193359375, 'expert_accuracy': 62.220611071288964, 'classifier_accuracy': 96.21783718338318, 'alone_classifier': 65.625, 'validation_loss': inf, 'n_experts': 4, 'expert_0': 57.142823129271946, 'expert_1': 88.3869827264739, 'expert_2': 73.5954229264911, 'expert_3': 56.1281180701621}
+Epoch: [2][0/12]	Time 0.668 (0.668)	Loss inf (inf)	Prec@1 31.641 (31.641)
+Epoch: [2][10/12]	Time 1.094 (1.056)	Loss nan (nan)	Prec@1 12.305 (12.837)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [3][0/12]	Time 0.657 (0.657)	Loss nan (nan)	Prec@1 11.914 (11.914)
+Epoch: [3][10/12]	Time 1.094 (1.055)	Loss nan (nan)	Prec@1 11.328 (11.115)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.400390625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.40039011716845, 'alone_classifier': 10.400390625, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [4][0/12]	Time 0.657 (0.657)	Loss nan (nan)	Prec@1 12.500 (12.500)
+Epoch: [4][10/12]	Time 1.099 (1.056)	Loss nan (nan)	Prec@1 10.156 (11.115)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [5][0/12]	Time 0.713 (0.713)	Loss nan (nan)	Prec@1 8.789 (8.789)
+Epoch: [5][10/12]	Time 1.094 (1.060)	Loss nan (nan)	Prec@1 10.156 (10.884)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [6][0/12]	Time 0.658 (0.658)	Loss nan (nan)	Prec@1 12.891 (12.891)
+Epoch: [6][10/12]	Time 1.097 (1.057)	Loss nan (nan)	Prec@1 11.914 (11.062)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.595703125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.595702607631708, 'alone_classifier': 10.595703125, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [7][0/12]	Time 0.660 (0.660)	Loss nan (nan)	Prec@1 11.523 (11.523)
+Epoch: [7][10/12]	Time 1.097 (1.057)	Loss nan (nan)	Prec@1 10.938 (11.026)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.7421875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.74218697547915, 'alone_classifier': 10.7421875, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [8][0/12]	Time 0.657 (0.657)	Loss nan (nan)	Prec@1 9.766 (9.766)
+Epoch: [8][10/12]	Time 1.098 (1.057)	Loss nan (nan)	Prec@1 12.500 (10.724)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.693359375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.693358852863335, 'alone_classifier': 10.693359375, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [9][0/12]	Time 0.659 (0.659)	Loss nan (nan)	Prec@1 12.500 (12.500)
+Epoch: [9][10/12]	Time 1.097 (1.057)	Loss nan (nan)	Prec@1 9.375 (10.742)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [10][0/12]	Time 0.660 (0.660)	Loss nan (nan)	Prec@1 10.352 (10.352)
+Epoch: [10][10/12]	Time 1.095 (1.056)	Loss nan (nan)	Prec@1 10.547 (10.866)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [11][0/12]	Time 0.658 (0.658)	Loss nan (nan)	Prec@1 10.742 (10.742)
+Epoch: [11][10/12]	Time 1.097 (1.057)	Loss nan (nan)	Prec@1 10.352 (11.044)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [12][0/12]	Time 0.658 (0.658)	Loss nan (nan)	Prec@1 9.180 (9.180)
+Epoch: [12][10/12]	Time 1.098 (1.057)	Loss nan (nan)	Prec@1 8.594 (10.884)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [13][0/12]	Time 0.658 (0.658)	Loss nan (nan)	Prec@1 9.375 (9.375)
+Epoch: [13][10/12]	Time 1.098 (1.058)	Loss nan (nan)	Prec@1 10.938 (11.026)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [14][0/12]	Time 0.658 (0.658)	Loss nan (nan)	Prec@1 9.766 (9.766)
+Epoch: [14][10/12]	Time 1.097 (1.057)	Loss nan (nan)	Prec@1 13.281 (10.973)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [15][0/12]	Time 0.656 (0.656)	Loss nan (nan)	Prec@1 11.523 (11.523)
+Epoch: [15][10/12]	Time 1.100 (1.057)	Loss nan (nan)	Prec@1 10.547 (10.938)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [16][0/12]	Time 0.659 (0.659)	Loss nan (nan)	Prec@1 9.766 (9.766)
+Epoch: [16][10/12]	Time 1.095 (1.057)	Loss nan (nan)	Prec@1 12.109 (10.884)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [17][0/12]	Time 0.656 (0.656)	Loss nan (nan)	Prec@1 11.914 (11.914)
+Epoch: [17][10/12]	Time 1.097 (1.056)	Loss nan (nan)	Prec@1 12.305 (10.849)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [18][0/12]	Time 0.661 (0.661)	Loss nan (nan)	Prec@1 12.500 (12.500)
+Epoch: [18][10/12]	Time 1.096 (1.057)	Loss nan (nan)	Prec@1 9.375 (11.080)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [19][0/12]	Time 0.657 (0.657)	Loss nan (nan)	Prec@1 11.914 (11.914)
+Epoch: [19][10/12]	Time 1.097 (1.056)	Loss nan (nan)	Prec@1 14.258 (10.831)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Epoch: [20][0/12]	Time 0.666 (0.666)	Loss nan (nan)	Prec@1 8.984 (8.984)
+Epoch: [20][10/12]	Time 1.097 (1.057)	Loss nan (nan)	Prec@1 9.961 (10.920)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0}
+Early Exiting Training.
+6
+Epoch: [0][0/12]	Time 0.818 (0.818)	Loss 14.0833 (14.0833)	Prec@1 3.906 (3.906)
+Epoch: [0][10/12]	Time 1.263 (1.221)	Loss 6.6766 (9.2466)	Prec@1 0.000 (1.385)
+{'coverage': '0 out of2048', 'system_accuracy': 73.2421875, 'expert_accuracy': 73.24218034744332, 'classifier_accuracy': 0.0, 'alone_classifier': 67.138671875, 'validation_loss': 6.340970873832703, 'n_experts': 6, 'expert_0': 57.894432134567715, 'expert_1': 61.999752000992, 'expert_2': 72.01423457603046, 'expert_3': 82.26413542186124, 'expert_4': 45.7943069265291, 'expert_5': 52.586161563653825}
+Saving the model with classifier accuracy 0.0
+Epoch: [1][0/12]	Time 0.805 (0.805)	Loss 5.8146 (5.8146)	Prec@1 0.195 (0.195)
+Epoch: [1][10/12]	Time 1.264 (1.219)	Loss 5.5591 (5.6766)	Prec@1 18.945 (7.724)
+{'coverage': '311 out of2048', 'system_accuracy': 72.900390625, 'expert_accuracy': 68.45134502575188, 'classifier_accuracy': 97.74916471087953, 'alone_classifier': 70.8984375, 'validation_loss': 5.591449499130249, 'n_experts': 6, 'expert_0': 49.13041342155938, 'expert_1': 61.97713918088275, 'expert_2': 79.1970224839252, 'expert_3': 95.99104855632581, 'expert_4': 45.85361380135239, 'expert_5': 67.44170362394506}
+Saving the model with classifier accuracy 97.74916471087953
+Epoch: [2][0/12]	Time 0.804 (0.804)	Loss 5.1686 (5.1686)	Prec@1 15.234 (15.234)
+Epoch: [2][10/12]	Time 1.263 (1.220)	Loss 5.0100 (5.0521)	Prec@1 51.172 (33.754)
+{'coverage': '1102 out of2048', 'system_accuracy': 73.388671875, 'expert_accuracy': 47.14586741102169, 'classifier_accuracy': 95.91650672264005, 'alone_classifier': 75.1953125, 'validation_loss': 5.145450234413147, 'n_experts': 6, 'expert_0': 46.538425739672505, 'expert_1': 39.56041057845379, 'expert_2': 39.39382001872721, 'expert_3': 57.40719478816745, 'expert_4': 42.47780092424615, 'expert_5': 62.22215308649657}
+Saving the model with classifier accuracy 95.91650672264005
+Epoch: [3][0/12]	Time 0.819 (0.819)	Loss 4.4660 (4.4660)	Prec@1 52.344 (52.344)
+Epoch: [3][10/12]	Time 1.272 (1.231)	Loss 4.9707 (4.5392)	Prec@1 57.617 (55.025)
+{'coverage': '1311 out of2048', 'system_accuracy': 75.927734375, 'expert_accuracy': 52.23879179408635, 'classifier_accuracy': 89.24484445119417, 'alone_classifier': 76.611328125, 'validation_loss': inf, 'n_experts': 6, 'expert_0': 73.61090663637044, 'expert_1': 51.63925960777113, 'expert_2': 46.89918845024151, 'expert_3': 66.66637037168724, 'expert_4': 46.37667716905168, 'expert_5': 50.292338839369776}
+Epoch: [4][0/12]	Time 0.814 (0.814)	Loss 4.2619 (4.2619)	Prec@1 56.445 (56.445)
+Epoch: [4][10/12]	Time 1.273 (1.231)	Loss 5.5476 (4.4412)	Prec@1 60.352 (59.109)
+{'coverage': '1352 out of2048', 'system_accuracy': 76.708984375, 'expert_accuracy': 48.99423879475897, 'classifier_accuracy': 90.97632463192865, 'alone_classifier': 76.318359375, 'validation_loss': 5.1635459661483765, 'n_experts': 6, 'expert_0': 48.51059701225786, 'expert_1': 50.980192234540255, 'expert_2': 55.639014076670556, 'expert_3': 37.999949333400885, 'expert_4': 53.658405711205575, 'expert_5': 57.77752098879561}
+Epoch: [5][0/12]	Time 0.810 (0.810)	Loss 4.2955 (4.2955)	Prec@1 60.156 (60.156)
+Epoch: [5][10/12]	Time 1.277 (1.231)	Loss 4.1507 (4.1806)	Prec@1 60.352 (61.293)
+{'coverage': '1338 out of2048', 'system_accuracy': 76.171875, 'expert_accuracy': 62.816883713553885, 'classifier_accuracy': 83.25858869517275, 'alone_classifier': 76.123046875, 'validation_loss': 5.391488313674927, 'n_experts': 6, 'expert_0': 54.748542180399795, 'expert_1': 71.99980800051199, 'expert_2': 65.09421680336452, 'expert_3': 72.61137246958921, 'expert_4': 51.515047444348596, 'expert_5': 63.82965142627356}
+Epoch: [6][0/12]	Time 0.814 (0.814)	Loss 3.6469 (3.6469)	Prec@1 56.836 (56.836)
+Epoch: [6][10/12]	Time 1.277 (1.232)	Loss 4.2162 (3.9792)	Prec@1 36.914 (53.977)
+{'coverage': '828 out of2048', 'system_accuracy': 78.3203125, 'expert_accuracy': 80.08195408492557, 'classifier_accuracy': 75.72462853567288, 'alone_classifier': 78.369140625, 'validation_loss': 4.947221636772156, 'n_experts': 6, 'expert_0': 76.30515959424932, 'expert_1': 91.58649442956998, 'expert_2': 59.29193045676025, 'expert_3': 77.41927159218108, 'expert_4': 67.0453021697678, 'expert_5': 80.9522845806136}
+Saving the model with classifier accuracy 75.72462853567288
+Epoch: [7][0/12]	Time 0.822 (0.822)	Loss 3.7279 (3.7279)	Prec@1 27.734 (27.734)
+Epoch: [7][10/12]	Time 1.275 (1.232)	Loss 3.9712 (3.6508)	Prec@1 60.938 (41.442)
+{'coverage': '1157 out of2048', 'system_accuracy': 77.5390625, 'expert_accuracy': 76.43095927475662, 'classifier_accuracy': 78.39238734724397, 'alone_classifier': 78.90625, 'validation_loss': 4.978726863861084, 'n_experts': 6, 'expert_0': 70.0853502814525, 'expert_1': 91.11106049385528, 'expert_2': 49.999907407578874, 'expert_3': 76.53045606029374, 'expert_4': 76.04150824685782, 'expert_5': 61.607032844584204}
+Epoch: [8][0/12]	Time 0.822 (0.822)	Loss 3.5679 (3.5679)	Prec@1 47.461 (47.461)
+Epoch: [8][10/12]	Time 1.273 (1.232)	Loss 4.2657 (3.4945)	Prec@1 50.195 (41.460)
+{'coverage': '1154 out of2048', 'system_accuracy': 77.44140625, 'expert_accuracy': 74.04920043642049, 'classifier_accuracy': 80.06931715170562, 'alone_classifier': 77.63671875, 'validation_loss': 5.590865135192871, 'n_experts': 6, 'expert_0': 57.62702097115089, 'expert_1': 90.81623386098585, 'expert_2': 80.9676896982647, 'expert_3': 63.43274114516247, 'expert_4': 56.75660336053145, 'expert_5': 61.29012487056493}
+Epoch: [9][0/12]	Time 0.817 (0.817)	Loss 3.4522 (3.4522)	Prec@1 51.953 (51.953)
+Epoch: [9][10/12]	Time 1.277 (1.232)	Loss 3.2861 (3.3978)	Prec@1 26.367 (35.866)
+{'coverage': '998 out of2048', 'system_accuracy': 77.83203125, 'expert_accuracy': 82.85712707483295, 'classifier_accuracy': 72.54508291131434, 'alone_classifier': 78.369140625, 'validation_loss': inf, 'n_experts': 6, 'expert_0': 79.42848065316497, 'expert_1': 90.47609473429128, 'expert_2': 90.34262283948732, 'expert_3': 72.2221419753978, 'expert_4': 78.80784263861902, 'expert_5': 61.76434256269081}
+Epoch: [10][0/12]	Time 0.811 (0.811)	Loss 2.5934 (2.5934)	Prec@1 39.648 (39.648)
+Epoch: [10][10/12]	Time 1.276 (1.232)	Loss 3.7244 (2.8838)	Prec@1 25.781 (28.640)
+{'coverage': '779 out of2048', 'system_accuracy': 79.638671875, 'expert_accuracy': 83.0575125204866, 'classifier_accuracy': 74.06931013230935, 'alone_classifier': 79.931640625, 'validation_loss': 5.997318148612976, 'n_experts': 6, 'expert_0': 83.95056546261391, 'expert_1': 82.41197747539952, 'expert_2': 89.54865104577148, 'expert_3': 71.77407778374551, 'expert_4': 77.77760493865568, 'expert_5': 73.87374076803465}
+Epoch: [11][0/12]	Time 0.816 (0.816)	Loss 2.5385 (2.5385)	Prec@1 31.055 (31.055)
+Epoch: [11][10/12]	Time 1.271 (1.232)	Loss 3.6474 (2.8917)	Prec@1 25.781 (27.734)
+{'coverage': '838 out of2048', 'system_accuracy': 75.244140625, 'expert_accuracy': 82.39668059558998, 'classifier_accuracy': 64.91646003383532, 'alone_classifier': 75.0, 'validation_loss': 6.173048734664917, 'n_experts': 6, 'expert_0': 52.032435719616714, 'expert_1': 95.14385066767963, 'expert_2': 84.74569089348229, 'expert_3': 61.403401046664825, 'expert_4': 72.72712580378625, 'expert_5': 75.6095716839715}
+Epoch: [12][0/12]	Time 0.812 (0.812)	Loss 3.1559 (3.1559)	Prec@1 30.469 (30.469)
+Epoch: [12][10/12]	Time 1.272 (1.231)	Loss 3.9412 (2.6011)	Prec@1 24.414 (28.871)
+{'coverage': '718 out of2048', 'system_accuracy': 69.775390625, 'expert_accuracy': 79.02254450788804, 'classifier_accuracy': 52.64623222197323, 'alone_classifier': 68.359375, 'validation_loss': 9.822329998016357, 'n_experts': 6, 'expert_0': 78.90292029412646, 'expert_1': 85.88702751046168, 'expert_2': 74.49654429994054, 'expert_3': 74.88365127102207, 'expert_4': 81.81803305812171, 'expert_5': 76.11928937419496}
+Epoch: [13][0/12]	Time 0.813 (0.813)	Loss 6.3325 (6.3325)	Prec@1 22.852 (22.852)
+Epoch: [13][10/12]	Time 1.274 (1.231)	Loss 4.1613 (4.2932)	Prec@1 35.352 (22.585)
+{'coverage': '589 out of2048', 'system_accuracy': 76.318359375, 'expert_accuracy': 82.04248361309341, 'classifier_accuracy': 62.13920846532964, 'alone_classifier': 76.318359375, 'validation_loss': inf, 'n_experts': 6, 'expert_0': 73.6840812559978, 'expert_1': 93.738455344952, 'expert_2': 70.73162105899871, 'expert_3': 79.99975384691123, 'expert_4': 73.28985453429672, 'expert_5': 79.32324862913637}
+Epoch: [14][0/12]	Time 0.813 (0.813)	Loss 3.8553 (3.8553)	Prec@1 20.898 (20.898)
+Epoch: [14][10/12]	Time 1.238 (1.220)	Loss nan (nan)	Prec@1 12.109 (17.259)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [15][0/12]	Time 0.803 (0.803)	Loss nan (nan)	Prec@1 10.742 (10.742)
+Epoch: [15][10/12]	Time 1.236 (1.199)	Loss nan (nan)	Prec@1 10.156 (11.293)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.1328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.132811956405664, 'alone_classifier': 11.1328125, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [16][0/12]	Time 0.804 (0.804)	Loss nan (nan)	Prec@1 9.570 (9.570)
+Epoch: [16][10/12]	Time 1.236 (1.197)	Loss nan (nan)	Prec@1 11.523 (10.600)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [17][0/12]	Time 0.804 (0.804)	Loss nan (nan)	Prec@1 10.547 (10.547)
+Epoch: [17][10/12]	Time 1.240 (1.197)	Loss nan (nan)	Prec@1 9.570 (11.026)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [18][0/12]	Time 0.801 (0.801)	Loss nan (nan)	Prec@1 11.133 (11.133)
+Epoch: [18][10/12]	Time 1.238 (1.197)	Loss nan (nan)	Prec@1 11.523 (10.902)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [19][0/12]	Time 0.803 (0.803)	Loss nan (nan)	Prec@1 11.719 (11.719)
+Epoch: [19][10/12]	Time 1.237 (1.196)	Loss nan (nan)	Prec@1 8.789 (10.689)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [20][0/12]	Time 0.803 (0.803)	Loss nan (nan)	Prec@1 10.742 (10.742)
+Epoch: [20][10/12]	Time 1.235 (1.197)	Loss nan (nan)	Prec@1 11.719 (10.813)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [21][0/12]	Time 0.808 (0.808)	Loss nan (nan)	Prec@1 10.938 (10.938)
+Epoch: [21][10/12]	Time 1.235 (1.197)	Loss nan (nan)	Prec@1 13.281 (11.115)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [22][0/12]	Time 0.813 (0.813)	Loss nan (nan)	Prec@1 11.523 (11.523)
+Epoch: [22][10/12]	Time 1.234 (1.198)	Loss nan (nan)	Prec@1 10.742 (10.760)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [23][0/12]	Time 0.804 (0.804)	Loss nan (nan)	Prec@1 11.523 (11.523)
+Epoch: [23][10/12]	Time 1.239 (1.197)	Loss nan (nan)	Prec@1 10.742 (11.026)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [24][0/12]	Time 0.801 (0.801)	Loss nan (nan)	Prec@1 10.352 (10.352)
+Epoch: [24][10/12]	Time 1.235 (1.197)	Loss nan (nan)	Prec@1 9.570 (10.653)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.693359375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.693358852863335, 'alone_classifier': 10.693359375, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [25][0/12]	Time 0.803 (0.803)	Loss nan (nan)	Prec@1 11.914 (11.914)
+Epoch: [25][10/12]	Time 1.240 (1.197)	Loss nan (nan)	Prec@1 10.352 (10.849)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Epoch: [26][0/12]	Time 0.812 (0.812)	Loss nan (nan)	Prec@1 11.914 (11.914)
+Epoch: [26][10/12]	Time 1.237 (1.198)	Loss nan (nan)	Prec@1 9.180 (11.168)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0}
+Early Exiting Training.
+8
+Epoch: [0][0/12]	Time 0.956 (0.956)	Loss 16.3110 (16.3110)	Prec@1 3.125 (3.125)
+Epoch: [0][10/12]	Time 1.406 (1.364)	Loss 7.7267 (10.9988)	Prec@1 0.000 (1.403)
+{'coverage': '0 out of2048', 'system_accuracy': 72.998046875, 'expert_accuracy': 72.99803974628519, 'classifier_accuracy': 0.0, 'alone_classifier': 66.50390625, 'validation_loss': 7.736505031585693, 'n_experts': 8, 'expert_0': 99.9900009999, 'expert_1': 74.99625018749062, 'expert_2': 99.9900009999, 'expert_3': 24.99875006249687, 'expert_4': 59.997600095996155, 'expert_5': 37.49906252343692, 'expert_6': 43.63620495925469, 'expert_7': 74.03454532169255}
+Saving the model with classifier accuracy 0.0
+Epoch: [1][0/12]	Time 0.929 (0.929)	Loss 7.7050 (7.7050)	Prec@1 0.000 (0.000)
+Epoch: [1][10/12]	Time 1.388 (1.347)	Loss 6.5177 (7.2866)	Prec@1 1.953 (1.296)
+{'coverage': '185 out of2048', 'system_accuracy': 72.998046875, 'expert_accuracy': 70.74610083241001, 'classifier_accuracy': 95.67562395912218, 'alone_classifier': 70.8984375, 'validation_loss': 7.07622218132019, 'n_experts': 8, 'expert_0': 56.097424152624015, 'expert_1': 55.244677979471355, 'expert_2': 40.06731308598445, 'expert_3': 67.79656420571918, 'expert_4': 64.70578719737176, 'expert_5': 68.8309900493765, 'expert_6': 54.794445487060976, 'expert_7': 95.05091847134834}
+Saving the model with classifier accuracy 95.67562395912218
+Epoch: [2][0/12]	Time 0.922 (0.922)	Loss 6.3907 (6.3907)	Prec@1 7.617 (7.617)
+Epoch: [2][10/12]	Time 1.390 (1.348)	Loss 6.2638 (6.5319)	Prec@1 28.320 (17.241)
+{'coverage': '689 out of2048', 'system_accuracy': 73.291015625, 'expert_accuracy': 61.81014542897051, 'classifier_accuracy': 95.9361254083998, 'alone_classifier': 71.58203125, 'validation_loss': inf, 'n_experts': 8, 'expert_0': 63.63621900859316, 'expert_1': 55.5554869685346, 'expert_2': 67.94251871529309, 'expert_3': 37.03694558778867, 'expert_4': 48.73941388333801, 'expert_5': 37.394926558885246, 'expert_6': 42.857031540177815, 'expert_7': 88.83112268513108}
+Epoch: [3][0/12]	Time 0.923 (0.923)	Loss 6.1827 (6.1827)	Prec@1 32.617 (32.617)
+Epoch: [3][10/12]	Time 1.386 (1.348)	Loss 6.4715 (6.1627)	Prec@1 31.445 (34.961)
+{'coverage': '805 out of2048', 'system_accuracy': 74.90234375, 'expert_accuracy': 65.40626461685204, 'classifier_accuracy': 89.56520626519178, 'alone_classifier': 73.583984375, 'validation_loss': 6.756725907325745, 'n_experts': 8, 'expert_0': 60.841384568683125, 'expert_1': 55.93201378978377, 'expert_2': 53.84573964815655, 'expert_3': 52.38078609274256, 'expert_4': 55.669988309302454, 'expert_5': 43.20982319774914, 'expert_6': 71.64157718932182, 'expert_7': 81.08692126655598}
+Saving the model with classifier accuracy 89.56520626519178
+Epoch: [4][0/12]	Time 0.934 (0.934)	Loss 5.7245 (5.7245)	Prec@1 35.547 (35.547)
+Epoch: [4][10/12]	Time 1.391 (1.349)	Loss 5.5413 (5.8706)	Prec@1 28.125 (31.126)
+{'coverage': '781 out of2048', 'system_accuracy': 75.830078125, 'expert_accuracy': 71.66533991075929, 'classifier_accuracy': 82.58641708240499, 'alone_classifier': 75.0, 'validation_loss': 6.405064940452576, 'n_experts': 8, 'expert_0': 64.88883120992782, 'expert_1': 59.49352026956893, 'expert_2': 55.90542377098618, 'expert_3': 52.12754866479007, 'expert_4': 85.71404081702623, 'expert_5': 74.9993750052083, 'expert_6': 69.84104812365675, 'expert_7': 80.85467321207754}
+Saving the model with classifier accuracy 82.58641708240499
+Epoch: [5][0/12]	Time 0.929 (0.929)	Loss 4.6715 (4.6715)	Prec@1 32.422 (32.422)
+Epoch: [5][10/12]	Time 1.393 (1.348)	Loss 5.4789 (5.6104)	Prec@1 23.242 (19.691)
+{'coverage': '978 out of2048', 'system_accuracy': 76.416015625, 'expert_accuracy': 71.49531373919369, 'classifier_accuracy': 81.79958263807949, 'alone_classifier': 76.416015625, 'validation_loss': 6.720067501068115, 'n_experts': 8, 'expert_0': 74.32412344831499, 'expert_1': 51.281963620575006, 'expert_2': 65.28914828239952, 'expert_3': 49.999848485307616, 'expert_4': 60.509477057991006, 'expert_5': 65.62458984631346, 'expert_6': 55.084652398894235, 'expert_7': 92.72722455728594}
+Epoch: [6][0/12]	Time 0.922 (0.922)	Loss 4.9309 (4.9309)	Prec@1 40.039 (40.039)
+Epoch: [6][10/12]	Time 1.394 (1.350)	Loss 5.7569 (5.1778)	Prec@1 40.430 (25.089)
+{'coverage': '1407 out of2048', 'system_accuracy': 76.806640625, 'expert_accuracy': 58.97034041487039, 'classifier_accuracy': 84.93247441844531, 'alone_classifier': 77.099609375, 'validation_loss': 6.174437403678894, 'n_experts': 8, 'expert_0': 59.999815385183425, 'expert_1': 51.922877219703004, 'expert_2': 57.14122453644181, 'expert_3': 51.42842449021574, 'expert_4': 62.7450160195869, 'expert_5': 54.71677465368055, 'expert_6': 69.29812403837887, 'expert_7': 53.54322276657832}
+Saving the model with classifier accuracy 84.93247441844531
+Epoch: [7][0/12]	Time 0.940 (0.940)	Loss 4.8454 (4.8454)	Prec@1 58.984 (58.984)
+Epoch: [7][10/12]	Time 1.392 (1.350)	Loss 6.3246 (5.3727)	Prec@1 26.758 (43.271)
+{'coverage': '1677 out of2048', 'system_accuracy': 76.5625, 'expert_accuracy': 56.0646598034179, 'classifier_accuracy': 81.09719254041786, 'alone_classifier': 75.830078125, 'validation_loss': 6.724211573600769, 'n_experts': 8, 'expert_0': 52.38070294903358, 'expert_1': 49.99964285969386, 'expert_2': 60.34461950131207, 'expert_3': 48.07673816639167, 'expert_4': 73.80917233727459, 'expert_5': 44.999775001124995, 'expert_6': 62.16182615229107, 'expert_7': 55.555401234996566}
+Epoch: [8][0/12]	Time 0.925 (0.925)	Loss 5.0217 (5.0217)	Prec@1 72.070 (72.070)
+Epoch: [8][10/12]	Time 1.392 (1.350)	Loss 5.0594 (4.7524)	Prec@1 60.742 (57.262)
+{'coverage': '1556 out of2048', 'system_accuracy': 77.5390625, 'expert_accuracy': 55.28453037214212, 'classifier_accuracy': 84.57583004011376, 'alone_classifier': 78.271484375, 'validation_loss': 6.326577067375183, 'n_experts': 8, 'expert_0': 62.29487772171239, 'expert_1': 63.26504789776369, 'expert_2': 39.39382001872721, 'expert_3': 48.86352531016975, 'expert_4': 65.3844477321853, 'expert_5': 54.54525619906837, 'expert_6': 54.71677465368055, 'expert_7': 57.14258503530936}
+Epoch: [9][0/12]	Time 0.925 (0.925)	Loss 3.9977 (3.9977)	Prec@1 66.992 (66.992)
+Epoch: [9][10/12]	Time 1.392 (1.350)	Loss 5.1440 (4.6644)	Prec@1 29.883 (42.951)
+{'coverage': '1536 out of2048', 'system_accuracy': 76.611328125, 'expert_accuracy': 74.4140334320182, 'classifier_accuracy': 77.34374496459994, 'alone_classifier': 76.025390625, 'validation_loss': 7.013084888458252, 'n_experts': 8, 'expert_0': 67.999728001088, 'expert_1': 71.42827988457191, 'expert_2': 67.8569005110696, 'expert_3': 70.45422520806724, 'expert_4': 76.92284023741465, 'expert_5': 82.43220964267664, 'expert_6': 85.56683388281672, 'expert_7': 63.636198347536755}
+Epoch: [10][0/12]	Time 0.924 (0.924)	Loss 4.5951 (4.5951)	Prec@1 59.961 (59.961)
+Epoch: [10][10/12]	Time 1.393 (1.350)	Loss 4.8968 (4.4167)	Prec@1 24.023 (35.795)
+{'coverage': '1295 out of2048', 'system_accuracy': 76.46484375, 'expert_accuracy': 58.96412776517191, 'classifier_accuracy': 86.64091995050812, 'alone_classifier': 77.587890625, 'validation_loss': 6.767109632492065, 'n_experts': 8, 'expert_0': 62.35279446401302, 'expert_1': 65.8226181705869, 'expert_2': 55.208218316211834, 'expert_3': 64.28558309064675, 'expert_4': 52.857092517054745, 'expert_5': 77.35819864830698, 'expert_6': 56.249859375351555, 'expert_7': 49.99980769304734}
+Epoch: [11][0/12]	Time 0.926 (0.926)	Loss 3.6376 (3.6376)	Prec@1 60.352 (60.352)
+Epoch: [11][10/12]	Time 1.395 (1.350)	Loss 4.2465 (3.6825)	Prec@1 22.266 (32.315)
+{'coverage': '657 out of2048', 'system_accuracy': 77.63671875, 'expert_accuracy': 83.46512099710698, 'classifier_accuracy': 65.29679371433886, 'alone_classifier': 77.9296875, 'validation_loss': 7.76301109790802, 'n_experts': 8, 'expert_0': 82.4426851582556, 'expert_1': 74.3054523535384, 'expert_2': 88.76399507640726, 'expert_3': 94.21042714691879, 'expert_4': 77.23564677130607, 'expert_5': 81.90460589598877, 'expert_6': 67.0884377507905, 'expert_7': 82.57563246116294}
+Epoch: [12][0/12]	Time 0.922 (0.922)	Loss 3.8789 (3.8789)	Prec@1 22.852 (22.852)
+Epoch: [12][10/12]	Time 1.394 (1.348)	Loss 4.9497 (3.8558)	Prec@1 14.062 (20.845)
+{'coverage': '547 out of2048', 'system_accuracy': 76.220703125, 'expert_accuracy': 75.6162457539979, 'classifier_accuracy': 77.87932762717959, 'alone_classifier': 78.955078125, 'validation_loss': 7.149027585983276, 'n_experts': 8, 'expert_0': 93.99221163092574, 'expert_1': 40.50622656651502, 'expert_2': 40.76916804743377, 'expert_3': 71.99988480018432, 'expert_4': 72.11524593221935, 'expert_5': 73.17055324255305, 'expert_6': 71.29179780689205, 'expert_7': 74.60931671147132}
+Epoch: [13][0/12]	Time 0.925 (0.925)	Loss 3.5811 (3.5811)	Prec@1 20.898 (20.898)
+Epoch: [13][10/12]	Time 1.389 (1.348)	Loss 3.9926 (3.9997)	Prec@1 40.820 (27.805)
+{'coverage': '826 out of2048', 'system_accuracy': 75.87890625, 'expert_accuracy': 83.30604201210443, 'classifier_accuracy': 64.8910333061703, 'alone_classifier': 75.732421875, 'validation_loss': 7.371408104896545, 'n_experts': 8, 'expert_0': 79.99991578956232, 'expert_1': 72.32129942625102, 'expert_2': 92.62287489928286, 'expert_3': 88.41194127730363, 'expert_4': 65.57355549653936, 'expert_5': 69.56501575357751, 'expert_6': 88.32478342661581, 'expert_7': 78.44814060665412}
+Epoch: [14][0/12]	Time 0.923 (0.923)	Loss 2.9367 (2.9367)	Prec@1 32.617 (32.617)
+Epoch: [14][10/12]	Time 1.393 (1.349)	Loss 4.4573 (2.9550)	Prec@1 18.945 (23.260)
+{'coverage': '828 out of2048', 'system_accuracy': 75.48828125, 'expert_accuracy': 74.75408610588752, 'classifier_accuracy': 76.57003906158948, 'alone_classifier': 75.68359375, 'validation_loss': 10.52244520187378, 'n_experts': 8, 'expert_0': 76.31558864318778, 'expert_1': 68.42093259485509, 'expert_2': 67.09395974875235, 'expert_3': 80.22589804983271, 'expert_4': 69.56491493515246, 'expert_5': 80.9116348081853, 'expert_6': 64.99987000025999, 'expert_7': 78.68839559279411}
+Epoch: [15][0/12]	Time 0.939 (0.939)	Loss 4.7479 (4.7479)	Prec@1 31.641 (31.641)
+Epoch: [15][10/12]	Time 1.395 (1.352)	Loss 3.8134 (3.5529)	Prec@1 28.711 (38.388)
+{'coverage': '1177 out of2048', 'system_accuracy': 76.46484375, 'expert_accuracy': 70.14923762359642, 'classifier_accuracy': 81.13848078687504, 'alone_classifier': 78.22265625, 'validation_loss': 7.85794723033905, 'n_experts': 8, 'expert_0': 79.99977142922448, 'expert_1': 85.14834624089853, 'expert_2': 52.27266787196832, 'expert_3': 71.60476146972476, 'expert_4': 64.17891289876746, 'expert_5': 61.29019077378328, 'expert_6': 77.4999031251211, 'expert_7': 77.23564677130607}
+Epoch: [16][0/12]	Time 0.928 (0.928)	Loss 2.5156 (2.5156)	Prec@1 50.977 (50.977)
+Epoch: [16][10/12]	Time 1.393 (1.352)	Loss 2.7243 (2.7992)	Prec@1 30.664 (44.336)
+{'coverage': '671 out of2048', 'system_accuracy': 76.7578125, 'expert_accuracy': 83.00652389157243, 'classifier_accuracy': 63.93441670127918, 'alone_classifier': 77.9296875, 'validation_loss': 8.63175106048584, 'n_experts': 8, 'expert_0': 75.49004805872929, 'expert_1': 79.50300682856295, 'expert_2': 92.89767448995768, 'expert_3': 88.06577113928302, 'expert_4': 67.1639786149892, 'expert_5': 83.11677517301925, 'expert_6': 71.73902646517904, 'expert_7': 78.12490234387207}
+Epoch: [17][0/12]	Time 0.928 (0.928)	Loss 1.6217 (1.6217)	Prec@1 19.727 (19.727)
+Epoch: [17][10/12]	Time 1.393 (1.351)	Loss 2.9559 (2.1239)	Prec@1 30.859 (19.780)
+{'coverage': '519 out of2048', 'system_accuracy': 76.5625, 'expert_accuracy': 83.32242206377737, 'classifier_accuracy': 56.64738792921235, 'alone_classifier': 76.416015625, 'validation_loss': 9.684481620788574, 'n_experts': 8, 'expert_0': 70.34473055899232, 'expert_1': 70.75465023146204, 'expert_2': 77.5859393588298, 'expert_3': 94.02981955893216, 'expert_4': 82.45604391105975, 'expert_5': 68.50382912782814, 'expert_6': 78.70355795637415, 'expert_7': 92.38077641756873}
+Epoch: [18][0/12]	Time 0.928 (0.928)	Loss 2.3572 (2.3572)	Prec@1 16.602 (16.602)
+Epoch: [18][10/12]	Time 1.396 (1.351)	Loss 2.0618 (2.2485)	Prec@1 14.648 (23.881)
+{'coverage': '560 out of2048', 'system_accuracy': 75.9765625, 'expert_accuracy': 83.60213930078773, 'classifier_accuracy': 55.7142757653079, 'alone_classifier': 76.123046875, 'validation_loss': 10.099069833755493, 'n_experts': 8, 'expert_0': 66.66647343051179, 'expert_1': 81.48138088718409, 'expert_2': 67.3682792246753, 'expert_3': 91.74660585542962, 'expert_4': 68.31669640258137, 'expert_5': 91.13918282330201, 'expert_6': 80.18003571164736, 'expert_7': 69.02642650189999}
+Epoch: [19][0/12]	Time 0.928 (0.928)	Loss 1.8686 (1.8686)	Prec@1 15.625 (15.625)
+Epoch: [19][10/12]	Time 1.393 (1.351)	Loss 1.9888 (1.8666)	Prec@1 23.438 (20.046)
+{'coverage': '587 out of2048', 'system_accuracy': 75.439453125, 'expert_accuracy': 84.66802400163942, 'classifier_accuracy': 52.4701784548248, 'alone_classifier': 75.78125, 'validation_loss': 11.420488595962524, 'n_experts': 8, 'expert_0': 77.31942820736451, 'expert_1': 94.33624979247796, 'expert_2': 63.63621900859316, 'expert_3': 88.20503773842283, 'expert_4': 66.19699662817851, 'expert_5': 86.63960595983323, 'expert_6': 72.44883173707808, 'expert_7': 68.999862000276}
+Epoch: [20][0/12]	Time 0.930 (0.930)	Loss 1.6671 (1.6671)	Prec@1 17.969 (17.969)
+Epoch: [20][10/12]	Time 1.393 (1.351)	Loss 2.2757 (1.6820)	Prec@1 21.680 (20.739)
+{'coverage': '506 out of2048', 'system_accuracy': 75.1953125, 'expert_accuracy': 82.87936668231302, 'classifier_accuracy': 51.778645893548244, 'alone_classifier': 75.830078125, 'validation_loss': 12.497864961624146, 'n_experts': 8, 'expert_0': 78.5708673509475, 'expert_1': 83.78369320681816, 'expert_2': 68.07505345065404, 'expert_3': 95.9830460959636, 'expert_4': 78.69813171818731, 'expert_5': 80.35699936250113, 'expert_6': 78.23118608001893, 'expert_7': 76.27899881023366}
+Epoch: [21][0/12]	Time 0.929 (0.929)	Loss 2.2849 (2.2849)	Prec@1 16.406 (16.406)
+Epoch: [21][10/12]	Time 1.396 (1.351)	Loss 2.4365 (2.1787)	Prec@1 24.219 (19.727)
+{'coverage': '617 out of2048', 'system_accuracy': 75.244140625, 'expert_accuracy': 83.29838109037301, 'classifier_accuracy': 56.564010281359764, 'alone_classifier': 75.390625, 'validation_loss': 10.947054624557495, 'n_experts': 8, 'expert_0': 60.34461950131207, 'expert_1': 81.65670809857029, 'expert_2': 58.27806850586953, 'expert_3': 94.57914562649198, 'expert_4': 78.70355795637415, 'expert_5': 72.99985400029199, 'expert_6': 79.99977142922448, 'expert_7': 72.97277574925472}
+Epoch: [22][0/12]	Time 0.928 (0.928)	Loss 1.7335 (1.7335)	Prec@1 19.141 (19.141)
+Epoch: [22][10/12]	Time 1.393 (1.351)	Loss 1.8043 (1.5604)	Prec@1 20.703 (21.982)
+{'coverage': '684 out of2048', 'system_accuracy': 76.171875, 'expert_accuracy': 84.38415184983111, 'classifier_accuracy': 59.79531289542209, 'alone_classifier': 76.904296875, 'validation_loss': 11.874862432479858, 'n_experts': 8, 'expert_0': 70.90883305878887, 'expert_1': 90.15137855851734, 'expert_2': 78.73554168328542, 'expert_3': 92.33386973292343, 'expert_4': 65.7139102062274, 'expert_5': 87.97804592563287, 'expert_6': 61.5383037479391, 'expert_7': 68.33321944463425}
+Epoch: [23][0/12]	Time 0.929 (0.929)	Loss 1.1558 (1.1558)	Prec@1 24.023 (24.023)
+Epoch: [23][10/12]	Time 1.392 (1.351)	Loss 0.9159 (1.0623)	Prec@1 26.172 (22.070)
+{'coverage': '674 out of2048', 'system_accuracy': 77.197265625, 'expert_accuracy': 85.58950719221147, 'classifier_accuracy': 60.089011856229696, 'alone_classifier': 78.3203125, 'validation_loss': 14.158002376556396, 'n_experts': 8, 'expert_0': 78.97718298047388, 'expert_1': 79.99990303042057, 'expert_2': 58.6205548952761, 'expert_3': 90.07079422582379, 'expert_4': 57.14244898250727, 'expert_5': 95.75968347714365, 'expert_6': 75.28072970622537, 'expert_7': 83.60642031734373}
+Epoch: [24][0/12]	Time 0.926 (0.926)	Loss 0.5335 (0.5335)	Prec@1 24.023 (24.023)
+Epoch: [24][10/12]	Time 1.392 (1.350)	Loss 1.0777 (0.8590)	Prec@1 22.266 (24.680)
+{'coverage': '689 out of2048', 'system_accuracy': 76.3671875, 'expert_accuracy': 86.68137061348483, 'classifier_accuracy': 56.02321392986735, 'alone_classifier': 76.953125, 'validation_loss': 14.602227449417114, 'n_experts': 8, 'expert_0': 81.20288540919486, 'expert_1': 80.60596290186315, 'expert_2': 47.61859410862754, 'expert_3': 91.38272890471788, 'expert_4': 73.07664201291533, 'expert_5': 93.33325555562037, 'expert_6': 83.33317901263145, 'expert_7': 84.39704340844906}
+Epoch: [25][0/12]	Time 0.929 (0.929)	Loss 0.5965 (0.5965)	Prec@1 23.438 (23.438)
+Epoch: [25][10/12]	Time 1.392 (1.351)	Loss 1.2308 (1.0331)	Prec@1 21.875 (23.846)
+{'coverage': '614 out of2048', 'system_accuracy': 76.26953125, 'expert_accuracy': 84.58855166128987, 'classifier_accuracy': 56.84038162208768, 'alone_classifier': 76.85546875, 'validation_loss': 14.125796794891357, 'n_experts': 8, 'expert_0': 63.41432480817167, 'expert_1': 79.84483744986441, 'expert_2': 85.4771074878776, 'expert_3': 89.96533566412756, 'expert_4': 90.12334552673391, 'expert_5': 89.32021491220405, 'expert_6': 82.45604391105975, 'expert_7': 80.2012884555111}
+Epoch: [26][0/12]	Time 0.929 (0.929)	Loss 1.2272 (1.2272)	Prec@1 25.586 (25.586)
+Epoch: [26][10/12]	Time 1.392 (1.351)	Loss 0.8503 (0.9312)	Prec@1 31.250 (28.285)
+{'coverage': '790 out of2048', 'system_accuracy': 77.197265625, 'expert_accuracy': 86.80443770994631, 'classifier_accuracy': 61.898726341933376, 'alone_classifier': 77.880859375, 'validation_loss': 13.948111057281494, 'n_experts': 8, 'expert_0': 79.999600002, 'expert_1': 72.34027161644336, 'expert_2': 92.857107004978, 'expert_3': 83.07080073165297, 'expert_4': 87.39481110115781, 'expert_5': 86.48625273985745, 'expert_6': 88.73214441649459, 'expert_7': 78.40891270701657}
+Early Exiting Training.
+12
+Epoch: [0][0/12]	Time 1.235 (1.235)	Loss 20.7907 (20.7907)	Prec@1 0.586 (0.586)
+Epoch: [0][10/12]	Time 1.672 (1.633)	Loss 10.3379 (14.1684)	Prec@1 0.781 (1.971)
+{'coverage': '5 out of2048', 'system_accuracy': 73.33984375, 'expert_accuracy': 73.27458900885081, 'classifier_accuracy': 99.9980000399992, 'alone_classifier': 67.138671875, 'validation_loss': 9.747840404510498, 'n_experts': 12, 'expert_0': 54.39735869878912, 'expert_1': 68.29234979341564, 'expert_2': 47.85270202122451, 'expert_3': 74.9990625117186, 'expert_4': 62.744851980972626, 'expert_5': 76.77409448503937, 'expert_6': 62.499776786511475, 'expert_7': 85.78478069402159, 'expert_8': 68.57129795943246, 'expert_9': 65.30585589446574, 'expert_10': 55.88202422338692, 'expert_11': 64.15070131810823}
+Saving the model with classifier accuracy 99.9980000399992
+Epoch: [1][0/12]	Time 1.230 (1.230)	Loss 9.1981 (9.1981)	Prec@1 0.195 (0.195)
+Epoch: [1][10/12]	Time 1.677 (1.634)	Loss 10.0564 (9.3566)	Prec@1 18.945 (7.972)
+{'coverage': '700 out of2048', 'system_accuracy': 72.900390625, 'expert_accuracy': 61.7952430570856, 'classifier_accuracy': 94.28570081632846, 'alone_classifier': 69.140625, 'validation_loss': 9.134074687957764, 'n_experts': 12, 'expert_0': 49.99993506501939, 'expert_1': 64.10223537315193, 'expert_2': 42.856734697764786, 'expert_3': 37.36259630483922, 'expert_4': 72.48317283008535, 'expert_5': 54.9018531336213, 'expert_6': 56.626369575013065, 'expert_7': 90.13444830991183, 'expert_8': 35.483756504011275, 'expert_9': 51.51483930400422, 'expert_10': 62.31875026268077, 'expert_11': 69.22970415839757}
+Saving the model with classifier accuracy 94.28570081632846
+Epoch: [2][0/12]	Time 1.225 (1.225)	Loss 8.6395 (8.6395)	Prec@1 33.984 (33.984)
+Epoch: [2][10/12]	Time 1.676 (1.634)	Loss 9.2504 (8.5805)	Prec@1 44.141 (40.980)
+{'coverage': '1011 out of2048', 'system_accuracy': 73.14453125, 'expert_accuracy': 50.33750234570832, 'classifier_accuracy': 96.53807155904337, 'alone_classifier': 72.265625, 'validation_loss': inf, 'n_experts': 12, 'expert_0': 66.12881893929375, 'expert_1': 54.34774732210533, 'expert_2': 53.96808264100749, 'expert_3': 46.80831145399382, 'expert_4': 33.33288889481474, 'expert_5': 39.024342653240666, 'expert_6': 38.0164660884858, 'expert_7': 61.84194252120388, 'expert_8': 55.05611791447425, 'expert_9': 61.53827218993172, 'expert_10': 43.10329964379433, 'expert_11': 49.9998000008}
+Epoch: [3][0/12]	Time 1.214 (1.214)	Loss 7.1820 (7.1820)	Prec@1 49.609 (49.609)
+Epoch: [3][10/12]	Time 1.679 (1.634)	Loss 7.7825 (8.0186)	Prec@1 45.312 (45.028)
+{'coverage': '888 out of2048', 'system_accuracy': 74.365234375, 'expert_accuracy': 59.22412771997798, 'classifier_accuracy': 94.14413354232731, 'alone_classifier': 70.068359375, 'validation_loss': 10.768856763839722, 'n_experts': 12, 'expert_0': 52.94109861603145, 'expert_1': 61.53822485298134, 'expert_2': 55.55534979500076, 'expert_3': 56.818095730157985, 'expert_4': 55.0386743586444, 'expert_5': 64.10239973743657, 'expert_6': 60.20395876743108, 'expert_7': 54.02838480721819, 'expert_8': 61.11077160682441, 'expert_9': 70.93006760449394, 'expert_10': 56.164229687041946, 'expert_11': 79.99978666723554}
+Epoch: [4][0/12]	Time 1.215 (1.215)	Loss 8.0108 (8.0108)	Prec@1 43.555 (43.555)
+Epoch: [4][10/12]	Time 1.681 (1.635)	Loss 12.9977 (8.1872)	Prec@1 44.336 (46.555)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [5][0/12]	Time 1.205 (1.205)	Loss nan (nan)	Prec@1 13.477 (13.477)
+Epoch: [5][10/12]	Time 1.644 (1.604)	Loss nan (nan)	Prec@1 12.695 (10.778)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [6][0/12]	Time 1.203 (1.203)	Loss nan (nan)	Prec@1 9.961 (9.961)
+Epoch: [6][10/12]	Time 1.645 (1.602)	Loss nan (nan)	Prec@1 13.281 (11.133)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [7][0/12]	Time 1.202 (1.202)	Loss nan (nan)	Prec@1 11.523 (11.523)
+Epoch: [7][10/12]	Time 1.642 (1.601)	Loss nan (nan)	Prec@1 8.984 (10.831)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [8][0/12]	Time 1.207 (1.207)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Epoch: [8][10/12]	Time 1.639 (1.600)	Loss nan (nan)	Prec@1 10.938 (10.742)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [9][0/12]	Time 1.203 (1.203)	Loss nan (nan)	Prec@1 12.109 (12.109)
+Epoch: [9][10/12]	Time 1.646 (1.601)	Loss nan (nan)	Prec@1 9.570 (11.062)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [10][0/12]	Time 1.204 (1.204)	Loss nan (nan)	Prec@1 13.281 (13.281)
+Epoch: [10][10/12]	Time 1.643 (1.599)	Loss nan (nan)	Prec@1 11.914 (10.955)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.1328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.132811956405664, 'alone_classifier': 11.1328125, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [11][0/12]	Time 1.203 (1.203)	Loss nan (nan)	Prec@1 12.305 (12.305)
+Epoch: [11][10/12]	Time 1.644 (1.600)	Loss nan (nan)	Prec@1 10.742 (11.097)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [12][0/12]	Time 1.205 (1.205)	Loss nan (nan)	Prec@1 12.109 (12.109)
+Epoch: [12][10/12]	Time 1.643 (1.600)	Loss nan (nan)	Prec@1 10.156 (10.831)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [13][0/12]	Time 1.203 (1.203)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Epoch: [13][10/12]	Time 1.630 (1.598)	Loss nan (nan)	Prec@1 11.328 (11.044)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.693359375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.693358852863335, 'alone_classifier': 10.693359375, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [14][0/12]	Time 1.203 (1.203)	Loss nan (nan)	Prec@1 9.766 (9.766)
+Epoch: [14][10/12]	Time 1.640 (1.598)	Loss nan (nan)	Prec@1 9.375 (10.973)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.7421875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.74218697547915, 'alone_classifier': 10.7421875, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [15][0/12]	Time 1.203 (1.203)	Loss nan (nan)	Prec@1 12.305 (12.305)
+Epoch: [15][10/12]	Time 1.627 (1.597)	Loss nan (nan)	Prec@1 12.500 (10.742)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [16][0/12]	Time 1.206 (1.206)	Loss nan (nan)	Prec@1 9.961 (9.961)
+Epoch: [16][10/12]	Time 1.632 (1.599)	Loss nan (nan)	Prec@1 13.281 (10.831)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [17][0/12]	Time 1.203 (1.203)	Loss nan (nan)	Prec@1 9.766 (9.766)
+Epoch: [17][10/12]	Time 1.639 (1.598)	Loss nan (nan)	Prec@1 9.961 (10.742)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [18][0/12]	Time 1.264 (1.264)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Epoch: [18][10/12]	Time 1.640 (1.606)	Loss nan (nan)	Prec@1 11.328 (10.653)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [19][0/12]	Time 1.202 (1.202)	Loss nan (nan)	Prec@1 11.719 (11.719)
+Epoch: [19][10/12]	Time 1.640 (1.598)	Loss nan (nan)	Prec@1 9.180 (10.866)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [20][0/12]	Time 1.201 (1.201)	Loss nan (nan)	Prec@1 11.914 (11.914)
+Epoch: [20][10/12]	Time 1.643 (1.600)	Loss nan (nan)	Prec@1 12.500 (10.955)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Epoch: [21][0/12]	Time 1.204 (1.204)	Loss nan (nan)	Prec@1 9.766 (9.766)
+Epoch: [21][10/12]	Time 1.610 (1.730)	Loss nan (nan)	Prec@1 11.328 (11.080)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.1328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.132811956405664, 'alone_classifier': 11.1328125, 'validation_loss': nan, 'n_experts': 12, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0}
+Early Exiting Training.
+14
+Epoch: [0][0/12]	Time 1.327 (1.327)	Loss 23.8563 (23.8563)	Prec@1 5.273 (5.273)
+Epoch: [0][10/12]	Time 1.778 (1.736)	Loss 11.5701 (16.2201)	Prec@1 0.000 (1.385)
+{'coverage': '0 out of2048', 'system_accuracy': 73.046875, 'expert_accuracy': 73.0468678665168, 'classifier_accuracy': 0.0, 'alone_classifier': 66.796875, 'validation_loss': 11.524327754974365, 'n_experts': 14, 'expert_0': 60.86903592142677, 'expert_1': 59.99880002399952, 'expert_2': 62.49843753906153, 'expert_3': 24.99875006249687, 'expert_4': 48.1798508865735, 'expert_5': 33.332222259258025, 'expert_6': 46.153491126991334, 'expert_7': 52.94086505373498, 'expert_8': 85.19683697687607, 'expert_9': 60.52599723159352, 'expert_10': 74.99812504687384, 'expert_11': 57.14244898250727, 'expert_12': 69.74778193650094, 'expert_13': 42.85591840233136}
+Saving the model with classifier accuracy 0.0
+Epoch: [1][0/12]	Time 1.354 (1.354)	Loss 10.7079 (10.7079)	Prec@1 0.000 (0.000)
+Epoch: [1][10/12]	Time 1.812 (1.767)	Loss 10.1474 (10.9184)	Prec@1 1.172 (0.284)
+{'coverage': '150 out of2048', 'system_accuracy': 72.94921875, 'expert_accuracy': 71.33824327310398, 'classifier_accuracy': 93.33327111115258, 'alone_classifier': 69.921875, 'validation_loss': 10.232949256896973, 'n_experts': 14, 'expert_0': 52.747136819479515, 'expert_1': 66.6662962983539, 'expert_2': 68.04109682248077, 'expert_3': 41.66631944733794, 'expert_4': 88.23425606757567, 'expert_5': 49.999705884083035, 'expert_6': 41.03192086883495, 'expert_7': 63.84173577204997, 'expert_8': 98.34480045660678, 'expert_9': 61.9041723412158, 'expert_10': 65.38448964521221, 'expert_11': 79.99680012799487, 'expert_12': 74.99979166724536, 'expert_13': 47.727164256444865}
+Saving the model with classifier accuracy 93.33327111115258
+Epoch: [2][0/12]	Time 1.353 (1.353)	Loss 9.6790 (9.6790)	Prec@1 6.641 (6.641)
+Epoch: [2][10/12]	Time 1.806 (1.767)	Loss 10.3417 (9.8469)	Prec@1 11.719 (7.653)
+{'coverage': '329 out of2048', 'system_accuracy': 73.2421875, 'expert_accuracy': 69.57532640193992, 'classifier_accuracy': 92.40118772000373, 'alone_classifier': 69.82421875, 'validation_loss': 10.608723402023315, 'n_experts': 14, 'expert_0': 99.99333377774815, 'expert_1': 62.66649955600118, 'expert_2': 42.06342529615032, 'expert_3': 57.54711552158913, 'expert_4': 64.79989632016589, 'expert_5': 81.8174380232907, 'expert_6': 66.6661111157407, 'expert_7': 62.2640334640878, 'expert_8': 87.28008463326533, 'expert_9': 50.3648899782628, 'expert_10': 59.99940000599994, 'expert_11': 88.88691362414168, 'expert_12': 38.947286426765416, 'expert_13': 73.0763609510696}
+Epoch: [3][0/12]	Time 1.347 (1.347)	Loss 9.2806 (9.2806)	Prec@1 14.844 (14.844)
+Epoch: [3][10/12]	Time 1.806 (1.767)	Loss 9.2774 (9.4017)	Prec@1 19.727 (17.472)
+{'coverage': '400 out of2048', 'system_accuracy': 73.095703125, 'expert_accuracy': 70.63105938943454, 'classifier_accuracy': 83.2499791875052, 'alone_classifier': 72.607421875, 'validation_loss': 10.268147945404053, 'n_experts': 14, 'expert_0': 76.0561237855668, 'expert_1': 74.99925000749992, 'expert_2': 57.4466862836462, 'expert_3': 39.99960000399996, 'expert_4': 48.38699271614469, 'expert_5': 55.80104331376429, 'expert_6': 42.857061224645285, 'expert_7': 46.39165692441871, 'expert_8': 94.02775165895788, 'expert_9': 47.825948330584545, 'expert_10': 44.44434567923182, 'expert_11': 41.665972233796104, 'expert_12': 57.894432134567715, 'expert_13': 52.6313019405161}
+Epoch: [4][0/12]	Time 1.353 (1.353)	Loss 8.3133 (8.3133)	Prec@1 16.602 (16.602)
+Epoch: [4][10/12]	Time 1.779 (1.751)	Loss nan (nan)	Prec@1 12.109 (12.021)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [5][0/12]	Time 1.336 (1.336)	Loss nan (nan)	Prec@1 14.453 (14.453)
+Epoch: [5][10/12]	Time 1.774 (1.736)	Loss nan (nan)	Prec@1 9.375 (10.849)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [6][0/12]	Time 1.339 (1.339)	Loss nan (nan)	Prec@1 12.891 (12.891)
+Epoch: [6][10/12]	Time 1.784 (1.737)	Loss nan (nan)	Prec@1 12.109 (11.151)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [7][0/12]	Time 1.338 (1.338)	Loss nan (nan)	Prec@1 9.180 (9.180)
+Epoch: [7][10/12]	Time 1.781 (1.736)	Loss nan (nan)	Prec@1 10.742 (10.760)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.1328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.132811956405664, 'alone_classifier': 11.1328125, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [8][0/12]	Time 1.339 (1.339)	Loss nan (nan)	Prec@1 13.086 (13.086)
+Epoch: [8][10/12]	Time 1.745 (1.726)	Loss nan (nan)	Prec@1 8.789 (11.151)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [9][0/12]	Time 1.305 (1.305)	Loss nan (nan)	Prec@1 9.180 (9.180)
+Epoch: [9][10/12]	Time 1.748 (1.705)	Loss nan (nan)	Prec@1 9.570 (11.009)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [10][0/12]	Time 1.305 (1.305)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Epoch: [10][10/12]	Time 1.747 (1.706)	Loss nan (nan)	Prec@1 12.500 (10.778)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [11][0/12]	Time 1.310 (1.310)	Loss nan (nan)	Prec@1 9.961 (9.961)
+Epoch: [11][10/12]	Time 1.746 (1.705)	Loss nan (nan)	Prec@1 9.570 (10.920)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.693359375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.693358852863335, 'alone_classifier': 10.693359375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [12][0/12]	Time 1.314 (1.314)	Loss nan (nan)	Prec@1 9.180 (9.180)
+Epoch: [12][10/12]	Time 1.740 (1.705)	Loss nan (nan)	Prec@1 10.938 (10.902)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [13][0/12]	Time 1.307 (1.307)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Epoch: [13][10/12]	Time 1.747 (1.705)	Loss nan (nan)	Prec@1 10.352 (10.884)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [14][0/12]	Time 1.304 (1.304)	Loss nan (nan)	Prec@1 11.328 (11.328)
+Epoch: [14][10/12]	Time 1.738 (1.705)	Loss nan (nan)	Prec@1 13.281 (11.168)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.693359375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.693358852863335, 'alone_classifier': 10.693359375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [15][0/12]	Time 1.303 (1.303)	Loss nan (nan)	Prec@1 10.938 (10.938)
+Epoch: [15][10/12]	Time 1.747 (1.704)	Loss nan (nan)	Prec@1 10.938 (10.991)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [16][0/12]	Time 1.306 (1.306)	Loss nan (nan)	Prec@1 9.570 (9.570)
+Epoch: [16][10/12]	Time 1.744 (1.705)	Loss nan (nan)	Prec@1 9.375 (10.938)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [17][0/12]	Time 1.305 (1.305)	Loss nan (nan)	Prec@1 13.281 (13.281)
+Epoch: [17][10/12]	Time 1.745 (1.703)	Loss nan (nan)	Prec@1 12.109 (10.973)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [18][0/12]	Time 1.305 (1.305)	Loss nan (nan)	Prec@1 10.742 (10.742)
+Epoch: [18][10/12]	Time 1.740 (1.704)	Loss nan (nan)	Prec@1 11.719 (10.902)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [19][0/12]	Time 1.310 (1.310)	Loss nan (nan)	Prec@1 12.500 (12.500)
+Epoch: [19][10/12]	Time 1.738 (1.705)	Loss nan (nan)	Prec@1 10.547 (10.991)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [20][0/12]	Time 1.301 (1.301)	Loss nan (nan)	Prec@1 9.961 (9.961)
+Epoch: [20][10/12]	Time 1.745 (1.704)	Loss nan (nan)	Prec@1 13.477 (10.902)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Epoch: [21][0/12]	Time 1.308 (1.308)	Loss nan (nan)	Prec@1 13.477 (13.477)
+Epoch: [21][10/12]	Time 1.739 (1.704)	Loss nan (nan)	Prec@1 9.180 (10.849)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 14, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0}
+Early Exiting Training.
+16
+Epoch: [0][0/12]	Time 1.466 (1.466)	Loss 23.9673 (23.9673)	Prec@1 1.367 (1.367)
+Epoch: [0][10/12]	Time 1.904 (1.866)	Loss 12.9501 (16.8397)	Prec@1 0.000 (0.408)
+{'coverage': '0 out of2048', 'system_accuracy': 72.900390625, 'expert_accuracy': 72.90038350582192, 'classifier_accuracy': 0.0, 'alone_classifier': 68.26171875, 'validation_loss': 12.48292875289917, 'n_experts': 16, 'expert_0': 44.81127847992596, 'expert_1': 57.62692329856509, 'expert_2': 40.74043895971141, 'expert_3': 66.66518521810627, 'expert_4': 90.74444854236448, 'expert_5': 50.18864136706312, 'expert_6': 77.77604942112399, 'expert_7': 77.77604942112399, 'expert_8': 71.42806122813408, 'expert_9': 78.57105442355036, 'expert_10': 49.99987500031249, 'expert_11': 69.0474546489175, 'expert_12': 81.68991073264581, 'expert_13': 51.63925960777113, 'expert_14': 71.42806122813408, 'expert_15': 66.66518521810627}
+Saving the model with classifier accuracy 0.0
+Epoch: [1][0/12]	Time 1.449 (1.449)	Loss 12.1080 (12.1080)	Prec@1 0.000 (0.000)
+Epoch: [1][10/12]	Time 1.902 (1.866)	Loss 12.1489 (12.6672)	Prec@1 10.938 (5.202)
+{'coverage': '291 out of2048', 'system_accuracy': 73.193359375, 'expert_accuracy': 69.15195570268006, 'classifier_accuracy': 97.59446818059513, 'alone_classifier': 67.822265625, 'validation_loss': 12.257202625274658, 'n_experts': 16, 'expert_0': 52.94096885894565, 'expert_1': 51.51483930400422, 'expert_2': 66.66518521810627, 'expert_3': 89.13004726066409, 'expert_4': 86.7678582352025, 'expert_5': 70.40494055766943, 'expert_6': 73.999704001184, 'expert_7': 74.43597829176197, 'expert_8': 55.88202422338692, 'expert_9': 64.28540816472302, 'expert_10': 44.87629337364426, 'expert_11': 39.58316840346499, 'expert_12': 86.20669837540602, 'expert_13': 66.66577778962947, 'expert_14': 65.43193720509332, 'expert_15': 50.79348954447764}
+Saving the model with classifier accuracy 97.59446818059513
+Epoch: [2][0/12]	Time 1.452 (1.452)	Loss 11.6097 (11.6097)	Prec@1 12.500 (12.500)
+Epoch: [2][10/12]	Time 1.944 (1.892)	Loss 12.3764 (11.7465)	Prec@1 21.289 (14.134)
+{'coverage': '600 out of2048', 'system_accuracy': 73.291015625, 'expert_accuracy': 64.08838893806782, 'classifier_accuracy': 95.49998408333599, 'alone_classifier': 69.287109375, 'validation_loss': 11.88765263557434, 'n_experts': 16, 'expert_0': 88.46119822616068, 'expert_1': 88.23425606757567, 'expert_2': 64.28548469469752, 'expert_3': 75.67526662018044, 'expert_4': 70.37029590444878, 'expert_5': 72.83932632265105, 'expert_6': 87.49890626367171, 'expert_7': 55.88202422338692, 'expert_8': 82.92669442813914, 'expert_9': 61.11043210630993, 'expert_10': 83.33317901263145, 'expert_11': 45.63752263419781, 'expert_12': 53.488123311054366, 'expert_13': 72.221954733501, 'expert_14': 46.08687637064979, 'expert_15': 53.9325539704753}
+Saving the model with classifier accuracy 95.49998408333599
+Epoch: [3][0/12]	Time 1.485 (1.485)	Loss 11.4279 (11.4279)	Prec@1 27.344 (27.344)
+Epoch: [3][10/12]	Time 1.879 (1.857)	Loss nan (nan)	Prec@1 10.742 (19.940)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.7421875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.74218697547915, 'alone_classifier': 10.7421875, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [4][0/12]	Time 1.439 (1.439)	Loss nan (nan)	Prec@1 10.547 (10.547)
+Epoch: [4][10/12]	Time 1.882 (1.839)	Loss nan (nan)	Prec@1 9.766 (10.831)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [5][0/12]	Time 1.435 (1.435)	Loss nan (nan)	Prec@1 13.477 (13.477)
+Epoch: [5][10/12]	Time 1.872 (1.838)	Loss nan (nan)	Prec@1 10.938 (11.275)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.7421875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.74218697547915, 'alone_classifier': 10.7421875, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [6][0/12]	Time 1.432 (1.432)	Loss nan (nan)	Prec@1 10.742 (10.742)
+Epoch: [6][10/12]	Time 1.872 (1.837)	Loss nan (nan)	Prec@1 12.500 (10.973)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.181640625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.181640079021479, 'alone_classifier': 11.181640625, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [7][0/12]	Time 1.437 (1.437)	Loss nan (nan)	Prec@1 12.109 (12.109)
+Epoch: [7][10/12]	Time 1.874 (1.837)	Loss nan (nan)	Prec@1 10.742 (10.973)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [8][0/12]	Time 1.435 (1.435)	Loss nan (nan)	Prec@1 10.547 (10.547)
+Epoch: [8][10/12]	Time 1.875 (1.836)	Loss nan (nan)	Prec@1 11.719 (11.168)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [9][0/12]	Time 1.436 (1.436)	Loss nan (nan)	Prec@1 12.109 (12.109)
+Epoch: [9][10/12]	Time 1.878 (1.836)	Loss nan (nan)	Prec@1 11.328 (10.991)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [10][0/12]	Time 1.439 (1.439)	Loss nan (nan)	Prec@1 10.352 (10.352)
+Epoch: [10][10/12]	Time 1.876 (1.836)	Loss nan (nan)	Prec@1 11.719 (10.973)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [11][0/12]	Time 1.438 (1.438)	Loss nan (nan)	Prec@1 10.352 (10.352)
+Epoch: [11][10/12]	Time 1.875 (1.838)	Loss nan (nan)	Prec@1 12.109 (10.991)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [12][0/12]	Time 1.437 (1.437)	Loss nan (nan)	Prec@1 12.500 (12.500)
+Epoch: [12][10/12]	Time 1.881 (1.836)	Loss nan (nan)	Prec@1 10.352 (11.026)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [13][0/12]	Time 1.436 (1.436)	Loss nan (nan)	Prec@1 13.086 (13.086)
+Epoch: [13][10/12]	Time 1.879 (1.836)	Loss nan (nan)	Prec@1 11.914 (11.080)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [14][0/12]	Time 1.472 (1.472)	Loss nan (nan)	Prec@1 8.594 (8.594)
+Epoch: [14][10/12]	Time 1.906 (1.867)	Loss nan (nan)	Prec@1 11.133 (11.062)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [15][0/12]	Time 1.477 (1.477)	Loss nan (nan)	Prec@1 11.523 (11.523)
+Epoch: [15][10/12]	Time 1.906 (1.868)	Loss nan (nan)	Prec@1 9.180 (10.902)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [16][0/12]	Time 1.474 (1.474)	Loss nan (nan)	Prec@1 8.203 (8.203)
+Epoch: [16][10/12]	Time 1.908 (1.867)	Loss nan (nan)	Prec@1 10.742 (11.097)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.7421875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.74218697547915, 'alone_classifier': 10.7421875, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [17][0/12]	Time 1.469 (1.469)	Loss nan (nan)	Prec@1 11.719 (11.719)
+Epoch: [17][10/12]	Time 1.913 (1.868)	Loss nan (nan)	Prec@1 12.109 (10.795)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [18][0/12]	Time 1.477 (1.477)	Loss nan (nan)	Prec@1 11.914 (11.914)
+Epoch: [18][10/12]	Time 1.903 (1.868)	Loss nan (nan)	Prec@1 12.891 (10.707)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.693359375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.693358852863335, 'alone_classifier': 10.693359375, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [19][0/12]	Time 1.475 (1.475)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Epoch: [19][10/12]	Time 1.903 (1.869)	Loss nan (nan)	Prec@1 10.156 (11.062)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [20][0/12]	Time 1.471 (1.471)	Loss nan (nan)	Prec@1 11.328 (11.328)
+Epoch: [20][10/12]	Time 1.907 (1.866)	Loss nan (nan)	Prec@1 10.547 (10.795)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [21][0/12]	Time 1.479 (1.479)	Loss nan (nan)	Prec@1 8.789 (8.789)
+Epoch: [21][10/12]	Time 1.878 (1.839)	Loss nan (nan)	Prec@1 12.695 (10.955)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Epoch: [22][0/12]	Time 1.437 (1.437)	Loss nan (nan)	Prec@1 11.328 (11.328)
+Epoch: [22][10/12]	Time 1.875 (1.836)	Loss nan (nan)	Prec@1 8.008 (10.742)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.1328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.132811956405664, 'alone_classifier': 11.1328125, 'validation_loss': nan, 'n_experts': 16, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0}
+Early Exiting Training.
+18
+Epoch: [0][0/12]	Time 1.586 (1.586)	Loss 26.9172 (26.9172)	Prec@1 4.883 (4.883)
+Epoch: [0][10/12]	Time 2.037 (1.997)	Loss 13.6860 (18.9467)	Prec@1 0.000 (1.545)
+{'coverage': '0 out of2048', 'system_accuracy': 73.193359375, 'expert_accuracy': 73.1933522272117, 'classifier_accuracy': 0.0, 'alone_classifier': 66.89453125, 'validation_loss': 13.90279746055603, 'n_experts': 18, 'expert_0': 49.99833338888703, 'expert_1': 37.93077289122144, 'expert_2': 61.28992716176025, 'expert_3': 85.5534388167209, 'expert_4': 75.75081740804953, 'expert_5': 33.332222259258025, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 38.460946754665315, 'expert_9': 33.33111125924938, 'expert_10': 69.84104812365675, 'expert_11': 0.0, 'expert_12': 66.38414328579475, 'expert_13': 59.99880002399952, 'expert_14': 49.99500049995, 'expert_15': 33.33111125924938, 'expert_16': 37.49906252343692, 'expert_17': 35.63210199516782}
+Saving the model with classifier accuracy 0.0
+Epoch: [1][0/12]	Time 1.577 (1.577)	Loss 13.3461 (13.3461)	Prec@1 0.000 (0.000)
+Epoch: [1][10/12]	Time 2.039 (1.997)	Loss 13.3029 (14.3405)	Prec@1 0.000 (0.036)
+{'coverage': '0 out of2048', 'system_accuracy': 72.900390625, 'expert_accuracy': 72.90038350582192, 'classifier_accuracy': 0.0, 'alone_classifier': 67.96875, 'validation_loss': 14.064507484436035, 'n_experts': 18, 'expert_0': 49.99500049995, 'expert_1': 47.368387811657676, 'expert_2': 0.0, 'expert_3': 94.83201683927214, 'expert_4': 88.88839506447187, 'expert_5': 0.0, 'expert_6': 47.36833795028429, 'expert_7': 70.27008035113418, 'expert_8': 49.99500049995, 'expert_9': 67.18729003971862, 'expert_10': 55.17222354405674, 'expert_11': 48.38701873061495, 'expert_12': 85.71393586148628, 'expert_13': 77.776913589849, 'expert_14': 75.86154578244287, 'expert_15': 68.34730064576995, 'expert_16': 46.55156361529788, 'expert_17': 0.0}
+Epoch: [2][0/12]	Time 1.572 (1.572)	Loss 12.8685 (12.8685)	Prec@1 0.000 (0.000)
+Epoch: [2][10/12]	Time 2.038 (1.997)	Loss 13.3408 (12.9514)	Prec@1 11.914 (4.421)
+{'coverage': '290 out of2048', 'system_accuracy': 73.14453125, 'expert_accuracy': 69.79521390270604, 'classifier_accuracy': 93.44824363853668, 'alone_classifier': 69.873046875, 'validation_loss': inf, 'n_experts': 18, 'expert_0': 62.328724432380525, 'expert_1': 58.35958463117689, 'expert_2': 37.49906252343692, 'expert_3': 95.2771682639966, 'expert_4': 41.665972233796104, 'expert_5': 58.155945878090954, 'expert_6': 59.99952000383997, 'expert_7': 0.0, 'expert_8': 44.73672437704111, 'expert_9': 99.98000399920016, 'expert_10': 55.31891353653814, 'expert_11': 80.64464100231612, 'expert_12': 76.7438290984693, 'expert_13': 89.99820003599929, 'expert_14': 51.999584003327975, 'expert_15': 0.0, 'expert_16': 75.75742271227735, 'expert_17': 52.08326099547084}
+Epoch: [3][0/12]	Time 1.573 (1.573)	Loss 12.5201 (12.5201)	Prec@1 12.305 (12.305)
+Epoch: [3][10/12]	Time 2.042 (2.000)	Loss 12.4808 (12.3965)	Prec@1 12.500 (16.016)
+{'coverage': '227 out of2048', 'system_accuracy': 72.998046875, 'expert_accuracy': 70.18121140239303, 'classifier_accuracy': 95.59467154419755, 'alone_classifier': 70.01953125, 'validation_loss': 13.003672361373901, 'n_experts': 18, 'expert_0': 44.999925000124996, 'expert_1': 64.2847959314867, 'expert_2': 38.55412396596635, 'expert_3': 95.11673243450852, 'expert_4': 79.04182150680059, 'expert_5': 51.999584003327975, 'expert_6': 52.702560263350634, 'expert_7': 65.7406189988537, 'expert_8': 73.33235556859242, 'expert_9': 61.904467121585135, 'expert_10': 56.66628889140739, 'expert_11': 50.555499382778464, 'expert_12': 31.999744002047983, 'expert_13': 69.99930000699993, 'expert_14': 88.9906624024543, 'expert_15': 42.85653062099113, 'expert_16': 60.68365695101375, 'expert_17': 67.14969357517529}
+Saving the model with classifier accuracy 95.59467154419755
+Epoch: [4][0/12]	Time 1.581 (1.581)	Loss 12.3135 (12.3135)	Prec@1 10.156 (10.156)
+Epoch: [4][10/12]	Time 2.044 (2.000)	Loss 12.3353 (12.1747)	Prec@1 14.648 (18.111)
+{'coverage': '121 out of2048', 'system_accuracy': 73.583984375, 'expert_accuracy': 72.59988867671109, 'classifier_accuracy': 89.25612458171521, 'alone_classifier': 70.8984375, 'validation_loss': 13.061479568481445, 'n_experts': 18, 'expert_0': 46.218409716958455, 'expert_1': 69.22970415839757, 'expert_2': 75.29394048484592, 'expert_3': 86.41953970484023, 'expert_4': 43.70368212163846, 'expert_5': 70.09332692836088, 'expert_6': 89.5829600709997, 'expert_7': 55.554938278463574, 'expert_8': 95.71401224567929, 'expert_9': 66.1536426041766, 'expert_10': 85.35020974495573, 'expert_11': 76.19023431671646, 'expert_12': 69.84104812365675, 'expert_13': 55.88202422338692, 'expert_14': 98.87128719129247, 'expert_15': 83.33293650982614, 'expert_16': 71.87477539132689, 'expert_17': 43.999824000703995}
+Epoch: [5][0/12]	Time 1.573 (1.573)	Loss 12.8285 (12.8285)	Prec@1 3.906 (3.906)
+Epoch: [5][10/12]	Time 2.043 (2.000)	Loss 12.0618 (12.2977)	Prec@1 24.414 (11.985)
+{'coverage': '621 out of2048', 'system_accuracy': 73.6328125, 'expert_accuracy': 66.78345244800947, 'classifier_accuracy': 89.37196628470753, 'alone_classifier': 72.4609375, 'validation_loss': 12.818618059158325, 'n_experts': 18, 'expert_0': 74.99958333564814, 'expert_1': 52.38070294903358, 'expert_2': 60.39592000807919, 'expert_3': 85.0465700064112, 'expert_4': 68.18150826587151, 'expert_5': 51.48504656426422, 'expert_6': 61.537514807464504, 'expert_7': 61.999752000992, 'expert_8': 37.499955357196, 'expert_9': 76.46968859189892, 'expert_10': 46.87485351608276, 'expert_11': 47.94507412308459, 'expert_12': 94.37494101566186, 'expert_13': 69.99860002799944, 'expert_14': 82.35261822502657, 'expert_15': 43.999824000703995, 'expert_16': 68.96535870032483, 'expert_17': 61.29019077378328}
+Saving the model with classifier accuracy 89.37196628470753
+Epoch: [6][0/12]	Time 1.579 (1.579)	Loss 11.2588 (11.2588)	Prec@1 29.492 (29.492)
+Epoch: [6][10/12]	Time 2.041 (2.000)	Loss 12.1131 (11.9950)	Prec@1 15.820 (16.850)
+{'coverage': '905 out of2048', 'system_accuracy': 74.12109375, 'expert_accuracy': 58.79264063120899, 'classifier_accuracy': 93.48065265407153, 'alone_classifier': 73.681640625, 'validation_loss': 12.473489999771118, 'n_experts': 18, 'expert_0': 45.36073121498718, 'expert_1': 79.99920000799992, 'expert_2': 57.57558310429362, 'expert_3': 48.23518062310441, 'expert_4': 69.99972000112, 'expert_5': 53.84532545653144, 'expert_6': 53.84532545653144, 'expert_7': 71.8745507840576, 'expert_8': 51.56233886769103, 'expert_9': 65.69333475425583, 'expert_10': 72.80688981247401, 'expert_11': 44.897867555372336, 'expert_12': 56.73066013334589, 'expert_13': 51.61273673310731, 'expert_14': 69.22970415839757, 'expert_15': 42.85653062099113, 'expert_16': 45.901488847577546, 'expert_17': 76.999846000308}
+Saving the model with classifier accuracy 93.48065265407153
+Epoch: [7][0/12]	Time 1.581 (1.581)	Loss 11.1332 (11.1332)	Prec@1 44.922 (44.922)
+Epoch: [7][10/12]	Time 2.040 (1.999)	Loss 12.5356 (11.9383)	Prec@1 35.352 (37.305)
+{'coverage': '953 out of2048', 'system_accuracy': 74.12109375, 'expert_accuracy': 59.08674719876764, 'classifier_accuracy': 91.39558327433544, 'alone_classifier': 71.435546875, 'validation_loss': 13.093069314956665, 'n_experts': 18, 'expert_0': 54.99972500137499, 'expert_1': 60.293940311940254, 'expert_2': 59.09037190570995, 'expert_3': 63.7929934603561, 'expert_4': 57.894127430237575, 'expert_5': 49.99833338888703, 'expert_6': 52.25799708645537, 'expert_7': 54.544462827948585, 'expert_8': 49.999923077041416, 'expert_9': 54.92942273402046, 'expert_10': 63.63617079948242, 'expert_11': 66.66634920786092, 'expert_12': 74.9998500003, 'expert_13': 73.91272211859949, 'expert_14': 55.69606152895815, 'expert_15': 51.999792000831995, 'expert_16': 63.63613223224643, 'expert_17': 42.10481994926369}
+Epoch: [8][0/12]	Time 1.575 (1.575)	Loss 11.3908 (11.3908)	Prec@1 45.117 (45.117)
+Epoch: [8][10/12]	Time 2.043 (2.000)	Loss 12.4546 (11.8778)	Prec@1 25.000 (28.409)
+{'coverage': '629 out of2048', 'system_accuracy': 74.21875, 'expert_accuracy': 68.35798895588599, 'classifier_accuracy': 87.44036765653932, 'alone_classifier': 74.0234375, 'validation_loss': 12.579707860946655, 'n_experts': 18, 'expert_0': 53.33262223170358, 'expert_1': 52.747136819479515, 'expert_2': 63.76793110744606, 'expert_3': 51.351212564290364, 'expert_4': 97.222154706837, 'expert_5': 54.23710428100244, 'expert_6': 66.12881893929375, 'expert_7': 54.545123968945646, 'expert_8': 72.8970600054953, 'expert_9': 55.26286703754191, 'expert_10': 51.28191978994925, 'expert_11': 62.68638004065659, 'expert_12': 42.25340210309266, 'expert_13': 85.999656001376, 'expert_14': 50.47609433124889, 'expert_15': 38.09487528690203, 'expert_16': 59.99973333451852, 'expert_17': 81.5067376620032}
+Epoch: [9][0/12]	Time 1.574 (1.574)	Loss 10.8578 (10.8578)	Prec@1 27.734 (27.734)
+Epoch: [9][10/12]	Time 2.043 (2.000)	Loss 11.0864 (11.5030)	Prec@1 30.273 (22.905)
+{'coverage': '738 out of2048', 'system_accuracy': 74.853515625, 'expert_accuracy': 68.24426439018865, 'classifier_accuracy': 86.58535412122573, 'alone_classifier': 75.0, 'validation_loss': 12.881410598754883, 'n_experts': 18, 'expert_0': 89.47360572490726, 'expert_1': 49.99916668055533, 'expert_2': 45.832951392071735, 'expert_3': 86.84199099738026, 'expert_4': 55.999776000896, 'expert_5': 70.58802768227152, 'expert_6': 57.894432134567715, 'expert_7': 77.776913589849, 'expert_8': 48.21411352102314, 'expert_9': 69.85283845170815, 'expert_10': 67.77762716082853, 'expert_11': 63.636074381480086, 'expert_12': 75.4236009769475, 'expert_13': 61.904467121585135, 'expert_14': 45.832951392071735, 'expert_15': 36.91270213060117, 'expert_16': 38.460946754665315, 'expert_17': 66.66638889004629}
+Epoch: [10][0/12]	Time 1.579 (1.579)	Loss 10.5669 (10.5669)	Prec@1 33.008 (33.008)
+Epoch: [10][10/12]	Time 2.041 (1.999)	Loss 11.4876 (11.6588)	Prec@1 54.883 (37.251)
+{'coverage': '1232 out of2048', 'system_accuracy': 74.90234375, 'expert_accuracy': 61.39704377523437, 'classifier_accuracy': 83.84739579160748, 'alone_classifier': 73.73046875, 'validation_loss': 13.232306003570557, 'n_experts': 18, 'expert_0': 58.33284722627312, 'expert_1': 73.6840812559978, 'expert_2': 45.45433884391435, 'expert_3': 52.45884439723149, 'expert_4': 68.29234979341564, 'expert_5': 57.894432134567715, 'expert_6': 61.76434256269081, 'expert_7': 78.3779547137583, 'expert_8': 49.999861111496905, 'expert_9': 41.66643518647118, 'expert_10': 78.8730172591063, 'expert_11': 64.99978333405555, 'expert_12': 36.92296331395903, 'expert_13': 81.8174380232907, 'expert_14': 64.28525510532067, 'expert_15': 76.086625710323, 'expert_16': 45.4541322351615, 'expert_17': 0.0}
+Epoch: [11][0/12]	Time 1.579 (1.579)	Loss 12.8981 (12.8981)	Prec@1 48.828 (48.828)
+Epoch: [11][10/12]	Time 2.043 (2.000)	Loss 11.4337 (11.2131)	Prec@1 24.609 (39.595)
+{'coverage': '1095 out of2048', 'system_accuracy': 74.755859375, 'expert_accuracy': 71.8782640339425, 'classifier_accuracy': 77.2602669168706, 'alone_classifier': 74.365234375, 'validation_loss': 13.185406923294067, 'n_experts': 18, 'expert_0': 67.4996625016875, 'expert_1': 49.99833338888703, 'expert_2': 54.544462827948585, 'expert_3': 91.999632001472, 'expert_4': 85.57675850623363, 'expert_5': 62.06853745836236, 'expert_6': 67.07300713900698, 'expert_7': 81.81793388504883, 'expert_8': 65.43193720509332, 'expert_9': 60.86903592142677, 'expert_10': 52.63144044357777, 'expert_11': 46.66604445274063, 'expert_12': 88.46140236707328, 'expert_13': 82.69198964619368, 'expert_14': 48.71769888359547, 'expert_15': 72.22206172875171, 'expert_16': 43.18162190171863, 'expert_17': 79.99893334755537}
+Epoch: [12][0/12]	Time 1.575 (1.575)	Loss 10.6030 (10.6030)	Prec@1 40.625 (40.625)
+Epoch: [12][10/12]	Time 2.041 (1.997)	Loss 11.6015 (10.7188)	Prec@1 30.859 (23.828)
+{'coverage': '884 out of2048', 'system_accuracy': 75.48828125, 'expert_accuracy': 72.6803998830928, 'classifier_accuracy': 79.18551140435392, 'alone_classifier': 75.634765625, 'validation_loss': 12.930512428283691, 'n_experts': 18, 'expert_0': 79.4867718627084, 'expert_1': 47.94507412308459, 'expert_2': 70.64207221638125, 'expert_3': 83.92827168474399, 'expert_4': 64.70550173234275, 'expert_5': 67.44154678350333, 'expert_6': 79.47755262869207, 'expert_7': 76.19011338041247, 'expert_8': 55.5551440359701, 'expert_9': 59.99952000383997, 'expert_10': 81.20794468732257, 'expert_11': 83.7205408346938, 'expert_12': 51.21926234506173, 'expert_13': 77.7775617289952, 'expert_14': 52.631024936579614, 'expert_15': 58.139264468537355, 'expert_16': 76.7438290984693, 'expert_17': 73.68382271672255}
+Epoch: [13][0/12]	Time 1.572 (1.572)	Loss 10.0654 (10.0654)	Prec@1 35.352 (35.352)
+Epoch: [13][10/12]	Time 2.038 (1.996)	Loss 10.6892 (10.4109)	Prec@1 36.719 (32.227)
+{'coverage': '1384 out of2048', 'system_accuracy': 74.90234375, 'expert_accuracy': 58.734922067794564, 'classifier_accuracy': 82.65895356510451, 'alone_classifier': 74.8046875, 'validation_loss': 14.153546810150146, 'n_experts': 18, 'expert_0': 62.744851980972626, 'expert_1': 69.99953333644443, 'expert_2': 66.66555557407376, 'expert_3': 78.5708673509475, 'expert_4': 62.4997395844184, 'expert_5': 79.99840003199937, 'expert_6': 55.5551440359701, 'expert_7': 76.66615555896294, 'expert_8': 57.999768000928, 'expert_9': 59.99965714481632, 'expert_10': 66.66632478807801, 'expert_11': 39.534699838605405, 'expert_12': 69.99972000112, 'expert_13': 48.48470156151041, 'expert_14': 54.71677465368055, 'expert_15': 44.443950622770856, 'expert_16': 47.36817174646449, 'expert_17': 44.44419753223593}
+Epoch: [14][0/12]	Time 1.566 (1.566)	Loss 10.4565 (10.4565)	Prec@1 56.445 (56.445)
+Epoch: [14][10/12]	Time 2.036 (1.993)	Loss 10.6317 (9.7091)	Prec@1 34.375 (47.106)
+{'coverage': '1052 out of2048', 'system_accuracy': 75.1953125, 'expert_accuracy': 68.5742834188186, 'classifier_accuracy': 81.46387058328227, 'alone_classifier': 74.462890625, 'validation_loss': 13.087165355682373, 'n_experts': 18, 'expert_0': 39.99960000399996, 'expert_1': 60.713852043913974, 'expert_2': 60.93730957090759, 'expert_3': 72.91636284848813, 'expert_4': 56.164229687041946, 'expert_5': 78.74980312549218, 'expert_6': 76.31538781374834, 'expert_7': 59.99920001066653, 'expert_8': 77.64687612499735, 'expert_9': 49.999848485307616, 'expert_10': 84.6140828602637, 'expert_11': 69.56461248163059, 'expert_12': 54.83853277892652, 'expert_13': 45.4541322351615, 'expert_14': 80.17234467901321, 'expert_15': 69.99972000112, 'expert_16': 92.30627221119676, 'expert_17': 60.93730957090759}
+Epoch: [15][0/12]	Time 1.570 (1.570)	Loss 8.5082 (8.5082)	Prec@1 44.141 (44.141)
+Epoch: [15][10/12]	Time 2.032 (1.993)	Loss 9.8948 (8.9654)	Prec@1 33.203 (33.221)
+{'coverage': '564 out of2048', 'system_accuracy': 75.48828125, 'expert_accuracy': 80.45821018083421, 'classifier_accuracy': 62.411336451890705, 'alone_classifier': 75.146484375, 'validation_loss': 13.708399295806885, 'n_experts': 18, 'expert_0': 68.4203324175535, 'expert_1': 70.26989043302468, 'expert_2': 82.3526989626501, 'expert_3': 89.27121891853486, 'expert_4': 68.88858271741015, 'expert_5': 42.85653062099113, 'expert_6': 60.377130652337165, 'expert_7': 66.66637037168724, 'expert_8': 49.99928572448965, 'expert_9': 65.78912742564513, 'expert_10': 79.68725097734068, 'expert_11': 89.83020396541029, 'expert_12': 89.23879829984341, 'expert_13': 40.90871901164535, 'expert_14': 38.095056690206235, 'expert_15': 64.99935000649994, 'expert_16': 71.66642777857408, 'expert_17': 22.22172840603542}
+Epoch: [16][0/12]	Time 1.569 (1.569)	Loss 9.4760 (9.4760)	Prec@1 16.992 (16.992)
+Epoch: [16][10/12]	Time 2.034 (1.992)	Loss 9.8446 (9.5358)	Prec@1 17.773 (14.382)
+{'coverage': '389 out of2048', 'system_accuracy': 75.244140625, 'expert_accuracy': 76.6124078827718, 'classifier_accuracy': 69.40872251703792, 'alone_classifier': 75.29296875, 'validation_loss': 16.352741479873657, 'n_experts': 18, 'expert_0': 48.57115102199416, 'expert_1': 46.66654222255407, 'expert_2': 93.19141004986379, 'expert_3': 66.66637037168724, 'expert_4': 64.21039113601866, 'expert_5': 77.24541647255512, 'expert_6': 93.46146656810264, 'expert_7': 61.817957025610816, 'expert_8': 71.42816326763847, 'expert_9': 61.03880249661689, 'expert_10': 75.34236254470883, 'expert_11': 81.81780991904583, 'expert_12': 55.101815910955466, 'expert_13': 49.999814815500685, 'expert_14': 90.96034919734554, 'expert_15': 60.713852043913974, 'expert_16': 65.38436390629266, 'expert_17': 63.33291111392591}
+Epoch: [17][0/12]	Time 1.568 (1.568)	Loss 9.5427 (9.5427)	Prec@1 11.133 (11.133)
+Epoch: [17][10/12]	Time 2.036 (1.992)	Loss 12.7024 (9.3052)	Prec@1 10.938 (13.832)
+{'coverage': '748 out of2048', 'system_accuracy': 73.583984375, 'expert_accuracy': 77.46152654438053, 'classifier_accuracy': 66.84491084961086, 'alone_classifier': 73.095703125, 'validation_loss': inf, 'n_experts': 18, 'expert_0': 73.58462798253592, 'expert_1': 73.14801268886539, 'expert_2': 92.1874423828485, 'expert_3': 63.15756232861932, 'expert_4': 74.41843158504282, 'expert_5': 74.03831915707853, 'expert_6': 81.9147193303844, 'expert_7': 76.46968859189892, 'expert_8': 66.66643274935878, 'expert_9': 61.537514807464504, 'expert_10': 69.56491493515246, 'expert_11': 74.46797947804329, 'expert_12': 44.18584099608839, 'expert_13': 66.66518521810627, 'expert_14': 63.15722992389554, 'expert_15': 63.63597796376992, 'expert_16': 88.23508650567881, 'expert_17': 67.6466609019947}
+Epoch: [18][0/12]	Time 1.580 (1.580)	Loss 10.0829 (10.0829)	Prec@1 22.461 (22.461)
+Epoch: [18][10/12]	Time 2.044 (1.999)	Loss 7.7931 (9.5503)	Prec@1 19.727 (21.555)
+{'coverage': '593 out of2048', 'system_accuracy': 74.072265625, 'expert_accuracy': 81.37455926122897, 'classifier_accuracy': 56.155133869286026, 'alone_classifier': 74.658203125, 'validation_loss': 15.46708369255066, 'n_experts': 18, 'expert_0': 59.999815385183425, 'expert_1': 76.47013841095053, 'expert_2': 85.86937854482925, 'expert_3': 73.33235556859242, 'expert_4': 64.70512111622216, 'expert_5': 47.999808000768, 'expert_6': 95.68331556357472, 'expert_7': 97.3994811349971, 'expert_8': 74.11747266477019, 'expert_9': 59.459138058713194, 'expert_10': 76.78544005199981, 'expert_11': 46.24988437528906, 'expert_12': 83.54409229343723, 'expert_13': 66.66577778962947, 'expert_14': 71.42806122813408, 'expert_15': 56.24976562597656, 'expert_16': 88.88876543227023, 'expert_17': 68.74971354286023}
+Epoch: [19][0/12]	Time 1.580 (1.580)	Loss 9.2136 (9.2136)	Prec@1 14.258 (14.258)
+Epoch: [19][10/12]	Time 2.034 (1.993)	Loss 10.5542 (9.7400)	Prec@1 48.242 (18.537)
+{'coverage': '955 out of2048', 'system_accuracy': 73.681640625, 'expert_accuracy': 63.860921525906406, 'classifier_accuracy': 84.92145707628723, 'alone_classifier': 71.923828125, 'validation_loss': 14.89112639427185, 'n_experts': 18, 'expert_0': 61.28992716176025, 'expert_1': 73.68415881813416, 'expert_2': 58.88875802498216, 'expert_3': 47.618820862757794, 'expert_4': 49.99833338888703, 'expert_5': 69.69654729365277, 'expert_6': 64.40656133369039, 'expert_7': 57.14122453644181, 'expert_8': 69.79152126766402, 'expert_9': 60.78407535656723, 'expert_10': 90.90743804658098, 'expert_11': 57.14269387801749, 'expert_12': 34.999650003499966, 'expert_13': 48.52926903156167, 'expert_14': 60.52599723159352, 'expert_15': 66.66577778962947, 'expert_16': 56.89635552980852, 'expert_17': 65.48660975821281}
+Epoch: [20][0/12]	Time 1.575 (1.575)	Loss 9.8494 (9.8494)	Prec@1 38.867 (38.867)
+Epoch: [20][10/12]	Time 2.037 (1.994)	Loss 9.1543 (9.2808)	Prec@1 33.203 (38.263)
+{'coverage': '1097 out of2048', 'system_accuracy': 73.6328125, 'expert_accuracy': 68.349091829844, 'classifier_accuracy': 78.21330189486766, 'alone_classifier': 72.998046875, 'validation_loss': 16.29595160484314, 'n_experts': 18, 'expert_0': 72.38081451273426, 'expert_1': 53.84594674635867, 'expert_2': 75.43833179532703, 'expert_3': 76.76045526696441, 'expert_4': 62.499218759765505, 'expert_5': 76.086625710323, 'expert_6': 55.555246915294916, 'expert_7': 59.999700001499995, 'expert_8': 63.26504789776369, 'expert_9': 58.82329873216184, 'expert_10': 59.99980000066667, 'expert_11': 59.999700001499995, 'expert_12': 78.3779547137583, 'expert_13': 69.56461248163059, 'expert_14': 72.22206172875171, 'expert_15': 61.53798816932178, 'expert_16': 75.92564471983437, 'expert_17': 62.962496574099454}
+Epoch: [21][0/12]	Time 1.577 (1.577)	Loss 6.8378 (6.8378)	Prec@1 39.453 (39.453)
+Epoch: [21][10/12]	Time 2.038 (1.995)	Loss 7.0595 (7.0206)	Prec@1 23.438 (37.038)
+{'coverage': '892 out of2048', 'system_accuracy': 72.55859375, 'expert_accuracy': 79.15223544078972, 'classifier_accuracy': 64.01344573840295, 'alone_classifier': 73.095703125, 'validation_loss': 20.116962909698486, 'n_experts': 18, 'expert_0': 73.21402423562773, 'expert_1': 99.99846156212982, 'expert_2': 92.85697704111242, 'expert_3': 48.780249852439745, 'expert_4': 69.99953333644443, 'expert_5': 57.575408633887065, 'expert_6': 84.48246730183689, 'expert_7': 77.53611951287027, 'expert_8': 85.999828000344, 'expert_9': 91.57293081693166, 'expert_10': 79.99970909196693, 'expert_11': 73.0763609510696, 'expert_12': 35.293910035823316, 'expert_13': 59.999700001499995, 'expert_14': 84.40351485593604, 'expert_15': 83.33311965866754, 'expert_16': 64.15070131810823, 'expert_17': 99.9900009999}
+Epoch: [22][0/12]	Time 1.575 (1.575)	Loss 6.2234 (6.2234)	Prec@1 28.906 (28.906)
+Epoch: [22][10/12]	Time 2.038 (1.995)	Loss 5.8728 (5.9668)	Prec@1 33.984 (23.065)
+{'coverage': '966 out of2048', 'system_accuracy': 74.755859375, 'expert_accuracy': 76.06283252073337, 'classifier_accuracy': 73.29191787868345, 'alone_classifier': 74.70703125, 'validation_loss': 19.954243659973145, 'n_experts': 18, 'expert_0': 62.962496574099454, 'expert_1': 87.27240991850938, 'expert_2': 99.99866668444422, 'expert_3': 65.78912742564513, 'expert_4': 60.31726883406719, 'expert_5': 79.31007134458157, 'expert_6': 94.99905000949991, 'expert_7': 82.92669442813914, 'expert_8': 74.9990625117186, 'expert_9': 87.49986328146362, 'expert_10': 59.52352607844725, 'expert_11': 54.545123968945646, 'expert_12': 75.67526662018044, 'expert_13': 73.84592662791806, 'expert_14': 69.46554280069802, 'expert_15': 80.34174300556751, 'expert_16': 66.1536426041766, 'expert_17': 85.71393586148628}
+Epoch: [23][0/12]	Time 1.572 (1.572)	Loss 3.8618 (3.8618)	Prec@1 34.570 (34.570)
+Epoch: [23][10/12]	Time 2.038 (1.995)	Loss 5.9869 (3.9633)	Prec@1 23.242 (19.354)
+{'coverage': '731 out of2048', 'system_accuracy': 74.755859375, 'expert_accuracy': 77.37280525849579, 'classifier_accuracy': 70.04103009014636, 'alone_classifier': 75.390625, 'validation_loss': 25.367440223693848, 'n_experts': 18, 'expert_0': 74.60293776845153, 'expert_1': 85.36574955396395, 'expert_2': 66.66626262871134, 'expert_3': 49.99944445061722, 'expert_4': 61.537514807464504, 'expert_5': 74.9993750052083, 'expert_6': 58.33236112731455, 'expert_7': 80.95218820907569, 'expert_8': 61.19384718254572, 'expert_9': 94.95790339671983, 'expert_10': 59.09064049708865, 'expert_11': 58.02454808753558, 'expert_12': 48.64838568440171, 'expert_13': 80.9523258827715, 'expert_14': 58.33309027879051, 'expert_15': 79.4867718627084, 'expert_16': 52.631024936579614, 'expert_17': 89.7431295224127}
+Epoch: [24][0/12]	Time 1.576 (1.576)	Loss 3.5429 (3.5429)	Prec@1 23.828 (23.828)
+Epoch: [24][10/12]	Time 2.039 (1.996)	Loss 3.3063 (3.7963)	Prec@1 14.648 (18.839)
+{'coverage': '828 out of2048', 'system_accuracy': 73.4375, 'expert_accuracy': 77.62293809460031, 'classifier_accuracy': 67.27052327650685, 'alone_classifier': 73.828125, 'validation_loss': 28.024703979492188, 'n_experts': 18, 'expert_0': 68.74914063574205, 'expert_1': 94.73634349292898, 'expert_2': 74.99968750130208, 'expert_3': 78.37823715632945, 'expert_4': 86.61959631042772, 'expert_5': 67.99945600435197, 'expert_6': 59.99920001066653, 'expert_7': 88.54617749235463, 'expert_8': 68.5182647471676, 'expert_9': 91.80297769515509, 'expert_10': 71.82312505732038, 'expert_11': 77.1426367353236, 'expert_12': 51.4282775526997, 'expert_13': 55.99955200358397, 'expert_14': 56.66628889140739, 'expert_15': 61.11077160682441, 'expert_16': 52.173459361222946, 'expert_17': 80.72269705374204}
+Epoch: [25][0/12]	Time 1.573 (1.573)	Loss 3.4172 (3.4172)	Prec@1 26.562 (26.562)
+Epoch: [25][10/12]	Time 2.039 (1.997)	Loss 3.9171 (3.5422)	Prec@1 17.969 (21.342)
+{'coverage': '792 out of2048', 'system_accuracy': 74.12109375, 'expert_accuracy': 78.02546528256923, 'classifier_accuracy': 67.92928435236308, 'alone_classifier': 74.51171875, 'validation_loss': 26.051676273345947, 'n_experts': 18, 'expert_0': 68.8309900493765, 'expert_1': 79.99840003199937, 'expert_2': 82.35261822502657, 'expert_3': 60.8693005682584, 'expert_4': 64.2847959314867, 'expert_5': 69.22970415839757, 'expert_6': 67.99945600435197, 'expert_7': 93.51834533639752, 'expert_8': 62.499804688110345, 'expert_9': 82.75847800262413, 'expert_10': 70.58782007164663, 'expert_11': 72.36832583115022, 'expert_12': 65.06008419256821, 'expert_13': 72.99985400029199, 'expert_14': 66.66577778962947, 'expert_15': 74.99968750130208, 'expert_16': 83.33277778148145, 'expert_17': 90.74067352542701}
+Epoch: [26][0/12]	Time 1.577 (1.577)	Loss 2.5996 (2.5996)	Prec@1 25.195 (25.195)
+Epoch: [26][10/12]	Time 2.044 (1.998)	Loss 2.6022 (2.7176)	Prec@1 12.891 (20.934)
+{'coverage': '586 out of2048', 'system_accuracy': 73.2421875, 'expert_accuracy': 81.87413380654804, 'classifier_accuracy': 51.70647581800754, 'alone_classifier': 74.31640625, 'validation_loss': 29.703627109527588, 'n_experts': 18, 'expert_0': 70.58740485406054, 'expert_1': 62.856783675521854, 'expert_2': 82.894518698635, 'expert_3': 47.99961600307198, 'expert_4': 82.11001641282898, 'expert_5': 63.88853395258915, 'expert_6': 86.95576560203824, 'expert_7': 81.81796930397583, 'expert_8': 76.14664927220316, 'expert_9': 78.94695291077416, 'expert_10': 73.68382271672255, 'expert_11': 70.11478134533023, 'expert_12': 57.575408633887065, 'expert_13': 78.68826659584722, 'expert_14': 85.999828000344, 'expert_15': 92.41063177622162, 'expert_16': 70.3698491122288, 'expert_17': 93.27723254014072}
+Early Exiting Training.
+20
+Epoch: [0][0/12]	Time 1.719 (1.719)	Loss 29.3505 (29.3505)	Prec@1 0.195 (0.195)
+Epoch: [0][10/12]	Time 2.169 (2.129)	Loss 15.1000 (20.7125)	Prec@1 0.000 (0.107)
+{'coverage': '0 out of2048', 'system_accuracy': 73.095703125, 'expert_accuracy': 73.09569598674844, 'classifier_accuracy': 0.0, 'alone_classifier': 66.845703125, 'validation_loss': 15.057918787002563, 'n_experts': 20, 'expert_0': 67.94863083508866, 'expert_1': 71.01823967715944, 'expert_2': 48.86352531016975, 'expert_3': 86.66551112651831, 'expert_4': 28.570612268220906, 'expert_5': 33.33277778703688, 'expert_6': 49.99750012499374, 'expert_7': 0.0, 'expert_8': 79.50359015154682, 'expert_9': 37.49968750260415, 'expert_10': 66.66222251849877, 'expert_11': 99.98000399920016, 'expert_12': 51.28178829852155, 'expert_13': 55.554321015088554, 'expert_14': 49.99750012499374, 'expert_15': 41.93521332120438, 'expert_16': 53.33262223170358, 'expert_17': 24.99875006249687, 'expert_18': 49.99500049995, 'expert_19': 0.0}
+Saving the model with classifier accuracy 0.0
+Epoch: [1][0/12]	Time 1.712 (1.712)	Loss 13.5028 (13.5028)	Prec@1 0.000 (0.000)
+Epoch: [1][10/12]	Time 2.171 (2.130)	Loss 14.0633 (14.8458)	Prec@1 0.000 (0.000)
+{'coverage': '0 out of2048', 'system_accuracy': 73.046875, 'expert_accuracy': 73.0468678665168, 'classifier_accuracy': 0.0, 'alone_classifier': 67.28515625, 'validation_loss': 16.132709741592407, 'n_experts': 20, 'expert_0': 89.59985664022938, 'expert_1': 89.05096488910235, 'expert_2': 63.15722992389554, 'expert_3': 81.63259752884521, 'expert_4': 69.99860002799944, 'expert_5': 70.58782007164663, 'expert_6': 0.0, 'expert_7': 47.52465836701313, 'expert_8': 98.88637020651662, 'expert_9': 69.99860002799944, 'expert_10': 80.39184160062118, 'expert_11': 79.31007134458157, 'expert_12': 0.0, 'expert_13': 72.72595043726479, 'expert_14': 41.32489506315769, 'expert_15': 59.825275261768326, 'expert_16': 56.88615941777315, 'expert_17': 99.99600015999359, 'expert_18': 79.99680012799487, 'expert_19': 49.99961538757394}
+Epoch: [2][0/12]	Time 1.705 (1.705)	Loss 15.0403 (15.0403)	Prec@1 0.000 (0.000)
+Epoch: [2][10/12]	Time 2.143 (2.126)	Loss nan (nan)	Prec@1 11.719 (7.067)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [3][0/12]	Time 1.700 (1.700)	Loss nan (nan)	Prec@1 12.891 (12.891)
+Epoch: [3][10/12]	Time 2.147 (2.104)	Loss nan (nan)	Prec@1 12.695 (10.849)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.1328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.132811956405664, 'alone_classifier': 11.1328125, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [4][0/12]	Time 1.701 (1.701)	Loss nan (nan)	Prec@1 9.375 (9.375)
+Epoch: [4][10/12]	Time 2.146 (2.107)	Loss nan (nan)	Prec@1 11.133 (10.849)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [5][0/12]	Time 1.702 (1.702)	Loss nan (nan)	Prec@1 11.133 (11.133)
+Epoch: [5][10/12]	Time 2.147 (2.107)	Loss nan (nan)	Prec@1 10.742 (10.955)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.83984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.83984322071078, 'alone_classifier': 10.83984375, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [6][0/12]	Time 1.700 (1.700)	Loss nan (nan)	Prec@1 11.719 (11.719)
+Epoch: [6][10/12]	Time 2.151 (2.106)	Loss nan (nan)	Prec@1 11.914 (10.973)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [7][0/12]	Time 1.697 (1.697)	Loss nan (nan)	Prec@1 12.500 (12.500)
+Epoch: [7][10/12]	Time 2.145 (2.105)	Loss nan (nan)	Prec@1 11.133 (11.133)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [8][0/12]	Time 1.702 (1.702)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Epoch: [8][10/12]	Time 2.146 (2.104)	Loss nan (nan)	Prec@1 14.062 (10.884)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [9][0/12]	Time 1.700 (1.700)	Loss nan (nan)	Prec@1 10.938 (10.938)
+Epoch: [9][10/12]	Time 2.143 (2.103)	Loss nan (nan)	Prec@1 8.398 (11.133)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.7421875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.74218697547915, 'alone_classifier': 10.7421875, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [10][0/12]	Time 1.698 (1.698)	Loss nan (nan)	Prec@1 11.719 (11.719)
+Epoch: [10][10/12]	Time 2.147 (2.103)	Loss nan (nan)	Prec@1 12.695 (10.689)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.7421875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.74218697547915, 'alone_classifier': 10.7421875, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [11][0/12]	Time 1.697 (1.697)	Loss nan (nan)	Prec@1 10.742 (10.742)
+Epoch: [11][10/12]	Time 2.141 (2.103)	Loss nan (nan)	Prec@1 11.719 (11.026)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [12][0/12]	Time 1.700 (1.700)	Loss nan (nan)	Prec@1 13.281 (13.281)
+Epoch: [12][10/12]	Time 2.142 (2.102)	Loss nan (nan)	Prec@1 12.891 (11.009)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.083984375, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.083983833789851, 'alone_classifier': 11.083984375, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [13][0/12]	Time 1.699 (1.699)	Loss nan (nan)	Prec@1 9.766 (9.766)
+Epoch: [13][10/12]	Time 2.143 (2.103)	Loss nan (nan)	Prec@1 11.133 (11.026)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.986328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.986327588558222, 'alone_classifier': 10.986328125, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [14][0/12]	Time 1.702 (1.702)	Loss nan (nan)	Prec@1 11.328 (11.328)
+Epoch: [14][10/12]	Time 2.141 (2.102)	Loss nan (nan)	Prec@1 8.984 (11.044)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [15][0/12]	Time 1.700 (1.700)	Loss nan (nan)	Prec@1 12.305 (12.305)
+Epoch: [15][10/12]	Time 2.141 (2.102)	Loss nan (nan)	Prec@1 10.742 (10.938)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.1328125, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.132811956405664, 'alone_classifier': 11.1328125, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [16][0/12]	Time 1.700 (1.700)	Loss nan (nan)	Prec@1 11.328 (11.328)
+Epoch: [16][10/12]	Time 2.144 (2.102)	Loss nan (nan)	Prec@1 10.547 (11.044)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [17][0/12]	Time 1.700 (1.700)	Loss nan (nan)	Prec@1 10.938 (10.938)
+Epoch: [17][10/12]	Time 2.143 (2.101)	Loss nan (nan)	Prec@1 12.305 (10.866)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.791015625, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.791015098094965, 'alone_classifier': 10.791015625, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [18][0/12]	Time 1.710 (1.710)	Loss nan (nan)	Prec@1 11.523 (11.523)
+Epoch: [18][10/12]	Time 2.143 (2.104)	Loss nan (nan)	Prec@1 11.133 (11.080)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.888671875, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.888671343326594, 'alone_classifier': 10.888671875, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [19][0/12]	Time 1.698 (1.698)	Loss nan (nan)	Prec@1 11.328 (11.328)
+Epoch: [19][10/12]	Time 2.140 (2.101)	Loss nan (nan)	Prec@1 14.062 (11.097)
+{'coverage': '2048 out of2048', 'system_accuracy': 11.03515625, 'expert_accuracy': 0.0, 'classifier_accuracy': 11.035155711174037, 'alone_classifier': 11.03515625, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Epoch: [20][0/12]	Time 1.699 (1.699)	Loss nan (nan)	Prec@1 11.328 (11.328)
+Epoch: [20][10/12]	Time 2.143 (2.102)	Loss nan (nan)	Prec@1 9.570 (11.062)
+{'coverage': '2048 out of2048', 'system_accuracy': 10.9375, 'expert_accuracy': 0.0, 'classifier_accuracy': 10.937499465942407, 'alone_classifier': 10.9375, 'validation_loss': nan, 'n_experts': 20, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 0.0, 'expert_8': 0.0, 'expert_9': 0.0, 'expert_10': 0.0, 'expert_11': 0.0, 'expert_12': 0.0, 'expert_13': 0.0, 'expert_14': 0.0, 'expert_15': 0.0, 'expert_16': 0.0, 'expert_17': 0.0, 'expert_18': 0.0, 'expert_19': 0.0}
+Early Exiting Training.
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/torch/nn/functional.py:1944: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
+  warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")

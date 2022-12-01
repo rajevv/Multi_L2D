@@ -1,0 +1,1 @@
+{"batch_size": 1024, "alpha": 1.0, "epochs": 200, "patience": 50, "expert_type": "predict", "n_classes": 10, "k": 5, "n_experts": 2, "lr": 0.1, "weight_decay": 0.0005, "warmup_epochs": 0, "loss_type": "ova", "ckp_dir": "./ova_increase_experts_nonoverlapping_individual", "experiment_name": "multiple_experts"}

@@ -1,0 +1,10 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+torch.Size([9984]) torch.Size([9984, 11]) [torch.Size([9984])]
+torch.Size([9984]) torch.Size([9984, 12]) [torch.Size([9984]), torch.Size([9984])]
+torch.Size([9984]) torch.Size([9984, 14]) [torch.Size([9984]), torch.Size([9984]), torch.Size([9984]), torch.Size([9984])]
+torch.Size([9984]) torch.Size([9984, 18]) [torch.Size([9984]), torch.Size([9984]), torch.Size([9984]), torch.Size([9984]), torch.Size([9984]), torch.Size([9984]), torch.Size([9984]), torch.Size([9984])]

@@ -1,0 +1,1 @@
+{"batch_size": 1024, "alpha": 1.0, "epochs": 150, "patience": 20, "expert_type": "predict_prob_cifar", "n_classes": 10, "lr": 0.1, "weight_decay": 0.0005, "warmup_epochs": 20, "loss_type": "ova", "ckp_dir": "./ova_increase_oracle", "experiment_name": "increase_oracles"}

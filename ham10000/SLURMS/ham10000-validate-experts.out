@@ -1,0 +1,24 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+75 epochs...
+0.7282463186077643 1494 1494
+              precision    recall  f1-score   support
+
+         bkl       0.49      0.34      0.40       164
+          df       0.00      0.00      0.00        17
+         mel       0.42      0.46      0.44       167
+          nv       0.82      0.89      0.85       999
+        vasc       0.84      0.76      0.80        21
+       akiec       0.63      0.39      0.48        49
+         bcc       0.51      0.38      0.43        77
+
+    accuracy                           0.73      1494
+   macro avg       0.53      0.46      0.49      1494
+weighted avg       0.71      0.73      0.71      1494
+
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))

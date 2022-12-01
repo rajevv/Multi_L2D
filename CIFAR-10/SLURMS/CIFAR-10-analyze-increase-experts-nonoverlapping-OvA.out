@@ -1,0 +1,44 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+cuda:0
+{'batch_size': 1024, 'alpha': 1.0, 'epochs': 100, 'patience': 20, 'expert_type': 'predict', 'n_classes': 10, 'k': 5, 'n_experts': 2, 'lr': 0.1, 'weight_decay': 0.0005, 'warmup_epochs': 0, 'loss_type': 'ova', 'ckp_dir': './ova_increase_experts_nonoverlapping/', 'experiment_name': 'multiple_experts'}
+seed is 
+n is 1
+torch.Size([9216]) torch.Size([9216, 11]) [torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 11]), expert_predictions (1, 9216)
+Evaluate...
+{'coverage': '8836 out of9216', 'system_accuracy': 83.68055555555556, 'expert_accuracy': 66.05259681442273, 'classifier_accuracy': 84.43865907154076, 'alone_classifier': 83.36588541666667, 'validation_loss': 1.7129236857096355, 'n_experts': 1, 'expert_0': 66.05259681442273}
+n is 2
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/torch/nn/functional.py:1944: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
+  warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")
+torch.Size([9216]) torch.Size([9216, 12]) [torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 12]), expert_predictions (2, 9216)
+Evaluate...
+{'coverage': '7875 out of9216', 'system_accuracy': 87.86892361111111, 'expert_accuracy': 82.32660964554667, 'classifier_accuracy': 88.81269728491813, 'alone_classifier': 86.78385416666667, 'validation_loss': 2.089923858642578, 'n_experts': 2, 'expert_0': 86.96316350823206, 'expert_1': 77.93901946617723}
+n is 3
+torch.Size([9216]) torch.Size([9216, 13]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 13]), expert_predictions (3, 9216)
+Evaluate...
+{'coverage': '7333 out of9216', 'system_accuracy': 88.75868055555556, 'expert_accuracy': 79.23525446253272, 'classifier_accuracy': 91.20414439923435, 'alone_classifier': 87.01171875, 'validation_loss': 2.7293088701036243, 'n_experts': 3, 'expert_0': 70.44016296834846, 'expert_1': 77.1017528535945, 'expert_2': 83.29266261154571}
+n is 4
+torch.Size([9216]) torch.Size([9216, 14]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 14]), expert_predictions (4, 9216)
+Evaluate...
+{'coverage': '6637 out of9216', 'system_accuracy': 87.92317708333333, 'expert_accuracy': 79.68204112585956, 'classifier_accuracy': 91.1255071398899, 'alone_classifier': 86.12196180555556, 'validation_loss': 3.3373166455162897, 'n_experts': 4, 'expert_0': 67.08852267275611, 'expert_1': 80.27424466788088, 'expert_2': 80.4950335653399, 'expert_3': 80.99348553197169}
+n is 5
+torch.Size([9216]) torch.Size([9216, 15]) [torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216]), torch.Size([9216])]
+shapes: true labels torch.Size([9216]), confidences torch.Size([9216, 15]), expert_predictions (5, 9216)
+Evaluate...
+{'coverage': '4713 out of9216', 'system_accuracy': 89.08420138888889, 'expert_accuracy': 87.5194276029568, 'classifier_accuracy': 90.5792469641577, 'alone_classifier': 87.02256944444444, 'validation_loss': 3.5635494920942516, 'n_experts': 5, 'expert_0': 91.31453255527406, 'expert_1': 78.05580788146143, 'expert_2': 85.79667111799984, 'expert_3': 93.70366899864112, 'expert_4': 95.76639539667288}
+===Mean and Standard Error===
+[83.68055556 87.86892361 88.75868056 87.92317708 89.08420139]
+[nan nan nan nan nan]
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/numpy/core/_methods.py:261: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/numpy/core/_methods.py:250: RuntimeWarning: invalid value encountered in true_divide
+  ret = um.true_divide(
