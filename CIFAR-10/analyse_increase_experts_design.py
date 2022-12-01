@@ -176,13 +176,18 @@ if __name__ == "__main__":
     experts = [expert1, expert2, expert3, expert4, expert5,
                expert6, expert7, expert8, expert9, expert10]
 
+
+    num_experts = np.arange(1, 11)
+    num_experts = [1, 2, 3, 4, 5, 8,9]  # Change for run in different GPUs
+
+
     for seed in seeds:
         print("seed is {}".format(seed))
         if seed != "":
             set_seed(seed)
         acc = []
         expert_fns = []
-        for n in range(1, len(experts) + 1):
+        for n in num_experts:
             print(n)
             num_experts = n
             model_name = str(n) + '_experts' + '_seed_' + str(seed)
