@@ -28,7 +28,6 @@ def set_seed(seed):
 
 
 def evaluate(model,
-             expert_fns,
              loss_fn,
              n_classes,
              data_loader,
@@ -251,7 +250,7 @@ def train(model,
 
 
 def one_classifier(config):
-    config["ckp_dir"] = "./one_classifier"
+    config["ckp_dir"] = "./one_classifier_cifar10"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     experts = [4, 8, 12, 16, 20]
