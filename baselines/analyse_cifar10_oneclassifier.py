@@ -51,7 +51,7 @@ class NumpyEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-def validation(model_name, expert_fns, config, seed=""):
+def validation(model_name, config, seed=""):
     def filter(dict_):
         d = {}
         for k, v in dict_.items():
@@ -86,7 +86,7 @@ def validation(model_name, expert_fns, config, seed=""):
     test_dl = torch.utils.data.DataLoader(test_d, batch_size=batch_size, shuffle=False, drop_last=True, **kwargs)
 
     # Model ===
-    model = WideResNet(28, 3, n_dataset + num_experts, 4, dropRate=0.0)
+    model = WideResNet(28, 3, n_dataset, 4, dropRate=0.0)
     model_path = os.path.join(config["ckp_dir"], config["experiment_name"] + '_' + model_name + '.pt')
     model.load_state_dict(torch.load(model_path, map_location=device))
     model = model.to(device)
