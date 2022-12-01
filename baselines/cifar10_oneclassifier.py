@@ -234,8 +234,10 @@ def train(model,
         if validation_loss < best_validation_loss:
             best_validation_loss = validation_loss
             print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
+
             save_path = os.path.join(config["ckp_dir"],
-                                     config["experiment_name"] + '_'+ '_seed_' + str(seed))
+                                     config["experiment_name"] + '_' + config["n_experts"] +
+                                     '_experts' + '_seed_' + str(seed))
             torch.save(model.state_dict(), save_path + '.pt')
             # Additionally save the whole config dict
             with open(save_path + '.json', "w") as f:
@@ -264,7 +266,7 @@ def one_classifier(config):
             print("One classifier | Seed {} | Experts {}".format(seed, n))
 
             num_experts = n
-
+            config["n_experts"] = n
             # Model ===
             model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
             # Data ===
