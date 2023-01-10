@@ -22,7 +22,7 @@ from models.baseline import Resnet, Network
 from models.experts import *
 from losses.losses import *
 
-device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
 
 
@@ -343,13 +343,14 @@ def increase_experts(config):
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
+    # experiment_experts = [8]
     # , 1750,  812, 1331, 1617,  650, 1816]:
-    for seed in [948, 625, 436]:
+    for seed in ['', 948,  625,  436,  791]:
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
         log = {'selected_experts': [], 'selected_expert_fns': []}
+        # expert_fns = [experts[i] for i in range(7)]
         expert_fns = []
         for i, n in enumerate(experiment_experts):
             print("Number of Experts: n is {}".format(n))
@@ -366,6 +367,7 @@ def increase_experts(config):
             # log['selected_expert_fns'].append(selected_expert_fn)
             # getattr(selected_expert, selected_expert_fn)
             expert_fn = experts[i]
+            # expert_fn = experts[n-1]
             expert_fns.append(expert_fn)
             # print("selected experts {}".format(expert_fns))
 
@@ -398,7 +400,7 @@ if __name__ == "__main__":
                         help="number of patience steps for early stopping the training.")
     parser.add_argument("--expert_type", type=str, default="predict_prob",
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
-    parser.add_argument("--n_classes", type=int, default=3,
+    parser.add_argument("--n_classes", type=int, default=2,
                         help="K for K class classification.")
     parser.add_argument("--k", type=int, default=0)
     # Dani experiments =====
@@ -410,6 +412,7 @@ if __name__ == "__main__":
     parser.add_argument("--warmup_epochs", type=int, default=0)
     parser.add_argument("--loss_type", type=str, default="hemmer",
                         help="surrogate loss type for learning to defer.")
+
     parser.add_argument("--ckp_dir", type=str, default="./Models",
                         help="directory name to save the checkpoints.")
     parser.add_argument("--experiment_name", type=str, default="multiple_experts_hardcoded",
