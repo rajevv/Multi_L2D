@@ -21,7 +21,7 @@ from models.resnet50 import *
 from models.experts import *
 from losses.losses import *
 
-device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
 
 
@@ -340,22 +340,21 @@ def increase_experts(config):
         "_increase_experts_select_hard_coded"
     os.makedirs(config["ckp_dir"], exist_ok=True)
     experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-    for seed in [948, 625, 436]:
+    for seed in ['', 948,  625,  436,  791]:
         print("run for seed {}".format(seed))
-        set_seed(seed)
-        log = {'selected_experts': {}}
-        for n in experiment_experts:
+        if seed != '':
+            set_seed(seed)
+        log = {'selected_experts': [], 'selected_expert_fns': []}
+        expert_fns = []
+        for i, n in enumerate(experiment_experts):
             print("n is {}".format(n))
             num_experts = n
-            selected_experts = random.choices(all_available_experts, k=n)
-            print("selected experts {}".format(selected_experts))
-            log['selected_experts'][n] = selected_experts
-            expert = synth_expert()
-            expert_fns = []
-            for expert_type in selected_experts:
-                expert_fn = getattr(expert, expert_type)
-                expert_fns.append(expert_fn)
+
+            expert_fn = experts[i]
+            expert_fns.append(expert_fn)
+
             model = model = ResNet50_defer(
                 int(config["n_classes"])+num_experts)
             trainD = GalaxyZooDataset()
@@ -390,7 +389,7 @@ if __name__ == "__main__":
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--warmup_epochs", type=int, default=5)
-    parser.add_argument("--loss_type", type=str, default="softmax",
+    parser.add_argument("--loss_type", type=str, default="ova",
                         help="surrogate loss type for learning to defer.")
     parser.add_argument("--ckp_dir", type=str, default="./Models",
                         help="directory name to save the checkpoints.")
