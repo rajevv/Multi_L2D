@@ -1,5 +1,6 @@
 from __future__ import division
 
+from tqdm import tqdm
 import argparse
 import json
 import math
@@ -26,13 +27,14 @@ import torchvision.transforms as transforms
 from losses.losses import *
 from models.baseline import *
 from models.experts import *
+from models.resnet50 import *
 from scipy import stats
 from torch.autograd import Variable
 from utils import *
 
 from data_utils import *
 
-device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
 
 
@@ -88,7 +90,7 @@ def validate_best_expert(config):
             set_seed(seed)
         acc = []
         expert_fns = []
-        for i, n in enumerate(experiment_experts):
+        for i, n in tqdm(enumerate(experiment_experts)):
             expert_fns.append(experts[i])
             expert_accs = main_validate_best_expert(testD, expert_fns, config)
             temp = expert_accs.values()
@@ -159,7 +161,7 @@ def main_validate_surrogate(model, testD, expert_fns, config, seed=''):
         criterion = Criterion()
         loss_fn = getattr(criterion, config["loss_type"])
         print("Evaluate...")
-        result_ = main_increase_experts.evaluate(
+        result_ = main_increase_experts_hard_coded.evaluate(
             model, expert_fns, loss_fn, config["n_classes"]+len(expert_fns), dl, config)
         # print(result_)
         result[severity] = filter(result_)
@@ -203,27 +205,30 @@ def main_validate_surrogate(model, testD, expert_fns, config, seed=''):
 
 def validate_surrogate(config):
     config["ckp_dir"] = "./" + config["loss_type"] + \
-        "_increase_experts_hard_coded"
-    experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        "_increase_experts_select_hard_coded"
+    experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # experiment_experts = [2]
+
     accuracy = []
-    for seed in ['', 948,  625,  436,  791]:
+    # for seed in ['', 948,  625,  436,  791]:
+    for seed in ['']:
+
         if seed != '':
             set_seed(seed)
-        expert_fns = []
         acc = []
         for i, n in enumerate(experiment_experts):
             print("n is {}".format(n))
             num_experts = n
-            # getattr(selected_expert, selected_expert_fn)
-            expert_fn = experts[i]
-            expert_fns.append(expert_fn)
 
-        # Model ===
-        model = ResNet50_defer(int(config["n_classes"])+num_experts)
-        testD = GalaxyZooDataset(split='test')
-        result = main_validate_surrogate(
-            model, testD, expert_fns, config, seed=seed)
-        acc.append(result['test']['system_accuracy'])
+            expert_fns = [experts[j] for j in range(n)]
+
+            model = model = ResNet50_defer(
+                int(config["n_classes"])+num_experts)
+
+            testD = GalaxyZooDataset(split='test')
+            result = main_validate_surrogate(
+                model, testD, expert_fns, config, seed=seed)
+            acc.append(result['test']['system_accuracy'])
         accuracy.append(acc)
 
     print("===Mean and Standard Error===")
@@ -335,20 +340,21 @@ def validate_hemmer(config):
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     config["experiment_name"] = "multiple_experts_hardcoded"
     experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
     accuracy = []
-    # for seed in ['', 948,  625,  436,  791]:
-    for seed in [948]:
+    for seed in ['', 948,  625,  436,  791]:
+    # for seed in ['']:
 
         if seed != '':
             set_seed(seed)
         expert_fns = []
         acc = []
-        for i, n in enumerate(experiment_experts):
+        for i, n in tqdm(enumerate(experiment_experts)):
             print("n is {}".format(n))
             num_experts = n
             # getattr(selected_expert, selected_expert_fn)
-            expert_fn = experts[i]
-            expert_fns.append(expert_fn)
+            expert_fns = [experts[j] for j in range(n)]
+
             # === Galaxy-Zoo models ===
             # print(len(expert_fns))
             feature_extractor = Resnet()
@@ -390,7 +396,8 @@ def validate_classifier(config):
     expert_fns = []
     accuracy = []
     # , 948,  625,  436,  791]: #, 1750,  812, 1331, 1617,  650, 1816]:
-    for seed in ['', 948, 625, 436, 791]:
+    # for seed in ['', 948, 625, 436, 791]:
+    for seed in ['']:
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
@@ -415,7 +422,7 @@ if __name__ == "__main__":
                         help="scaling parameter for the loss function, default=1.0.")
     parser.add_argument("--expert_type", type=str, default="predict_prob",
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
-    parser.add_argument("--n_classes", type=int, default=3,
+    parser.add_argument("--n_classes", type=int, default=2,
                         help="K for K class classification.")
     parser.add_argument("--loss_type", type=str, default="ova",
                         help="surrogate loss type for learning to defer.")
@@ -438,13 +445,13 @@ if __name__ == "__main__":
 
     # config["loss_type"] = "hemmer"
 
-    print("validate Hemmer MoE baseline method...")
-    validate_hemmer(config)
+    # print("validate Hemmer MoE baseline method...")
+    # validate_hemmer(config)
 
-    # print("validate one classifier baseline...")
-    # config["loss_type"] = "softmax"
-    # config["experiment_name"] = "classifier"
-    # validate_classifier(config)
+    print("validate one classifier baseline...")
+    config["loss_type"] = "softmax"
+    config["experiment_name"] = "classifier"
+    validate_classifier(config)
 
     # print("validate best expert baseline...")
     # validate_best_expert(config)
