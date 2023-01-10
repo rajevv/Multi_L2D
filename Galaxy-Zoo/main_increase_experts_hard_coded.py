@@ -21,7 +21,7 @@ from models.resnet50 import *
 from models.experts import *
 from losses.losses import *
 
-device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
 
 
@@ -341,8 +341,10 @@ def increase_experts(config):
     os.makedirs(config["ckp_dir"], exist_ok=True)
     experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     # experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-    for seed in ['', 948,  625,  436,  791]:
+    # experiment_experts = [5] 
+    experiment_experts = [7, 9, 10]
+    # for seed in ['', 948,  625,  436,  791]:
+    for seed in ['', 948,  625,  436]:
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
@@ -352,11 +354,11 @@ def increase_experts(config):
             print("n is {}".format(n))
             num_experts = n
 
-            expert_fn = experts[i]
-            expert_fns.append(expert_fn)
+            expert_fns = [experts[j] for j in range(n)]
 
             model = model = ResNet50_defer(
                 int(config["n_classes"])+num_experts)
+            # print(model)
             trainD = GalaxyZooDataset()
             valD = GalaxyZooDataset(split='val')
             train(model, trainD, valD, expert_fns, config, seed=seed)
@@ -371,7 +373,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--batch_size", type=int, default=128)
+    parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="scaling parameter for the loss function, default=1.0.")
     parser.add_argument("--epochs", type=int, default=150)
@@ -389,7 +391,7 @@ if __name__ == "__main__":
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--warmup_epochs", type=int, default=5)
-    parser.add_argument("--loss_type", type=str, default="ova",
+    parser.add_argument("--loss_type", type=str, default="softmax",
                         help="surrogate loss type for learning to defer.")
     parser.add_argument("--ckp_dir", type=str, default="./Models",
                         help="directory name to save the checkpoints.")
