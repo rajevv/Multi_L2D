@@ -21,7 +21,7 @@ from models.experts import *
 from losses.losses import *
 from models.resnet50 import *
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
 
 
@@ -384,16 +384,19 @@ if __name__ == "__main__":
                         help="number of patience steps for early stopping the training.")
     parser.add_argument("--expert_type", type=str, default="predict_prob",
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
-    parser.add_argument("--n_classes", type=int, default=3,
+    parser.add_argument("--n_classes", type=int, default=2,
                         help="K for K class classification.")
     parser.add_argument("--k", type=int, default=0)
-
+    # Dani experiments =====
+    parser.add_argument("--n_experts", type=int, default=2)
+    # Dani experiments =====
     parser.add_argument("--lr", type=float, default=0.001,
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--warmup_epochs", type=int, default=0)
     parser.add_argument("--loss_type", type=str, default="softmax",
                         help="surrogate loss type for learning to defer.")
+
     parser.add_argument("--ckp_dir", type=str, default="./Models",
                         help="directory name to save the checkpoints.")
     parser.add_argument("--experiment_name", type=str, default="classifier",
