@@ -1,41 +1,38 @@
 from __future__ import division
-import math
-import torch
-import torch.nn as nn
-import random
-import numpy as np
-from scipy import stats
-import torch.nn.functional as F
+
 import argparse
+import json
+import math
 import os
+import random
 import shutil
 import time
-import torch.nn.parallel
+from collections import defaultdict
+
+import hemmer_baseline
+import main_classifier
+import main_increase_experts_hard_coded
+import numpy as np
+import torch
 import torch.backends.cudnn as cudnn
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.nn.parallel
 import torch.optim
 import torch.utils.data
 import torchvision
-import torchvision.transforms as transforms
 import torchvision.datasets as datasets
-from torch.autograd import Variable
-from collections import defaultdict
-import json
-
-from utils import *
-from data_utils import *
-import main_increase_experts
-import hemmer_baseline
-import main_classifier
-
-from models.experts import *
+import torchvision.transforms as transforms
 from losses.losses import *
-
-from models.surrogate_CNN import *
 from models.baseline import *
-from models.classifier import *
+from models.experts import *
+from scipy import stats
+from torch.autograd import Variable
+from utils import *
 
+from data_utils import *
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
 
 
@@ -205,7 +202,8 @@ def main_validate_surrogate(model, testD, expert_fns, config, seed=''):
 
 
 def validate_surrogate(config):
-    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_hard_coded"
+    config["ckp_dir"] = "./" + config["loss_type"] + \
+        "_increase_experts_hard_coded"
     experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     accuracy = []
     for seed in ['', 948,  625,  436,  791]:
@@ -291,8 +289,11 @@ def main_validate_hemmer(model, testD, expert_fns, config, seed=''):
     # print(type(load_dict['allocator_state_dict']),
     #       type(load_dict['classifier_state_dict']()))
     allocator.load_state_dict(load_dict['allocator_state_dict'])
-    # import copy # Careful with this. Actually I saved the method instead of the state_dict() for classifier
-    # classifier.load_state_dict(copy.deepcopy(load_dict['classifier_state_dict']()))
+    # import copy  # Careful with this. Actually I saved the method instead of the state_dict() for classifier
+    # classifier.load_state_dict(copy.deepcopy(
+    #     load_dict['classifier_state_dict']()))
+    # feature_extractor.load_state_dict(copy.deepcopy(
+    #     load_dict['feature_extractor_state_dict']()))
 
     classifier.load_state_dict(load_dict['classifier_state_dict'])
     feature_extractor.load_state_dict(
@@ -330,11 +331,14 @@ def main_validate_hemmer(model, testD, expert_fns, config, seed=''):
 
 
 def validate_hemmer(config):
+    config["loss_type"] = "hemmer"
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     config["experiment_name"] = "multiple_experts_hardcoded"
     experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     accuracy = []
-    for seed in ['', 948,  625,  436,  791]:
+    # for seed in ['', 948,  625,  436,  791]:
+    for seed in [948]:
+
         if seed != '':
             set_seed(seed)
         expert_fns = []
@@ -390,7 +394,7 @@ def validate_classifier(config):
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
-        model = model = ResNet50_defer(int(config["n_classes"])) 
+        model = model = ResNet50_defer(int(config["n_classes"]))
         testD = GalaxyZooDataset(split='test')
         result = main_validate_classifier(
             model, testD, expert_fns, config, seed=seed)
@@ -434,13 +438,13 @@ if __name__ == "__main__":
 
     # config["loss_type"] = "hemmer"
 
-    # print("validate Hemmer MoE baseline method...")
-    # validate_hemmer(config)
+    print("validate Hemmer MoE baseline method...")
+    validate_hemmer(config)
 
     # print("validate one classifier baseline...")
     # config["loss_type"] = "softmax"
     # config["experiment_name"] = "classifier"
     # validate_classifier(config)
 
-    print("validate best expert baseline...")
-    validate_best_expert(config)
+    # print("validate best expert baseline...")
+    # validate_best_expert(config)
