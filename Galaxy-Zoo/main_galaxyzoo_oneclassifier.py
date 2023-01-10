@@ -134,8 +134,8 @@ def train_epoch(iters,
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
-                epoch, i, len(train_loader), batch_time=batch_time,
-                loss=losses, top1=top1), flush=True)
+                      epoch, i, len(train_loader), batch_time=batch_time,
+                      loss=losses, top1=top1), flush=True)
 
     return iters, np.average(epoch_train_loss)
 
@@ -159,7 +159,8 @@ def train(model, train_dataset, validation_dataset, config, seed=""):
     optimizer = torch.optim.Adam(model.parameters(), config["lr"],
                                  weight_decay=config["weight_decay"])
     loss_fn = nn.NLLLoss()
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, len(train_loader) * config["epochs"])
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, len(train_loader) * config["epochs"])
 
     best_validation_loss = np.inf
     patience = 0
@@ -184,7 +185,8 @@ def train(model, train_dataset, validation_dataset, config, seed=""):
 
         if validation_loss < best_validation_loss:
             best_validation_loss = validation_loss
-            print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
+            print("Saving the model with classifier accuracy {}".format(
+                metrics['classifier_accuracy']), flush=True)
 
             save_path = os.path.join(config["ckp_dir"],
                                      config["experiment_name"] + '_' + str(config["n_experts"]) +
@@ -204,6 +206,7 @@ def train(model, train_dataset, validation_dataset, config, seed=""):
 
 def one_classifier(config):
     config["ckp_dir"] = "./one_classifier_galaxyzoo"
+    config["n_classes"] = 2  # Galaxy-Zoo
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     experts = np.arange(1, 11)
@@ -237,7 +240,7 @@ if __name__ == "__main__":
                         help="number of patience steps for early stopping the training.")
     parser.add_argument("--expert_type", type=str, default="predict_biasedK",
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
-    parser.add_argument("--n_classes", type=int, default=10,
+    parser.add_argument("--n_classes", type=int, default=2,
                         help="K for K class classification.")
     parser.add_argument("--k", type=int, default=5)
     # Dani experiments =====
@@ -249,6 +252,8 @@ if __name__ == "__main__":
     parser.add_argument("--warmup_epochs", type=int, default=0)
     parser.add_argument("--loss_type", type=str, default="softmax",
                         help="surrogate loss type for learning to defer.")
+    parser.add_argument("--ckp_dir", type=str, default="./Models",
+                        help="directory name to save the checkpoints.")
     parser.add_argument("--ckp_dir", type=str, default="./Models",
                         help="directory name to save the checkpoints.")
     parser.add_argument("--experiment_name", type=str, default="multiple_experts",
