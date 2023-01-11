@@ -7,9 +7,11 @@ from reliability_diagram import *
 from scipy import stats
 
 # global quantities
-seeds = [948,  625,  436,  791]
-experiment_experts = [1,2,3,4,5,6,7,8,9,10]
-n_classes = 3
+# seeds = [948,  625,  436 ,'']
+seeds = [948,  625 ,'']
+# experiment_experts = [1,2,3,4,5,6,7,8,9,10]
+experiment_experts = [2,3,4,5,6,7,8,9,10]
+n_classes = 2
 
 def read_json_file(path):
 	with open(path, 'r') as f:
@@ -52,7 +54,7 @@ def Hemmer():
 
 
 def Softmax():
-	path = './' + 'softmax_increase_experts/'
+	path = './' + 'softmax_increase_experts_select_hard_coded/'
 	experiment_name = 'multiple_experts'
 
 	ECE = []
@@ -93,7 +95,7 @@ def Softmax():
 	return ECE
 
 def OvA():
-	path = './' + 'ova_increase_experts/'
+	path = './' + 'ova_increase_experts_select_hard_coded/'
 	experiment_name = 'multiple_experts'
 
 	ECE = []
@@ -127,12 +129,12 @@ def OvA():
 
 if __name__ == "__main__":
 
-	# Softmax
-	ECE_softmax = Softmax()
-	print("===Mean and Standard Error ECEs Softmax===")
-	#print("All \n {}".format(np.array(ECE_softmax)))
-	print("Mean {}".format(np.mean(np.array(ECE_softmax), axis=0)))
-	print("Standard Error {}".format(stats.sem(np.array(ECE_softmax), axis=0)))
+	# # Softmax
+	# ECE_softmax = Softmax()
+	# print("===Mean and Standard Error ECEs Softmax===")
+	# #print("All \n {}".format(np.array(ECE_softmax)))
+	# print("Mean {}".format(np.mean(np.array(ECE_softmax), axis=0)))
+	# print("Standard Error {}".format(stats.sem(np.array(ECE_softmax), axis=0)))
 
 
 
@@ -143,9 +145,9 @@ if __name__ == "__main__":
 	print("Mean {}".format(np.mean(np.array(ECE_OvA), axis=0)))
 	print("Standard Error {}".format(stats.sem(np.array(ECE_OvA), axis=0)))
 
-	# Hemmer
-	ECE_hemmer = Hemmer()
-	print("===Mean and Standard Error ECEs Hemmer===")
-	#print("All \n {}".format(np.array(ECE_hemmer)))
-	print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
-	print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))
+	# # Hemmer
+	# ECE_hemmer = Hemmer()
+	# print("===Mean and Standard Error ECEs Hemmer===")
+	# #print("All \n {}".format(np.array(ECE_hemmer)))
+	# print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
+	# print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))

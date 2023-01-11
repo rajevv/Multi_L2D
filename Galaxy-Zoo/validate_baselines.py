@@ -210,13 +210,13 @@ def validate_surrogate(config):
     # experiment_experts = [2]
 
     accuracy = []
-    # for seed in ['', 948,  625,  436,  791]:
-    for seed in ['']:
+    for seed in ['', 948,  625]:
+    # for seed in ['']:
 
         if seed != '':
             set_seed(seed)
         acc = []
-        for i, n in enumerate(experiment_experts):
+        for i, n in tqdm(enumerate(experiment_experts)):
             print("n is {}".format(n))
             num_experts = n
 
@@ -342,7 +342,8 @@ def validate_hemmer(config):
     experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
     accuracy = []
-    for seed in ['', 948,  625,  436,  791]:
+    # for seed in ['', 948,  625, 791, 436]:
+    for seed in ['', 948,  625]:
     # for seed in ['']:
 
         if seed != '':
@@ -396,8 +397,8 @@ def validate_classifier(config):
     expert_fns = []
     accuracy = []
     # , 948,  625,  436,  791]: #, 1750,  812, 1331, 1617,  650, 1816]:
-    # for seed in ['', 948, 625, 436, 791]:
-    for seed in ['']:
+    for seed in tqdm(['', 948, 625, 436, 791]):
+    # for seed in ['']:
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
@@ -438,20 +439,20 @@ if __name__ == "__main__":
     # print("validate softmax surrogate loss method...")
     # validate_surrogate(config)
 
-    # config["loss_type"] = "ova"
+    config["loss_type"] = "ova"
 
-    # print("validate ova surrogate loss method...")
-    # validate_surrogate(config)
+    print("validate ova surrogate loss method...")
+    validate_surrogate(config)
 
     # config["loss_type"] = "hemmer"
 
     # print("validate Hemmer MoE baseline method...")
     # validate_hemmer(config)
 
-    print("validate one classifier baseline...")
-    config["loss_type"] = "softmax"
-    config["experiment_name"] = "classifier"
-    validate_classifier(config)
+    # print("validate one classifier baseline...")
+    # config["loss_type"] = "softmax"
+    # config["experiment_name"] = "classifier"
+    # validate_classifier(config)
 
     # print("validate best expert baseline...")
     # validate_best_expert(config)
