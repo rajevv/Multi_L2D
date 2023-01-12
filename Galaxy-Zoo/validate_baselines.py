@@ -34,7 +34,7 @@ from utils import *
 
 from data_utils import *
 
-device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
 
 
@@ -65,6 +65,52 @@ experts = [getattr(expert2, 'predict_random'),
            getattr(expert2, 'predict_prob'),
            getattr(expert1, 'HumanExpert')]
 
+def feed_result_dict_seed(result_dict_seed, result, i):
+    experiment_expert_i = "experiment_expert_" + str(i)
+
+    for key, val in result_dict_seed.items():
+        if key == "coverage":  # coverage
+            total_samples = int(result["test"]["coverage"].split()[-1].split("f")[-1])
+            covered_samples = int(result["test"]["coverage"].split()[0])
+            coverage = covered_samples / total_samples
+            result_dict_seed[key].append(coverage)
+        elif key == experiment_expert_i:
+            for j in range(i):
+                result_dict_seed[key]["expert_"+str(j)]=result["test"]["expert_"+str(j)]
+        else:
+            if "experiment" in key:
+                continue  # already filled
+            else:
+                result_dict_seed[key].append(result["test"][key])
+    return result_dict_seed
+def feed_result_dict(result_dict, result_dict_seed):
+    for key, val in result_dict.items():
+        if "experiment" in key:
+            for expert in result_dict[key].keys():
+                result_dict[key][expert].append(result_dict_seed[key][expert])
+        else:
+            result_dict[key].append(result_dict_seed[key])
+    return result_dict
+
+def fill_result_dict_seed_experts_dict(result_dict_seed, experiment_experts):
+    experiment_expert_i = "experiment_expert_" + str(experiment_experts)
+    result_dict_seed[experiment_expert_i] = {"expert_" + str(i):None for i in range(experiment_experts)}
+    return result_dict_seed
+
+def print_results(result_dict):
+    for key, val in result_dict.items():
+        if "experiment" not in key:
+            print("=== {} Mean and Standard Error===".format(key))
+            print("Mean {}".format(np.mean(np.array(val), axis=0)))
+            print("Standard Error {}".format(stats.sem(np.array(val), axis=0)))
+        else:
+            print("=== {} Experiment ===".format(key.split("_")[-1]))
+            for expert, v in result_dict[key].items():
+                print("{} Mean {}".format(expert, np.mean(np.array(v), axis=0)))
+                print("{} Standard Error {}".format(expert, stats.sem(np.array(v), axis=0)))
+                print("==============")
+
+    return
 
 def main_validate_best_expert(testD, expert_fns, config):
     kwargs = {'num_workers': 1, 'pin_memory': True}
@@ -207,16 +253,27 @@ def validate_surrogate(config):
     config["ckp_dir"] = "./" + config["loss_type"] + \
         "_increase_experts_select_hard_coded"
     experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # experiment_experts = [8, 9]
     # experiment_experts = [2]
+
+    # Result dict === 
+    result_dict = {"system_accuracy": [],
+                   "expert_accuracy": [],
+                   "coverage": []}
+    result_dict = {**result_dict, **{"experiment_expert_"+str(i):{"expert_"+str(j):[] for j in range(i)} for i in experiment_experts}}
 
     accuracy = []
     for seed in ['', 948,  625]:
-    # for seed in ['']:
+        # for seed in ['']:
 
         if seed != '':
             set_seed(seed)
+
+        result_dict_seed = {k: [] for k in result_dict.keys()}
         acc = []
         for i, n in tqdm(enumerate(experiment_experts)):
+
+            result_dict_seed = fill_result_dict_seed_experts_dict(result_dict_seed, n)
             print("n is {}".format(n))
             num_experts = n
 
@@ -228,12 +285,25 @@ def validate_surrogate(config):
             testD = GalaxyZooDataset(split='test')
             result = main_validate_surrogate(
                 model, testD, expert_fns, config, seed=seed)
-            acc.append(result['test']['system_accuracy'])
-        accuracy.append(acc)
 
-    print("===Mean and Standard Error===")
-    print("Mean {}".format(np.mean(np.array(accuracy), axis=0)))
-    print("Standard Error {}".format(stats.sem(np.array(accuracy), axis=0)))
+            result_dict_seed = feed_result_dict_seed(result_dict_seed, result, n)
+            # acc.append(result['test']['system_accuracy'])
+
+        # for key, val in result_dict.items():
+        #         result_dict[key].append(result_dict_seed[key])
+        result_dict = feed_result_dict(result_dict, result_dict_seed)
+        # accuracy.append(acc)
+
+
+
+    print("==={}===".format(config["loss_type"]))
+    print_results(result_dict)
+    with open(config["ckp_dir"] + '/results_' + config["ckp_dir"].split("/")[-1] + '.txt', 'w') as f:
+        json.dump(json.dumps(result_dict, cls=NumpyEncoder), f)
+
+    # print("=== Sys. Acc. Mean and Standard Error===")
+    # print("Mean {}".format(np.mean(np.array(accuracy), axis=0)))
+    # print("Standard Error {}".format(stats.sem(np.array(accuracy), axis=0)))
 
 
 def forward_hemmer(model, dataloader, expert_fns):
@@ -339,18 +409,93 @@ def validate_hemmer(config):
     config["loss_type"] = "hemmer"
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     config["experiment_name"] = "multiple_experts_hardcoded"
-    experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # experiment_experts = [8, 9]
+
+    # Result dict === 
+    result_dict = {"system_accuracy": [],
+                   "expert_accuracy": [],
+                   "coverage": []}
+    result_dict = {**result_dict, **{"experiment_expert_"+str(i):{"expert_"+str(j):[] for j in range(i)} for i in experiment_experts}}
+    
     accuracy = []
     # for seed in ['', 948,  625, 791, 436]:
     for seed in ['', 948,  625]:
-    # for seed in ['']:
+        # for seed in ['']:
 
         if seed != '':
             set_seed(seed)
         expert_fns = []
-        acc = []
+        result_dict_seed = {k: [] for k in result_dict.keys()}
+        # acc = []
         for i, n in tqdm(enumerate(experiment_experts)):
+
+            result_dict_seed = fill_result_dict_seed_experts_dict(result_dict_seed, n)
+
+            print("n is {}".format(n))
+            num_experts = n
+            # getattr(selected_expert, selected_expert_fn)
+            expert_fns = [experts[j] for j in range(n)]
+
+            # === Galaxy-Zoo models ===
+            # print(len(expert_fns))
+            feature_extractor = Resnet()
+            classifier = Network(output_size=int(config["n_classes"]))
+            allocator = Network(output_size=len(expert_fns)+1)
+            model = (feature_extractor, allocator, classifier)
+            testD = GalaxyZooDataset(split='val')
+            result = main_validate_hemmer(
+                model, testD, expert_fns, config, seed=seed)
+
+            result_dict_seed = feed_result_dict_seed(result_dict_seed, result, n)
+            # acc.append(result['test']['system_accuracy'])
+
+        # for key, val in result_dict.items():
+        #         result_dict[key].append(result_dict_seed[key])
+        result_dict = feed_result_dict(result_dict, result_dict_seed)
+        # accuracy.append(acc)
+
+    print("===HEMMER===")
+    print_results(result_dict)
+    with open(config["ckp_dir"] + '/results_' + config["ckp_dir"].split("/")[-1] + '.txt', 'w') as f:
+        json.dump(json.dumps(result_dict, cls=NumpyEncoder), f)
+
+    # print("=== Sys. Acc. Mean and Standard Error===")
+    # print("Mean {}".format(np.mean(np.array(accuracy), axis=0)))
+    # print("Standard Error {}".format(stats.sem(np.array(accuracy), axis=0)))
+
+def validate_hemmer_trained(config):
+    config["loss_type"] = "hemmer"
+    config["ckp_dir"] = "./" + config["loss_type"] + \
+        "_increase_experts_trained"
+    config["experiment_name"] = "multiple_experts_hardcoded"
+    experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # experiment_experts = [8]
+
+    # Result dict === 
+    result_dict = {"system_accuracy": [],
+                   "expert_accuracy": [],
+                   "coverage": []}
+    result_dict = {**result_dict, **{"experiment_expert_"+str(i):{"expert_"+str(j):[] for j in range(i)} for i in experiment_experts}}
+
+
+    accuracy = []
+    # for seed in ['', 948,  625, 791, 436]:
+    for seed in ['', 948,  625]:
+        # for seed in ['']:
+
+        if seed != '':
+            set_seed(seed)
+        expert_fns = []
+        result_dict_seed = {k: [] for k in result_dict.keys()}
+
+        # acc = []
+        for i, n in tqdm(enumerate(experiment_experts)):
+
+            result_dict_seed = fill_result_dict_seed_experts_dict(result_dict_seed, n)
+
             print("n is {}".format(n))
             num_experts = n
             # getattr(selected_expert, selected_expert_fn)
@@ -365,12 +510,24 @@ def validate_hemmer(config):
             testD = GalaxyZooDataset(split='test')
             result = main_validate_hemmer(
                 model, testD, expert_fns, config, seed=seed)
-            acc.append(result['test']['system_accuracy'])
-        accuracy.append(acc)
 
-    print("===Mean and Standard Error===")
-    print("Mean {}".format(np.mean(np.array(accuracy), axis=0)))
-    print("Standard Error {}".format(stats.sem(np.array(accuracy), axis=0)))
+            result_dict_seed = feed_result_dict_seed(result_dict_seed, result, n)
+            # acc.append(result['test']['system_accuracy'])
+
+        # for key, val in result_dict.items():
+        #         result_dict[key].append(result_dict_seed[key])
+        result_dict = feed_result_dict(result_dict, result_dict_seed)
+        # accuracy.append(acc)
+
+    print("===HEMMER TRAINED===")
+    print_results(result_dict)
+    with open(config["ckp_dir"] + '/results_' + config["ckp_dir"].split("/")[-1] + '.txt', 'w') as f:
+        json.dump(json.dumps(result_dict, cls=NumpyEncoder), f)
+
+    # print("=== Sys. Acc. Mean and Standard Error===")
+    # print("Mean {}".format(np.mean(np.array(accuracy), axis=0)))
+    # print("Standard Error {}".format(stats.sem(np.array(accuracy), axis=0)))
+
 
 
 def main_validate_classifier(model, testD, expert_fns, config, seed=''):
@@ -398,7 +555,7 @@ def validate_classifier(config):
     accuracy = []
     # , 948,  625,  436,  791]: #, 1750,  812, 1331, 1617,  650, 1816]:
     for seed in tqdm(['', 948, 625, 436, 791]):
-    # for seed in ['']:
+        # for seed in ['']:
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
@@ -434,20 +591,25 @@ if __name__ == "__main__":
 
     config = parser.parse_args().__dict__
 
-    # config["loss_type"] = "softmax"
+    config["loss_type"] = "softmax"
 
-    # print("validate softmax surrogate loss method...")
-    # validate_surrogate(config)
-
-    config["loss_type"] = "ova"
-
-    print("validate ova surrogate loss method...")
+    print("validate softmax surrogate loss method...")
     validate_surrogate(config)
+
+    # config["loss_type"] = "ova"
+
+    # print("validate ova surrogate loss method...")
+    # validate_surrogate(config)
 
     # config["loss_type"] = "hemmer"
 
     # print("validate Hemmer MoE baseline method...")
     # validate_hemmer(config)
+
+    # config["loss_type"] = "hemmer"
+
+    # print("validate Hemmer TRAINED MoE baseline method...")
+    # validate_hemmer_trained(config)
 
     # print("validate one classifier baseline...")
     # config["loss_type"] = "softmax"
