@@ -342,8 +342,11 @@ def increase_experts(config):
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    experiment_experts = [9]
+    # experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # experiment_experts = [2, 3, 4]  # GPU 1
+    # experiment_experts = [5, 6, 7]  # GPU 2
+    experiment_experts = [8, 9, 10]  # GPU 3
     # , 1750,  812, 1331, 1617,  650, 1816]:
     for seed in ['', 948,  625,  436,  791]:
         print("run for seed {}".format(seed))
