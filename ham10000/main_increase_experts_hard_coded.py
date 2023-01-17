@@ -24,7 +24,7 @@ from models.resnet34 import *
 from models.experts import *
 from losses.losses import *
 
-device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 print(device)
 
@@ -361,18 +361,18 @@ experts = [getattr(expert1, 'predict_random'),
 
 def increase_experts(config):
     config["ckp_dir"] = "./" + config["loss_type"] + \
-        "_increase_experts_select_hard_coded"
+        "_increase_experts_select_hard_coded_test"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    # experiment_experts = [4, 6, 2, 1, 8, 12, 16]
     experiment_experts = [2, 3, 4]  # GPU 1
-    # experiment_experts = [5, 6, 7]  # GPU 2
-    # experiment_experts = [8, 9, 10]  # GPU 3
-    experiment_experts = [10] 
+    experiment_experts = [5, 6, 7]  # GPU 2
+    experiment_experts = [8, 9, 10]  # GPU 3
+    # experiment_experts = [8] 
+
 
     # experiment_experts = [config["n_experts"]]
-    # for seed in ['', 948,  625]:
-    for seed in ['']:
+    for seed in ['', 948,  625]:
+    # for seed in ['']:
 
         print("run for seed {}".format(seed))
         if seed != '':
@@ -417,7 +417,7 @@ if __name__ == "__main__":
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--warmup_epochs", type=int, default=5)
-    parser.add_argument("--loss_type", type=str, default="softmax",
+    parser.add_argument("--loss_type", type=str, default="ova",
                         help="surrogate loss type for learning to defer.")
     parser.add_argument("--ckp_dir", type=str, default="./Models",
                         help="directory name to save the checkpoints.")

@@ -23,7 +23,7 @@ from models.experts import synth_expert_hard_coded
 from losses.losses import *
 
 
-device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
 
@@ -366,18 +366,19 @@ experts = [getattr(expert1, 'predict_random'),
 
 def increase_experts(config):
     config["ckp_dir"] = "./" + config["loss_type"] + \
-        "_increase_experts_trained"
+        "_increase_experts_trained_test"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    # experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    # experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
     experiment_experts = [2, 3, 4]  # GPU 1
-    # experiment_experts = [5, 6, 7]  # GPU 2
-    # experiment_experts = [8, 9, 10]  # GPU 3
-    experiment_experts = [10] 
+    experiment_experts = [5, 6, 7]  # GPU 2
+    experiment_experts = [8, 9, 10]  # GPU 3
+    # experiment_experts = [10] 
+
 
     # , 1750,  812, 1331, 1617,  650, 1816]:
-    for seed in ['', 948,  625]:
+    for seed in [948,  625]:
+    # for seed in ['']:
+
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
@@ -414,7 +415,7 @@ if __name__ == "__main__":
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="scaling parameter for the loss function, default=1.0.")
     parser.add_argument("--epochs", type=int, default=150)
-    parser.add_argument("--patience", type=int, default=50,
+    parser.add_argument("--patience", type=int, default=30,
                         help="number of patience steps for early stopping the training.")
     parser.add_argument("--expert_type", type=str, default="MLPMixer",
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
@@ -427,7 +428,7 @@ if __name__ == "__main__":
     parser.add_argument("--lr", type=float, default=0.001,
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
-    parser.add_argument("--warmup_epochs", type=int, default=20)
+    parser.add_argument("--warmup_epochs", type=int, default=10)
     parser.add_argument("--loss_type", type=str, default="hemmer",
                         help="surrogate loss type for learning to defer.")
 

@@ -12,7 +12,9 @@ from torch.backends import cudnn
 
 # Cifar 10 specific
 from data_utils import ham10000_expert
-from Models.resnet34 import ResNet34_defer
+from models.baseline import ResNet34_oneclf
+from models.resnet34 import ResNet34_defer
+from losses.losses import *
 
 # General
 from utils import AverageMeter, accuracy
@@ -37,7 +39,9 @@ def evaluate(model, data_loader, loss_fn):
     real_total = 0
     alone_correct = 0
 
-    losses = []
+    losses_log = []
+    losses = AverageMeter()
+    top1 = AverageMeter()
     with torch.no_grad():
         for data in data_loader:
             images, labels, hpred = data
@@ -50,25 +54,24 @@ def evaluate(model, data_loader, loss_fn):
 
             # One classifier loss ===
             log_output = torch.log(outputs + 1e-7)
-            loss = loss_fn(log_output, labels[:, 0])
-            losses.append(loss.item())
 
-            for i in range(0, batch_size):
-                prediction = predicted[i]
-                alone_correct += (prediction == labels[i][0]).item()
+            loss = loss_fn(log_output, labels)  # , collection_Ms, n_classes)
+            losses_log.append(loss.item())
 
-                correct += (predicted[i] == labels[i][0]).item()
-                correct_sys += (predicted[i] == labels[i][0]).item()
-                total += 1
-                real_total += 1
+            # measure accuracy and record loss
+            prec1 = accuracy(outputs.data, labels, topk=(1,))[0]
+            losses.update(loss.data.item(), images.size(0))
+            top1.update(prec1.item(), images.size(0))
+
     cov = str(total) + str(" out of") + str(real_total)
 
-    # Add expert accuracies dict
-    to_print = {"coverage": cov, "system_accuracy": 100 * correct_sys / real_total,
-                "classifier_accuracy": 100 * correct / (total + 0.0001),
-                "alone_classifier": 100 * alone_correct / real_total,
-                "validation_loss": np.average(losses)}
-    print(to_print, flush=True)
+    # if i % 10 == 0:
+    print('Loss {loss.val:.4f} ({loss.avg:.4f})\t'
+          'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
+              loss=losses, top1=top1), flush=True)
+    to_print = {'system_accuracy': top1.avg,
+                'validation_loss': np.average(losses_log)}
+
     return to_print
 
 
@@ -104,15 +107,22 @@ def train_epoch(iters,
 
         # compute output
         output = model(input)
-        output = F.softmax(output, dim=1)
+
+        if config["loss_type"] == "softmax":
+            output = F.log_softmax(output, dim=1)
+
+        # get expert  predictions and costs
+        batch_size = output.size()[0]  # batch_size
 
         # One classifier loss ===
-        log_output = torch.log(output + 1e-7)
-        loss = loss_fn(log_output, target[:, 0])
+        # log_output = torch.log(output + 1e-7)
+        log_output = F.log_softmax(output, dim=1)
+        # compute loss
+        loss = loss_fn(output, target)  # , collection_Ms, n_classes)
         epoch_train_loss.append(loss.item())
 
         # measure accuracy and record loss
-        prec1 = accuracy(output.data, target[:, 0], topk=(1,))[0]
+        prec1 = accuracy(output.data, target, topk=(1,))[0]
         losses.update(loss.data.item(), input.size(0))
         top1.update(prec1.item(), input.size(0))
 
@@ -134,8 +144,8 @@ def train_epoch(iters,
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
-                epoch, i, len(train_loader), batch_time=batch_time,
-                loss=losses, top1=top1), flush=True)
+                      epoch, i, len(train_loader), batch_time=batch_time,
+                      loss=losses, top1=top1), flush=True)
 
     return iters, np.average(epoch_train_loss)
 
@@ -156,10 +166,12 @@ def train(model, train_dataset, validation_dataset, config, seed=""):
     model = model.to(device)
     # Optimizer and loss ==
     cudnn.benchmark = True
+    torch.backends.cudnn.benchmark = True
     optimizer = torch.optim.Adam(model.parameters(), config["lr"],
                                  weight_decay=config["weight_decay"])
     loss_fn = nn.NLLLoss()
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, len(train_loader) * config["epochs"])
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, len(train_loader) * config["epochs"])
 
     best_validation_loss = np.inf
     patience = 0
@@ -184,8 +196,8 @@ def train(model, train_dataset, validation_dataset, config, seed=""):
 
         if validation_loss < best_validation_loss:
             best_validation_loss = validation_loss
-            print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
-
+            print("Saving the model with system accuracy {}".format(
+                metrics['system_accuracy']), flush=True)
             save_path = os.path.join(config["ckp_dir"],
                                      config["experiment_name"] + '_' + str(config["n_experts"]) +
                                      '_experts' + '_seed_' + str(seed))
@@ -203,55 +215,57 @@ def train(model, train_dataset, validation_dataset, config, seed=""):
 
 
 def one_classifier(config):
-    config["ckp_dir"] = "./one_classifier_galaxyzoo"
+    config["ckp_dir"] = "./" + config["loss_type"] + "_classifier"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experts = np.arange(1, 11)
-    experts = [4]
+    expert_fns = []
 
-    seeds = [948, 625, 436]
-    seeds = [948]
+    seeds = ['', 948,  625]
+    # seeds = [948, 625]
     for seed in seeds:
-        set_seed(seed)
-        for n in experts:
-            print("One classifier | Seed {} | Experts {}".format(seed, n))
+        print("run for seed {}".format(seed))
+        if seed != '':
+            set_seed(seed)
 
-            config["n_experts"] = n
-            # Model ===
-            model = model = ResNet50_defer(int(config["n_classes"]))
-            # Data ===
-            trainD = GalaxyZooDataset()
-            valD = GalaxyZooDataset(split='val')
-            # Train ===
-            train(model, trainD, valD, config, seed=seed)
+        print("One classifier | Seed {}".format(seed))
+
+        # Model ===
+        # model = model = ResNet34_oneclf(int(config["n_classes"]))
+        model = model = ResNet34_defer(int(config["n_classes"]))
+
+        # Data ===
+        trainD, valD, _ = ham10000_expert.read(data_aug=True)
+        # Train ===
+        train(model, trainD, valD, config, seed=seed)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--batch_size", type=int, default=1024)
+    parser.add_argument("--batch_size", type=int, default=128)
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="scaling parameter for the loss function, default=1.0.")
     parser.add_argument("--epochs", type=int, default=100)
-    parser.add_argument("--patience", type=int, default=20,
+    parser.add_argument("--patience", type=int, default=10,
                         help="number of patience steps for early stopping the training.")
     parser.add_argument("--expert_type", type=str, default="predict_biasedK",
                         help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
-    parser.add_argument("--n_classes", type=int, default=10,
+    parser.add_argument("--n_classes", type=int, default=7,
                         help="K for K class classification.")
-    parser.add_argument("--k", type=int, default=5)
+    parser.add_argument("--k", type=int, default=0)
     # Dani experiments =====
-    parser.add_argument("--n_experts", type=int, default=2)
+    parser.add_argument("--n_experts", type=int, default=0)
     # Dani experiments =====
-    parser.add_argument("--lr", type=float, default=0.1,
+    parser.add_argument("--lr", type=float, default=0.001,
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--warmup_epochs", type=int, default=0)
     parser.add_argument("--loss_type", type=str, default="softmax",
                         help="surrogate loss type for learning to defer.")
+
     parser.add_argument("--ckp_dir", type=str, default="./Models",
                         help="directory name to save the checkpoints.")
-    parser.add_argument("--experiment_name", type=str, default="multiple_experts",
+    parser.add_argument("--experiment_name", type=str, default="classifier",
                         help="specify the experiment name. Checkpoints will be saved with this name.")
 
     config = parser.parse_args().__dict__
