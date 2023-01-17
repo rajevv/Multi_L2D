@@ -8,6 +8,11 @@ import torchvision.datasets as datasets
 from sklearn.model_selection import train_test_split
 import random
 
+
+ham10000_label_dict = {'bkl':0, 'df':1, 'mel':2, 'nv':3, 'vasc':4, 'akiec':5, 'bcc':6}
+mal_dx = ["mel", "bcc", "akiec"]
+ben_dx = ["nv", "bkl", "df", "vasc"]
+
 # regular dataset with images and labels
 class ham10000_defer(Dataset):
 	def __init__(self, img_data, labels, data_aug=False):

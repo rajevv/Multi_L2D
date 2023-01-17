@@ -3,13 +3,11 @@ import torchvision
 import torch.nn as nn
 
 
-class Resnet(torch.nn.Module):
+class ResNet34(torch.nn.Module):
     def __init__(self, train_weights=False):
         super().__init__()
 
-        # self.resnet = torchvision.models.resnet18(pretrained=True)  # CIFAR-10 Hemmer
-        self.resnet = torchvision.models.resnet50(
-            pretrained=True)  # Galaxy-Zoo Ours
+        self.resnet = torchvision.models.resnet34(pretrained=True)
         del self.resnet.fc
 
         for param in self.resnet.parameters():
@@ -33,6 +31,20 @@ class Resnet(torch.nn.Module):
         return features
 
 
+class ResNet34_defer(nn.Module):
+    def __init__(self, out_size):
+        super(ResNet34_defer, self).__init__()
+        self.resnet34 = torchvision.models.resnet34(pretrained=True)
+        num_ftrs = self.resnet34.fc.in_features
+        self.resnet34.fc = nn.Sequential(
+            nn.Linear(num_ftrs, out_size))
+        # self.softmax = nn.Softmax(dim=1)
+
+    def forward(self, x):
+        x = self.resnet34(x)  # out shape: Bs x 512
+        return x
+
+
 class Network(nn.Module):
     def __init__(self, output_size, softmax_sigmoid="softmax"):
         super().__init__()
@@ -42,10 +54,11 @@ class Network(nn.Module):
 
         self.classifier = nn.Sequential(
             nn.Dropout(DROPOUT),
-            nn.Linear(2048, NUM_HIDDEN_UNITS),
-            nn.ReLU(),
-            nn.Linear(NUM_HIDDEN_UNITS, output_size)
+            nn.Linear(512, output_size)
         )
+        #     nn.ReLU(),
+        #     nn.Linear(NUM_HIDDEN_UNITS, output_size)
+        # )
 
     def forward(self, features):
         output = self.classifier(features)

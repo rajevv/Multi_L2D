@@ -210,7 +210,7 @@ if __name__ == "__main__":
 	from data_utils import *
 	import os
 	
-	device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+	device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 	cudnn.benchmark = True
 
 	print(device)
