@@ -610,9 +610,9 @@ def validate_classifier(config):
     accuracy = []
     # , 948,  625,  436,  791]: #, 1750,  812, 1331, 1617,  650, 1816]:
     # for seed in tqdm(['', 948, 625, 436, 791]):
-    # for seed in tqdm(['', 948, 625]):
+    for seed in tqdm(['', 948, 625]):
     # for seed in tqdm([948]):
-    for seed in tqdm(['']):
+    # for seed in tqdm(['']):
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
@@ -653,20 +653,20 @@ if __name__ == "__main__":
     # print("validate softmax surrogate loss method...")
     # validate_surrogate(config)
 
-    # config["loss_type"] = "ova"
+    config["loss_type"] = "ova"
 
-    # print("validate ova surrogate loss method...")
-    # validate_surrogate(config)
+    print("validate ova surrogate loss method...")
+    validate_surrogate(config)
 
     # config["loss_type"] = "hemmer"
 
     # print("validate Hemmer TRAINED MoE baseline method...")
     # validate_hemmer_trained(config)
 
-    print("validate one classifier baseline...")
-    config["loss_type"] = "softmax"
-    config["experiment_name"] = "classifier"
-    validate_classifier(config)
+    # print("validate one classifier baseline...")
+    # config["loss_type"] = "softmax"
+    # config["experiment_name"] = "classifier"
+    # validate_classifier(config)
 
     # print("validate best expert baseline...")
     # validate_best_expert(config)

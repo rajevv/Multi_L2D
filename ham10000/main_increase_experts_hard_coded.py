@@ -330,7 +330,7 @@ expert1 = synth_expert_hard_coded(p_in=0.10, p_out=1/7, k=["nv"], device=device)
 expert2 = synth_expert_hard_coded(p_in=0.25, p_out=1/7, k=mal_dx, device=device)
 # Expert 3: Benign low prob expert
 expert3 = synth_expert_hard_coded(p_in=0.25, p_out=1/7, k=ben_dx, device=device)
-# Expert 4: MLP Mixer
+# Expert 4: Nevus expert
 expert4 = synth_expert_hard_coded(p_in=0.5, p_out=1/7, k=["nv"], device=device)
 # Expert 5: Vascular lession expert
 expert5 = synth_expert_hard_coded(p_in=0.7, p_out=1/7, k=["vasc"], device=device)
@@ -338,7 +338,7 @@ expert5 = synth_expert_hard_coded(p_in=0.7, p_out=1/7, k=["vasc"], device=device
 expert6 = synth_expert_hard_coded(p_in=0.75, p_out=0.33, k=["mel"], device=device)
 # Expert 7: Benign High prob expert
 expert7 = synth_expert_hard_coded(p_in=0.75, p_out=0.25, k=ben_dx, device=device)
-# Expert 8: Malign High prob expert
+# Expert 8: MLP Mixer
 expert8 = synth_expert_hard_coded(p_in=0.75, p_out=0.5, k=mal_dx, device=device)
 # Expert 9: Average dermatologist
 expert9 = synth_expert_hard_coded(p_in=0.8, p_out=0.5, k=ben_dx + mal_dx, device=device)

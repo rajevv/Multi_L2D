@@ -9,7 +9,7 @@ from scipy import stats
 # global quantities
 # seeds = [948,  625,  436 ,'']
 seeds = [948,  625, '']
-seeds = ['']
+# seeds = ['']
 # experiment_experts = [1,2,3,4,5,6,7,8,9,10]
 experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 n_classes = 7
