@@ -30,10 +30,9 @@ class ResNet34(torch.nn.Module):
         features = torch.flatten(x, 1)
         return features
 
-
-class ResNet34_defer(nn.Module):
+class ResNet34_oneclf(nn.Module):
     def __init__(self, out_size):
-        super(ResNet34_defer, self).__init__()
+        super(ResNet34_oneclf, self).__init__()
         self.resnet34 = torchvision.models.resnet34(pretrained=True)
         num_ftrs = self.resnet34.fc.in_features
         self.resnet34.fc = nn.Sequential(

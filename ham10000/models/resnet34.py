@@ -45,5 +45,5 @@ class ResNet34_defer(nn.Module):
         x = self.resnet34.layer4(x)
         x = self.resnet34.avgpool(x)
 
-        features = torch.flatten(x, 1)
+        x = self.classifier(torch.flatten(x,1))
         return x
