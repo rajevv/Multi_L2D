@@ -15,6 +15,7 @@ Galaxy-Zoo/old*/
 Galaxy-Zoo/*.pkl
 *.job
 *.csv
+*.pt
 figs/
 Galaxy-Zoo/images_training_rev1/
 Galaxy-Zoo/results/
