@@ -1,0 +1,1 @@
+{"batch_size": 128, "alpha": 1.0, "epochs": 150, "patience": 30, "expert_type": "MLPMixer", "n_classes": 7, "k": 5, "n_experts": 2, "lr": 0.001, "weight_decay": 0.0005, "warmup_epochs": 10, "loss_type": "hemmer", "ckp_dir": "./hemmer_increase_experts_trained", "experiment_name": "multiple_experts_hardcoded"}
