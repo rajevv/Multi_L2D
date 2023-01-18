@@ -1,0 +1,1 @@
+{"batch_size": 128, "alpha": 1.0, "epochs": 100, "patience": 10, "expert_type": "predict_prob", "n_classes": 2, "k": 0, "n_experts": 2, "lr": 0.001, "weight_decay": 0.0005, "warmup_epochs": 0, "loss_type": "softmax", "ckp_dir": "./softmax_classifier", "experiment_name": "classifier"}
