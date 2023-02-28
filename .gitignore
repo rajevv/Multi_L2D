@@ -1,30 +1,49 @@
+# Generic
 data/
 *.sw*
 nfs*
 .idea/
+__pycache__
+*.job
+*.csv
+figs/
+
+# Results
+*.pt
+figs/
+
+# CIFAR-10
 CIFAR-10/__pycache__
 CIFAR-10/models/__pycache__
 CIFAR-10/losses/__pycache__
-__pycache__
-# Results
-*.pt
+
+# HAM10000
 ham10000/HAM10000/
 ham10000/HAM10000_metadata
 ham10000/Data/
+ham10000/content/
+
+# Galaxy-Zoo
 Galaxy-Zoo/old*/
 Galaxy-Zoo/*.pkl
-*.job
-*.csv
-*.pt
-figs/
 Galaxy-Zoo/images_training_rev1/
-Galaxy-Zoo/results/
 Galaxy-Zoo/training_solutions_rev1.csv
+Galaxy-Zoo/results/
 Galaxy-Zoo/Models
 Galaxy-Zoo/galaxy_data.pkl
+Galaxy-Zoo/hemmer_increase_experts_trained_OLD
+
+# Hatespeech
 Hatespeech/input_full.pkl
 Hatespeech/hatespeech_data.pkl
 
+# Baselines
+baselines/one_classifier_cifar10
+# Others
 .vscode
-
 .ipynb_checkpoints/
+
+# ============= #
+# Model Results
+# ============= #
+
