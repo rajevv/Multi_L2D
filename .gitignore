@@ -34,6 +34,8 @@ Galaxy-Zoo/hemmer_increase_experts_trained_OLD
 # Hatespeech
 Hatespeech/input_full.pkl
 Hatespeech/hatespeech_data.pkl
+Hatespeech/labeled_data.csv
+Hatespeech/increase-experts.job
 
 # Others
 .vscode
