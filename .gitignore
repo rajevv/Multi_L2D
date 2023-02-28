@@ -4,8 +4,6 @@ data/
 nfs*
 .idea/
 __pycache__
-*.job
-*.csv
 figs/
 
 # Results
