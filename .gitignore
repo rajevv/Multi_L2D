@@ -37,8 +37,6 @@ Galaxy-Zoo/hemmer_increase_experts_trained_OLD
 Hatespeech/input_full.pkl
 Hatespeech/hatespeech_data.pkl
 
-# Baselines
-baselines/one_classifier_cifar10
 # Others
 .vscode
 .ipynb_checkpoints/
