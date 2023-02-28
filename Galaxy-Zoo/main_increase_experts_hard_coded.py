@@ -319,7 +319,7 @@ def train(model,
 expert1 = synth_expert(flip_prob=0.75, p_in=0.10)
 expert2 = synth_expert(flip_prob=0.50, p_in=0.50)
 expert3 = synth_expert(flip_prob=0.30, p_in=0.75)
-expert4 = synth_expert(flip_prob=0.20, p_in=0.85)
+expert4 = synthHu_expert(flip_prob=0.20, p_in=0.85)
 available_experts = [expert1, expert2, expert3, expert4]
 available_expert_fns = ['FlipHuman', 'predict_prob', 'predict_random']
 
