@@ -1,7 +1,7 @@
 import json
 import numpy as np
 import torch.nn as nn
-from reliability_diagram import *
+from reliability_diagram import compute_calibration
 # import seaborn as sns
 # from matplotlib import rc
 from scipy import stats

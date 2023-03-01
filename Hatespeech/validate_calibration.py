@@ -1,7 +1,7 @@
 import json
 import numpy as np
 import torch.nn as nn
-from reliability_diagram import *
+from reliability_diagram import compute_calibration
 # import seaborn as sns
 # from matplotlib import rc
 from scipy import stats
@@ -133,8 +133,6 @@ if __name__ == "__main__":
 	#print("All \n {}".format(np.array(ECE_softmax)))
 	print("Mean {}".format(np.mean(np.array(ECE_softmax), axis=0)))
 	print("Standard Error {}".format(stats.sem(np.array(ECE_softmax), axis=0)))
-
-
 
 	# OvA
 	ECE_OvA = OvA()
