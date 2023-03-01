@@ -16,6 +16,7 @@ dependencies:
   - tqdm
   - fasttext
   - pickle5
+  - wandb
   - pip:
     - scikit-image
     - jupyter
