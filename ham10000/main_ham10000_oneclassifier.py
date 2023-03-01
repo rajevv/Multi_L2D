@@ -1,3 +1,9 @@
+
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
+
 import argparse
 import json
 import os
@@ -8,16 +14,14 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.backends import cudnn
-
 # Cifar 10 specific
-from data_utils import ham10000_expert
+from ham10000dataset import ham10000_expert
 from models.baseline import ResNet34_oneclf
 from models.resnet34 import ResNet34_defer
-from losses.losses import *
+from torch.backends import cudnn
 
-# General
-from utils import AverageMeter, accuracy
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)

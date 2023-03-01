@@ -1,11 +1,12 @@
+import argparse
+
 import torch
+from conv_mixer_model import *
+from ham10000dataset import ham10000_expert
+from models.expert_model import MLPMixer
+from sklearn.metrics import classification_report
 from torch import nn
 from torch.nn import functional as F
-from sklearn.metrics import classification_report
-from expert_model import MLPMixer
-from conv_mixer_model import *
-from data_utils import *
-import argparse
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

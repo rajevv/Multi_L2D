@@ -1,28 +1,35 @@
-import math
-import torch
-import torch.nn as nn
-import random
-import numpy as np
-import torch.nn.functional as F
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
+
 import argparse
+import json
+import math
 import os
+import random
 import shutil
 import time
-import torch.nn.parallel
+
+import numpy as np
+import torch
 import torch.backends.cudnn as cudnn
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.nn.parallel
 import torch.optim
 import torch.utils.data
 import torchvision
-import torchvision.transforms as transforms
 import torchvision.datasets as datasets
+import torchvision.transforms as transforms
+from ham10000dataset import ham10000_expert
+from models.expert_model import MLPMixer
+from models.experts import synth_expert
+from models.resnet34 import ResNet34_defer
 from torch.autograd import Variable
-from expert_model import MLPMixer
-import json
-from utils import *
-from data_utils import *
-from models.resnet34 import *
-from models.experts import *
-from losses.losses import *
+
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -328,7 +335,7 @@ def increase_experts(config):
 	for n in experiment_experts:
 		print(n)
 		num_experts = n
-		expert = synth_expert()
+		expert = synth_expert(device=device)
 		expert_fn = getattr(expert, config["expert_type"])
 		expert_fns = [expert_fn] * n
 		model = model = ResNet34_defer(int(config["n_classes"])+num_experts) #WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)

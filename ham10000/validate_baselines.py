@@ -1,6 +1,10 @@
 from __future__ import division
 
-from tqdm import tqdm
+# To include lib
+import sys
+sys.path.insert(0, '../')
+
+
 import argparse
 import json
 import math
@@ -24,16 +28,16 @@ import torch.utils.data
 import torchvision
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
-
-from losses.losses import *
-from models.baseline import ResNet34, ResNet34_oneclf, Network
+from data_utils import *
+from models.baseline import Network, ResNet34, ResNet34_oneclf
 from models.experts import synth_expert_hard_coded
 from models.resnet34 import ResNet34_defer
 from scipy import stats
 from torch.autograd import Variable
-from utils import *
+from tqdm import tqdm
 
-from data_utils import *
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
@@ -648,25 +652,25 @@ if __name__ == "__main__":
 
     config = parser.parse_args().__dict__
 
-    # config["loss_type"] = "softmax"
+    config["loss_type"] = "softmax"
 
-    # print("validate softmax surrogate loss method...")
-    # validate_surrogate(config)
+    print("validate softmax surrogate loss method...")
+    validate_surrogate(config)
 
     config["loss_type"] = "ova"
 
     print("validate ova surrogate loss method...")
     validate_surrogate(config)
 
-    # config["loss_type"] = "hemmer"
+    config["loss_type"] = "hemmer"
 
-    # print("validate Hemmer TRAINED MoE baseline method...")
-    # validate_hemmer_trained(config)
+    print("validate Hemmer TRAINED MoE baseline method...")
+    validate_hemmer_trained(config)
 
-    # print("validate one classifier baseline...")
-    # config["loss_type"] = "softmax"
-    # config["experiment_name"] = "classifier"
-    # validate_classifier(config)
+    print("validate one classifier baseline...")
+    config["loss_type"] = "softmax"
+    config["experiment_name"] = "classifier"
+    validate_classifier(config)
 
-    # print("validate best expert baseline...")
-    # validate_best_expert(config)
+    print("validate best expert baseline...")
+    validate_best_expert(config)

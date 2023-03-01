@@ -1,14 +1,14 @@
+import argparse
+import time
+
+import numpy as np
 import torch
+import torch.backends.cudnn as cudnn
 import torch.nn as nn
 import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
-import numpy as np
-import time
-import argparse
-import torch.backends.cudnn as cudnn
 from validation_expert_model import *
-
 
 parser = argparse.ArgumentParser()
 
@@ -66,8 +66,9 @@ def ConvMixer(dim, depth, kernel_size=5, patch_size=2, n_classes=10):
 
 
 if __name__ == "__main__":
-	from data_utils import *
 	import os
+
+	from data_utils import *
 	
 	device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 	cudnn.benchmark = True

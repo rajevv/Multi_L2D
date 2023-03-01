@@ -1,28 +1,35 @@
-import math
-import torch
-import torch.nn as nn
-import random
-import numpy as np
-import torch.nn.functional as F
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
+
 import argparse
+import json
+import math
 import os
+import random
 import shutil
 import time
-import torch.nn.parallel
+
+import numpy as np
+import torch
 import torch.backends.cudnn as cudnn
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.nn.parallel
 import torch.optim
 import torch.utils.data
 import torchvision
-import torchvision.transforms as transforms
 import torchvision.datasets as datasets
+import torchvision.transforms as transforms
+from ham10000dataset import ham10000_expert
+from models.expert_model import MLPMixer
+from models.experts import synth_expert_hard_coded
+from models.resnet34 import ResNet34_defer
 from torch.autograd import Variable
-from expert_model import MLPMixer
-import json
-from utils import *
-from data_utils import *
-from models.resnet34 import *
-from models.experts import *
-from losses.losses import *
+
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -320,10 +327,10 @@ def train(model,
 
 # === Experiment 1 === #
 # TODO: Experts definition
-# all_available_experts = ['MLPMixer', 'predict', 'predict_prob', 'predict_random']
-# ham10000_label_dict = {'bkl':0, 'df':1, 'mel':2, 'nv':3, 'vasc':4, 'akiec':5, 'bcc':6}
-# mal_dx = ["mel", "bcc", "akiec"]
-# ben_dx = ["nv", "bkl", "df", "vasc"]
+all_available_experts = ['MLPMixer', 'predict', 'predict_prob', 'predict_random']
+ham10000_label_dict = {'bkl':0, 'df':1, 'mel':2, 'nv':3, 'vasc':4, 'akiec':5, 'bcc':6}
+mal_dx = ["mel", "bcc", "akiec"]
+ben_dx = ["nv", "bkl", "df", "vasc"]
 # Expert 1: Random
 expert1 = synth_expert_hard_coded(p_in=0.10, p_out=1/7, k=["nv"], device=device)
 # Expert 2: Malign low prob expert
@@ -361,7 +368,7 @@ experts = [getattr(expert1, 'predict_random'),
 
 def increase_experts(config):
     config["ckp_dir"] = "./" + config["loss_type"] + \
-        "_increase_experts_select_hard_coded_test"
+        "_increase_experts_select_hard_coded"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     experiment_experts = [2, 3, 4]  # GPU 1

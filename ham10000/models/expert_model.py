@@ -1,8 +1,8 @@
 import torch
+import torch.backends.cudnn as cudnn
+import wandb
 from torch import nn
 from torch.nn import functional as F
-import wandb
-import torch.backends.cudnn as cudnn
 
 
 class MLP(nn.Module):
@@ -207,8 +207,9 @@ def train(config, device, model, trainloader, validloader, ckp_path):
 
 
 if __name__ == "__main__":
-	from data_utils import *
 	import os
+
+	from data_utils import *
 	
 	device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 	cudnn.benchmark = True

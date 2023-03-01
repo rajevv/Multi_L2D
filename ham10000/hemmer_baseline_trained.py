@@ -1,27 +1,31 @@
-import math
-import random
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
+
 import argparse
+import copy
+import json
+import math
+import os
+import random
 import shutil
 import time
-import torch.optim
-import torch.utils.data
-from torch.autograd import Variable
-import json
+
 import numpy as np
+import pickle5 as pickle
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import copy
-import os
-
-import pickle5 as pickle
-
-from utils import *
-from data_utils import *
-from models.baseline import ResNet34, Network
+import torch.optim
+import torch.utils.data
+from ham10000dataset import ham10000_expert
+from models.baseline import Network, ResNet34
 from models.experts import synth_expert_hard_coded
-from losses.losses import *
+from torch.autograd import Variable
 
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
