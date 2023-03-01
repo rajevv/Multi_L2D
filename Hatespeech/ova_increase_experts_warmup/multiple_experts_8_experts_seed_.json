@@ -1,0 +1,1 @@
+{"batch_size": 256, "alpha": 1.0, "epochs": 500, "patience": 50, "expert_type": "predict_prob", "n_classes": 3, "k": 0, "lr": 0.01, "weight_decay": 0.0005, "warmup_epochs": 25, "loss_type": "ova", "ckp_dir": "./ova_increase_experts_warmup", "experiment_name": "multiple_experts"}

@@ -1,0 +1,190 @@
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cuDNN"
+   Try: "module spider cuDNN" to see how to load the module(s).
+
+
+
+cuda:0
+cuda:0
+cuda:0
+validate softmax surrogate loss method...
+n is 1
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 4]), expert_predictions (1, 4096)
+Evaluate...
+{'coverage': '4096 out of4096', 'system_accuracy': 80.810546875, 'expert_accuracy': 0.0, 'classifier_accuracy': 80.8105449020863, 'alone_classifier': 80.810546875, 'validation_loss': 2.043725550174713, 'n_experts': 1, 'expert_0': 0.0}
+n is 2
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 5]), expert_predictions (2, 4096)
+Evaluate...
+{'coverage': '4082 out of4096', 'system_accuracy': 80.908203125, 'expert_accuracy': 64.2847959314867, 'classifier_accuracy': 80.96521114734907, 'alone_classifier': 80.9814453125, 'validation_loss': 3.509085312485695, 'n_experts': 2, 'expert_0': 99.98000399920016, 'expert_1': 61.537514807464504}
+n is 3
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 6]), expert_predictions (3, 4096)
+Evaluate...
+{'coverage': '4001 out of4096', 'system_accuracy': tensor(80.4688), 'expert_accuracy': tensor(41.0525), 'classifier_accuracy': 81.40464680318303, 'alone_classifier': 80.8837890625, 'validation_loss': 5.293955087661743, 'n_experts': 3, 'expert_0': 0.0, 'expert_1': 44.44345681207084, 'expert_2': tensor(40.6976)}
+n is 4
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 7]), expert_predictions (4, 4096)
+Evaluate...
+{'coverage': '2093 out of4096', 'system_accuracy': 82.2998046875, 'expert_accuracy': 76.33548913275196, 'classifier_accuracy': 88.00764032452744, 'alone_classifier': 79.7119140625, 'validation_loss': 7.912297606468201, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 99.98000399920016, 'expert_2': 0.0, 'expert_3': 76.3236686989342}
+n is 5
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 8]), expert_predictions (5, 4096)
+Evaluate...
+{'coverage': '3311 out of4096', 'system_accuracy': tensor(82.4951), 'expert_accuracy': tensor(73.6306), 'classifier_accuracy': 84.59679599526439, 'alone_classifier': 79.1259765625, 'validation_loss': 10.437440276145935, 'n_experts': 5, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': tensor(33.3328), 'expert_3': 76.86779400350747, 'expert_4': tensor(52.7026)}
+n is 6
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 9]), expert_predictions (6, 4096)
+Evaluate...
+{'coverage': '2422 out of4096', 'system_accuracy': tensor(82.5684), 'expert_accuracy': tensor(75.2688), 'classifier_accuracy': 87.61353890943273, 'alone_classifier': 80.46875, 'validation_loss': 13.33580219745636, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 75.42425198940893, 'expert_4': 99.98000399920016, 'expert_5': tensor(71.9510)}
+n is 7
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 10]), expert_predictions (7, 4096)
+Evaluate...
+{'coverage': '2110 out of4096', 'system_accuracy': tensor(85.2295), 'expert_accuracy': tensor(81.0675), 'classifier_accuracy': 89.14691520630733, 'alone_classifier': 80.419921875, 'validation_loss': 16.62127959728241, 'n_experts': 7, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 99.98000399920016, 'expert_4': 0.0, 'expert_5': tensor(81.8167), 'expert_6': 81.05368986284805}
+n is 8
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 11]), expert_predictions (8, 4096)
+Evaluate...
+{'coverage': '1269 out of4096', 'system_accuracy': 90.3564453125, 'expert_accuracy': 90.27236715441336, 'classifier_accuracy': 90.54372808954074, 'alone_classifier': 80.1025390625, 'validation_loss': 20.280058979988098, 'n_experts': 8, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 99.98000399920016, 'expert_4': 99.98000399920016, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 90.26548033518723}
+n is 9
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 12]), expert_predictions (9, 4096)
+Evaluate...
+{'coverage': '707 out of4096', 'system_accuracy': 90.5517578125, 'expert_accuracy': 90.3806379238337, 'classifier_accuracy': 91.37198141839018, 'alone_classifier': 80.56640625, 'validation_loss': 23.47686004638672, 'n_experts': 9, 'expert_0': 49.99750012499374, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 99.99500024998748, 'expert_7': 90.41703103123153, 'expert_8': 0.0}
+n is 10
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 13]), expert_predictions (10, 4096)
+Evaluate...
+{'coverage': '1166 out of4096', 'system_accuracy': 90.3076171875, 'expert_accuracy': 90.34129076168664, 'classifier_accuracy': 90.22297682478758, 'alone_classifier': 79.6875, 'validation_loss': 27.470391869544983, 'n_experts': 10, 'expert_0': 99.98000399920016, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 99.9900009999, 'expert_7': 83.33240741769536, 'expert_8': 0.0, 'expert_9': 90.37469299589598}
+===Mean and Standard Error===
+Mean [80.81054688 80.90820312 80.46875    82.29980469 82.49511719 82.56835938
+ 85.22949219 90.35644531 90.55175781 90.30761719]
+Standard Error [nan nan nan nan nan nan nan nan nan nan]
+validate ova surrogate loss method...
+n is 1
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/numpy/core/_methods.py:261: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/numpy/core/_methods.py:250: RuntimeWarning: invalid value encountered in true_divide
+  ret = um.true_divide(
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 4]), expert_predictions (1, 4096)
+Evaluate...
+{'coverage': '4090 out of4096', 'system_accuracy': 80.3955078125, 'expert_accuracy': 16.666111129629012, 'classifier_accuracy': 80.48899558706611, 'alone_classifier': 80.419921875, 'validation_loss': 2.414774924516678, 'n_experts': 1, 'expert_0': 16.666111129629012}
+n is 2
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+/home/rverma/.conda/envs/defer/lib/python3.8/site-packages/torch/nn/functional.py:1944: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
+  warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 5]), expert_predictions (2, 4096)
+Evaluate...
+{'coverage': '4091 out of4096', 'system_accuracy': 81.494140625, 'expert_accuracy': 59.997600095996155, 'classifier_accuracy': 81.52040866486412, 'alone_classifier': 81.4453125, 'validation_loss': 3.3679108023643494, 'n_experts': 2, 'expert_0': 0.0, 'expert_1': 59.997600095996155}
+n is 3
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 6]), expert_predictions (3, 4096)
+Evaluate...
+{'coverage': '4072 out of4096', 'system_accuracy': tensor(81.0791), 'expert_accuracy': tensor(33.3331), 'classifier_accuracy': 81.36050880745312, 'alone_classifier': 81.103515625, 'validation_loss': 4.382767975330353, 'n_experts': 3, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': tensor(33.3331)}
+n is 4
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 7]), expert_predictions (4, 4096)
+Evaluate...
+{'coverage': '2776 out of4096', 'system_accuracy': 84.5458984375, 'expert_accuracy': 76.74241261478598, 'classifier_accuracy': 88.25648097058786, 'alone_classifier': 80.8837890625, 'validation_loss': 5.153737783432007, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 76.74241261478598}
+n is 5
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 8]), expert_predictions (5, 4096)
+Evaluate...
+{'coverage': '2901 out of4096', 'system_accuracy': 84.1796875, 'expert_accuracy': 74.05856501111883, 'classifier_accuracy': 88.34884218032256, 'alone_classifier': 81.3720703125, 'validation_loss': 6.087849736213684, 'n_experts': 5, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 74.05856501111883, 'expert_4': 0.0}
+n is 6
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 9]), expert_predictions (6, 4096)
+Evaluate...
+{'coverage': '2886 out of4096', 'system_accuracy': tensor(84.2773), 'expert_accuracy': tensor(76.4463), 'classifier_accuracy': 87.56063452665853, 'alone_classifier': 80.7861328125, 'validation_loss': 6.89218145608902, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 99.98000399920016, 'expert_2': 0.0, 'expert_3': 76.53147945962391, 'expert_4': 0.0, 'expert_5': tensor(73.9997)}
+n is 7
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 10]), expert_predictions (7, 4096)
+Evaluate...
+{'coverage': '2028 out of4096', 'system_accuracy': 85.3759765625, 'expert_accuracy': 81.18954727373817, 'classifier_accuracy': 89.64496599383797, 'alone_classifier': 80.8349609375, 'validation_loss': 7.570111393928528, 'n_experts': 7, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 99.98000399920016, 'expert_6': 81.18044691045506}
+n is 8
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 11]), expert_predictions (8, 4096)
+Evaluate...
+{'coverage': '658 out of4096', 'system_accuracy': 90.234375, 'expert_accuracy': 90.25595751855977, 'classifier_accuracy': 90.12156685082572, 'alone_classifier': 80.5419921875, 'validation_loss': 8.049695789813995, 'n_experts': 8, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 90.25595751855977}
+n is 9
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 12]), expert_predictions (9, 4096)
+Evaluate...
+{'coverage': '825 out of4096', 'system_accuracy': 90.52734375, 'expert_accuracy': 90.55334206338478, 'classifier_accuracy': 90.42423146372953, 'alone_classifier': 81.005859375, 'validation_loss': 8.951303243637085, 'n_experts': 9, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 90.55334206338478, 'expert_8': 0.0}
+n is 10
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 13]), expert_predictions (10, 4096)
+Evaluate...
+{'coverage': '813 out of4096', 'system_accuracy': 90.3076171875, 'expert_accuracy': 90.28327199005349, 'classifier_accuracy': 90.40589293900456, 'alone_classifier': 81.396484375, 'validation_loss': 9.406904458999634, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 89.80928607755828, 'expert_8': 0.0, 'expert_9': 90.77880488737634}
+===Mean and Standard Error===
+Mean [80.39550781 81.49414062 81.07910156 84.54589844 84.1796875  84.27734375
+ 85.37597656 90.234375   90.52734375 90.30761719]
+Standard Error [nan nan nan nan nan nan nan nan nan nan]
+validate Hemmer MoE baseline method...
+n is 1
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 2]), expert_predictions (1, 4096)
+Evaluate...
+{'coverage': '4096 out of4096', 'system_accuracy': 81.640625, 'expert_accuracy': 0.0, 'classifier_accuracy': 81.64062300682072, 'alone_classifier': 81.640625, 'validation_loss': 0.5349788814783096, 'n_experts': 1, 'expert_0': 0.0}
+n is 2
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 3]), expert_predictions (2, 4096)
+Evaluate...
+{'coverage': '4096 out of4096', 'system_accuracy': 81.298828125, 'expert_accuracy': 0.0, 'classifier_accuracy': 81.29882614016537, 'alone_classifier': 81.298828125, 'validation_loss': 0.5405568704009056, 'n_experts': 2, 'expert_0': 0.0, 'expert_1': 0.0}
+n is 3
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 4]), expert_predictions (3, 4096)
+Evaluate...
+{'coverage': '4096 out of4096', 'system_accuracy': 81.005859375, 'expert_accuracy': 0.0, 'classifier_accuracy': 81.00585739731793, 'alone_classifier': 81.005859375, 'validation_loss': 0.5260678939521313, 'n_experts': 3, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0}
+n is 4
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 5]), expert_predictions (4, 4096)
+Evaluate...
+{'coverage': '4030 out of4096', 'system_accuracy': 80.56640625, 'expert_accuracy': 74.24219926606283, 'classifier_accuracy': 80.6699731843679, 'alone_classifier': 80.46875, 'validation_loss': 0.4324695523828268, 'n_experts': 4, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 74.24219926606283}
+n is 5
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 6]), expert_predictions (5, 4096)
+Evaluate...
+{'coverage': '3425 out of4096', 'system_accuracy': 82.8125, 'expert_accuracy': 74.36659482366773, 'classifier_accuracy': 84.46715081847735, 'alone_classifier': 79.8583984375, 'validation_loss': 0.422152541577816, 'n_experts': 5, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 74.36659482366773, 'expert_4': 0.0}
+n is 6
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 7]), expert_predictions (6, 4096)
+Evaluate...
+{'coverage': '4050 out of4096', 'system_accuracy': 80.5419921875, 'expert_accuracy': 71.73881852687597, 'classifier_accuracy': 80.64197331748214, 'alone_classifier': 80.4931640625, 'validation_loss': 0.38973037153482437, 'n_experts': 6, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 71.73881852687597, 'expert_4': 0.0, 'expert_5': 0.0}
+n is 7
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 8]), expert_predictions (7, 4096)
+Evaluate...
+{'coverage': '2861 out of4096', 'system_accuracy': 86.1328125, 'expert_accuracy': 80.89067515940484, 'classifier_accuracy': 88.39566276142388, 'alone_classifier': 80.4443359375, 'validation_loss': 0.35567421466112137, 'n_experts': 7, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 80.89067515940484}
+n is 8
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 9]), expert_predictions (8, 4096)
+Evaluate...
+{'coverage': '3 out of4096', 'system_accuracy': 90.283203125, 'expert_accuracy': 90.2760767028548, 'classifier_accuracy': 99.99666677777407, 'alone_classifier': 79.98046875, 'validation_loss': 0.28541812114417553, 'n_experts': 8, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 90.2760767028548}
+n is 9
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 10]), expert_predictions (9, 4096)
+Evaluate...
+{'coverage': '0 out of4096', 'system_accuracy': 90.283203125, 'expert_accuracy': 90.28319871664068, 'classifier_accuracy': 0.0, 'alone_classifier': 79.931640625, 'validation_loss': 0.28784180618822575, 'n_experts': 9, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 90.28319871664068, 'expert_8': 0.0}
+n is 10
+dict_keys(['X', 'Y', 'c', 'hpred', 'hloss', 'hprob'])
+<class 'collections.OrderedDict'> <class 'collections.OrderedDict'>
+shapes: true labels torch.Size([4096]), confidences torch.Size([4096, 11]), expert_predictions (10, 4096)
+Evaluate...
+{'coverage': '1183 out of4096', 'system_accuracy': 90.283203125, 'expert_accuracy': 90.11327908594033, 'classifier_accuracy': 90.70159841913792, 'alone_classifier': 80.029296875, 'validation_loss': 0.2869768552482128, 'n_experts': 10, 'expert_0': 0.0, 'expert_1': 0.0, 'expert_2': 0.0, 'expert_3': 0.0, 'expert_4': 0.0, 'expert_5': 0.0, 'expert_6': 0.0, 'expert_7': 87.80466389106367, 'expert_8': 0.0, 'expert_9': 90.18014198656715}
+===Mean and Standard Error===
+Mean [81.640625   81.29882812 81.00585938 80.56640625 82.8125     80.54199219
+ 86.1328125  90.28320312 90.28320312 90.28320312]
+Standard Error [nan nan nan nan nan nan nan nan nan nan]
