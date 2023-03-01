@@ -1,6 +1,5 @@
 from __future__ import division
 
-from tqdm import tqdm
 import argparse
 import json
 import math
@@ -24,15 +23,14 @@ import torch.utils.data
 import torchvision
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
-from losses.losses import *
-from models.baseline import *
-from models.experts import *
-from models.resnet50 import *
+from data_utils import GalaxyZooDataset
+from losses.losses import Criterion
+from models.baseline import Resnet
+from models.experts import synth_expert
+from models.resnet50 import ResNet50_defer
 from scipy import stats
 from torch.autograd import Variable
-from utils import *
-
-from data_utils import *
+from tqdm import tqdm
 
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
@@ -65,24 +63,29 @@ experts = [getattr(expert2, 'predict_random'),
            getattr(expert2, 'predict_prob'),
            getattr(expert1, 'HumanExpert')]
 
+
 def feed_result_dict_seed(result_dict_seed, result, i):
     experiment_expert_i = "experiment_expert_" + str(i)
 
     for key, val in result_dict_seed.items():
         if key == "coverage":  # coverage
-            total_samples = int(result["test"]["coverage"].split()[-1].split("f")[-1])
+            total_samples = int(
+                result["test"]["coverage"].split()[-1].split("f")[-1])
             covered_samples = int(result["test"]["coverage"].split()[0])
             coverage = covered_samples / total_samples
             result_dict_seed[key].append(coverage)
         elif key == experiment_expert_i:
             for j in range(i):
-                result_dict_seed[key]["expert_"+str(j)]=result["test"]["expert_"+str(j)]
+                result_dict_seed[key]["expert_" +
+                                      str(j)] = result["test"]["expert_"+str(j)]
         else:
             if "experiment" in key:
                 continue  # already filled
             else:
                 result_dict_seed[key].append(result["test"][key])
     return result_dict_seed
+
+
 def feed_result_dict(result_dict, result_dict_seed):
     for key, val in result_dict.items():
         if "experiment" in key:
@@ -92,10 +95,13 @@ def feed_result_dict(result_dict, result_dict_seed):
             result_dict[key].append(result_dict_seed[key])
     return result_dict
 
+
 def fill_result_dict_seed_experts_dict(result_dict_seed, experiment_experts):
     experiment_expert_i = "experiment_expert_" + str(experiment_experts)
-    result_dict_seed[experiment_expert_i] = {"expert_" + str(i):None for i in range(experiment_experts)}
+    result_dict_seed[experiment_expert_i] = {
+        "expert_" + str(i): None for i in range(experiment_experts)}
     return result_dict_seed
+
 
 def print_results(result_dict):
     for key, val in result_dict.items():
@@ -107,10 +113,12 @@ def print_results(result_dict):
             print("=== {} Experiment ===".format(key.split("_")[-1]))
             for expert, v in result_dict[key].items():
                 print("{} Mean {}".format(expert, np.mean(np.array(v), axis=0)))
-                print("{} Standard Error {}".format(expert, stats.sem(np.array(v), axis=0)))
+                print("{} Standard Error {}".format(
+                    expert, stats.sem(np.array(v), axis=0)))
                 print("==============")
 
     return
+
 
 def main_validate_best_expert(testD, expert_fns, config):
     kwargs = {'num_workers': 1, 'pin_memory': True}
@@ -256,11 +264,12 @@ def validate_surrogate(config):
     # experiment_experts = [8, 9]
     # experiment_experts = [2]
 
-    # Result dict === 
+    # Result dict ===
     result_dict = {"system_accuracy": [],
                    "expert_accuracy": [],
                    "coverage": []}
-    result_dict = {**result_dict, **{"experiment_expert_"+str(i):{"expert_"+str(j):[] for j in range(i)} for i in experiment_experts}}
+    result_dict = {**result_dict, **{"experiment_expert_" +
+                                     str(i): {"expert_"+str(j): [] for j in range(i)} for i in experiment_experts}}
 
     accuracy = []
     for seed in ['', 948,  625]:
@@ -273,7 +282,8 @@ def validate_surrogate(config):
         acc = []
         for i, n in tqdm(enumerate(experiment_experts)):
 
-            result_dict_seed = fill_result_dict_seed_experts_dict(result_dict_seed, n)
+            result_dict_seed = fill_result_dict_seed_experts_dict(
+                result_dict_seed, n)
             print("n is {}".format(n))
             num_experts = n
 
@@ -286,15 +296,14 @@ def validate_surrogate(config):
             result = main_validate_surrogate(
                 model, testD, expert_fns, config, seed=seed)
 
-            result_dict_seed = feed_result_dict_seed(result_dict_seed, result, n)
+            result_dict_seed = feed_result_dict_seed(
+                result_dict_seed, result, n)
             # acc.append(result['test']['system_accuracy'])
 
         # for key, val in result_dict.items():
         #         result_dict[key].append(result_dict_seed[key])
         result_dict = feed_result_dict(result_dict, result_dict_seed)
         # accuracy.append(acc)
-
-
 
     print("==={}===".format(config["loss_type"]))
     print_results(result_dict)
@@ -413,12 +422,13 @@ def validate_hemmer(config):
     experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
     # experiment_experts = [8, 9]
 
-    # Result dict === 
+    # Result dict ===
     result_dict = {"system_accuracy": [],
                    "expert_accuracy": [],
                    "coverage": []}
-    result_dict = {**result_dict, **{"experiment_expert_"+str(i):{"expert_"+str(j):[] for j in range(i)} for i in experiment_experts}}
-    
+    result_dict = {**result_dict, **{"experiment_expert_" +
+                                     str(i): {"expert_"+str(j): [] for j in range(i)} for i in experiment_experts}}
+
     accuracy = []
     # for seed in ['', 948,  625, 791, 436]:
     for seed in ['', 948,  625]:
@@ -431,7 +441,8 @@ def validate_hemmer(config):
         # acc = []
         for i, n in tqdm(enumerate(experiment_experts)):
 
-            result_dict_seed = fill_result_dict_seed_experts_dict(result_dict_seed, n)
+            result_dict_seed = fill_result_dict_seed_experts_dict(
+                result_dict_seed, n)
 
             print("n is {}".format(n))
             num_experts = n
@@ -448,7 +459,8 @@ def validate_hemmer(config):
             result = main_validate_hemmer(
                 model, testD, expert_fns, config, seed=seed)
 
-            result_dict_seed = feed_result_dict_seed(result_dict_seed, result, n)
+            result_dict_seed = feed_result_dict_seed(
+                result_dict_seed, result, n)
             # acc.append(result['test']['system_accuracy'])
 
         # for key, val in result_dict.items():
@@ -465,6 +477,7 @@ def validate_hemmer(config):
     # print("Mean {}".format(np.mean(np.array(accuracy), axis=0)))
     # print("Standard Error {}".format(stats.sem(np.array(accuracy), axis=0)))
 
+
 def validate_hemmer_trained(config):
     config["loss_type"] = "hemmer"
     config["ckp_dir"] = "./" + config["loss_type"] + \
@@ -474,12 +487,12 @@ def validate_hemmer_trained(config):
     experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
     # experiment_experts = [8]
 
-    # Result dict === 
+    # Result dict ===
     result_dict = {"system_accuracy": [],
                    "expert_accuracy": [],
                    "coverage": []}
-    result_dict = {**result_dict, **{"experiment_expert_"+str(i):{"expert_"+str(j):[] for j in range(i)} for i in experiment_experts}}
-
+    result_dict = {**result_dict, **{"experiment_expert_" +
+                                     str(i): {"expert_"+str(j): [] for j in range(i)} for i in experiment_experts}}
 
     accuracy = []
     # for seed in ['', 948,  625, 791, 436]:
@@ -494,7 +507,8 @@ def validate_hemmer_trained(config):
         # acc = []
         for i, n in tqdm(enumerate(experiment_experts)):
 
-            result_dict_seed = fill_result_dict_seed_experts_dict(result_dict_seed, n)
+            result_dict_seed = fill_result_dict_seed_experts_dict(
+                result_dict_seed, n)
 
             print("n is {}".format(n))
             num_experts = n
@@ -511,7 +525,8 @@ def validate_hemmer_trained(config):
             result = main_validate_hemmer(
                 model, testD, expert_fns, config, seed=seed)
 
-            result_dict_seed = feed_result_dict_seed(result_dict_seed, result, n)
+            result_dict_seed = feed_result_dict_seed(
+                result_dict_seed, result, n)
             # acc.append(result['test']['system_accuracy'])
 
         # for key, val in result_dict.items():
@@ -527,7 +542,6 @@ def validate_hemmer_trained(config):
     # print("=== Sys. Acc. Mean and Standard Error===")
     # print("Mean {}".format(np.mean(np.array(accuracy), axis=0)))
     # print("Standard Error {}".format(stats.sem(np.array(accuracy), axis=0)))
-
 
 
 def main_validate_classifier(model, testD, expert_fns, config, seed=''):
@@ -596,25 +610,25 @@ if __name__ == "__main__":
     print("validate softmax surrogate loss method...")
     validate_surrogate(config)
 
-    # config["loss_type"] = "ova"
+    config["loss_type"] = "ova"
 
-    # print("validate ova surrogate loss method...")
-    # validate_surrogate(config)
+    print("validate ova surrogate loss method...")
+    validate_surrogate(config)
 
-    # config["loss_type"] = "hemmer"
+    config["loss_type"] = "hemmer"
 
-    # print("validate Hemmer MoE baseline method...")
-    # validate_hemmer(config)
+    print("validate Hemmer MoE baseline method...")
+    validate_hemmer(config)
 
-    # config["loss_type"] = "hemmer"
+    config["loss_type"] = "hemmer"
 
-    # print("validate Hemmer TRAINED MoE baseline method...")
-    # validate_hemmer_trained(config)
+    print("validate Hemmer TRAINED MoE baseline method...")
+    validate_hemmer_trained(config)
 
-    # print("validate one classifier baseline...")
-    # config["loss_type"] = "softmax"
-    # config["experiment_name"] = "classifier"
-    # validate_classifier(config)
+    print("validate one classifier baseline...")
+    config["loss_type"] = "softmax"
+    config["experiment_name"] = "classifier"
+    validate_classifier(config)
 
-    # print("validate best expert baseline...")
-    # validate_best_expert(config)
+    print("validate best expert baseline...")
+    validate_best_expert(config)
