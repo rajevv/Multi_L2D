@@ -1,3 +1,17 @@
+
+
+## Obtain data
+1. Download `labeled_data.csv` from original repository:
+```
+wget https://raw.githubusercontent.com/t-davidson/hate-speech-and-offensive-language/master/data/labeled_data.csv
+```
+
+2. Process the data with `process_text_data.py`:
+```
+python3 process_text_data.py
+```
+
+3. 
 ## Code structure
 
 <!--  - `train.ipynb` Trains our method and the baselines and generates all the figures illustrated in the paper.
