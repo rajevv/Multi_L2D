@@ -1,25 +1,31 @@
-import math
-import random
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
+
 import argparse
+import copy
+import json
+import math
+import os
+import random
 import shutil
 import time
-import torch.optim
-import torch.utils.data
-from torch.autograd import Variable
-import json
+
 import numpy as np
+import pickle5 as pickle
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import copy
-import os
-import pickle5 as pickle
+import torch.optim
+import torch.utils.data
+from galaxyzoodataset import GalaxyZooDataset
+from models.experts import synth_expert
+from models.resnet50 import ResNet50_defer
+from torch.autograd import Variable
 
-from utils import *
-from data_utils import *
-from models.resnet50 import *
-from models.experts import *
-from losses.losses import *
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)

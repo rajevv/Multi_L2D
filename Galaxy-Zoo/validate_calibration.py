@@ -2,7 +2,7 @@ import json
 
 import numpy as np
 import torch.nn as nn
-from reliability_diagram import compute_calibration
+from lib.reliability_diagram import compute_calibration
 from scipy import stats
 
 # global quantities
@@ -192,11 +192,11 @@ if __name__ == "__main__":
     print("Standard Error {}".format(stats.sem(np.array(ECE_OvA), axis=0)))
 
     # Hemmer
-    ECE_hemmer = Hemmer()
-    print("===Mean and Standard Error ECEs Hemmer===")
-    #print("All \n {}".format(np.array(ECE_hemmer)))
-    print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
-    print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))
+    # ECE_hemmer = Hemmer()
+    # print("===Mean and Standard Error ECEs Hemmer===")
+    # #print("All \n {}".format(np.array(ECE_hemmer)))
+    # print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
+    # print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))
 
     # Hemmer Trained
     ECE_hemmer = Hemmer_trained()

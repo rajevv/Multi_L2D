@@ -1,4 +1,8 @@
 from __future__ import division
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
 
 import argparse
 import json
@@ -23,14 +27,16 @@ import torch.utils.data
 import torchvision
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
-from data_utils import GalaxyZooDataset
-from losses.losses import Criterion
+from galaxyzoodataset import GalaxyZooDataset
 from models.baseline import Resnet
 from models.experts import synth_expert
 from models.resnet50 import ResNet50_defer
 from scipy import stats
 from torch.autograd import Variable
 from tqdm import tqdm
+
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
