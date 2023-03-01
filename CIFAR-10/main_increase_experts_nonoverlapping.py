@@ -10,7 +10,7 @@ import shutil
 import time
 from utils import *
 import json
-from data_utils import *
+from cifar10dataset import *
 from models.wideresnet import *
 from models.resnet50 import *
 from models.experts import *

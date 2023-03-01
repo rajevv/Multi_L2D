@@ -9,7 +9,7 @@ import random
 import torch
 from scipy import stats
 
-from data_utils import cifar
+from cifar10dataset import cifar
 from losses.losses import *
 from main_increase_confidence import evaluate
 from models.experts import synth_expert

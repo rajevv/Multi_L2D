@@ -9,7 +9,7 @@ from scipy import stats
 import torch
 import random
 
-from data_utils import cifar
+from cifar10dataset import cifar
 from losses.losses import *
 from main_increase_experts_nonoverlapping import evaluate
 from models.experts import synth_expert

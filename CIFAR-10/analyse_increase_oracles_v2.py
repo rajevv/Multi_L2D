@@ -9,7 +9,7 @@ import os
 import random
 from collections import defaultdict
 
-from data_utils import cifar
+from cifar10dataset import cifar
 from losses.losses import *
 from main_gradual_overlap import evaluate
 from models.experts import synth_expert
