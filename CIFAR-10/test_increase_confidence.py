@@ -1,14 +1,6 @@
 import json
 
 import numpy as np
-import torch
-import matplotlib.pyplot as plt
-from reliability_diagram import compute_calibration
-
-
-import json
-
-import numpy as np
 from scipy import stats
 import torch
 #import matplotlib.pyplot as plt

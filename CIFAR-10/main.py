@@ -1,22 +1,29 @@
-import torch
-import torch.nn as nn
-import numpy as np
-import math
-import random
-import torch.nn.functional as F
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
+
 import argparse
+import json
+import math
 import os
+import random
 import shutil
 import time
-from utils import *
-import json
-from cifar10dataset import *
-from models.wideresnet import *
-from models.experts import *
-from losses.losses import *
+
+import numpy as np
+import torch
+import torch.backends.cudnn as cudnn
+import torch.nn as nn
+import torch.nn.functional as F
+from cifar10dataset import cifar
+from models.experts import synth_expert
+from models.wideresnet import WideResNet
+
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
 
 def set_seed(seed):
     random.seed(seed)
@@ -320,7 +327,7 @@ def increase_experts(config):
 
 # === Experiment 2 === #
 def increase_confidence(config):
-    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_confidence"
+    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_confidence_test"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
@@ -373,5 +380,5 @@ if __name__ == "__main__":
     config = parser.parse_args().__dict__
 
     print(config)
-    increase_experts(config)
-    #increase_confidence(config)
+    # increase_experts(config)
+    increase_confidence(config)

@@ -1,19 +1,27 @@
-import torch
-import torch.nn as nn
-import numpy as np
-import math
-import random
-import torch.nn.functional as F
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
+
 import argparse
+import json
+import math
 import os
+import random
 import shutil
 import time
-from utils import *
-import json
-from cifar10dataset import *
-from models.wideresnet import *
-from models.experts import *
-from losses.losses import *
+
+import numpy as np
+import torch
+import torch.backends.cudnn as cudnn
+import torch.nn as nn
+import torch.nn.functional as F
+from cifar10dataset import cifar
+from models.experts import synth_expert
+from models.wideresnet import WideResNet
+
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

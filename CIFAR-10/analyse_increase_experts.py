@@ -1,21 +1,20 @@
-# Analyze the confidences on test data
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
 
 import argparse
 import json
 import os
 from collections import defaultdict
-import numpy as np
-from scipy import stats
-import torch
-import random
 
 from cifar10dataset import cifar
-from losses.losses import *
-from main_increase_experts import evaluate
+from main_gradual_overlap import evaluate
 from models.experts import synth_expert
-from models.experts import synth_expert2
 from models.wideresnet import WideResNet
 
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
