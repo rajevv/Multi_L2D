@@ -215,7 +215,7 @@ if __name__ == "__main__":
 
 	print(device)
 
-	ckp_path = './Models/'
+	ckp_path = './MLP_Mixer_model/'
 	os.makedirs(ckp_path, exist_ok=True)
 
 	train_data, val_data, _ = ham10000_expert.read(data_aug=True)

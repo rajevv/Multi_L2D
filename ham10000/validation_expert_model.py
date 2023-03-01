@@ -36,7 +36,7 @@ args = parser.parse_args()
 
 def evaluation_MLPMixer(testloader):
 	model = MLPMixer(image_size=224, patch_size=16, in_channels=3, num_features=128, expansion_factor=2, num_layers=8, num_classes=7)
-	model.load_state_dict(torch.load('./Models/m_expert'))
+	model.load_state_dict(torch.load('./MLP_Mixer_model/m_expert'))
 	model.eval()
 	model.to(device)
 

@@ -17,7 +17,7 @@ class synth_expert_hard_coded:
 		self.S = self.k # list : set of classes where the oracle predicts
 
 		self.expert = MLPMixer(image_size=224, patch_size=16, in_channels=3, num_features=128, expansion_factor=2, num_layers=8, num_classes=7).to(device)
-		self.expert.load_state_dict(torch.load('./Models/m_expert', map_location=device))
+		self.expert.load_state_dict(torch.load('./MLP_Mixer_model/m_expert', map_location=device))
 		self.expert.eval()
 		self.n_classes = 7
 
@@ -104,7 +104,7 @@ class synth_expert:
 	
 	def __init__(self):
 		self.expert = MLPMixer(image_size=224, patch_size=16, in_channels=3, num_features=128, expansion_factor=2, num_layers=8, num_classes=7).to(device)
-		self.expert.load_state_dict(torch.load('./Models/m_expert', map_location=device))
+		self.expert.load_state_dict(torch.load('./MLP_Mixer_model/m_expert', map_location=device))
 		self.expert.eval()
 		self.n_classes = 7
 
