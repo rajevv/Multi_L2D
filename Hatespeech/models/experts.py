@@ -17,7 +17,7 @@ class synth_expert:
 	n_classes: number of classes (10+1 for CIFAR-10)
 	'''
 	def __init__(self, flip_prob=0.30, p_in=0.75):
-		self.n_classes = 2
+		self.n_classes = 3
 		self.flip_prob = flip_prob
 		self.p_in = p_in
 
@@ -41,6 +41,13 @@ class synth_expert:
 				outs[i] = ((1 - hpred[i]) > 0)*1
 			else:
 				outs[i] = hpred[i].item()
+		return outs
+
+	def IncorrectExpert(self, X, labels, hpred):
+		batch_size = labels.size()[0]
+		outs = [0] * batch_size
+		for i in range(0, batch_size):
+			outs[i] = ((1 - labels[i]) > 0) * 1
 		return outs
 
 
