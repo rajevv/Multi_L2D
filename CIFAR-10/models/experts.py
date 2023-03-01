@@ -1,12 +1,12 @@
 
 # Experts for CIFAR-10
 from __future__ import division
+
+import random
+
 import numpy as np
 import torch
 import torch.nn as nn
-import random
-
-
 
 class_names = ['Airplane', 'Automobile', 'Bird', 'Cat', 'Deer', 'Dog', 'Frog', 'Horse', 'Ship', 'Truck']
 num_classes = len(class_names)
@@ -221,52 +221,52 @@ class synth_expert:
 		return outs
 
 
-# CIFAR10
-class CIFAR10Expert:
+# CIFAR10 Design Expert === Not used
+# class CIFAR10Expert:
 
-    def __init__(self, expert_classes, p_in=0.7):
-        self.p_in = p_in
-        self.expert_classes = expert_classes
-        self.expert_classes_idx = [class2idx[cls] for cls in self.expert_classes]
-        self.n_classes = num_classes
+#     def __init__(self, expert_classes, p_in=0.7):
+#         self.p_in = p_in
+#         self.expert_classes = expert_classes
+#         self.expert_classes_idx = [class2idx[cls] for cls in self.expert_classes]
+#         self.n_classes = num_classes
 
-    def predict(self, input, labels):
-        batch_size = labels.size()[0]  # batch_size
-        outs = [0] * batch_size
-        for i in range(0, batch_size):
-            if labels[i][0].item() in self.expert_classes_idx:
-                coin_flip = np.random.binomial(1, self.p_in)
-                if coin_flip == 1:
-                    outs[i] = labels[i][0].item()
-                if coin_flip == 0:
-                    outs[i] = random.randint(0, self.n_classes - 1)
-            else:
-                prediction_rand = random.randint(0, self.n_classes - 1)
-                outs[i] = prediction_rand
-        return outs
+#     def predict(self, input, labels):
+#         batch_size = labels.size()[0]  # batch_size
+#         outs = [0] * batch_size
+#         for i in range(0, batch_size):
+#             if labels[i][0].item() in self.expert_classes_idx:
+#                 coin_flip = np.random.binomial(1, self.p_in)
+#                 if coin_flip == 1:
+#                     outs[i] = labels[i][0].item()
+#                 if coin_flip == 0:
+#                     outs[i] = random.randint(0, self.n_classes - 1)
+#             else:
+#                 prediction_rand = random.randint(0, self.n_classes - 1)
+#                 outs[i] = prediction_rand
+#         return outs
 
-    def predict_prob(self, input, labels, p1=0.75, p2=0.20):
-        batch_size = labels.size()[0]
-        outs = [0] * batch_size
-        for i in range(0, batch_size):
-            if labels[i][0].item() <= self.k:
-                coin_flip = np.random.binomial(1, p1)
-                if coin_flip == 1:
-                    outs[i] = labels[i][0].item()
-                if coin_flip == 0:
-                    outs[i] = random.randint(0, self.n_classes - 1)
-            else:
-                coin_flip = np.random.binomial(1, p2)
-                if coin_flip == 1:
-                    outs[i] = labels[i][0].item()
-                if coin_flip == 0:
-                    outs[i] = random.randint(0, self.n_classes - 1)
-        return outs
+#     def predict_prob(self, input, labels, p1=0.75, p2=0.20):
+#         batch_size = labels.size()[0]
+#         outs = [0] * batch_size
+#         for i in range(0, batch_size):
+#             if labels[i][0].item() <= self.k:
+#                 coin_flip = np.random.binomial(1, p1)
+#                 if coin_flip == 1:
+#                     outs[i] = labels[i][0].item()
+#                 if coin_flip == 0:
+#                     outs[i] = random.randint(0, self.n_classes - 1)
+#             else:
+#                 coin_flip = np.random.binomial(1, p2)
+#                 if coin_flip == 1:
+#                     outs[i] = labels[i][0].item()
+#                 if coin_flip == 0:
+#                     outs[i] = random.randint(0, self.n_classes - 1)
+#         return outs
 
-    def predict_random(self, input, labels):
-        batch_size = labels.size()[0]  # batch_size
-        outs = [0] * batch_size
-        for i in range(0, batch_size):
-            prediction_rand = random.randint(0, self.n_classes - 1)
-            outs[i] = prediction_rand
-        return outs
+#     def predict_random(self, input, labels):
+#         batch_size = labels.size()[0]  # batch_size
+#         outs = [0] * batch_size
+#         for i in range(0, batch_size):
+#             prediction_rand = random.randint(0, self.n_classes - 1)
+#             outs[i] = prediction_rand
+#         return outs
