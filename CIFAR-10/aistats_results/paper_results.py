@@ -10,6 +10,7 @@ from brokenaxes import brokenaxes
 from conformal.utils import load_dict_txt
 from plots.utils_plots import set_aistats2023_style
 
+conformal_results = "../conformal_results/"
 paper_results_path = "paper/"
 if not os.path.exists(paper_results_path):
     os.makedirs(paper_results_path)
@@ -28,7 +29,7 @@ def experiment1():
     def increase_experts_accuracy(f, ax):
         # exp_list = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
         exp_list = [2, 4, 6, 8, 10, 14, 18]
-        exp_path = "increase_experts/naive/"
+        exp_path = conformal_results + "increase_experts/naive/"
         ova_accuracies = load_dict_txt(exp_path + "increase_experts_system_accuracy_ova.txt")
         softmax_accuracies = load_dict_txt(exp_path + "increase_experts_system_accuracy_softmax.txt")
 
@@ -97,7 +98,7 @@ def experiment1():
     def increase_experts_accuracy_70(f, ax):
         # exp_list = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
         exp_list = [4, 8, 12, 16, 20]
-        exp_path = "increase_experts_prob/naive/"
+        exp_path = conformal_results + "increase_experts_prob/naive/"
         ova_accuracies = load_dict_txt(exp_path + "increase_experts_prob_system_accuracy_ova.txt")
         softmax_accuracies = load_dict_txt(exp_path + "increase_experts_prob_system_accuracy_softmax.txt")
 
@@ -276,14 +277,14 @@ def experiment2():
     # Naive ===
     def plot_avg_set_size(f, ax):
         # Naive ===
-        exp_path_naive = "gradual_overlap/naive/"
+        exp_path_naive = conformal_results + "gradual_overlap/naive/"
         ova_setsize_naive = load_dict_txt(exp_path_naive + "gradual_overlap_avg_set_size_ova.txt")
         ova_setsize_naive = np.array(ova_setsize_naive["voting"])[:, :-1]
         softmax_setsize_naive = load_dict_txt(exp_path_naive + "gradual_overlap_avg_set_size_softmax.txt")
         softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])[:, :-1]
 
         # Regularized ===
-        exp_path_reg = "gradual_overlap/regularized/"
+        exp_path_reg = conformal_results + "gradual_overlap/regularized/"
         ova_setsize_reg = load_dict_txt(exp_path_reg + "gradual_overlap_avg_set_size_ova.txt")
         ova_setsize_reg = np.array(ova_setsize_reg["voting"])[:, :-1]
         softmax_setsize_reg = load_dict_txt(exp_path_reg + "gradual_overlap_avg_set_size_softmax.txt")
@@ -336,7 +337,7 @@ def experiment2():
 
     def plot_sys_acc_naive(f, ax):
         # Naive ===
-        exp_path = "gradual_overlap/naive/"
+        exp_path = conformal_results + "gradual_overlap/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_ova.txt")
         ova_sys_acc_voting = (np.array(ova_sys_acc["voting"]) * 100)[:, :-1]
         ova_sys_acc_ensem = (np.array(ova_sys_acc["ensemble"]) * 100)[:, :-1]
@@ -346,7 +347,7 @@ def experiment2():
         softmax_sys_acc_ensem = (np.array(softmax_sys_acc["ensemble"]) * 100)[:, :-1]
 
         # # Regularized ===
-        # exp_path_reg = "increase_oracle_v2/regularized/"
+        # exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
         # ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
         # ova_setsize_reg = np.array(ova_setsize_reg["voting"])
         # softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
@@ -411,7 +412,7 @@ def experiment2():
 
     def plot_sys_acc_reg(f, ax):
         # Naive ===
-        exp_path = "gradual_overlap/regularized/"
+        exp_path = conformal_results + "gradual_overlap/regularized/"
         ova_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_ova.txt")
         ova_sys_acc_voting = (np.array(ova_sys_acc["voting"]) * 100)[:, :-1]
         ova_sys_acc_ensem = (np.array(ova_sys_acc["ensemble"]) * 100)[:, :-1]
@@ -496,14 +497,14 @@ def experiment3():
     # Naive ===
     def plot_avg_set_size(f, ax):
         # Naive ===
-        exp_path_naive = "increase_oracle/naive/"
+        exp_path_naive = conformal_results + "increase_oracle/naive/"
         ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_avg_set_size_ova.txt")
         ova_setsize_naive = np.array(ova_setsize_naive["voting"])[:, 1:]
         softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_avg_set_size_softmax.txt")
         softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])[:, 1:]
 
         # Regularized ===
-        exp_path_reg = "increase_oracle/regularized/"
+        exp_path_reg = conformal_results + "increase_oracle/regularized/"
         ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_avg_set_size_ova.txt")
         ova_setsize_reg = np.array(ova_setsize_reg["voting"])[:, 1:]
         softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_avg_set_size_softmax.txt")
@@ -555,7 +556,7 @@ def experiment3():
 
     def plot_sys_acc_naive(f, ax):
         # Naive ===
-        exp_path = "increase_oracle/naive/"
+        exp_path = conformal_results + "increase_oracle/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:] * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"])[:, 1:] * 100
@@ -609,7 +610,7 @@ def experiment3():
 
     def plot_sys_acc_reg(f, ax):
         # Naive ===
-        exp_path = "increase_oracle/regularized/"
+        exp_path = conformal_results + "increase_oracle/regularized/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:] * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"])[:, 1:] * 100
@@ -619,7 +620,7 @@ def experiment3():
         softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"])[:, 1:] * 100
 
         # # Regularized ===
-        # exp_path_reg = "increase_oracle_v2/regularized/"
+        # exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
         # ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
         # ova_setsize_reg = np.array(ova_setsize_reg["voting"])
         # softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
@@ -669,7 +670,7 @@ def experiment3():
 
     def plot_sys_acc_standard_vs_conformal_naive(f, ax):
         # Naive ===
-        exp_path = "increase_oracle/naive/"
+        exp_path = conformal_results + "increase_oracle/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:] * 100
         ova_sys_acc_standard = np.array(ova_sys_acc["standard"])[:, 1:] * 100
@@ -679,7 +680,7 @@ def experiment3():
         softmax_sys_acc_standard = np.array(softmax_sys_acc["standard"])[:, 1:] * 100
 
         # # Regularized ===
-        # exp_path_reg = "increase_oracle_v2/regularized/"
+        # exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
         # ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
         # ova_setsize_reg = np.array(ova_setsize_reg["voting"])
         # softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
@@ -743,7 +744,7 @@ def experiment3():
         softmax_sys_acc_standard = np.array(softmax_sys_acc["standard"])[:, 1:] * 100
 
         # # Regularized ===
-        # exp_path_reg = "increase_oracle_v2/regularized/"
+        # exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
         # ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
         # ova_setsize_reg = np.array(ova_setsize_reg["voting"])
         # softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
@@ -841,14 +842,14 @@ def experiment4():
     # Naive ===
     def plot_avg_set_size(f, ax):
         # Naive ===
-        exp_path_naive = "increase_oracle_v2/naive/"
+        exp_path_naive = conformal_results + "increase_oracle_v2/naive/"
         ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_v2_avg_set_size_ova.txt")
         ova_setsize_naive = np.array(ova_setsize_naive["voting"])
         softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_v2_avg_set_size_softmax.txt")
         softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
 
         # Regularized ===
-        exp_path_reg = "increase_oracle_v2/regularized/"
+        exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
         ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
         ova_setsize_reg = np.array(ova_setsize_reg["voting"])
         softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
@@ -900,7 +901,7 @@ def experiment4():
 
     def plot_sys_acc_naive(f, ax):
         # Naive ===
-        exp_path = "increase_oracle_v2/naive/"
+        exp_path = conformal_results + "increase_oracle_v2/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
@@ -954,7 +955,7 @@ def experiment4():
 
     def plot_sys_acc_reg(f, ax):
         # Naive ===
-        exp_path = "increase_oracle_v2/regularized/"
+        exp_path = conformal_results + "increase_oracle_v2/regularized/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
@@ -1047,14 +1048,14 @@ def ham10000():
     # Naive ===
     def plot_avg_set_size(f, ax):
         # Naive ===
-        exp_path_naive = "increase_experts_ham10000/naive/"
+        exp_path_naive = conformal_results + "increase_experts_ham10000/naive/"
         ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_experts_select_avg_set_size_ova.txt")
         ova_setsize_naive = np.array(ova_setsize_naive["voting"])
         softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_experts_select_avg_set_size_softmax.txt")
         softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
 
         # Regularized ===
-        exp_path_reg = "increase_experts_ham10000/regularized/"
+        exp_path_reg = conformal_results + "increase_experts_ham10000/regularized/"
         ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_experts_select_avg_set_size_ova.txt")
         ova_setsize_reg = np.array(ova_setsize_reg["voting"])
         softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_experts_select_avg_set_size_softmax.txt")
@@ -1106,7 +1107,7 @@ def ham10000():
 
     def plot_sys_acc_naive(f, ax):
         # Naive ===
-        exp_path = "increase_experts_ham10000/naive/"
+        exp_path = conformal_results + "increase_experts_ham10000/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
@@ -1160,7 +1161,7 @@ def ham10000():
 
     def plot_sys_acc_reg(f, ax):
         # Naive ===
-        exp_path = "increase_experts_ham10000/regularized/"
+        exp_path = conformal_results + "increase_experts_ham10000/regularized/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
@@ -1226,7 +1227,7 @@ def ham10000():
 
     def get_sys_acc_standard():
         # Naive ===
-        exp_path = "increase_experts_ham10000/naive/"
+        exp_path = conformal_results + "increase_experts_ham10000/naive/"
         ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
         ova_sys_acc = np.array(ova_sys_acc["standard"]) * 100
 
