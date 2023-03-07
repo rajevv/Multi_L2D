@@ -1,9 +1,10 @@
 import os
 import sys
 
-sys.path.append("../")  # append for conformal function
-from conformal import conformal, utils
-from conformal.conformal_plots import plot_metric, compare_metric
+sys.path.append("../..")  # append for conformal function
+from lib.conformal import conformal, utils
+from lib.conformal.conformal_plots import plot_metric, compare_metric
+
 from collections import Counter
 import numpy as np
 import matplotlib.pyplot as plt
