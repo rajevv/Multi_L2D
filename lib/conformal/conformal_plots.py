@@ -1,9 +1,14 @@
+# To include lib
+import sys
+
+sys.path.insert(0, '../..')
+
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from matplotlib import rc
-from conformal import utils
-from plots import utils_plots
+from lib.conformal import utils
+from lib import utils_plots
 
 # Y TITLES FOR PLOTS
 Y_TITLES = {"system_accuracy": r"System Accuracy ($\%$)",

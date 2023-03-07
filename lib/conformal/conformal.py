@@ -1,10 +1,16 @@
+
+# To include lib
+import sys
+
+sys.path.insert(0, '../..')
 import json
 
 import numpy as np
 import torch
 import torch.nn as nn
 from tqdm import tqdm
-from conformal.utils import save_dict_as_txt
+
+from lib.conformal.utils import save_dict_as_txt
 
 # Global variables ===
 METRIC_METHODS = ["standard",  # standard L2D
@@ -592,3 +598,8 @@ def get_kparam(paramtune_probs, paramtune_gt_labels, alpha):
     # confidence of the correct experts
     correct_experts_confs = flat[non_zero_indices]
     return torch.quantile(torch.sort(correct_experts_confs, descending=True)[0], 1 - alpha, interpolation='higher')
+
+
+if __name__ == "__main__":
+    print()
+
