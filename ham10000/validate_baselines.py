@@ -1,9 +1,9 @@
-from __future__ import division
-
 # To include lib
 import sys
+
 sys.path.insert(0, '../')
 
+from __future__ import division
 
 import argparse
 import json
@@ -318,7 +318,7 @@ def validate_surrogate(config):
 
     accuracy = []
     for seed in ['', 948,  625]:
-    # for seed in ['']:
+        # for seed in ['']:
 
         if seed != '':
             set_seed(seed)
@@ -415,15 +415,7 @@ def main_validate_hemmer(model, testD, expert_fns, config, seed=''):
                               config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts' + '_seed_' + str(seed))
     load_dict = torch.load(model_path + '.pt', map_location=device)
     feature_extractor, allocator, classifier = model[0], model[1], model[2]
-
-    # print(type(load_dict['allocator_state_dict']),
-    #       type(load_dict['classifier_state_dict']()))
     allocator.load_state_dict(load_dict['allocator_state_dict'])
-    # import copy  # Careful with this. Actually I saved the method instead of the state_dict() for classifier
-    # classifier.load_state_dict(copy.deepcopy(
-    #     load_dict['classifier_state_dict']()))
-    # feature_extractor.load_state_dict(copy.deepcopy(
-    #     load_dict['feature_extractor_state_dict']()))
 
     classifier.load_state_dict(load_dict['classifier_state_dict'])
     feature_extractor.load_state_dict(
@@ -615,8 +607,8 @@ def validate_classifier(config):
     # , 948,  625,  436,  791]: #, 1750,  812, 1331, 1617,  650, 1816]:
     # for seed in tqdm(['', 948, 625, 436, 791]):
     for seed in tqdm(['', 948, 625]):
-    # for seed in tqdm([948]):
-    # for seed in tqdm(['']):
+        # for seed in tqdm([948]):
+        # for seed in tqdm(['']):
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)

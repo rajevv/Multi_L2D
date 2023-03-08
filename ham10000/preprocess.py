@@ -1,27 +1,29 @@
-# %%
-import matplotlib.pyplot as plt
-import os
-from PIL import Image
-from torchvision import transforms
-import torch
-from sklearn.model_selection import train_test_split
 import csv
+import os
+
+import matplotlib.pyplot as plt
 import numpy as np
-from tqdm import tqdm 
+import torch
+from PIL import Image
+from sklearn.model_selection import train_test_split
+from torchvision import transforms
+from tqdm import tqdm
 
 preprocess = transforms.Compose([
-	transforms.Resize(256),
-	transforms.CenterCrop(224),
-	transforms.ToTensor(),
-	transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                         std=[0.229, 0.224, 0.225]),
 ])
 
 
 ham10000_path = './HAM10000/'
-images_path = ham10000_path + "HAM10000_images/" 
+images_path = ham10000_path + "HAM10000_images/"
 
 with open(ham10000_path + 'HAM10000_metadata.csv', 'r') as f:
-	metadata = [{k:v for k,v in row.items()} for row in csv.DictReader(f, skipinitialspace=True)]
+    metadata = [{k: v for k, v in row.items()}
+                for row in csv.DictReader(f, skipinitialspace=True)]
 
 new_data = []
 
@@ -34,32 +36,33 @@ diagnosis_type = []
 age = []
 gender = []
 
-label_dict = {'bkl':0, 'df':1, 'mel':2, 'nv':3, 'vasc':4, 'akiec':5, 'bcc':6}
-diagnosis_type_dict = {'histo': 0, 'follow_up': 1, 'consensus': 2, 'confocal': 3}
+label_dict = {'bkl': 0, 'df': 1, 'mel': 2,
+              'nv': 3, 'vasc': 4, 'akiec': 5, 'bcc': 6}
+diagnosis_type_dict = {'histo': 0,
+                       'follow_up': 1, 'consensus': 2, 'confocal': 3}
 gender_dict = {'male': 0, 'female': 1, 'unknown': 2}
 
 for image in tqdm(metadata):
-	if image['image_id'] + '.jpg' not in all_images:
-		continue
-	if image['age'] == '':
-		continue
-	img_data = Image.open(images_path + image['image_id']+'.jpg')
-	image_data.append(preprocess(img_data).unsqueeze(0))
-	labels.append(label_dict[image['dx']])
-	diagnosis_type.append(diagnosis_type_dict[image['dx_type']])
-	age.append(float(image['age']))
-	gender.append(gender_dict[image['sex']])
+    if image['image_id'] + '.jpg' not in all_images:
+        continue
+    if image['age'] == '':
+        continue
+    img_data = Image.open(images_path + image['image_id']+'.jpg')
+    image_data.append(preprocess(img_data).unsqueeze(0))
+    labels.append(label_dict[image['dx']])
+    diagnosis_type.append(diagnosis_type_dict[image['dx_type']])
+    age.append(float(image['age']))
+    gender.append(gender_dict[image['sex']])
 
 
 image_d = torch.cat(image_data, dim=0)
 
 train_idx, test_idx = train_test_split(
-										np.arange(image_d.shape[0]),
-										test_size = 0.15,
-										shuffle = True,
-										stratify = np.array(labels)
-										)
-			
+    np.arange(image_d.shape[0]),
+    test_size=0.15,
+    shuffle=True,
+    stratify=np.array(labels)
+)
 
 
 train_data = image_d[train_idx]
@@ -77,11 +80,11 @@ test_gender = np.array(gender)[test_idx]
 
 
 train_idx_, val_idx = train_test_split(
-										np.arange(train_data.shape[0]),
-										test_size = 0.25,
-										shuffle = True,
-										stratify = train_labels
-										)
+    np.arange(train_data.shape[0]),
+    test_size=0.25,
+    shuffle=True,
+    stratify=train_labels
+)
 
 
 train_data_ = train_data[train_idx_]
@@ -97,28 +100,28 @@ val_age = train_age[val_idx]
 val_gender = train_gender[val_idx]
 
 
-train = {'data': train_data_, 
-		'labels': train_labels_, 
-		'diagnosis_type': train_diagnosis_type_,
-		'age': train_age_,
-		'gender': train_gender_
-		}
+train = {'data': train_data_,
+         'labels': train_labels_,
+         'diagnosis_type': train_diagnosis_type_,
+         'age': train_age_,
+         'gender': train_gender_
+         }
 
-val = {'data': val_data, 
-		'labels': val_labels, 
-		'diagnosis_type': val_diagnosis_type,
-		'age': val_age,
-		'gender': val_gender
-		}       
+val = {'data': val_data,
+       'labels': val_labels,
+       'diagnosis_type': val_diagnosis_type,
+       'age': val_age,
+       'gender': val_gender
+       }
 
-test = {'data': test_data, 
-		'labels': torch.from_numpy(test_labels), 
-		'diagnosis_type': torch.from_numpy(test_diagnosis_type),
-		'age': torch.from_numpy(test_age),
-		'gender': torch.from_numpy(test_gender)
-		}
+test = {'data': test_data,
+        'labels': torch.from_numpy(test_labels),
+        'diagnosis_type': torch.from_numpy(test_diagnosis_type),
+        'age': torch.from_numpy(test_age),
+        'gender': torch.from_numpy(test_gender)
+        }
 
-import os
+
 os.makedirs('./Data', exist_ok=True)
 
 torch.save(train, './Data/train_data.pt')

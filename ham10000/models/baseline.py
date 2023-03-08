@@ -1,6 +1,6 @@
 import torch
-import torchvision
 import torch.nn as nn
+import torchvision
 
 
 class ResNet34(torch.nn.Module):

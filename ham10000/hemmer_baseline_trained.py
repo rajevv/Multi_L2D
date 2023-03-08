@@ -31,7 +31,6 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
 
-
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -204,7 +203,6 @@ def train_epoch(iters,
         input = input.to(device)
         Z = Z.float().to(device)
 
-
         # compute output
         # allocation w_j j in {1, ..., num_experts + 1} (from the paper)
         batch_features = feature_extractor(input)
@@ -327,6 +325,7 @@ def train(model,
             print("Early Exiting Training.", flush=True)
             break
 
+
 # === Experiment 1 === #
 # TODO: Experts definition
 # all_available_experts = ['MLPMixer', 'predict', 'predict_prob', 'predict_random']
@@ -334,26 +333,34 @@ def train(model,
 # mal_dx = ["mel", "bcc", "akiec"]
 # ben_dx = ["nv", "bkl", "df", "vasc"]
 # Expert 1: Random
-expert1 = synth_expert_hard_coded(p_in=0.10, p_out=1/7, k=["nv"], device=device)
+expert1 = synth_expert_hard_coded(
+    p_in=0.10, p_out=1/7, k=["nv"], device=device)
 # Expert 2: Malign low prob expert
-expert2 = synth_expert_hard_coded(p_in=0.25, p_out=1/7, k=mal_dx, device=device)
+expert2 = synth_expert_hard_coded(
+    p_in=0.25, p_out=1/7, k=mal_dx, device=device)
 # Expert 3: Benign low prob expert
-expert3 = synth_expert_hard_coded(p_in=0.25, p_out=1/7, k=ben_dx, device=device)
+expert3 = synth_expert_hard_coded(
+    p_in=0.25, p_out=1/7, k=ben_dx, device=device)
 # Expert 4: MLP Mixer
 expert4 = synth_expert_hard_coded(p_in=0.5, p_out=1/7, k=["nv"], device=device)
 # Expert 5: Vascular lession expert
-expert5 = synth_expert_hard_coded(p_in=0.7, p_out=1/7, k=["vasc"], device=device)
+expert5 = synth_expert_hard_coded(
+    p_in=0.7, p_out=1/7, k=["vasc"], device=device)
 # Expert 6: Melanoma Expert
-expert6 = synth_expert_hard_coded(p_in=0.75, p_out=0.33, k=["mel"], device=device)
+expert6 = synth_expert_hard_coded(
+    p_in=0.75, p_out=0.33, k=["mel"], device=device)
 # Expert 7: Benign High prob expert
-expert7 = synth_expert_hard_coded(p_in=0.75, p_out=0.25, k=ben_dx, device=device)
+expert7 = synth_expert_hard_coded(
+    p_in=0.75, p_out=0.25, k=ben_dx, device=device)
 # Expert 8: Malign High prob expert
-expert8 = synth_expert_hard_coded(p_in=0.75, p_out=0.5, k=mal_dx, device=device)
+expert8 = synth_expert_hard_coded(
+    p_in=0.75, p_out=0.5, k=mal_dx, device=device)
 # Expert 9: Average dermatologist
-expert9 = synth_expert_hard_coded(p_in=0.8, p_out=0.5, k=ben_dx + mal_dx, device=device)
+expert9 = synth_expert_hard_coded(
+    p_in=0.8, p_out=0.5, k=ben_dx + mal_dx, device=device)
 # Expert 10: Experienced dermatologist
-expert10 = synth_expert_hard_coded(p_in=0.8, p_out=0.6, k=ben_dx + mal_dx, device=device)
-
+expert10 = synth_expert_hard_coded(
+    p_in=0.8, p_out=0.6, k=ben_dx + mal_dx, device=device)
 
 
 experts = [getattr(expert1, 'predict_random'),
@@ -373,15 +380,9 @@ def increase_experts(config):
         "_increase_experts_trained_test"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experiment_experts = [2, 3, 4]  # GPU 1
-    experiment_experts = [5, 6, 7]  # GPU 2
-    experiment_experts = [8, 9, 10]  # GPU 3
-    # experiment_experts = [10] 
+    experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-
-    # , 1750,  812, 1331, 1617,  650, 1816]:
     for seed in [948,  625]:
-    # for seed in ['']:
 
         print("run for seed {}".format(seed))
         if seed != '':
@@ -393,15 +394,12 @@ def increase_experts(config):
 
             expert_fns = [experts[j] for j in range(n)]
 
-            # === HAM10000 models ===
+            # === HAM10000 models === #
             # print(len(expert_fns))
             feature_extractor = ResNet34(train_weights=True)
 
             classifier = Network(output_size=int(config["n_classes"]))
             allocator = Network(output_size=len(expert_fns)+1)
-
-            # classifier = baseline_classifier(embedding_dim=100, vocab_size=100, n_filters=300, filter_sizes=[3,4,5], dropout=0.5, output_dim=int(config["n_classes"]))
-            # allocator = baseline_allocator(embedding_dim=100, vocab_size=100, n_filters=300, filter_sizes=[3,4,5], dropout=0.5, output_dim=len(expert_fns)+1)
             model = (feature_extractor, allocator, classifier)
             trainD, valD, _ = ham10000_expert.read(data_aug=True)
 

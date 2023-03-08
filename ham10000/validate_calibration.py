@@ -2,13 +2,13 @@
 import sys
 
 sys.path.insert(0, '../')
-
 import json
 
 import numpy as np
 import torch.nn as nn
-from lib.reliability_diagram import compute_calibration
 from scipy import stats
+
+from lib.reliability_diagram import compute_calibration
 
 # global quantities
 # seeds = [948,  625,  436 ,'']
@@ -62,6 +62,7 @@ def Hemmer():
         ECE.append(ece)
 
     return ECE
+
 
 def Hemmer_trained():
     path = './' + 'hemmer_increase_experts_trained/'
@@ -182,12 +183,12 @@ def OvA():
 
 if __name__ == "__main__":
 
-    # # Softmax
-    # ECE_softmax = Softmax()
-    # print("===Mean and Standard Error ECEs Softmax===")
-    # #print("All \n {}".format(np.array(ECE_softmax)))
-    # print("Mean {}".format(np.mean(np.array(ECE_softmax), axis=0)))
-    # print("Standard Error {}".format(stats.sem(np.array(ECE_softmax), axis=0)))
+    # Softmax
+    ECE_softmax = Softmax()
+    print("===Mean and Standard Error ECEs Softmax===")
+    #print("All \n {}".format(np.array(ECE_softmax)))
+    print("Mean {}".format(np.mean(np.array(ECE_softmax), axis=0)))
+    print("Standard Error {}".format(stats.sem(np.array(ECE_softmax), axis=0)))
 
     # OvA
     ECE_OvA = OvA()
@@ -196,16 +197,16 @@ if __name__ == "__main__":
     print("Mean {}".format(np.mean(np.array(ECE_OvA), axis=0)))
     print("Standard Error {}".format(stats.sem(np.array(ECE_OvA), axis=0)))
 
-    # # Hemmer
-    # ECE_hemmer = Hemmer()
-    # print("===Mean and Standard Error ECEs Hemmer===")
-    # #print("All \n {}".format(np.array(ECE_hemmer)))
-    # print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
-    # print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))
+    # Hemmer
+    ECE_hemmer = Hemmer()
+    print("===Mean and Standard Error ECEs Hemmer===")
+    #print("All \n {}".format(np.array(ECE_hemmer)))
+    print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
+    print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))
 
-    # # Hemmer Trained
-    # ECE_hemmer = Hemmer_trained()
-    # print("===Mean and Standard Error ECEs Hemmer TRAINED===")
-    # #print("All \n {}".format(np.array(ECE_hemmer)))
-    # print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
-    # print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))
+    # Hemmer Trained
+    ECE_hemmer = Hemmer_trained()
+    print("===Mean and Standard Error ECEs Hemmer TRAINED===")
+    #print("All \n {}".format(np.array(ECE_hemmer)))
+    print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
+    print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))

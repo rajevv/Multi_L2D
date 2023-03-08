@@ -14,7 +14,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-# Cifar 10 specific
 from ham10000dataset import ham10000_expert
 from models.baseline import ResNet34_oneclf
 from models.resnet34 import ResNet34_defer

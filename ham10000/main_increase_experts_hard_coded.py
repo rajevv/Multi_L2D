@@ -3,33 +3,31 @@ import sys
 
 sys.path.insert(0, '../')
 
-import argparse
-import json
-import math
-import os
-import random
-import shutil
-import time
-
-import numpy as np
-import torch
-import torch.backends.cudnn as cudnn
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.nn.parallel
-import torch.optim
-import torch.utils.data
-import torchvision
-import torchvision.datasets as datasets
-import torchvision.transforms as transforms
-from ham10000dataset import ham10000_expert
-from models.expert_model import MLPMixer
-from models.experts import synth_expert_hard_coded
-from models.resnet34 import ResNet34_defer
-from torch.autograd import Variable
-
-from lib.losses import Criterion
 from lib.utils import AverageMeter, accuracy
+from lib.losses import Criterion
+from torch.autograd import Variable
+from models.resnet34 import ResNet34_defer
+from models.experts import synth_expert_hard_coded
+from models.expert_model import MLPMixer
+from ham10000dataset import ham10000_expert
+import torchvision.transforms as transforms
+import torchvision.datasets as datasets
+import torchvision
+import torch.utils.data
+import torch.optim
+import torch.nn.parallel
+import torch.nn.functional as F
+import torch.nn as nn
+import torch.backends.cudnn as cudnn
+import torch
+import numpy as np
+import time
+import shutil
+import random
+import os
+import math
+import json
+import argparse
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -129,9 +127,8 @@ def evaluate(model,
                     correct += (predicted[i] == labels[i]).item()
                     correct_sys += (predicted[i] == labels[i]).item()
                 if r == 1:
-                    # deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
-                    # reverse order, as in loss function
-                    deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
+                    deferred_exp = (
+                        predicted[i] - (n_classes - len(expert_fns))).item()
                     exp_prediction = expert_predictions[deferred_exp][i]
                     #
                     # Deferral accuracy: No matter expert ===
@@ -154,9 +151,9 @@ def evaluate(model,
                 "expert_accuracy": 100 * exp / (exp_total + 0.0002),
                 "classifier_accuracy": 100 * correct / (total + 0.0001),
                 "alone_classifier": 100 * alone_correct / real_total,
-                            "validation_loss": np.average(losses),
-                            "n_experts": len(expert_fns),
-                            **expert_accuracies}
+                "validation_loss": np.average(losses),
+                "n_experts": len(expert_fns),
+                **expert_accuracies}
     print(to_print, flush=True)
     return to_print
 
@@ -250,8 +247,8 @@ def train_epoch(iters,
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
-                          epoch, i, len(train_loader), batch_time=batch_time,
-                          loss=losses, top1=top1), flush=True)
+                      epoch, i, len(train_loader), batch_time=batch_time,
+                      loss=losses, top1=top1), flush=True)
 
     return iters, np.average(epoch_train_loss)
 
@@ -327,31 +324,41 @@ def train(model,
 
 # === Experiment 1 === #
 # TODO: Experts definition
-all_available_experts = ['MLPMixer', 'predict', 'predict_prob', 'predict_random']
-ham10000_label_dict = {'bkl':0, 'df':1, 'mel':2, 'nv':3, 'vasc':4, 'akiec':5, 'bcc':6}
+all_available_experts = ['MLPMixer', 'predict',
+                         'predict_prob', 'predict_random']
+ham10000_label_dict = {'bkl': 0, 'df': 1, 'mel': 2,
+                       'nv': 3, 'vasc': 4, 'akiec': 5, 'bcc': 6}
 mal_dx = ["mel", "bcc", "akiec"]
 ben_dx = ["nv", "bkl", "df", "vasc"]
 # Expert 1: Random
-expert1 = synth_expert_hard_coded(p_in=0.10, p_out=1/7, k=["nv"], device=device)
+expert1 = synth_expert_hard_coded(
+    p_in=0.10, p_out=1/7, k=["nv"], device=device)
 # Expert 2: Malign low prob expert
-expert2 = synth_expert_hard_coded(p_in=0.25, p_out=1/7, k=mal_dx, device=device)
+expert2 = synth_expert_hard_coded(
+    p_in=0.25, p_out=1/7, k=mal_dx, device=device)
 # Expert 3: Benign low prob expert
-expert3 = synth_expert_hard_coded(p_in=0.25, p_out=1/7, k=ben_dx, device=device)
+expert3 = synth_expert_hard_coded(
+    p_in=0.25, p_out=1/7, k=ben_dx, device=device)
 # Expert 4: Nevus expert
 expert4 = synth_expert_hard_coded(p_in=0.5, p_out=1/7, k=["nv"], device=device)
 # Expert 5: Vascular lession expert
-expert5 = synth_expert_hard_coded(p_in=0.7, p_out=1/7, k=["vasc"], device=device)
+expert5 = synth_expert_hard_coded(
+    p_in=0.7, p_out=1/7, k=["vasc"], device=device)
 # Expert 6: Melanoma Expert
-expert6 = synth_expert_hard_coded(p_in=0.75, p_out=0.33, k=["mel"], device=device)
+expert6 = synth_expert_hard_coded(
+    p_in=0.75, p_out=0.33, k=["mel"], device=device)
 # Expert 7: Benign High prob expert
-expert7 = synth_expert_hard_coded(p_in=0.75, p_out=0.25, k=ben_dx, device=device)
+expert7 = synth_expert_hard_coded(
+    p_in=0.75, p_out=0.25, k=ben_dx, device=device)
 # Expert 8: MLP Mixer
-expert8 = synth_expert_hard_coded(p_in=0.75, p_out=0.5, k=mal_dx, device=device)
+expert8 = synth_expert_hard_coded(
+    p_in=0.75, p_out=0.5, k=mal_dx, device=device)
 # Expert 9: Average dermatologist
-expert9 = synth_expert_hard_coded(p_in=0.8, p_out=0.5, k=ben_dx + mal_dx, device=device)
+expert9 = synth_expert_hard_coded(
+    p_in=0.8, p_out=0.5, k=ben_dx + mal_dx, device=device)
 # Expert 10: Experienced dermatologist
-expert10 = synth_expert_hard_coded(p_in=0.8, p_out=0.6, k=ben_dx + mal_dx, device=device)
-
+expert10 = synth_expert_hard_coded(
+    p_in=0.8, p_out=0.6, k=ben_dx + mal_dx, device=device)
 
 
 experts = [getattr(expert1, 'predict_random'),
@@ -371,30 +378,21 @@ def increase_experts(config):
         "_increase_experts_select_hard_coded"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experiment_experts = [2, 3, 4]  # GPU 1
-    experiment_experts = [5, 6, 7]  # GPU 2
-    experiment_experts = [8, 9, 10]  # GPU 3
-    # experiment_experts = [8] 
-
-
-    # experiment_experts = [config["n_experts"]]
+    experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
     for seed in ['', 948,  625]:
-    # for seed in ['']:
-
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
-        # log = {'selected_experts': {}}
         for n in experiment_experts:
-                print("n is {}".format(n))
-                num_experts = n
+            print("n is {}".format(n))
+            num_experts = n
 
-                expert_fns = [experts[j] for j in range(n)]
-                
-                model = model = ResNet34_defer(
-                    int(config["n_classes"])+num_experts)
-                trainD, valD, _ = ham10000_expert.read(data_aug=True)
-                train(model, trainD, valD, expert_fns, config, seed=seed)
+            expert_fns = [experts[j] for j in range(n)]
+
+            model = model = ResNet34_defer(
+                int(config["n_classes"])+num_experts)
+            trainD, valD, _ = ham10000_expert.read(data_aug=True)
+            train(model, trainD, valD, expert_fns, config, seed=seed)
 
         # pth = os.path.join(
         #     config['ckp_dir'], config['experiment_name'] + '_log_' + '_seed_' + str(seed))
