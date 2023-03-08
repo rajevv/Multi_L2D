@@ -2,6 +2,7 @@
 import sys
 
 sys.path.insert(0, '../')
+
 import argparse
 import copy
 import json
@@ -32,12 +33,12 @@ print(device,  flush=True)
 
 
 def set_seed(seed):
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-        if torch.cuda.is_available():
-            torch.cuda.manual_seed(seed)
-            torch.cuda.manual_seed_all(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
 
 
 def Hemmer_utils(input, target, hpred, allocation, clf_output, expert_fns, config):
@@ -56,11 +57,12 @@ def Hemmer_utils(input, target, hpred, allocation, clf_output, expert_fns, confi
 
     exps_pred.append(clf_output.cpu())
 
-    exps_pred = torch.stack(exps_pred).transpose(0,1).to(device)
+    exps_pred = torch.stack(exps_pred).transpose(0, 1).to(device)
     allocation = allocation.unsqueeze(-1)
     p_team = torch.sum(allocation * exps_pred, dim=1)
     log_p_team = torch.log(p_team + 1e-7)
     return log_p_team, expert_predictions
+
 
 def evaluate(model,
              expert_fns,
@@ -105,7 +107,8 @@ def evaluate(model,
             _, who_predicts = torch.max(allocation.data, 1)
             batch_size = clf_pred.size()[0]  # batch_size
 
-            log_p_team, expert_predictions = Hemmer_utils(images, labels, hpred, allocation, clf_pred, expert_fns, config)
+            log_p_team, expert_predictions = Hemmer_utils(
+                images, labels, hpred, allocation, clf_pred, expert_fns, config)
 
             #print("len expert predictions {}".format(len(expert_predictions)))
 
@@ -113,15 +116,16 @@ def evaluate(model,
             losses.append(loss.item())
 
             for i in range(0, batch_size):
-                r = (who_predicts[i].item() != len(expert_fns)) # r is true when non-ai expert has the maximum weight
+                # r is true when non-ai expert has the maximum weight
+                r = (who_predicts[i].item() != len(expert_fns))
                 clf_prediction = clf_predictions[i]
                 alone_correct += (clf_prediction == labels[i]).item()
-                if r == 0: # the max is on the classifier 
+                if r == 0:  # the max is on the classifier
                     total += 1
                     correct += (clf_prediction == labels[i]).item()
                     correct_sys += (clf_prediction == labels[i]).item()
                 if r == 1:
-                    
+
                     deferred_exp = (who_predicts[i]).item()
 
                     #print(len(expert_predictions), deferred_exp, batch_size)
@@ -131,7 +135,8 @@ def evaluate(model,
                     exp += (exp_prediction == labels[i].item())
                     exp_total += 1
                     # Individual Expert Accuracy ===
-                    expert_correct_dic[deferred_exp] += (exp_prediction == labels[i].item())
+                    expert_correct_dic[deferred_exp] += (
+                        exp_prediction == labels[i].item())
                     expert_total_dic[deferred_exp] += 1
                     #
                     correct_sys += (exp_prediction == labels[i].item())
@@ -151,7 +156,6 @@ def evaluate(model,
                 **expert_accuracies}
     print(to_print, flush=True)
     return to_print
-
 
 
 def train_epoch(iters,
@@ -193,15 +197,17 @@ def train_epoch(iters,
         hpred = hpred
 
         # compute output
-        allocation = allocator(input) # allocation w_j j in {1, ..., num_experts + 1} (from the paper)
-        clf_output = classifier(input) # c_i i in {1, K} (from the paper)
+        # allocation w_j j in {1, ..., num_experts + 1} (from the paper)
+        allocation = allocator(input)
+        clf_output = classifier(input)  # c_i i in {1, K} (from the paper)
 
         # get expert  predictions and costs
         batch_size = clf_output.size()[0]  # batch_size
         exps_pred = []
         # We only support \alpha=1
 
-        log_p_team, _ = Hemmer_utils(input, target, hpred, allocation, clf_output, expert_fns, config)
+        log_p_team, _ = Hemmer_utils(
+            input, target, hpred, allocation, clf_output, expert_fns, config)
 
         loss = loss_fn(log_p_team, target)
 
@@ -230,8 +236,8 @@ def train_epoch(iters,
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
-                epoch, i, len(train_loader), batch_time=batch_time,
-                loss=losses, top1=top1), flush=True)
+                      epoch, i, len(train_loader), batch_time=batch_time,
+                      loss=losses, top1=top1), flush=True)
 
     return iters, np.average(epoch_train_loss)
 
@@ -242,7 +248,7 @@ def train(model,
           expert_fns,
           config,
           seed=""):
-  
+
     n_classes = config["n_classes"] + len(expert_fns)
     kwargs = {'num_workers': 0, 'pin_memory': True}
 
@@ -250,16 +256,17 @@ def train(model,
                                                batch_size=config["batch_size"], shuffle=True, drop_last=True, **kwargs)
     valid_loader = torch.utils.data.DataLoader(validation_dataset,
                                                batch_size=config["batch_size"], shuffle=True, drop_last=True, **kwargs)
-  
+
     model = (model[0].to(device), model[1].to(device))
     #cudnn.benchmark = True
     optimizer = torch.optim.Adam(list(model[0].parameters()) + list(model[1].parameters()), config["lr"],
-                                weight_decay=config["weight_decay"])
- 
+                                 weight_decay=config["weight_decay"])
+
     criterion = Criterion()
- 
-    loss_fn = nn.NLLLoss() #getattr(criterion, config["loss_type"])
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, len(train_loader) * config["epochs"])
+
+    loss_fn = nn.NLLLoss()  # getattr(criterion, config["loss_type"])
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, len(train_loader) * config["epochs"])
     best_validation_loss = np.inf
     patience = 0
     iters = 0
@@ -291,11 +298,12 @@ def train(model,
 
         if validation_loss < best_validation_loss:
             best_validation_loss = validation_loss
-            print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
+            print("Saving the model with classifier accuracy {}".format(
+                metrics['classifier_accuracy']), flush=True)
             save_path = os.path.join(config["ckp_dir"],
                                      config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts' + '_seed_' + str(seed))
-            torch.save({'allocator_state_dict' : model[0].state_dict(), 
-                        'classifier_state_dict' : model[1].state_dict}, save_path + '.pt')
+            torch.save({'allocator_state_dict': model[0].state_dict(),
+                        'classifier_state_dict': model[1].state_dict}, save_path + '.pt')
             # Additionally save the whole config dict
             with open(save_path + '.json', "w") as f:
                 json.dump(config, f)
@@ -317,47 +325,41 @@ available_experts = [expert1, expert2, expert3, expert4]
 available_expert_fns = ['FlipHuman', 'predict_prob', 'predict_random']
 
 experts = [getattr(expert2, 'predict_random'),
-            getattr(expert1, 'predict_prob'),
-            getattr(expert2, 'FlipHuman'), 
-            getattr(expert3, 'predict_prob'),
-            getattr(expert3, 'FlipHuman'),
-            getattr(expert4, 'FlipHuman'),
-            getattr(expert4, 'predict_prob'),
-            getattr(expert4, 'HumanExpert'),
-            getattr(expert2, 'predict_prob'),
-            getattr(expert1, 'HumanExpert')]
+           getattr(expert1, 'predict_prob'),
+           getattr(expert2, 'FlipHuman'),
+           getattr(expert3, 'predict_prob'),
+           getattr(expert3, 'FlipHuman'),
+           getattr(expert4, 'FlipHuman'),
+           getattr(expert4, 'predict_prob'),
+           getattr(expert4, 'HumanExpert'),
+           getattr(expert2, 'predict_prob'),
+           getattr(expert1, 'HumanExpert')]
+
 
 def increase_experts(config):
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    experiment_experts = [1,2,3,4,5,6,7,8,9,10]
-    
-    for seed in [ 948,  625,  436,  791]: #, 1750,  812, 1331, 1617,  650, 1816]:
+    experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    # , 1750,  812, 1331, 1617,  650, 1816]:
+    for seed in [948,  625,  436,  791]:
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
-        log = {'selected_experts' : [], 'selected_expert_fns' : []}
+        log = {'selected_experts': [], 'selected_expert_fns': []}
         expert_fns = []
-        for i,n in enumerate(experiment_experts):
+        for i, n in enumerate(experiment_experts):
             print("Number of Experts: n is {}".format(n))
             num_experts = n
-            # selected_expert = random.choices(available_experts,k=1)[0]
-            # if i < 7:
-            #     selected_expert_fn = random.choices(available_expert_fns, k=1)[0]
-            # else: 
-            #     selected_expert_fn = 'HumanExpert'
-            # print("selected experts {}".format(selected_expert))
-            # print("selected experts fn. {}".format(selected_expert_fn))
-
-            # log['selected_experts'].append(selected_expert)
-            # log['selected_expert_fns'].append(selected_expert_fn)
-            expert_fn = experts[i] #getattr(selected_expert, selected_expert_fn)
+            expert_fn = experts[i]
             expert_fns.append(expert_fn)
 
-            #print(len(expert_fns))
-            classifier = baseline_classifier(embedding_dim=100, vocab_size=100, n_filters=300, filter_sizes=[3,4,5], dropout=0.5, output_dim=int(config["n_classes"]))
-            allocator = baseline_allocator(embedding_dim=100, vocab_size=100, n_filters=300, filter_sizes=[3,4,5], dropout=0.5, output_dim=len(expert_fns)+1) 
+            # print(len(expert_fns))
+            classifier = baseline_classifier(embedding_dim=100, vocab_size=100, n_filters=300, filter_sizes=[
+                                             3, 4, 5], dropout=0.5, output_dim=int(config["n_classes"]))
+            allocator = baseline_allocator(embedding_dim=100, vocab_size=100, n_filters=300, filter_sizes=[
+                                           3, 4, 5], dropout=0.5, output_dim=len(expert_fns)+1)
             model = (allocator, classifier)
             trainD = HatespeechDataset()
             valD = HatespeechDataset(split='val')
@@ -368,35 +370,33 @@ def increase_experts(config):
         #     json.dump(log, f)
 
 
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--batch_size", type=int, default=256)
     parser.add_argument("--alpha", type=float, default=1.0,
-              help="scaling parameter for the loss function, default=1.0.")
+                        help="scaling parameter for the loss function, default=1.0.")
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--patience", type=int, default=10,
-              help="number of patience steps for early stopping the training.")
+                        help="number of patience steps for early stopping the training.")
     parser.add_argument("--expert_type", type=str, default="predict_prob",
-              help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
+                        help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
     parser.add_argument("--n_classes", type=int, default=3,
-              help="K for K class classification.")
+                        help="K for K class classification.")
     parser.add_argument("--k", type=int, default=0)
     # Dani experiments =====
     parser.add_argument("--n_experts", type=int, default=2)
     # Dani experiments =====
     parser.add_argument("--lr", type=float, default=0.001,
-              help="learning rate.")
+                        help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--warmup_epochs", type=int, default=0)
     parser.add_argument("--loss_type", type=str, default="hemmer",
-              help="surrogate loss type for learning to defer.")
+                        help="surrogate loss type for learning to defer.")
     parser.add_argument("--ckp_dir", type=str, default="./Models",
-              help="directory name to save the checkpoints.")
+                        help="directory name to save the checkpoints.")
     parser.add_argument("--experiment_name", type=str, default="multiple_experts_hardcoded",
-              help="specify the experiment name. Checkpoints will be saved with this name.")
+                        help="specify the experiment name. Checkpoints will be saved with this name.")
 
     config = parser.parse_args().__dict__
 
