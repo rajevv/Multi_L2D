@@ -1,39 +1,37 @@
 from __future__ import division
-import math
-import torch
-import torch.nn as nn
-import random
-import numpy as np
-from scipy import stats
-import torch.nn.functional as F
+
 import argparse
+import json
+import math
 import os
+import random
 import shutil
 import time
-import torch.nn.parallel
+from collections import defaultdict
+
+import hemmer_baseline
+import main_classifier
+import main_increase_experts
+import numpy as np
+import torch
 import torch.backends.cudnn as cudnn
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.nn.parallel
 import torch.optim
 import torch.utils.data
 import torchvision
-import torchvision.transforms as transforms
 import torchvision.datasets as datasets
+import torchvision.transforms as transforms
+from hatespeechdataset import HatespeechDataset
+from models.baseline import baseline_allocator, baseline_classifier
+from models.experts import synth_expert
+from models.surrogate_CNN import CNN_rej
+from scipy import stats
 from torch.autograd import Variable
-from collections import defaultdict
-import json
 
-from utils import *
-from data_utils import *
-import main_increase_experts
-import hemmer_baseline
-import main_classifier
-
-from models.experts import *
-from losses.losses import *
-
-from models.surrogate_CNN import *
-from models.baseline import *
-from models.classifier import *
-
+from lib.losses import Criterion
+from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
@@ -278,7 +276,7 @@ def main_validate_hemmer(model, testD, expert_fns, config, seed=''):
 
 	print(type(load_dict['allocator_state_dict']), type(load_dict['classifier_state_dict']()))
 	allocator.load_state_dict(load_dict['allocator_state_dict'])
-	import copy # Careful with this. Actually I saved the method instead of the state_dict() for classifier
+	import copy  # Careful with this. Actually I saved the method instead of the state_dict() for classifier
 	classifier.load_state_dict(copy.deepcopy(load_dict['classifier_state_dict']()))
 
 	allocator, classifier = allocator.to(device), classifier.to(device)

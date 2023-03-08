@@ -1,10 +1,15 @@
+# To include lib
+import sys
+
+sys.path.insert(0, '../')
+
 import json
+
 import numpy as np
 import torch.nn as nn
-from reliability_diagram import compute_calibration
-# import seaborn as sns
-# from matplotlib import rc
+from lib.reliability_diagram import compute_calibration
 from scipy import stats
+
 
 # global quantities
 seeds = [948,  625,  436,  791]
