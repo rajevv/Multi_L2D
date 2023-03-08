@@ -1,1 +1,0 @@
-{"batch_size": 256, "alpha": 1.0, "epochs": 100, "patience": 10, "expert_type": "predict_prob", "n_classes": 2, "k": 0, "n_experts": 2, "lr": 0.001, "weight_decay": 0.0005, "warmup_epochs": 0, "loss_type": "hemmer", "ckp_dir": "./hemmer_increase_experts", "experiment_name": "multiple_experts_hardcoded"}
