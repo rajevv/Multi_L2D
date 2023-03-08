@@ -102,7 +102,8 @@ def evaluate(model,
 
             batch_features = feature_extractor(images)
             allocation = allocator(batch_features)
-            clf_pred = classifier(batch_features)  # c_i i in {1, K} (from the paper)
+            # c_i i in {1, K} (from the paper)
+            clf_pred = classifier(batch_features)
 
             # allocation = allocator(images)
             # clf_pred = classifier(images)
@@ -205,7 +206,8 @@ def train_epoch(iters,
         # allocation w_j j in {1, ..., num_experts + 1} (from the paper)
         batch_features = feature_extractor(input)
         allocation = allocator(batch_features)
-        clf_output = classifier(batch_features)  # c_i i in {1, K} (from the paper)
+        # c_i i in {1, K} (from the paper)
+        clf_output = classifier(batch_features)
 
         # get expert  predictions and costs
         batch_size = clf_output.size()[0]  # batch_size
@@ -344,7 +346,8 @@ experts = [getattr(expert2, 'predict_random'),
 
 
 def increase_experts(config):
-    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_experts_trained"
+    config["ckp_dir"] = "./" + config["loss_type"] + \
+        "_increase_experts_trained"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     # experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -362,7 +365,7 @@ def increase_experts(config):
         for i, n in enumerate(experiment_experts):
             print("Number of Experts: n is {}".format(n))
             num_experts = n
-            
+
             expert_fns = [experts[j] for j in range(n)]
 
             # === Galaxy-Zoo models ===

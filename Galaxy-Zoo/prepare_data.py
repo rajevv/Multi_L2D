@@ -1,13 +1,14 @@
-import os
-import pandas as pd
-import numpy as np
-import skimage
-from skimage import io
+import copy
 import csv
-from skimage.transform import rescale, resize, downscale_local_mean
+import os
+
+import numpy as np
+import pandas as pd
+import skimage
 import torch
 import torch.nn as nn
-import copy
+from skimage import io
+from skimage.transform import downscale_local_mean, rescale, resize
 
 # entire dataset size = 61577
 '''
@@ -83,6 +84,7 @@ print(np.sum([1 if y==1 else 0 for y in Y]))
 print(np.sum([1 if y==2 else 0 for y in Y]))
 
 import random
+
 frac = 0.6
 num_train = int(frac*num_samples)
 num_test = int((num_samples - num_train)/2)
@@ -165,5 +167,6 @@ data['test']['hscores'] = test_hscores
 data['test']['human_is_correct'] = np.array([hpred==y for hpred,y in zip(data['test']['hpred'],data['test']['Y'])])
 
 import pickle
+
 with open('galaxy_data.pkl','wb') as f:
     pickle.dump(data,f,pickle.HIGHEST_PROTOCOL)

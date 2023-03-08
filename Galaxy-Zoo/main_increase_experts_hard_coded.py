@@ -3,29 +3,27 @@ import sys
 
 sys.path.insert(0, '../')
 
-import argparse
-import copy
-import json
-import math
-import os
-import random
-import shutil
-import time
-
-import numpy as np
-import pickle5 as pickle
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim
-import torch.utils.data
-from galaxyzoodataset import GalaxyZooDataset
-from models.experts import synth_expert
-from models.resnet50 import ResNet50_defer
-from torch.autograd import Variable
-
-from lib.losses import Criterion
 from lib.utils import AverageMeter, accuracy
+from lib.losses import Criterion
+from torch.autograd import Variable
+from models.resnet50 import ResNet50_defer
+from models.experts import synth_expert
+from galaxyzoodataset import GalaxyZooDataset
+import torch.utils.data
+import torch.optim
+import torch.nn.functional as F
+import torch.nn as nn
+import torch
+import pickle5 as pickle
+import numpy as np
+import time
+import shutil
+import random
+import os
+import math
+import json
+import copy
+import argparse
 
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(device,  flush=True)
@@ -347,7 +345,7 @@ def increase_experts(config):
     os.makedirs(config["ckp_dir"], exist_ok=True)
     experiment_experts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     # experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
-    # experiment_experts = [5] 
+    # experiment_experts = [5]
     experiment_experts = [7, 9, 10]
     # for seed in ['', 948,  625,  436,  791]:
     for seed in ['', 948,  625,  436]:
@@ -408,18 +406,3 @@ if __name__ == "__main__":
 
     # print(config)
     increase_experts(config)
-
-    # def load_data(file_name):
-    # 	assert(os.path.exists(file_name+'.pkl'))
-    # 	with open(file_name + '.pkl', 'rb') as f:
-    # 		data = pickle.load(f)
-    # 	return data
-
-    # data_path = 'galaxy_data'
-
-    # data = load_data(data_path)
-    # X = torch.from_numpy(data['X']).float().to(device)
-    # Y = torch.from_numpy(data['Y']).to(device).long()
-    # hlabel = data['hpred']
-
-    # print(X.shape, Y.shape, hlabel.shape)

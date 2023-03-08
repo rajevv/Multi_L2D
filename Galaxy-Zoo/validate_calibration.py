@@ -2,8 +2,9 @@ import json
 
 import numpy as np
 import torch.nn as nn
-from lib.reliability_diagram import compute_calibration
 from scipy import stats
+
+from lib.reliability_diagram import compute_calibration
 
 # global quantities
 # seeds = [948,  625,  436 ,'']

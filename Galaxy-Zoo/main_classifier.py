@@ -1,3 +1,4 @@
+
 # To include lib
 import sys
 
@@ -82,28 +83,6 @@ def evaluate(model,
 
             _, predicted = torch.max(outputs.data, 1)
             batch_size = outputs.size()[0]  # batch_size
-
-            # expert_predictions = []
-            # collection_Ms = []  # a collection of 3-tuple
-            # for i, fn in enumerate(expert_fns, 0):
-            # 	exp_prediction1 = fn(images, labels, hpred)
-            # 	m = [0] * batch_size
-            # 	m2 = [0] * batch_size
-            # 	for j in range(0, batch_size):
-            # 		if exp_prediction1[j] == labels[j].item():
-            # 			m[j] = 1
-            # 			m2[j] = alpha
-            # 		else:
-            # 			m[j] = 0
-            # 			m2[j] = 1
-
-            # 	m = torch.tensor(m)
-            # 	m2 = torch.tensor(m2)
-            # 	m = m.to(device)
-            # 	m2 = m2.to(device)
-            # 	collection_Ms.append((m, m2))
-            # 	expert_predictions.append(exp_prediction1)
-
             loss = loss_fn(outputs, labels)  # , collection_Ms, n_classes)
             losses_log.append(loss.item())
 
@@ -111,9 +90,6 @@ def evaluate(model,
             prec1 = accuracy(outputs.data, labels, topk=(1,))[0]
             losses.update(loss.data.item(), images.size(0))
             top1.update(prec1.item(), images.size(0))
-
-        # epoch_time.update(time.time() - end)
-        # end = time.time()
 
         # if i % 10 == 0:
         print('Loss {loss.val:.4f} ({loss.avg:.4f})\t'
@@ -123,53 +99,6 @@ def evaluate(model,
                     'validation_loss': np.average(losses_log)}
 
         return to_print
-
-    # 		for i in range(0, batch_size):
-    # 			r = (predicted[i].item() >= n_classes - len(expert_fns))
-    # 			prediction = predicted[i]
-    # 			if predicted[i] >= n_classes - len(expert_fns):
-    # 				max_idx = 0
-    # 				# get second max
-    # 				for j in range(0, n_classes - len(expert_fns)):
-    # 					if outputs.data[i][j] >= outputs.data[i][max_idx]:
-    # 						max_idx = j
-    # 				prediction = max_idx
-    # 			else:
-    # 				prediction = predicted[i]
-    # 			alone_correct += (prediction == labels[i]).item()
-    # 			if r == 0:
-    # 				total += 1
-    # 				correct += (predicted[i] == labels[i]).item()
-    # 				correct_sys += (predicted[i] == labels[i]).item()
-    # 			if r == 1:
-    # 				deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
-    # 				#cdeferred_exp = ((n_classes - 1) - predicted[i]).item()  # reverse order, as in loss function
-    # 				exp_prediction = expert_predictions[deferred_exp][i]
-    # 				#
-    # 				# Deferral accuracy: No matter expert ===
-    # 				exp += (exp_prediction == labels[i].item())
-    # 				exp_total += 1
-    # 				# Individual Expert Accuracy ===
-    # 				expert_correct_dic[deferred_exp] += (exp_prediction == labels[i].item())
-    # 				expert_total_dic[deferred_exp] += 1
-    # 				#
-    # 				correct_sys += (exp_prediction == labels[i].item())
-    # 			real_total += 1
-    # cov = str(total) + str(" out of") + str(real_total)
-
-    # #  === Individual Expert Accuracies === #
-    # expert_accuracies = {"expert_{}".format(str(k)): 100 * expert_correct_dic[k] / (expert_total_dic[k] + 0.0002) for k
-    # 					 in range(len(expert_fns))}
-    # # Add expert accuracies dict
-    # to_print = {"coverage": cov, "system_accuracy": 100 * correct_sys / real_total,
-    # 			"expert_accuracy": 100 * exp / (exp_total + 0.0002),
-    # 			"classifier_accuracy": 100 * correct / (total + 0.0001),
-    # 			"alone_classifier": 100 * alone_correct / real_total,
-    # 			"validation_loss": np.average(losses),
-    # 			"n_experts": len(expert_fns),
-    # 			**expert_accuracies}
-    # print(to_print, flush=True)
-
 
 def train_epoch(iters,
                 warmup_iters,
@@ -317,28 +246,6 @@ def train(model,
             break
 
 
-# === Experiment 1 === #
-# expert1 = synth_expert(flip_prob=0.75, p_in=0.10)
-# expert2 = synth_expert(flip_prob=0.50, p_in=0.50)
-# expert3 = synth_expert(flip_prob=0.30, p_in=0.75)
-# expert4 = synth_expert(flip_prob=0.20, p_in=0.85)
-# available_experts = [expert1, expert2, expert3, expert4]
-# available_expert_fns = ['FlipHuman', 'predict_prob', 'predict_random']
-
-# experts = [getattr(expert2, 'predict_random'),
-#             getattr(expert1, 'predict_prob'),
-#             getattr(expert2, 'FlipHuman'),
-#             getattr(expert3, 'predict_prob'),
-#             getattr(expert3, 'FlipHuman'),
-#             getattr(expert4, 'FlipHuman'),
-#             getattr(expert4, 'predict_prob'),
-#             getattr(expert4, 'HumanExpert'),
-#             getattr(expert2, 'predict_prob'),
-#             getattr(expert1, 'HumanExpert')]
-
-# expert = synth_expert()
-# experts = [getattr(expert, 'IncorrectExpert')]
-
 def OneClassifier(config):
     config["ckp_dir"] = "./" + config["loss_type"] + "_classifier"
     os.makedirs(config["ckp_dir"], exist_ok=True)
@@ -351,24 +258,6 @@ def OneClassifier(config):
         print("run for seed {}".format(seed))
         if seed != '':
             set_seed(seed)
-        # log = {'selected_experts' : [], 'selected_expert_fns' : []}
-        # expert_fns = []
-        # for i,n in enumerate(experiment_experts):
-        # 	print("n is {}".format(n))
-        # 	num_experts = n
-        # 	# selected_expert = random.choices(available_experts,k=1)
-        # 	# if i < 7:
-        # 	# 	selected_expert_fn = random.choices(available_expert_fns, k=1)
-        # 	# else:
-        # 	# 	selected_expert_fn = 'HumanExpert'
-        # 	# print("selected experts {}".format(selected_expert))
-        # 	# print("selected experts fn. {}".format(selected_expert_fn))
-
-        # 	# log['selected_expert'].append(selected_expert)
-        # 	# log['selected_expert_fn'].append(selected_expert_fn)
-        # 	expert_fn = experts[i] #getattr(selected_expert, selected_expert_fn)
-        # 	expert_fns.append(expert_fn)
-
         model = model = ResNet50_defer(int(config["n_classes"]))
         trainD = GalaxyZooDataset()
         valD = GalaxyZooDataset(split='val')
@@ -393,9 +282,9 @@ if __name__ == "__main__":
     parser.add_argument("--n_classes", type=int, default=2,
                         help="K for K class classification.")
     parser.add_argument("--k", type=int, default=0)
-    # Dani experiments =====
+    
     parser.add_argument("--n_experts", type=int, default=2)
-    # Dani experiments =====
+    
     parser.add_argument("--lr", type=float, default=0.001,
                         help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
