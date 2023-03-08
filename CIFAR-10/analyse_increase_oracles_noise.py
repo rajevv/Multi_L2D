@@ -23,6 +23,7 @@ from lib.utils import AverageMeter, accuracy
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
+
 def forward(model, dataloader, expert_fns, n_classes, n_experts):
     confidence = []
     true = []
@@ -42,7 +43,8 @@ def forward(model, dataloader, expert_fns, n_classes, n_experts):
     true = torch.stack(true, dim=0).view(-1)
     confidence = torch.stack(confidence, dim=0).view(-1, n_classes + n_experts)
     for k, v in expert_predictions.items():
-        expert_predictions[k] = torch.stack([torch.tensor(k) for k in v], dim=0).view(-1)
+        expert_predictions[k] = torch.stack(
+            [torch.tensor(k) for k in v], dim=0).view(-1)
 
     print(true.shape, confidence.shape, [v.shape for k, v in
                                          expert_predictions.items()])  # ,expert_predictions1.shape, expert_predictions2.shape) #, density.shape)
@@ -67,16 +69,18 @@ def validation(model_name, expert_fns, config):
         return d
 
     def get(severity, dl):
-        true, confidence, expert_predictions = forward(model, dl, expert_fns, n_dataset, n_expert)
+        true, confidence, expert_predictions = forward(
+            model, dl, expert_fns, n_dataset, n_expert)
 
-        print("shapes: true labels {}, confidences {}, expert_predictions {}".format(\
+        print("shapes: true labels {}, confidences {}, expert_predictions {}".format(
             true.shape, confidence.shape, np.array(expert_predictions).shape))
 
         criterion = Criterion()
         loss_fn = getattr(criterion, config["loss_type"])
         n_classes = n_dataset
         print("Evaluate...")
-        result_ = evaluate(model, expert_fns, loss_fn, n_classes+len(expert_fns), dl, config)
+        result_ = evaluate(model, expert_fns, loss_fn,
+                           n_classes+len(expert_fns), dl, config)
         # n_classes = n_dataset + len(expert_fns)
         # result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
         # result_ = metrics_print(model, num_experts, expert_fns, n_dataset, dl)
@@ -101,11 +105,13 @@ def validation(model_name, expert_fns, config):
     ood_d, test_d = cifar.read(severity=0, slice_=-1, test=True, only_id=True)
 
     kwargs = {'num_workers': 1, 'pin_memory': True}
-    test_dl = torch.utils.data.DataLoader(test_d, batch_size=batch_size, shuffle=False, drop_last=True, **kwargs)
+    test_dl = torch.utils.data.DataLoader(
+        test_d, batch_size=batch_size, shuffle=False, drop_last=True, **kwargs)
 
     # Model ===
     model = WideResNet(28, 3, n_dataset + num_experts, 4, dropRate=0.0)
-    model_path = os.path.join(config["ckp_dir"], config["experiment_name"] + '_' + model_name + '.pt')
+    model_path = os.path.join(
+        config["ckp_dir"], config["experiment_name"] + '_' + model_name + '.pt')
     model.load_state_dict(torch.load(model_path, map_location=device))
     model = model.to(device)
 
@@ -163,19 +169,21 @@ if __name__ == "__main__":
     num_experts = 10
     p_out = 1/9
 
-    for seed in [948, 436, 791, 1750]: #, 625]: #,436,  791, 1750]:
+    for seed in [948, 436, 791, 1750]:  # , 625]: #,436,  791, 1750]:
         for k in range(config["n_classes"]):
             expert_fns = []
             # Expert ===
             # an expert who is an oracle on the kth class with prob_in 0.95
-            expert_oracle = synth_expert2(k1=0, k2=k+1, n_classes=config["n_classes"], p_in = 0.95, p_out = p_out)
+            expert_oracle = synth_expert2(
+                k1=0, k2=k+1, n_classes=config["n_classes"], p_in=0.95, p_out=p_out)
             expert_fn = getattr(expert_oracle, 'predict_prob_cifar')
 
             # have k of such experts
             expert_fns.extend([expert_fn]*(k+1))
 
             # remaning 10 - k experts are random
-            expert_notOracle = synth_expert2(k1=0, k2=k+1, n_classes=config["n_classes"], p_in=0.1, p_out = p_out)
+            expert_notOracle = synth_expert2(
+                k1=0, k2=k+1, n_classes=config["n_classes"], p_in=0.1, p_out=p_out)
 
             expert_fn = getattr(expert_notOracle, 'predict_prob_cifar')
             expert_fns.extend([expert_fn]*(num_experts - (k+1)))

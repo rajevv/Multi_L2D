@@ -1,13 +1,16 @@
-import os
 import sys
 
 sys.path.append("../..")  # append for conformal function
-from lib.conformal import conformal, utils
-from lib.conformal.conformal_plots import plot_metric, compare_metric
+import os
 from collections import Counter
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
+
+from lib.conformal import conformal, utils
+from lib.conformal.conformal_plots import compare_metric, plot_metric
+
 # Experiment params ==============
 # *** Change from here for other exps ***
 
@@ -34,17 +37,20 @@ metric_methods = ["standard",  # standard L2D
                   "ensemble"]  # basic fixed-size ensemble
 metric_methods = ["voting"]  # b
 # Metric depending on conformal type
-metrics = ["system_accuracy", "expert_accuracy", "coverage_test", "avg_set_size", "qhat"]
+metrics = ["system_accuracy", "expert_accuracy",
+           "coverage_test", "avg_set_size", "qhat"]
 metrics = ["set_sizes"]
 
 if conformal_type == "regularized":
-    metrics = ["system_accuracy", "expert_accuracy", "coverage_test", "avg_set_size", "lamhat"]
+    metrics = ["system_accuracy", "expert_accuracy",
+               "coverage_test", "avg_set_size", "lamhat"]
 
 # Conformal params ==============
 alpha = 0.1
 cal_percent = 0.8
 
-results_path = "../conformal_results/{}/{}/".format(experiment_name, conformal_type)
+results_path = "../conformal_results/{}/{}/".format(
+    experiment_name, conformal_type)
 if not os.path.exists(results_path):
     os.makedirs(results_path)
 
@@ -108,7 +114,8 @@ ova_metrics = conformal.process_conformal_results(ova_results, exp_list, experim
 # plt.show()
 
 for met in metrics:
-    utils.save_metric(ova_metrics, met, metric_methods, plot_args["metric_path"].format(met, "ova"))
+    utils.save_metric(ova_metrics, met, metric_methods,
+                      plot_args["metric_path"].format(met, "ova"))
     f, ax = plot_metric(ova_metrics, metric_methods, met, plot_args_ova)
 
 
@@ -129,11 +136,14 @@ softmax_metrics = conformal.process_conformal_results(softmax_results, exp_list,
                                                       alpha=alpha, metric_methods=metric_methods,
                                                       conformal_type=conformal_type)
 for met in metrics:
-    utils.save_metric(softmax_metrics, met, metric_methods, plot_args["metric_path"].format(met, "softmax"))
-    f, ax = plot_metric(softmax_metrics, metric_methods, met, plot_args_softmax)
+    utils.save_metric(softmax_metrics, met, metric_methods,
+                      plot_args["metric_path"].format(met, "softmax"))
+    f, ax = plot_metric(softmax_metrics, metric_methods,
+                        met, plot_args_softmax)
 
 # ======================= #
 # === Compare results === #
 # ======================= #
 for met in metrics:
-    f, ax = compare_metric(ova_metrics, softmax_metrics, metric_methods, met, plot_args)
+    f, ax = compare_metric(ova_metrics, softmax_metrics,
+                           metric_methods, met, plot_args)

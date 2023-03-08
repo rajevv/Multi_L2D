@@ -4,11 +4,10 @@ import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-from tueplots import figsizes, axes, fontsizes
 from brokenaxes import brokenaxes
-
 from conformal.utils import load_dict_txt
 from plots.utils_plots import set_aistats2023_style
+from tueplots import axes, figsizes, fontsizes
 
 conformal_results = "../conformal_results/"
 paper_results_path = "paper/"
@@ -16,9 +15,8 @@ if not os.path.exists(paper_results_path):
     os.makedirs(paper_results_path)
 
 
+
 # Experiment 1: Multi-expert accuracies and calibration
-
-
 def experiment1():
     cmap = sns.color_palette()
     ova_args = {"color": cmap[0],
@@ -30,8 +28,10 @@ def experiment1():
         # exp_list = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
         exp_list = [2, 4, 6, 8, 10, 14, 18]
         exp_path = conformal_results + "increase_experts/naive/"
-        ova_accuracies = load_dict_txt(exp_path + "increase_experts_system_accuracy_ova.txt")
-        softmax_accuracies = load_dict_txt(exp_path + "increase_experts_system_accuracy_softmax.txt")
+        ova_accuracies = load_dict_txt(
+            exp_path + "increase_experts_system_accuracy_ova.txt")
+        softmax_accuracies = load_dict_txt(
+            exp_path + "increase_experts_system_accuracy_softmax.txt")
 
         ova_accuracies = np.array(ova_accuracies["standard"]) * 100
         softmax_accuracies = np.array(softmax_accuracies["standard"]) * 100
@@ -57,7 +57,8 @@ def experiment1():
         ax.grid()
 
         ova_leg = mlines.Line2D([], [], linestyle='-', label='OvA', **ova_args)
-        softmax_leg = mlines.Line2D([], [], linestyle='-', label='Softmax', **softmax_args)
+        softmax_leg = mlines.Line2D(
+            [], [], linestyle='-', label='Softmax', **softmax_args)
         ax.legend(handles=[ova_leg, softmax_leg], loc="best")
         return ax
 
@@ -91,7 +92,8 @@ def experiment1():
         ax.grid()
 
         ova_leg = mlines.Line2D([], [], linestyle='-', label='OvA', **ova_args)
-        softmax_leg = mlines.Line2D([], [], linestyle='-', label='Softmax', **softmax_args)
+        softmax_leg = mlines.Line2D(
+            [], [], linestyle='-', label='Softmax', **softmax_args)
         ax.legend(handles=[ova_leg, softmax_leg], loc="best")
         return ax
 
@@ -99,8 +101,10 @@ def experiment1():
         # exp_list = [1, 2, 4, 6, 8, 10, 12, 16, 18, 20]
         exp_list = [4, 8, 12, 16, 20]
         exp_path = conformal_results + "increase_experts_prob/naive/"
-        ova_accuracies = load_dict_txt(exp_path + "increase_experts_prob_system_accuracy_ova.txt")
-        softmax_accuracies = load_dict_txt(exp_path + "increase_experts_prob_system_accuracy_softmax.txt")
+        ova_accuracies = load_dict_txt(
+            exp_path + "increase_experts_prob_system_accuracy_ova.txt")
+        softmax_accuracies = load_dict_txt(
+            exp_path + "increase_experts_prob_system_accuracy_softmax.txt")
 
         ova_accuracies = np.array(ova_accuracies["standard"]) * 100
         softmax_accuracies = np.array(softmax_accuracies["standard"]) * 100
@@ -126,7 +130,8 @@ def experiment1():
         ax.grid()
 
         ova_leg = mlines.Line2D([], [], linestyle='-', label='OvA', **ova_args)
-        softmax_leg = mlines.Line2D([], [], linestyle='-', label='Softmax', **softmax_args)
+        softmax_leg = mlines.Line2D(
+            [], [], linestyle='-', label='Softmax', **softmax_args)
         ax.legend(handles=[ova_leg, softmax_leg], loc="best")
         return ax
 
@@ -161,7 +166,8 @@ def experiment1():
         ax.grid()
 
         ova_leg = mlines.Line2D([], [], linestyle='-', label='OvA', **ova_args)
-        softmax_leg = mlines.Line2D([], [], linestyle='-', label='Softmax', **softmax_args)
+        softmax_leg = mlines.Line2D(
+            [], [], linestyle='-', label='Softmax', **softmax_args)
         ax.legend(handles=[ova_leg, softmax_leg], loc="best")
         return ax
 
@@ -191,7 +197,8 @@ def experiment1():
         ax.grid()
 
         ova_leg = mlines.Line2D([], [], linestyle='-', label='OvA', **ova_args)
-        softmax_leg = mlines.Line2D([], [], linestyle='-', label='Softmax', **softmax_args)
+        softmax_leg = mlines.Line2D(
+            [], [], linestyle='-', label='Softmax', **softmax_args)
         ax.legend(handles=[ova_leg, softmax_leg], loc="best")
         return ax
 
@@ -222,7 +229,8 @@ def experiment1():
         ax.grid()
 
         ova_leg = mlines.Line2D([], [], linestyle='-', label='OvA', **ova_args)
-        softmax_leg = mlines.Line2D([], [], linestyle='-', label='Softmax', **softmax_args)
+        softmax_leg = mlines.Line2D(
+            [], [], linestyle='-', label='Softmax', **softmax_args)
         ax.legend(handles=[ova_leg, softmax_leg], loc="best")
         return ax
 
@@ -254,16 +262,18 @@ def experiment1():
     ax = increase_confidence_calibration_average(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "increase_confidence_calibration_average.pdf")
+    f.savefig(paper_results_path +
+              "increase_confidence_calibration_average.pdf")
 
     f, ax = plt.subplots(1, 1, figsize=(2.5, 2.5))
     ax = increase_confidence_calibration_random(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "increase_confidence_calibration_randomexpert.pdf")
+    f.savefig(paper_results_path +
+              "increase_confidence_calibration_randomexpert.pdf")
 
 
-# GRADUAL OVERLAP ===
+# Experiment 2: Gradual Overlap
 def experiment2():
     # Non-randomized experts ===
     cmap = sns.color_palette()
@@ -278,16 +288,21 @@ def experiment2():
     def plot_avg_set_size(f, ax):
         # Naive ===
         exp_path_naive = conformal_results + "gradual_overlap/naive/"
-        ova_setsize_naive = load_dict_txt(exp_path_naive + "gradual_overlap_avg_set_size_ova.txt")
+        ova_setsize_naive = load_dict_txt(
+            exp_path_naive + "gradual_overlap_avg_set_size_ova.txt")
         ova_setsize_naive = np.array(ova_setsize_naive["voting"])[:, :-1]
-        softmax_setsize_naive = load_dict_txt(exp_path_naive + "gradual_overlap_avg_set_size_softmax.txt")
-        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])[:, :-1]
+        softmax_setsize_naive = load_dict_txt(
+            exp_path_naive + "gradual_overlap_avg_set_size_softmax.txt")
+        softmax_setsize_naive = np.array(
+            softmax_setsize_naive["voting"])[:, :-1]
 
         # Regularized ===
         exp_path_reg = conformal_results + "gradual_overlap/regularized/"
-        ova_setsize_reg = load_dict_txt(exp_path_reg + "gradual_overlap_avg_set_size_ova.txt")
+        ova_setsize_reg = load_dict_txt(
+            exp_path_reg + "gradual_overlap_avg_set_size_ova.txt")
         ova_setsize_reg = np.array(ova_setsize_reg["voting"])[:, :-1]
-        softmax_setsize_reg = load_dict_txt(exp_path_reg + "gradual_overlap_avg_set_size_softmax.txt")
+        softmax_setsize_reg = load_dict_txt(
+            exp_path_reg + "gradual_overlap_avg_set_size_softmax.txt")
         softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])[:, :-1]
 
         # OvA ===
@@ -296,7 +311,8 @@ def experiment2():
         ova_setsize_naive_std = ova_setsize_naive.std(axis=0)
         ax.errorbar(exp_list, ova_setsize_naive_mean, yerr=ova_setsize_naive_std, linestyle="-", alpha=0.75,
                     label="OvA Naive Conformal", **ova_args)
-        ova_naive_leg = mlines.Line2D([], [], linestyle='-', label="OvA, naive", **ova_args)
+        ova_naive_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA, naive", **ova_args)
 
         # Softmax ===
         # naive
@@ -304,7 +320,8 @@ def experiment2():
         softmax_setsize_naive_std = softmax_setsize_naive.std(axis=0)
         ax.errorbar(exp_list, softmax_setsize_naive_mean, yerr=softmax_setsize_naive_std, linestyle="-", alpha=0.75,
                     label="Softmax Naive Conformal", **softmax_args)
-        softmax_naive_leg = mlines.Line2D([], [], linestyle='-', label="Softmax, naive", **softmax_args)
+        softmax_naive_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax, naive", **softmax_args)
 
         # OvA ===
         # reg
@@ -312,7 +329,8 @@ def experiment2():
         ova_setsize_reg_std = ova_setsize_reg.std(axis=0)
         ax.errorbar(exp_list, ova_setsize_reg_mean, yerr=ova_setsize_reg_std, linestyle="--", alpha=0.75,
                     label="OvA Reg. Conformal", **ova_args)
-        ova_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA, regularized", **ova_args)
+        ova_reg_leg = mlines.Line2D([], [], linestyle=(
+            0.5, (1, 3)), label="OvA, regularized", **ova_args)
 
         # Softmax ===
         # reg
@@ -320,7 +338,8 @@ def experiment2():
         softmax_setsize_reg_std = softmax_setsize_reg.std(axis=0)
         ax.errorbar(exp_list, softmax_setsize_reg_mean, yerr=softmax_setsize_reg_std, linestyle="--", alpha=0.75,
                     label="Softmax Reg. Conformal", **softmax_args)
-        softmax_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
+        softmax_reg_leg = mlines.Line2D([], [], linestyle=(
+            0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
 
         ax.set_ylabel(r"Average Set Size")
         ax.set_xlabel(r"Overlap probability ($\%$)")
@@ -338,13 +357,17 @@ def experiment2():
     def plot_sys_acc_naive(f, ax):
         # Naive ===
         exp_path = conformal_results + "gradual_overlap/naive/"
-        ova_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_ova.txt")
+        ova_sys_acc = load_dict_txt(
+            exp_path + "gradual_overlap_system_accuracy_ova.txt")
         ova_sys_acc_voting = (np.array(ova_sys_acc["voting"]) * 100)[:, :-1]
         ova_sys_acc_ensem = (np.array(ova_sys_acc["ensemble"]) * 100)[:, :-1]
 
-        softmax_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = (np.array(softmax_sys_acc["voting"]) * 100)[:, :-1]
-        softmax_sys_acc_ensem = (np.array(softmax_sys_acc["ensemble"]) * 100)[:, :-1]
+        softmax_sys_acc = load_dict_txt(
+            exp_path + "gradual_overlap_system_accuracy_softmax.txt")
+        softmax_sys_acc_voting = (
+            np.array(softmax_sys_acc["voting"]) * 100)[:, :-1]
+        softmax_sys_acc_ensem = (
+            np.array(softmax_sys_acc["ensemble"]) * 100)[:, :-1]
 
         # # Regularized ===
         # exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
@@ -359,7 +382,8 @@ def experiment2():
         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
         ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
         ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
@@ -374,7 +398,8 @@ def experiment2():
         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
         softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
         softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
@@ -405,7 +430,8 @@ def experiment2():
         ax.grid()
 
         ax.legend(
-            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg,
+                     softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
             loc="best")
 
         return ax
@@ -413,13 +439,17 @@ def experiment2():
     def plot_sys_acc_reg(f, ax):
         # Naive ===
         exp_path = conformal_results + "gradual_overlap/regularized/"
-        ova_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_ova.txt")
+        ova_sys_acc = load_dict_txt(
+            exp_path + "gradual_overlap_system_accuracy_ova.txt")
         ova_sys_acc_voting = (np.array(ova_sys_acc["voting"]) * 100)[:, :-1]
         ova_sys_acc_ensem = (np.array(ova_sys_acc["ensemble"]) * 100)[:, :-1]
 
-        softmax_sys_acc = load_dict_txt(exp_path + "gradual_overlap_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = (np.array(softmax_sys_acc["voting"]) * 100)[:, :-1]
-        softmax_sys_acc_ensem = (np.array(softmax_sys_acc["ensemble"]) * 100)[:, :-1]
+        softmax_sys_acc = load_dict_txt(
+            exp_path + "gradual_overlap_system_accuracy_softmax.txt")
+        softmax_sys_acc_voting = (
+            np.array(softmax_sys_acc["voting"]) * 100)[:, :-1]
+        softmax_sys_acc_ensem = (
+            np.array(softmax_sys_acc["ensemble"]) * 100)[:, :-1]
 
         # OvA ===
         # naive
@@ -427,7 +457,8 @@ def experiment2():
         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
         ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
         ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
@@ -442,7 +473,8 @@ def experiment2():
         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
         softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
         softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
@@ -458,7 +490,8 @@ def experiment2():
         ax.grid()
 
         ax.legend(
-            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg,
+                     softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
             loc="best")
 
         return ax
@@ -482,7 +515,7 @@ def experiment2():
     f.savefig(paper_results_path + "system_accuracy_gradual_overlap_reg.pdf")
 
 
-# RANDOMIZED ===
+# Experiment 3: Randomized
 def experiment3():
     # Non-randomized experts ===
     cmap = sns.color_palette()
@@ -498,16 +531,21 @@ def experiment3():
     def plot_avg_set_size(f, ax):
         # Naive ===
         exp_path_naive = conformal_results + "increase_oracle/naive/"
-        ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_avg_set_size_ova.txt")
+        ova_setsize_naive = load_dict_txt(
+            exp_path_naive + "increase_oracle_avg_set_size_ova.txt")
         ova_setsize_naive = np.array(ova_setsize_naive["voting"])[:, 1:]
-        softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_avg_set_size_softmax.txt")
-        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])[:, 1:]
+        softmax_setsize_naive = load_dict_txt(
+            exp_path_naive + "increase_oracle_avg_set_size_softmax.txt")
+        softmax_setsize_naive = np.array(
+            softmax_setsize_naive["voting"])[:, 1:]
 
         # Regularized ===
         exp_path_reg = conformal_results + "increase_oracle/regularized/"
-        ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_avg_set_size_ova.txt")
+        ova_setsize_reg = load_dict_txt(
+            exp_path_reg + "increase_oracle_avg_set_size_ova.txt")
         ova_setsize_reg = np.array(ova_setsize_reg["voting"])[:, 1:]
-        softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_avg_set_size_softmax.txt")
+        softmax_setsize_reg = load_dict_txt(
+            exp_path_reg + "increase_oracle_avg_set_size_softmax.txt")
         softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])[:, 1:]
 
         # OvA ===
@@ -516,7 +554,8 @@ def experiment3():
         ova_setsize_naive_std = ova_setsize_naive.std(axis=0)
         ax.errorbar(exp_list, ova_setsize_naive_mean, yerr=ova_setsize_naive_std, linestyle="-", alpha=0.75,
                     label="OvA Naive Conformal", **ova_args)
-        ova_naive_leg = mlines.Line2D([], [], linestyle='-', label="OvA, naive", **ova_args)
+        ova_naive_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA, naive", **ova_args)
 
         # Softmax ===
         # naive
@@ -524,7 +563,8 @@ def experiment3():
         softmax_setsize_naive_std = softmax_setsize_naive.std(axis=0)
         ax.errorbar(exp_list, softmax_setsize_naive_mean, yerr=softmax_setsize_naive_std, linestyle="-", alpha=0.75,
                     label="Softmax Naive Conformal", **softmax_args)
-        softmax_naive_leg = mlines.Line2D([], [], linestyle='-', label="Softmax, naive", **softmax_args)
+        softmax_naive_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax, naive", **softmax_args)
 
         # OvA ===
         # reg
@@ -532,7 +572,8 @@ def experiment3():
         ova_setsize_reg_std = ova_setsize_reg.std(axis=0)
         ax.errorbar(exp_list, ova_setsize_reg_mean, yerr=ova_setsize_reg_std, linestyle="--", alpha=0.75,
                     label="OvA Reg. Conformal", **ova_args)
-        ova_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA, regularized", **ova_args)
+        ova_reg_leg = mlines.Line2D([], [], linestyle=(
+            0.5, (1, 3)), label="OvA, regularized", **ova_args)
 
         # Softmax ===
         # reg
@@ -540,7 +581,8 @@ def experiment3():
         softmax_setsize_reg_std = softmax_setsize_reg.std(axis=0)
         ax.errorbar(exp_list, softmax_setsize_reg_mean, yerr=softmax_setsize_reg_std, linestyle="--", alpha=0.75,
                     label="Softmax Reg. Conformal", **softmax_args)
-        softmax_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
+        softmax_reg_leg = mlines.Line2D([], [], linestyle=(
+            0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
 
         ax.set_xticks(exp_list, x_ticks)
         # ax.set_yticks(list(plt.yticks()[0])[::2])
@@ -557,13 +599,17 @@ def experiment3():
     def plot_sys_acc_naive(f, ax):
         # Naive ===
         exp_path = conformal_results + "increase_oracle/naive/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_ova.txt")
+        ova_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:] * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"])[:, 1:] * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"])[:, 1:] * 100
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"])[:, 1:] * 100
+        softmax_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_system_accuracy_softmax.txt")
+        softmax_sys_acc_voting = np.array(
+            softmax_sys_acc["voting"])[:, 1:] * 100
+        softmax_sys_acc_ensem = np.array(
+            softmax_sys_acc["ensemble"])[:, 1:] * 100
 
         # OvA ===
         # naive
@@ -571,7 +617,8 @@ def experiment3():
         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
         ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
         ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
@@ -586,7 +633,8 @@ def experiment3():
         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
         softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
         softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
@@ -602,7 +650,8 @@ def experiment3():
         ax.grid()
 
         ax.legend(
-            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg,
+                     softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
             loc="best")
         # prop = {"size"})
 
@@ -611,13 +660,17 @@ def experiment3():
     def plot_sys_acc_reg(f, ax):
         # Naive ===
         exp_path = conformal_results + "increase_oracle/regularized/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_ova.txt")
+        ova_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:] * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"])[:, 1:] * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"])[:, 1:] * 100
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"])[:, 1:] * 100
+        softmax_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_system_accuracy_softmax.txt")
+        softmax_sys_acc_voting = np.array(
+            softmax_sys_acc["voting"])[:, 1:] * 100
+        softmax_sys_acc_ensem = np.array(
+            softmax_sys_acc["ensemble"])[:, 1:] * 100
 
         # # Regularized ===
         # exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
@@ -632,7 +685,8 @@ def experiment3():
         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
         ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
         ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
@@ -647,7 +701,8 @@ def experiment3():
         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
         softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
         softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
@@ -664,20 +719,25 @@ def experiment3():
         ax.grid()
 
         ax.legend(
-            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg,
+                     softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
             loc="best")
         return ax
 
     def plot_sys_acc_standard_vs_conformal_naive(f, ax):
         # Naive ===
         exp_path = conformal_results + "increase_oracle/naive/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_ova.txt")
+        ova_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:] * 100
         ova_sys_acc_standard = np.array(ova_sys_acc["standard"])[:, 1:] * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"])[:, 1:] * 100
-        softmax_sys_acc_standard = np.array(softmax_sys_acc["standard"])[:, 1:] * 100
+        softmax_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_system_accuracy_softmax.txt")
+        softmax_sys_acc_voting = np.array(
+            softmax_sys_acc["voting"])[:, 1:] * 100
+        softmax_sys_acc_standard = np.array(
+            softmax_sys_acc["standard"])[:, 1:] * 100
 
         # # Regularized ===
         # exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
@@ -692,7 +752,8 @@ def experiment3():
         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
         ova_sys_acc_standard_mean = ova_sys_acc_standard.mean(axis=0)
         ova_sys_acc_standard_std = ova_sys_acc_standard.std(axis=0)
@@ -707,7 +768,8 @@ def experiment3():
         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
         softmax_sys_acc_standard_mean = softmax_sys_acc_standard.mean(axis=0)
         softmax_sys_acc_standard_std = softmax_sys_acc_standard.std(axis=0)
@@ -735,13 +797,17 @@ def experiment3():
     def plot_sys_acc_standard_vs_conformal_reg(f, ax):
         # Naive ===
         exp_path = "increase_oracle/regularized/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_ova.txt")
+        ova_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"])[:, 1:] * 100
         ova_sys_acc_standard = np.array(ova_sys_acc["standard"])[:, 1:] * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"])[:, 1:] * 100
-        softmax_sys_acc_standard = np.array(softmax_sys_acc["standard"])[:, 1:] * 100
+        softmax_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_system_accuracy_softmax.txt")
+        softmax_sys_acc_voting = np.array(
+            softmax_sys_acc["voting"])[:, 1:] * 100
+        softmax_sys_acc_standard = np.array(
+            softmax_sys_acc["standard"])[:, 1:] * 100
 
         # # Regularized ===
         # exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
@@ -756,7 +822,8 @@ def experiment3():
         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
         ova_sys_acc_standard_mean = ova_sys_acc_standard.mean(axis=0)
         ova_sys_acc_standard_std = ova_sys_acc_standard.std(axis=0)
@@ -771,7 +838,8 @@ def experiment3():
         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
         softmax_sys_acc_standard_mean = softmax_sys_acc_standard.mean(axis=0)
         softmax_sys_acc_standard_std = softmax_sys_acc_standard.std(axis=0)
@@ -818,16 +886,18 @@ def experiment3():
     ax = plot_sys_acc_standard_vs_conformal_naive(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "system_accuracy_randomized_std_vs_conformal_naive.pdf")
+    f.savefig(paper_results_path +
+              "system_accuracy_randomized_std_vs_conformal_naive.pdf")
 
     f, ax = plt.subplots(1, 1)
     ax = plot_sys_acc_standard_vs_conformal_reg(f, ax)
     f.set_tight_layout(True)
     plt.show()
-    f.savefig(paper_results_path + "system_accuracy_randomized_std_vs_conformal_reg.pdf")
+    f.savefig(paper_results_path +
+              "system_accuracy_randomized_std_vs_conformal_reg.pdf")
 
 
-# NON-RANDOMIZED ===
+# Experiment 4: Non-randomized experts
 def experiment4():
     # Non-randomized experts ===
     cmap = sns.color_palette()
@@ -843,16 +913,20 @@ def experiment4():
     def plot_avg_set_size(f, ax):
         # Naive ===
         exp_path_naive = conformal_results + "increase_oracle_v2/naive/"
-        ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_v2_avg_set_size_ova.txt")
+        ova_setsize_naive = load_dict_txt(
+            exp_path_naive + "increase_oracle_v2_avg_set_size_ova.txt")
         ova_setsize_naive = np.array(ova_setsize_naive["voting"])
-        softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_oracle_v2_avg_set_size_softmax.txt")
+        softmax_setsize_naive = load_dict_txt(
+            exp_path_naive + "increase_oracle_v2_avg_set_size_softmax.txt")
         softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
 
         # Regularized ===
         exp_path_reg = conformal_results + "increase_oracle_v2/regularized/"
-        ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
+        ova_setsize_reg = load_dict_txt(
+            exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
         ova_setsize_reg = np.array(ova_setsize_reg["voting"])
-        softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
+        softmax_setsize_reg = load_dict_txt(
+            exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
         softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
 
         # OvA ===
@@ -861,7 +935,8 @@ def experiment4():
         ova_setsize_naive_std = ova_setsize_naive.std(axis=0)
         ax.errorbar(exp_list, ova_setsize_naive_mean, yerr=ova_setsize_naive_std, linestyle="-", alpha=0.75,
                     label="OvA Naive Conformal", **ova_args)
-        ova_naive_leg = mlines.Line2D([], [], linestyle='-', label="OvA, naive", **ova_args)
+        ova_naive_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA, naive", **ova_args)
 
         # Softmax ===
         # naive
@@ -869,7 +944,8 @@ def experiment4():
         softmax_setsize_naive_std = softmax_setsize_naive.std(axis=0)
         ax.errorbar(exp_list, softmax_setsize_naive_mean, yerr=softmax_setsize_naive_std, linestyle="-", alpha=0.75,
                     label="Softmax Naive Conformal", **softmax_args)
-        softmax_naive_leg = mlines.Line2D([], [], linestyle='-', label="Softmax, naive", **softmax_args)
+        softmax_naive_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax, naive", **softmax_args)
 
         # OvA ===
         # reg
@@ -877,7 +953,8 @@ def experiment4():
         ova_setsize_reg_std = ova_setsize_reg.std(axis=0)
         ax.errorbar(exp_list, ova_setsize_reg_mean, yerr=ova_setsize_reg_std, linestyle="--", alpha=0.75,
                     label="OvA Reg. Conformal", **ova_args)
-        ova_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA, regularized", **ova_args)
+        ova_reg_leg = mlines.Line2D([], [], linestyle=(
+            0.5, (1, 3)), label="OvA, regularized", **ova_args)
 
         # Softmax ===
         # reg
@@ -885,7 +962,8 @@ def experiment4():
         softmax_setsize_reg_std = softmax_setsize_reg.std(axis=0)
         ax.errorbar(exp_list, softmax_setsize_reg_mean, yerr=softmax_setsize_reg_std, linestyle="--", alpha=0.75,
                     label="Softmax Reg. Conformal", **softmax_args)
-        softmax_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
+        softmax_reg_leg = mlines.Line2D([], [], linestyle=(
+            0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
 
         ax.set_xticks(exp_list, x_ticks)
         # plt.yticks(list(plt.yticks()[0])[::2])
@@ -902,11 +980,13 @@ def experiment4():
     def plot_sys_acc_naive(f, ax):
         # Naive ===
         exp_path = conformal_results + "increase_oracle_v2/naive/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_ova.txt")
+        ova_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_v2_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_softmax.txt")
+        softmax_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_v2_system_accuracy_softmax.txt")
         softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
         softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
 
@@ -916,7 +996,8 @@ def experiment4():
         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
         ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
         ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
@@ -931,7 +1012,8 @@ def experiment4():
         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
         softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
         softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
@@ -947,7 +1029,8 @@ def experiment4():
         ax.grid()
 
         ax.legend(
-            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg,
+                     softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
             loc="best")
         # prop = {"size"})
 
@@ -956,11 +1039,13 @@ def experiment4():
     def plot_sys_acc_reg(f, ax):
         # Naive ===
         exp_path = conformal_results + "increase_oracle_v2/regularized/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_ova.txt")
+        ova_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_v2_system_accuracy_ova.txt")
         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_oracle_v2_system_accuracy_softmax.txt")
+        softmax_sys_acc = load_dict_txt(
+            exp_path + "increase_oracle_v2_system_accuracy_softmax.txt")
         softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
         softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
 
@@ -977,7 +1062,8 @@ def experiment4():
         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+        ova_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
         ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
         ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
@@ -992,7 +1078,8 @@ def experiment4():
         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
                     **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+        softmax_sys_acc_vot_leg = mlines.Line2D(
+            [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
         softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
         softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
@@ -1009,7 +1096,8 @@ def experiment4():
         ax.grid()
 
         ax.legend(
-            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg,
+                     softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
             loc="best")
         # prop = {"size"})
 
@@ -1034,249 +1122,265 @@ def experiment4():
     f.savefig(paper_results_path + "system_accuracy_nonrandomized_reg.pdf")
 
 
-def ham10000():
-    # Non-randomized experts ===
-    cmap = sns.color_palette()
-    exp_list = [1, 2, 4, 6, 8, 12, 16]
-    x_ticks = exp_list
-    # exp_list = [1, 2, 3, 4, 5]
-    ova_args = {"color": cmap[0],
-                "marker": "o"}
-    softmax_args = {"color": cmap[1],
-                    "marker": "s"}
+# def ham10000():
+#     # Non-randomized experts ===
+#     cmap = sns.color_palette()
+#     exp_list = [1, 2, 4, 6, 8, 12, 16]
+#     x_ticks = exp_list
+#     # exp_list = [1, 2, 3, 4, 5]
+#     ova_args = {"color": cmap[0],
+#                 "marker": "o"}
+#     softmax_args = {"color": cmap[1],
+#                     "marker": "s"}
 
-    # Naive ===
-    def plot_avg_set_size(f, ax):
-        # Naive ===
-        exp_path_naive = conformal_results + "increase_experts_ham10000/naive/"
-        ova_setsize_naive = load_dict_txt(exp_path_naive + "increase_experts_select_avg_set_size_ova.txt")
-        ova_setsize_naive = np.array(ova_setsize_naive["voting"])
-        softmax_setsize_naive = load_dict_txt(exp_path_naive + "increase_experts_select_avg_set_size_softmax.txt")
-        softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
+#     # Naive ===
+#     def plot_avg_set_size(f, ax):
+#         # Naive ===
+#         exp_path_naive = conformal_results + "increase_experts_ham10000/naive/"
+#         ova_setsize_naive = load_dict_txt(
+#             exp_path_naive + "increase_experts_select_avg_set_size_ova.txt")
+#         ova_setsize_naive = np.array(ova_setsize_naive["voting"])
+#         softmax_setsize_naive = load_dict_txt(
+#             exp_path_naive + "increase_experts_select_avg_set_size_softmax.txt")
+#         softmax_setsize_naive = np.array(softmax_setsize_naive["voting"])
 
-        # Regularized ===
-        exp_path_reg = conformal_results + "increase_experts_ham10000/regularized/"
-        ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_experts_select_avg_set_size_ova.txt")
-        ova_setsize_reg = np.array(ova_setsize_reg["voting"])
-        softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_experts_select_avg_set_size_softmax.txt")
-        softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
+#         # Regularized ===
+#         exp_path_reg = conformal_results + "increase_experts_ham10000/regularized/"
+#         ova_setsize_reg = load_dict_txt(
+#             exp_path_reg + "increase_experts_select_avg_set_size_ova.txt")
+#         ova_setsize_reg = np.array(ova_setsize_reg["voting"])
+#         softmax_setsize_reg = load_dict_txt(
+#             exp_path_reg + "increase_experts_select_avg_set_size_softmax.txt")
+#         softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
 
-        # OvA ===
-        # naive
-        ova_setsize_naive_mean = ova_setsize_naive.mean(axis=0)
-        ova_setsize_naive_std = ova_setsize_naive.std(axis=0)
-        ax.errorbar(exp_list, ova_setsize_naive_mean, yerr=ova_setsize_naive_std, linestyle="-", alpha=0.75,
-                    label="OvA Naive Conformal", **ova_args)
-        ova_naive_leg = mlines.Line2D([], [], linestyle='-', label="OvA, naive", **ova_args)
+#         # OvA ===
+#         # naive
+#         ova_setsize_naive_mean = ova_setsize_naive.mean(axis=0)
+#         ova_setsize_naive_std = ova_setsize_naive.std(axis=0)
+#         ax.errorbar(exp_list, ova_setsize_naive_mean, yerr=ova_setsize_naive_std, linestyle="-", alpha=0.75,
+#                     label="OvA Naive Conformal", **ova_args)
+#         ova_naive_leg = mlines.Line2D(
+#             [], [], linestyle='-', label="OvA, naive", **ova_args)
 
-        # Softmax ===
-        # naive
-        softmax_setsize_naive_mean = softmax_setsize_naive.mean(axis=0)
-        softmax_setsize_naive_std = softmax_setsize_naive.std(axis=0)
-        ax.errorbar(exp_list, softmax_setsize_naive_mean, yerr=softmax_setsize_naive_std, linestyle="-", alpha=0.75,
-                    label="Softmax Naive Conformal", **softmax_args)
-        softmax_naive_leg = mlines.Line2D([], [], linestyle='-', label="Softmax, naive", **softmax_args)
+#         # Softmax ===
+#         # naive
+#         softmax_setsize_naive_mean = softmax_setsize_naive.mean(axis=0)
+#         softmax_setsize_naive_std = softmax_setsize_naive.std(axis=0)
+#         ax.errorbar(exp_list, softmax_setsize_naive_mean, yerr=softmax_setsize_naive_std, linestyle="-", alpha=0.75,
+#                     label="Softmax Naive Conformal", **softmax_args)
+#         softmax_naive_leg = mlines.Line2D(
+#             [], [], linestyle='-', label="Softmax, naive", **softmax_args)
 
-        # OvA ===
-        # reg
-        ova_setsize_reg_mean = ova_setsize_reg.mean(axis=0)
-        ova_setsize_reg_std = ova_setsize_reg.std(axis=0)
-        ax.errorbar(exp_list, ova_setsize_reg_mean, yerr=ova_setsize_reg_std, linestyle="--", alpha=0.75,
-                    label="OvA Reg. Conformal", **ova_args)
-        ova_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA, regularized", **ova_args)
+#         # OvA ===
+#         # reg
+#         ova_setsize_reg_mean = ova_setsize_reg.mean(axis=0)
+#         ova_setsize_reg_std = ova_setsize_reg.std(axis=0)
+#         ax.errorbar(exp_list, ova_setsize_reg_mean, yerr=ova_setsize_reg_std, linestyle="--", alpha=0.75,
+#                     label="OvA Reg. Conformal", **ova_args)
+#         ova_reg_leg = mlines.Line2D([], [], linestyle=(
+#             0.5, (1, 3)), label="OvA, regularized", **ova_args)
 
-        # Softmax ===
-        # reg
-        softmax_setsize_reg_mean = softmax_setsize_reg.mean(axis=0)
-        softmax_setsize_reg_std = softmax_setsize_reg.std(axis=0)
-        ax.errorbar(exp_list, softmax_setsize_reg_mean, yerr=softmax_setsize_reg_std, linestyle="--", alpha=0.75,
-                    label="Softmax Reg. Conformal", **softmax_args)
-        softmax_reg_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
+#         # Softmax ===
+#         # reg
+#         softmax_setsize_reg_mean = softmax_setsize_reg.mean(axis=0)
+#         softmax_setsize_reg_std = softmax_setsize_reg.std(axis=0)
+#         ax.errorbar(exp_list, softmax_setsize_reg_mean, yerr=softmax_setsize_reg_std, linestyle="--", alpha=0.75,
+#                     label="Softmax Reg. Conformal", **softmax_args)
+#         softmax_reg_leg = mlines.Line2D([], [], linestyle=(
+#             0.5, (1, 3)), label="Softmax, regularized", **softmax_args)
 
-        ax.set_xticks(exp_list, x_ticks)
-        # plt.yticks(list(plt.yticks()[0])[::2])
-        ax.set_ylabel(r"Average Set Size")
-        ax.set_xlabel(r"Number of experts")
-        ax.grid()
+#         ax.set_xticks(exp_list, x_ticks)
+#         # plt.yticks(list(plt.yticks()[0])[::2])
+#         ax.set_ylabel(r"Average Set Size")
+#         ax.set_xlabel(r"Number of experts")
+#         ax.grid()
 
-        ax.legend(handles=[ova_naive_leg, softmax_naive_leg, ova_reg_leg, softmax_reg_leg],
-                  loc="best")
-        # prop = {"size"})
+#         ax.legend(handles=[ova_naive_leg, softmax_naive_leg, ova_reg_leg, softmax_reg_leg],
+#                   loc="best")
+#         # prop = {"size"})
 
-        return ax
+#         return ax
 
-    def plot_sys_acc_naive(f, ax):
-        # Naive ===
-        exp_path = conformal_results + "increase_experts_ham10000/naive/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
-        ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
-        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
+#     def plot_sys_acc_naive(f, ax):
+#         # Naive ===
+#         exp_path = conformal_results + "increase_experts_ham10000/naive/"
+#         ova_sys_acc = load_dict_txt(
+#             exp_path + "increase_experts_select_system_accuracy_ova.txt")
+#         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
+#         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
+#         softmax_sys_acc = load_dict_txt(
+#             exp_path + "increase_experts_select_system_accuracy_softmax.txt")
+#         softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
+#         softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
 
-        # OvA ===
-        # naive
-        ova_sys_acc_voting_mean = ova_sys_acc_voting.mean(axis=0)
-        ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
-        ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
-                    **ova_args)
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+#         # OvA ===
+#         # naive
+#         ova_sys_acc_voting_mean = ova_sys_acc_voting.mean(axis=0)
+#         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
+#         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="-", alpha=0.75,
+#                     **ova_args)
+#         ova_sys_acc_vot_leg = mlines.Line2D(
+#             [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
-        ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
-        ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
-        ax.errorbar(exp_list, ova_sys_acc_ensem_mean, yerr=ova_sys_acc_ensem_std, linestyle="--", alpha=0.75,
-                    **ova_args)
-        ova_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA Fixed-Size ($k=5$)",
-                                              **ova_args)
+#         ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
+#         ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
+#         ax.errorbar(exp_list, ova_sys_acc_ensem_mean, yerr=ova_sys_acc_ensem_std, linestyle="--", alpha=0.75,
+#                     **ova_args)
+#         ova_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA Fixed-Size ($k=5$)",
+#                                               **ova_args)
 
-        # Softmax ===
-        # naive
-        softmax_sys_acc_voting_mean = softmax_sys_acc_voting.mean(axis=0)
-        softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
-        ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
-                    **softmax_args)
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+#         # Softmax ===
+#         # naive
+#         softmax_sys_acc_voting_mean = softmax_sys_acc_voting.mean(axis=0)
+#         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
+#         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="-", alpha=0.75,
+#                     **softmax_args)
+#         softmax_sys_acc_vot_leg = mlines.Line2D(
+#             [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
-        softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
-        softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
-        ax.errorbar(exp_list, softmax_sys_acc_ensem_mean, yerr=softmax_sys_acc_ensem_std, linestyle="--", alpha=0.75,
-                    **softmax_args)
-        softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
-                                                  **softmax_args)
-        ax.set_xticks(exp_list, x_ticks)
-        # ax.set_ylim((ax.get_ylim()[0], 100))
-        # ax.set_yticks(list(plt.yticks()[0])[::2])
-        ax.set_ylabel(r"System Accuracy $(\%)$")
-        ax.set_xlabel(r"Number of experts")
-        ax.grid()
+#         softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
+#         softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
+#         ax.errorbar(exp_list, softmax_sys_acc_ensem_mean, yerr=softmax_sys_acc_ensem_std, linestyle="--", alpha=0.75,
+#                     **softmax_args)
+#         softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
+#                                                   **softmax_args)
+#         ax.set_xticks(exp_list, x_ticks)
+#         # ax.set_ylim((ax.get_ylim()[0], 100))
+#         # ax.set_yticks(list(plt.yticks()[0])[::2])
+#         ax.set_ylabel(r"System Accuracy $(\%)$")
+#         ax.set_xlabel(r"Number of experts")
+#         ax.grid()
 
-        ax.legend(
-            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
-            loc="best")
-        # prop = {"size"})
+#         ax.legend(
+#             handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg,
+#                      softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+#             loc="best")
+#         # prop = {"size"})
 
-        return ax
+#         return ax
 
-    def plot_sys_acc_reg(f, ax):
-        # Naive ===
-        exp_path = conformal_results + "increase_experts_ham10000/regularized/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
-        ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
-        ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
+#     def plot_sys_acc_reg(f, ax):
+#         # Naive ===
+#         exp_path = conformal_results + "increase_experts_ham10000/regularized/"
+#         ova_sys_acc = load_dict_txt(
+#             exp_path + "increase_experts_select_system_accuracy_ova.txt")
+#         ova_sys_acc_voting = np.array(ova_sys_acc["voting"]) * 100
+#         ova_sys_acc_ensem = np.array(ova_sys_acc["ensemble"]) * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_softmax.txt")
-        softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
-        softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
+#         softmax_sys_acc = load_dict_txt(
+#             exp_path + "increase_experts_select_system_accuracy_softmax.txt")
+#         softmax_sys_acc_voting = np.array(softmax_sys_acc["voting"]) * 100
+#         softmax_sys_acc_ensem = np.array(softmax_sys_acc["ensemble"]) * 100
 
-        # # Regularized ===
-        # exp_path_reg = "increase_oracle_v2/regularized/"
-        # ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
-        # ova_setsize_reg = np.array(ova_setsize_reg["voting"])
-        # softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
-        # softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
+#         # # Regularized ===
+#         # exp_path_reg = "increase_oracle_v2/regularized/"
+#         # ova_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_ova.txt")
+#         # ova_setsize_reg = np.array(ova_setsize_reg["voting"])
+#         # softmax_setsize_reg = load_dict_txt(exp_path_reg + "increase_oracle_v2_avg_set_size_softmax.txt")
+#         # softmax_setsize_reg = np.array(softmax_setsize_reg["voting"])
 
-        # OvA ===
-        # naive
-        ova_sys_acc_voting_mean = ova_sys_acc_voting.mean(axis=0)
-        ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
-        ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="", alpha=0.7,
-                    **ova_args)
-        ax.plot(exp_list, ova_sys_acc_voting_mean, linestyle="-", alpha=0.45, color=cmap[0])
-        ova_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="OvA Conformal", **ova_args)
+#         # OvA ===
+#         # naive
+#         ova_sys_acc_voting_mean = ova_sys_acc_voting.mean(axis=0)
+#         ova_sys_acc_voting_std = ova_sys_acc_voting.std(axis=0)
+#         ax.errorbar(exp_list, ova_sys_acc_voting_mean, yerr=ova_sys_acc_voting_std, linestyle="", alpha=0.7,
+#                     **ova_args)
+#         ax.plot(exp_list, ova_sys_acc_voting_mean,
+#                 linestyle="-", alpha=0.45, color=cmap[0])
+#         ova_sys_acc_vot_leg = mlines.Line2D(
+#             [], [], linestyle='-', label="OvA Conformal", **ova_args)
 
-        ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
-        ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
-        ax.errorbar(exp_list, ova_sys_acc_ensem_mean, yerr=ova_sys_acc_ensem_std, linestyle="", alpha=0.7,
-                    **ova_args)
-        ax.plot(exp_list, ova_sys_acc_ensem_mean, linestyle="--", alpha=0.45, color=cmap[0])
-        ova_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA Fixed-Size ($k=5$)",
-                                              **ova_args)
+#         ova_sys_acc_ensem_mean = ova_sys_acc_ensem.mean(axis=0)
+#         ova_sys_acc_ensem_std = ova_sys_acc_ensem.std(axis=0)
+#         ax.errorbar(exp_list, ova_sys_acc_ensem_mean, yerr=ova_sys_acc_ensem_std, linestyle="", alpha=0.7,
+#                     **ova_args)
+#         ax.plot(exp_list, ova_sys_acc_ensem_mean,
+#                 linestyle="--", alpha=0.45, color=cmap[0])
+#         ova_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="OvA Fixed-Size ($k=5$)",
+#                                               **ova_args)
 
-        # Softmax ===
-        # naive
-        softmax_sys_acc_voting_mean = softmax_sys_acc_voting.mean(axis=0)
-        softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
-        ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="", alpha=0.7,
-                    **softmax_args)
-        ax.plot(exp_list, softmax_sys_acc_voting_mean, linestyle="-", alpha=0.45, color=cmap[1])
-        softmax_sys_acc_vot_leg = mlines.Line2D([], [], linestyle='-', label="Softmax Conformal", **softmax_args)
+#         # Softmax ===
+#         # naive
+#         softmax_sys_acc_voting_mean = softmax_sys_acc_voting.mean(axis=0)
+#         softmax_sys_acc_voting_std = softmax_sys_acc_voting.std(axis=0)
+#         ax.errorbar(exp_list, softmax_sys_acc_voting_mean, yerr=softmax_sys_acc_voting_std, linestyle="", alpha=0.7,
+#                     **softmax_args)
+#         ax.plot(exp_list, softmax_sys_acc_voting_mean,
+#                 linestyle="-", alpha=0.45, color=cmap[1])
+#         softmax_sys_acc_vot_leg = mlines.Line2D(
+#             [], [], linestyle='-', label="Softmax Conformal", **softmax_args)
 
-        softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
-        softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
-        ax.errorbar(exp_list, softmax_sys_acc_ensem_mean, yerr=softmax_sys_acc_ensem_std, linestyle="", alpha=0.7,
-                    **softmax_args)
-        ax.plot(exp_list, softmax_sys_acc_ensem_mean, linestyle="--", alpha=0.45, color=cmap[1])
-        softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
-                                                  **softmax_args)
+#         softmax_sys_acc_ensem_mean = softmax_sys_acc_ensem.mean(axis=0)
+#         softmax_sys_acc_ensem_std = softmax_sys_acc_ensem.std(axis=0)
+#         ax.errorbar(exp_list, softmax_sys_acc_ensem_mean, yerr=softmax_sys_acc_ensem_std, linestyle="", alpha=0.7,
+#                     **softmax_args)
+#         ax.plot(exp_list, softmax_sys_acc_ensem_mean,
+#                 linestyle="--", alpha=0.45, color=cmap[1])
+#         softmax_sys_acc_ensem_leg = mlines.Line2D([], [], linestyle=(0.5, (1, 3)), label="Softmax Fixed-Size ($k=5$)",
+#                                                   **softmax_args)
 
-        ax.set_xticks(exp_list, x_ticks)
-        ax.set_ylim(ax.get_ylim())
-        ax.set_yticks(list(plt.yticks()[0])[::2])
-        ax.set_ylabel(r"System Accuracy $(\%)$")
-        ax.set_xlabel(r"Number of experts")
-        ax.grid()
+#         ax.set_xticks(exp_list, x_ticks)
+#         ax.set_ylim(ax.get_ylim())
+#         ax.set_yticks(list(plt.yticks()[0])[::2])
+#         ax.set_ylabel(r"System Accuracy $(\%)$")
+#         ax.set_xlabel(r"Number of experts")
+#         ax.grid()
 
-        ax.legend(
-            handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg, softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
-            loc="best")
-        # prop = {"size"})
+#         ax.legend(
+#             handles=[ova_sys_acc_vot_leg, ova_sys_acc_ensem_leg,
+#                      softmax_sys_acc_vot_leg, softmax_sys_acc_ensem_leg],
+#             loc="best")
+#         # prop = {"size"})
 
-        return ax
+#         return ax
 
-    def get_sys_acc_standard():
-        # Naive ===
-        exp_path = conformal_results + "increase_experts_ham10000/naive/"
-        ova_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_ova.txt")
-        ova_sys_acc = np.array(ova_sys_acc["standard"]) * 100
+#     def get_sys_acc_standard():
+#         # Naive ===
+#         exp_path = conformal_results + "increase_experts_ham10000/naive/"
+#         ova_sys_acc = load_dict_txt(
+#             exp_path + "increase_experts_select_system_accuracy_ova.txt")
+#         ova_sys_acc = np.array(ova_sys_acc["standard"]) * 100
 
-        softmax_sys_acc = load_dict_txt(exp_path + "increase_experts_select_system_accuracy_softmax.txt")
-        softmax_sys_acc = np.array(softmax_sys_acc["standard"]) * 100
+#         softmax_sys_acc = load_dict_txt(
+#             exp_path + "increase_experts_select_system_accuracy_softmax.txt")
+#         softmax_sys_acc = np.array(softmax_sys_acc["standard"]) * 100
 
-        # OvA ===
-        # naive
-        ova_sys_acc_mean = ova_sys_acc.mean(axis=0)
-        ova_sys_acc__std = ova_sys_acc.std(axis=0)
+#         # OvA ===
+#         # naive
+#         ova_sys_acc_mean = ova_sys_acc.mean(axis=0)
+#         ova_sys_acc__std = ova_sys_acc.std(axis=0)
 
-        softmax_sys_acc_mean = softmax_sys_acc.mean(axis=0)
-        softmax_sys_acc_std = softmax_sys_acc.std(axis=0)
-        print("OvA ======")
-        print("Mean: {}".format(ova_sys_acc_mean))
-        print("Std: {}".format(ova_sys_acc__std))
-        print("Softmax ======")
-        print("Mean: {}".format(softmax_sys_acc_mean))
-        print("Std: {}".format(softmax_sys_acc_std))
+#         softmax_sys_acc_mean = softmax_sys_acc.mean(axis=0)
+#         softmax_sys_acc_std = softmax_sys_acc.std(axis=0)
+#         print("OvA ======")
+#         print("Mean: {}".format(ova_sys_acc_mean))
+#         print("Std: {}".format(ova_sys_acc__std))
+#         print("Softmax ======")
+#         print("Mean: {}".format(softmax_sys_acc_mean))
+#         print("Std: {}".format(softmax_sys_acc_std))
 
-    f, ax = plt.subplots(1, 1)
-    ax = plot_avg_set_size(f, ax)
-    f.set_tight_layout(True)
-    plt.show()
-    f.savefig(paper_results_path + "avg_set_size_ham10000.pdf")
+#     f, ax = plt.subplots(1, 1)
+#     ax = plot_avg_set_size(f, ax)
+#     f.set_tight_layout(True)
+#     plt.show()
+#     f.savefig(paper_results_path + "avg_set_size_ham10000.pdf")
 
-    f, ax = plt.subplots(1, 1)
-    ax = plot_sys_acc_naive(f, ax)
-    f.set_tight_layout(True)
-    plt.show()
-    f.savefig(paper_results_path + "system_accuracy_ham10000_naive.pdf")
+#     f, ax = plt.subplots(1, 1)
+#     ax = plot_sys_acc_naive(f, ax)
+#     f.set_tight_layout(True)
+#     plt.show()
+#     f.savefig(paper_results_path + "system_accuracy_ham10000_naive.pdf")
 
-    f, ax = plt.subplots(1, 1)
-    ax = plot_sys_acc_reg(f, ax)
-    f.set_tight_layout(True)
-    plt.show()
-    f.savefig(paper_results_path + "system_accuracy_ham10000_reg.pdf")
+#     f, ax = plt.subplots(1, 1)
+#     ax = plot_sys_acc_reg(f, ax)
+#     f.set_tight_layout(True)
+#     plt.show()
+#     f.savefig(paper_results_path + "system_accuracy_ham10000_reg.pdf")
 
-    get_sys_acc_standard()
-
-
-def galaxyzoo():
-    # TODO
-    pass
+#     get_sys_acc_standard()
 
 
-def hatespeech():
-    # In Notebook: HateSpeechRebuttal.ipynb
-    pass
 
 if __name__ == '__main__':
     set_aistats2023_style()
@@ -1287,5 +1391,4 @@ if __name__ == '__main__':
     # experiment2()  # GRADUAL OVERLAP ===
     # experiment3()  # RANDOMIZED ===
     # experiment4()  # NON-RANDOMIZED ===
-    # ham10000()
-    hatespeech()
+    

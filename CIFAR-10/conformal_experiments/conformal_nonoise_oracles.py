@@ -1,14 +1,18 @@
-import os
+
 import sys
 
 sys.path.append("../..")  # append for conformal function
-from lib.conformal import conformal, utils
-from lib.conformal.conformal_plots import plot_metric, compare_metric
 
+import os
 from collections import Counter
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
+
+from lib.conformal import conformal, utils
+from lib.conformal.conformal_plots import compare_metric, plot_metric
+
 # Experiment params ==============
 # *** Change from here for other exps ***
 

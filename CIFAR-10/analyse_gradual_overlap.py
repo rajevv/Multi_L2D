@@ -21,7 +21,6 @@ from models.wideresnet import WideResNet
 from lib.losses import Criterion
 from lib.utils import AverageMeter, accuracy
 
-
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 

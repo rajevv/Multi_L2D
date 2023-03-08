@@ -26,5 +26,5 @@ The experiments are described below:
 2. **Random Expert**: Described in Section 7.1, Simulation #2 (Figure 2 d)).
 3. **Increase Confidence**: Described in Section 7.2 (Figure 2 c).
 4. **Gradual Overlap**: Described in Appendix D1.
-5. **Increase Oracles No Noise**: Described in Section 7.3 (Figure 3).
+5. **Increase Oracles No Noise**: Described in Section 7.3 (Figure 3). **This corresponds to results labeled as v2!**
 6. **Increase Oracles Noise**: Described in Section 7.3 (Figure 3).

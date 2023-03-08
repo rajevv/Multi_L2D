@@ -1,9 +1,10 @@
-import os
 import sys
 
 sys.path.append("../..")  # append for conformal function
+import os
+
 from lib.conformal import conformal, utils
-from lib.conformal.conformal_plots import plot_metric, compare_metric
+from lib.conformal.conformal_plots import compare_metric, plot_metric
 
 # Experiment params ==============
 # *** Change from here for other exps ***

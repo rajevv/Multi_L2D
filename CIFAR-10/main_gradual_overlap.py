@@ -31,6 +31,7 @@ from lib.utils import AverageMeter, accuracy
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
+
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -124,14 +125,16 @@ def evaluate(model,
                     correct_sys += (predicted[i] == labels[i][0]).item()
                 if r == 1:
                     # deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
-                    deferred_exp = ((n_classes - 1) - predicted[i]).item()  # reverse order, as in loss function
+                    # reverse order, as in loss function
+                    deferred_exp = ((n_classes - 1) - predicted[i]).item()
                     exp_prediction = expert_predictions[deferred_exp][i]
                     #
                     # Deferral accuracy: No matter expert ===
                     exp += (exp_prediction == labels[i][0].item())
                     exp_total += 1
                     # Individual Expert Accuracy ===
-                    expert_correct_dic[deferred_exp] += (exp_prediction == labels[i][0].item())
+                    expert_correct_dic[deferred_exp] += (
+                        exp_prediction == labels[i][0].item())
                     expert_total_dic[deferred_exp] += 1
                     #
                     correct_sys += (exp_prediction == labels[i][0].item())
@@ -240,8 +243,8 @@ def train_epoch(iters,
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
-                epoch, i, len(train_loader), batch_time=batch_time,
-                loss=losses, top1=top1), flush=True)
+                      epoch, i, len(train_loader), batch_time=batch_time,
+                      loss=losses, top1=top1), flush=True)
 
     return iters, np.average(epoch_train_loss)
 
@@ -266,7 +269,8 @@ def train(model,
                                 weight_decay=config["weight_decay"])
     criterion = Criterion()
     loss_fn = getattr(criterion, config["loss_type"])
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, len(train_loader) * config["epochs"])
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, len(train_loader) * config["epochs"])
     best_validation_loss = np.inf
     patience = 0
     iters = 0
@@ -298,7 +302,8 @@ def train(model,
 
         if validation_loss < best_validation_loss:
             best_validation_loss = validation_loss
-            print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
+            print("Saving the model with classifier accuracy {}".format(
+                metrics['classifier_accuracy']), flush=True)
             save_path = os.path.join(config["ckp_dir"],
                                      config["experiment_name"] + '_' + ckp_name)
             torch.save(model.state_dict(), save_path + '.pt')
@@ -319,20 +324,21 @@ def gradualOverlapping(config):
     config["ckp_dir"] = "./" + config["loss_type"] + "_gradual_overlap"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
-    num_experts = 10 # equal to the number of classes
+    num_experts = 10  # equal to the number of classes
     p_outs = [0.1, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
-    
 
-    for seed in [948,  625, 436]: #,  791, 1750]:
+    for seed in [948,  625, 436]:  # ,  791, 1750]:
         set_seed(seed)
         for p_out in p_outs:
             print("p_out is {}".format(p_out))
             expert_fns = []
             for i in range(config["n_classes"]):
-                expert = synth_expert2(k1=i, k2=i+1, n_classes=config["n_classes"], p_in = 1.0, p_out = p_out)
+                expert = synth_expert2(
+                    k1=i, k2=i+1, n_classes=config["n_classes"], p_in=1.0, p_out=p_out)
                 expert_fn = getattr(expert, 'predict_prob_cifar')
                 expert_fns.append(expert_fn)
-            model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
+            model = WideResNet(28, 3, int(
+                config["n_classes"]) + num_experts, 4, dropRate=0.0)
             trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
             ckp_name = 'p_out_' + str(p_out) + '_seed_' + str(seed)
             train(model, trainD, valD, expert_fns, config, ckp_name)

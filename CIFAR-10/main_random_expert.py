@@ -25,6 +25,7 @@ from lib.utils import AverageMeter, accuracy
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -69,7 +70,6 @@ def evaluate(model,
             outputs = model(images)
             if config["loss_type"] == "softmax":
                 outputs = F.softmax(outputs, dim=1)
-            
 
             _, predicted = torch.max(outputs.data, 1)
             batch_size = outputs.size()[0]  # batch_size
@@ -120,14 +120,16 @@ def evaluate(model,
                     correct_sys += (predicted[i] == labels[i][0]).item()
                 if r == 1:
                     # deferred_exp = (predicted[i] - (n_classes - len(expert_fns))).item()
-                    deferred_exp = ((n_classes - 1) - predicted[i]).item()  # reverse order, as in loss function
+                    # reverse order, as in loss function
+                    deferred_exp = ((n_classes - 1) - predicted[i]).item()
                     exp_prediction = expert_predictions[deferred_exp][i]
                     #
                     # Deferral accuracy: No matter expert ===
                     exp += (exp_prediction == labels[i][0].item())
                     exp_total += 1
                     # Individual Expert Accuracy ===
-                    expert_correct_dic[deferred_exp] += (exp_prediction == labels[i][0].item())
+                    expert_correct_dic[deferred_exp] += (
+                        exp_prediction == labels[i][0].item())
                     expert_total_dic[deferred_exp] += 1
                     #
                     correct_sys += (exp_prediction == labels[i][0].item())
@@ -235,8 +237,8 @@ def train_epoch(iters,
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
-                epoch, i, len(train_loader), batch_time=batch_time,
-                loss=losses, top1=top1), flush=True)
+                      epoch, i, len(train_loader), batch_time=batch_time,
+                      loss=losses, top1=top1), flush=True)
 
     return iters, np.average(epoch_train_loss)
 
@@ -259,7 +261,8 @@ def train(model,
                                 weight_decay=config["weight_decay"])
     criterion = Criterion()
     loss_fn = getattr(criterion, config["loss_type"])
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, len(train_loader) * config["epochs"])
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, len(train_loader) * config["epochs"])
     best_validation_loss = np.inf
     patience = 0
     iters = 0
@@ -291,7 +294,8 @@ def train(model,
 
         if validation_loss < best_validation_loss:
             best_validation_loss = validation_loss
-            print("Saving the model with classifier accuracy {}".format(metrics['classifier_accuracy']), flush=True)
+            print("Saving the model with classifier accuracy {}".format(
+                metrics['classifier_accuracy']), flush=True)
             save_path = os.path.join(config["ckp_dir"],
                                      config["experiment_name"] + '_' + str(len(expert_fns)) + '_experts')
             torch.save(model.state_dict(), save_path + '.pt')
@@ -320,14 +324,16 @@ def increase_experts(config):
         expert = synth_expert(config["k"], config["n_classes"])
         expert_fn = getattr(expert, config["expert_type"])
         expert_fns = [expert_fn] * n
-        model = WideResNet(28, 3, int(config["n_classes"]) + num_experts, 4, dropRate=0.0)
+        model = WideResNet(28, 3, int(
+            config["n_classes"]) + num_experts, 4, dropRate=0.0)
         trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
         train(model, trainD, valD, expert_fns, config)
 
 
 # === Experiment 2 === #
 def increase_confidence(config):
-    config["ckp_dir"] = "./" + config["loss_type"] + "_increase_confidence_test"
+    config["ckp_dir"] = "./" + config["loss_type"] + \
+        "_increase_confidence_test"
     os.makedirs(config["ckp_dir"], exist_ok=True)
 
     p_experts = [0.2, 0.4, 0.6, 0.8, 0.95]
@@ -338,12 +344,14 @@ def increase_confidence(config):
         random_expert = synth_expert(config["k"], config["n_classes"])
         random_fn = random_expert.predict_random
         config["p_in"] = p_in
-        increasing_expert = synth_expert(config["k"], config["n_classes"], p_in=p_in, p_out=0.2)
+        increasing_expert = synth_expert(
+            config["k"], config["n_classes"], p_in=p_in, p_out=0.2)
         increasing_fn = increasing_expert.predict_prob_cifar
 
         expert_fns = [random_fn] + [increasing_fn] * (n_experts - 1)
 
-        model = WideResNet(28, 3, int(config["n_classes"]) + n_experts, 4, dropRate=0.0)
+        model = WideResNet(28, 3, int(
+            config["n_classes"]) + n_experts, 4, dropRate=0.0)
         trainD, valD = cifar.read(test=False, only_id=True, data_aug=True)
 
         train(model, trainD, valD, expert_fns, config)
