@@ -1,7 +1,7 @@
 <div align="center">
 
 # Learning to Defer to Multiple Experts
-[![Paper](http://img.shields.io/badge/paper-arxiv.1001.2234-B31B1B.svg)](https://arxiv.org/abs/2210.16955)
+[![Paper](https://img.shields.io/badge/paper-arxiv.2210.16955-B31B1B.svg)](https://arxiv.org/abs/2210.16955)
 [![Conference](https://img.shields.io/badge/AISTATS-2023-blue)](https://arxiv.org/abs/2210.16955)
 </div>
 
