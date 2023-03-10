@@ -1,4 +1,10 @@
+<div align="center">
+
 # Learning to Defer to Multiple Experts
+[![Paper](http://img.shields.io/badge/paper-arxiv.1001.2234-B31B1B.svg)](https://arxiv.org/abs/2210.16955)
+[![Conference](https://img.shields.io/badge/AISTATS-2023-blue)](https://arxiv.org/abs/2210.16955)
+</div>
+
 Code for Learning to Defer to Multiple Experts: Consistent Surrogate Losses, Confidence Calibration, and Conformal Ensembles [AISTATS'23]
 
 
