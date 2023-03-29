@@ -1,17 +1,19 @@
-'''
+"""
 Log the confidences, expert predictions, true labels for increasing oracles experiment
 
-'''
+"""
 # To include lib
 import sys
 
-sys.path.insert(0, '../')
+sys.path.insert(0, "../")
 
 import argparse
 import json
 import os
 from collections import defaultdict
 
+import numpy as np
+import torch
 from cifar10dataset import cifar
 from main_gradual_overlap import evaluate
 from models.experts import synth_expert2
@@ -43,13 +45,18 @@ def forward(model, dataloader, expert_fns, n_classes, n_experts):
     true = torch.stack(true, dim=0).view(-1)
     confidence = torch.stack(confidence, dim=0).view(-1, n_classes + n_experts)
     for k, v in expert_predictions.items():
-        expert_predictions[k] = torch.stack(
-            [torch.tensor(k) for k in v], dim=0).view(-1)
+        expert_predictions[k] = torch.stack([torch.tensor(k) for k in v], dim=0).view(
+            -1
+        )
 
-    print(true.shape, confidence.shape, [v.shape for k, v in
-                                         expert_predictions.items()])  # ,expert_predictions1.shape, expert_predictions2.shape) #, density.shape)
-    return true, confidence, [v.numpy() for k, v in
-                              expert_predictions.items()]  # (expert_predictions1, expert_predictions2) #, density
+    print(
+        true.shape, confidence.shape, [v.shape for k, v in expert_predictions.items()]
+    )  # ,expert_predictions1.shape, expert_predictions2.shape) #, density.shape)
+    return (
+        true,
+        confidence,
+        [v.numpy() for k, v in expert_predictions.items()],
+    )  # (expert_predictions1, expert_predictions2) #, density
 
 
 class NumpyEncoder(json.JSONEncoder):
@@ -70,17 +77,22 @@ def validation(model_name, expert_fns, config):
 
     def get(severity, dl):
         true, confidence, expert_predictions = forward(
-            model, dl, expert_fns, n_dataset, n_expert)
+            model, dl, expert_fns, n_dataset, n_expert
+        )
 
-        print("shapes: true labels {}, confidences {}, expert_predictions {}".format(
-            true.shape, confidence.shape, np.array(expert_predictions).shape))
+        print(
+            "shapes: true labels {}, confidences {}, expert_predictions {}".format(
+                true.shape, confidence.shape, np.array(expert_predictions).shape
+            )
+        )
 
         criterion = Criterion()
         loss_fn = getattr(criterion, config["loss_type"])
         n_classes = n_dataset
         print("Evaluate...")
-        result_ = evaluate(model, expert_fns, loss_fn,
-                           n_classes+len(expert_fns), dl, config)
+        result_ = evaluate(
+            model, expert_fns, loss_fn, n_classes + len(expert_fns), dl, config
+        )
         # n_classes = n_dataset + len(expert_fns)
         # result_ = evaluate(model, expert_fns, loss_fn, n_classes, dl, config)
         # result_ = metrics_print(model, num_experts, expert_fns, n_dataset, dl)
@@ -104,26 +116,38 @@ def validation(model_name, expert_fns, config):
     # Data ===
     ood_d, test_d = cifar.read(severity=0, slice_=-1, test=True, only_id=True)
 
-    kwargs = {'num_workers': 1, 'pin_memory': True}
+    kwargs = {"num_workers": 1, "pin_memory": True}
     test_dl = torch.utils.data.DataLoader(
-        test_d, batch_size=batch_size, shuffle=False, drop_last=True, **kwargs)
+        test_d, batch_size=batch_size, shuffle=False, drop_last=True, **kwargs
+    )
 
     # Model ===
     model = WideResNet(28, 3, n_dataset + num_experts, 4, dropRate=0.0)
     model_path = os.path.join(
-        config["ckp_dir"], config["experiment_name"] + '_' + model_name + '.pt')
+        config["ckp_dir"], config["experiment_name"] + "_" + model_name + ".pt"
+    )
     model.load_state_dict(torch.load(model_path, map_location=device))
     model = model.to(device)
 
-    get('test', test_dl)
+    get("test", test_dl)
 
-    with open(config["ckp_dir"] + 'true_label_multiple_experts_' + model_name + '.txt', 'w') as f:
+    with open(
+        config["ckp_dir"] + "true_label_multiple_experts_" + model_name + ".txt", "w"
+    ) as f:
         json.dump(json.dumps(true_label, cls=NumpyEncoder), f)
 
-    with open(config["ckp_dir"] + 'confidence_multiple_experts_' + model_name + '.txt', 'w') as f:
+    with open(
+        config["ckp_dir"] + "confidence_multiple_experts_" + model_name + ".txt", "w"
+    ) as f:
         json.dump(json.dumps(classifier_confidence, cls=NumpyEncoder), f)
 
-    with open(config["ckp_dir"] + 'expert_predictions_multiple_experts_' + model_name + '.txt', 'w') as f:
+    with open(
+        config["ckp_dir"]
+        + "expert_predictions_multiple_experts_"
+        + model_name
+        + ".txt",
+        "w",
+    ) as f:
         json.dump(json.dumps(expert_preds, cls=NumpyEncoder), f)
 
     # with open(path + 'inp_log_density.txt', 'w') as f:
@@ -134,29 +158,53 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--batch_size", type=int, default=1024)
-    parser.add_argument("--alpha", type=float, default=1.0,
-                        help="scaling parameter for the loss function, default=1.0.")
+    parser.add_argument(
+        "--alpha",
+        type=float,
+        default=1.0,
+        help="scaling parameter for the loss function, default=1.0.",
+    )
     parser.add_argument("--epochs", type=int, default=100)
-    parser.add_argument("--patience", type=int, default=20,
-                        help="number of patience steps for early stopping the training.")
-    parser.add_argument("--expert_type", type=str, default="predict",
-                        help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.")
-    parser.add_argument("--n_classes", type=int, default=10,
-                        help="K for K class classification.")
+    parser.add_argument(
+        "--patience",
+        type=int,
+        default=20,
+        help="number of patience steps for early stopping the training.",
+    )
+    parser.add_argument(
+        "--expert_type",
+        type=str,
+        default="predict",
+        help="specify the expert type. For the type of experts available, see-> models -> experts. defualt=predict.",
+    )
+    parser.add_argument(
+        "--n_classes", type=int, default=10, help="K for K class classification."
+    )
     parser.add_argument("--k", type=int, default=5)
     # Dani experiments =====
     parser.add_argument("--n_experts", type=int, default=10)
     # Dani experiments =====
-    parser.add_argument("--lr", type=float, default=0.1,
-                        help="learning rate.")
+    parser.add_argument("--lr", type=float, default=0.1, help="learning rate.")
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--warmup_epochs", type=int, default=0)
-    parser.add_argument("--loss_type", type=str, default="softmax",
-                        help="surrogate loss type for learning to defer.")
-    parser.add_argument("--ckp_dir", type=str, default="./Models",
-                        help="directory name to save the checkpoints.")
-    parser.add_argument("--experiment_name", type=str, default="increase_oracles",
-                        help="specify the experiment name. Checkpoints will be saved with this name.")
+    parser.add_argument(
+        "--loss_type",
+        type=str,
+        default="softmax",
+        help="surrogate loss type for learning to defer.",
+    )
+    parser.add_argument(
+        "--ckp_dir",
+        type=str,
+        default="./Models",
+        help="directory name to save the checkpoints.",
+    )
+    parser.add_argument(
+        "--experiment_name",
+        type=str,
+        default="increase_oracles",
+        help="specify the experiment name. Checkpoints will be saved with this name.",
+    )
 
     config = parser.parse_args().__dict__
     config["ckp_dir"] = "./" + config["loss_type"] + "_increase_oracle/"
@@ -167,7 +215,7 @@ if __name__ == "__main__":
     p_outs = [0.1, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
 
     num_experts = 10
-    p_out = 1/9
+    p_out = 1 / 9
 
     for seed in [948, 436, 791, 1750]:  # , 625]: #,436,  791, 1750]:
         for k in range(config["n_classes"]):
@@ -175,18 +223,20 @@ if __name__ == "__main__":
             # Expert ===
             # an expert who is an oracle on the kth class with prob_in 0.95
             expert_oracle = synth_expert2(
-                k1=0, k2=k+1, n_classes=config["n_classes"], p_in=0.95, p_out=p_out)
-            expert_fn = getattr(expert_oracle, 'predict_prob_cifar')
+                k1=0, k2=k + 1, n_classes=config["n_classes"], p_in=0.95, p_out=p_out
+            )
+            expert_fn = getattr(expert_oracle, "predict_prob_cifar")
 
             # have k of such experts
-            expert_fns.extend([expert_fn]*(k+1))
+            expert_fns.extend([expert_fn] * (k + 1))
 
             # remaning 10 - k experts are random
             expert_notOracle = synth_expert2(
-                k1=0, k2=k+1, n_classes=config["n_classes"], p_in=0.1, p_out=p_out)
+                k1=0, k2=k + 1, n_classes=config["n_classes"], p_in=0.1, p_out=p_out
+            )
 
-            expert_fn = getattr(expert_notOracle, 'predict_prob_cifar')
-            expert_fns.extend([expert_fn]*(num_experts - (k+1)))
+            expert_fn = getattr(expert_notOracle, "predict_prob_cifar")
+            expert_fns.extend([expert_fn] * (num_experts - (k + 1)))
 
-            model_name = 'k_' + str(k) + 'seed_' + str(seed)
+            model_name = "k_" + str(k) + "seed_" + str(seed)
             validation(model_name, expert_fns, config)

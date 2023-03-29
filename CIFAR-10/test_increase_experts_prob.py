@@ -1,10 +1,17 @@
+# To include lib
+import sys
+
+sys.path.insert(0, "../")
+
 import json
 
+import matplotlib.pyplot as plt
 import numpy as np
-from scipy import stats
 import torch
-#import matplotlib.pyplot as plt
-from reliability_diagram import compute_calibration
+from scipy import stats
+
+from lib.reliability_diagram import compute_calibration
+
 
 def get_softmax_ECEs(seed=""):
 	# === Softmax ===

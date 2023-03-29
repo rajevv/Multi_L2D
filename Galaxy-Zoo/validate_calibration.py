@@ -5,38 +5,52 @@ import torch.nn as nn
 from scipy import stats
 
 from lib.reliability_diagram import compute_calibration
+import torch
 
 # global quantities
 # seeds = [948,  625,  436 ,'']
-seeds = [948,  625, '']
+seeds = [948, 625, ""]
 # experiment_experts = [1,2,3,4,5,6,7,8,9,10]
 experiment_experts = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 n_classes = 2
 
 
 def read_json_file(path):
-    with open(path, 'r') as f:
+    with open(path, "r") as f:
         out = json.loads(json.load(f))
     return out
 
 
 def get_file_name(type_, prefix, experiment_name, num_experts, seed):
-    return prefix + type_ + '_' + experiment_name + '_' + str(num_experts) + '_experts_seed_' + str(seed) + '.txt'
+    return (
+        prefix
+        + type_
+        + "_"
+        + experiment_name
+        + "_"
+        + str(num_experts)
+        + "_experts_seed_"
+        + str(seed)
+        + ".txt"
+    )
 
 
 def Hemmer():
-    path = './' + 'hemmer_increase_experts/'
-    experiment_name = 'multiple_experts_hardcoded'
+    path = "./" + "hemmer_increase_experts/"
+    experiment_name = "multiple_experts_hardcoded"
     ECE = []
     for seed in seeds:
         ece = []
         for i, n in enumerate(experiment_experts):
-            confs = read_json_file(get_file_name(
-                'confidence', path, experiment_name, n, seed))['test']
-            true = read_json_file(get_file_name(
-                'true_label', path, experiment_name, n, seed))['test']
-            exps = read_json_file(get_file_name(
-                'expert_predictions', path, experiment_name, n, seed))['test']
+            confs = read_json_file(
+                get_file_name("confidence", path, experiment_name, n, seed)
+            )["test"]
+            true = read_json_file(
+                get_file_name("true_label", path, experiment_name, n, seed)
+            )["test"]
+            exps = read_json_file(
+                get_file_name("expert_predictions", path, experiment_name, n, seed)
+            )["test"]
 
             c = torch.tensor(confs)
 
@@ -52,7 +66,7 @@ def Hemmer():
                 c_j = prob[:, j]
                 acc_j = t.eq(e_j)
                 log = compute_calibration(c_j, acc_j)
-                eces.append(log['expected_calibration_error'].numpy())
+                eces.append(log["expected_calibration_error"].numpy())
             ece.append(np.average(eces))
         ECE.append(ece)
 
@@ -60,18 +74,21 @@ def Hemmer():
 
 
 def Hemmer_trained():
-    path = './' + 'hemmer_increase_experts_trained/'
-    experiment_name = 'multiple_experts_hardcoded'
+    path = "./" + "hemmer_increase_experts_trained/"
+    experiment_name = "multiple_experts_hardcoded"
     ECE = []
-    for seed in ['', 948,  625]:
+    for seed in ["", 948, 625]:
         ece = []
         for i, n in enumerate(experiment_experts):
-            confs = read_json_file(get_file_name(
-                'confidence', path, experiment_name, n, seed))['test']
-            true = read_json_file(get_file_name(
-                'true_label', path, experiment_name, n, seed))['test']
-            exps = read_json_file(get_file_name(
-                'expert_predictions', path, experiment_name, n, seed))['test']
+            confs = read_json_file(
+                get_file_name("confidence", path, experiment_name, n, seed)
+            )["test"]
+            true = read_json_file(
+                get_file_name("true_label", path, experiment_name, n, seed)
+            )["test"]
+            exps = read_json_file(
+                get_file_name("expert_predictions", path, experiment_name, n, seed)
+            )["test"]
 
             c = torch.tensor(confs)
 
@@ -87,7 +104,7 @@ def Hemmer_trained():
                 c_j = prob[:, j]
                 acc_j = t.eq(e_j)
                 log = compute_calibration(c_j, acc_j)
-                eces.append(log['expected_calibration_error'].numpy())
+                eces.append(log["expected_calibration_error"].numpy())
             ece.append(np.average(eces))
         ECE.append(ece)
 
@@ -95,19 +112,22 @@ def Hemmer_trained():
 
 
 def Softmax():
-    path = './' + 'softmax_increase_experts_select_hard_coded/'
-    experiment_name = 'multiple_experts'
+    path = "./" + "softmax_increase_experts_select_hard_coded/"
+    experiment_name = "multiple_experts"
 
     ECE = []
     for seed in seeds:
         ece = []
         for i, n in enumerate(experiment_experts):
-            confs = read_json_file(get_file_name(
-                'confidence', path, experiment_name, n, seed))['test']
-            true = read_json_file(get_file_name(
-                'true_label', path, experiment_name, n, seed))['test']
-            exps = read_json_file(get_file_name(
-                'expert_predictions', path, experiment_name, n, seed))['test']
+            confs = read_json_file(
+                get_file_name("confidence", path, experiment_name, n, seed)
+            )["test"]
+            true = read_json_file(
+                get_file_name("true_label", path, experiment_name, n, seed)
+            )["test"]
+            exps = read_json_file(
+                get_file_name("expert_predictions", path, experiment_name, n, seed)
+            )["test"]
 
             c = torch.tensor(confs)
             c = c.softmax(dim=1)
@@ -132,7 +152,7 @@ def Softmax():
 
                 acc_j = t.eq(e_j)
                 log = compute_calibration(c_j, acc_j)
-                eces.append(log['expected_calibration_error'].numpy())
+                eces.append(log["expected_calibration_error"].numpy())
             ece.append(np.average(eces))
         ECE.append(ece)
 
@@ -140,19 +160,22 @@ def Softmax():
 
 
 def OvA():
-    path = './' + 'ova_increase_experts_select_hard_coded/'
-    experiment_name = 'multiple_experts'
+    path = "./" + "ova_increase_experts_select_hard_coded/"
+    experiment_name = "multiple_experts"
 
     ECE = []
     for seed in seeds:
         ece = []
         for i, n in enumerate(experiment_experts):
-            confs = read_json_file(get_file_name(
-                'confidence', path, experiment_name, n, seed))['test']
-            true = read_json_file(get_file_name(
-                'true_label', path, experiment_name, n, seed))['test']
-            exps = read_json_file(get_file_name(
-                'expert_predictions', path, experiment_name, n, seed))['test']
+            confs = read_json_file(
+                get_file_name("confidence", path, experiment_name, n, seed)
+            )["test"]
+            true = read_json_file(
+                get_file_name("true_label", path, experiment_name, n, seed)
+            )["test"]
+            exps = read_json_file(
+                get_file_name("expert_predictions", path, experiment_name, n, seed)
+            )["test"]
 
             c = torch.tensor(confs)
             c = c.sigmoid()
@@ -169,7 +192,7 @@ def OvA():
                 c_j = prob[:, n_classes + j]
                 acc_j = t.eq(e_j)
                 log = compute_calibration(c_j, acc_j)
-                eces.append(log['expected_calibration_error'].numpy())
+                eces.append(log["expected_calibration_error"].numpy())
             ece.append(np.average(eces))
         ECE.append(ece)
 
@@ -181,14 +204,14 @@ if __name__ == "__main__":
     # Softmax
     ECE_softmax = Softmax()
     print("===Mean and Standard Error ECEs Softmax===")
-    #print("All \n {}".format(np.array(ECE_softmax)))
+    # print("All \n {}".format(np.array(ECE_softmax)))
     print("Mean {}".format(np.mean(np.array(ECE_softmax), axis=0)))
     print("Standard Error {}".format(stats.sem(np.array(ECE_softmax), axis=0)))
 
     # OvA
     ECE_OvA = OvA()
     print("===Mean and Standard Error ECEs OvA===")
-    #print("All \n {}".format(np.array(ECE_OvA)))
+    # print("All \n {}".format(np.array(ECE_OvA)))
     print("Mean {}".format(np.mean(np.array(ECE_OvA), axis=0)))
     print("Standard Error {}".format(stats.sem(np.array(ECE_OvA), axis=0)))
 
@@ -202,6 +225,6 @@ if __name__ == "__main__":
     # Hemmer Trained
     ECE_hemmer = Hemmer_trained()
     print("===Mean and Standard Error ECEs Hemmer TRAINED===")
-    #print("All \n {}".format(np.array(ECE_hemmer)))
+    # print("All \n {}".format(np.array(ECE_hemmer)))
     print("Mean {}".format(np.mean(np.array(ECE_hemmer), axis=0)))
     print("Standard Error {}".format(stats.sem(np.array(ECE_hemmer), axis=0)))

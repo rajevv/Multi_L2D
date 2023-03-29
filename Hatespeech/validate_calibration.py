@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0, '../')
 
 import json
-
+import torch
 import numpy as np
 import torch.nn as nn
 from scipy import stats
