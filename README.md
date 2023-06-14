@@ -31,11 +31,16 @@ conda env create -f environment.yml
 Please, if you use this code, include the following citation:
 
 ```
-@article{verma2022learning,
-  title={Learning to Defer to Multiple Experts: Consistent Surrogate Losses, Confidence Calibration, and Conformal Ensembles},
-  author={Verma, Rajeev and Barrej{\'o}n, Daniel and Nalisnick, Eric},
-  journal={arXiv preprint arXiv:2210.16955},
-  year={2022}
+@inproceedings{multil2d,
+  title = {Learning to Defer to Multiple Experts: Consistent Surrogate Losses, Confidence Calibration, and Conformal Ensembles},
+  author = {Verma, Rajeev and Barrejon, Daniel and Nalisnick, Eric},
+  booktitle = {International Conference on Artificial Intelligence and Statistics (AISTATS)},
+  pages = {11415--11434},
+  year = {2023},
+  series = {Proceedings of Machine Learning Research},
+  month = {25--27 Apr},
+  publisher = {PMLR},
+  url = {https://proceedings.mlr.press/v206/verma23a.html},
 }
 ```
 
